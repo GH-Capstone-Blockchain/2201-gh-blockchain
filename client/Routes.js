@@ -1,6 +1,6 @@
 import React, {Component, Fragment} from 'react'
 import {connect} from 'react-redux'
-import {withRouter, Route, Switch, Redirect} from 'react-router-dom'
+import {Route, Routes} from 'react-router-dom'
 import { Login, Signup } from './components/AuthForm';
 import Home from './components/Home';
 import {me} from './store'
@@ -8,7 +8,7 @@ import {me} from './store'
 /**
  * COMPONENT
  */
-class Routes extends Component {
+class Routers extends Component {
   componentDidMount() {
     this.props.loadInitialData()
   }
@@ -19,16 +19,17 @@ class Routes extends Component {
     return (
       <div>
         {isLoggedIn ? (
-          <Switch>
-            <Route path="/home" component={Home} />
-            <Redirect to="/home" />
-          </Switch>
+          
+          <Routes>
+            <Route path="/" element={<Home/>}/>
+          </Routes>
+          
         ) : (
-          <Switch>
-            <Route path='/' exact component={ Login } />
-            <Route path="/login" component={Login} />
-            <Route path="/signup" component={Signup} />
-          </Switch>
+          <Routes>
+            <Route path='/'element={<Login/>} />
+            <Route path="login" element={<Login/>}/>
+            <Route path="signup" element={<Signup/>}/>
+          </Routes>
         )}
       </div>
     )
@@ -56,4 +57,4 @@ const mapDispatch = dispatch => {
 
 // The `withRouter` wrapper makes sure that updates are not blocked
 // when the url changes
-export default withRouter(connect(mapState, mapDispatch)(Routes))
+export default connect(mapState, mapDispatch)(Routers)
