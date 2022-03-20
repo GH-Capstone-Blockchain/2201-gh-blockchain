@@ -16,19 +16,22 @@ import { loadWeb3, loadAccount } from "./store/interactions";
  * COMPONENT
  */
 class Routers extends Component {
-  constructor() {
-    super();
-  }
+  // constructor() {
+  //   super();
+  //   this.state = {
+  //     account: "",
+  //   };
+  // }
 
   componentDidMount() {
     this.props.loadInitialData();
   }
 
-  async componentWillMount() {
-    // this.loadBlockchainData(this.props.dispatch);
-    await this.loadWeb3();
-    await this.loadBlockchainData();
-  }
+  // async componentWillMount() {
+  //   // this.loadBlockchainData(this.props.dispatch);
+  //   await this.loadWeb3();
+  //   await this.loadBlockchainData();
+  // }
 
   //load web3:
   // async loadBlockchainData(dispatch) {
@@ -55,24 +58,24 @@ class Routers extends Component {
   //   console.log(accounts);
   // }
 
-  async loadWeb3() {
-    if (window.ethereum) {
-      window.web3 = new Web3(window.ethereum);
-      await window.ethereum.enable();
-    } else if (window.web3) {
-      window.web3 = new Web3(window.web3.currentProvider);
-    } else {
-      window.alert(
-        "Non-Ethereum browser detected. You should consider trying MetaMask!"
-      );
-    }
-  }
+  // async loadWeb3() {
+  //   if (window.ethereum) {
+  //     window.web3 = new Web3(window.ethereum);
+  //     await window.ethereum.enable();
+  //   } else if (window.web3) {
+  //     window.web3 = new Web3(window.web3.currentProvider);
+  //   } else {
+  //     window.alert(
+  //       "Non-Ethereum browser detected. You should consider trying MetaMask!"
+  //     );
+  //   }
+  // }
 
-  async loadBlockchainData() {
-    const web3 = window.web3;
-    const accounts = await web3.eth.getAccounts();
-    console.log(accounts);
-  }
+  // async loadBlockchainData() {
+  //   const web3 = window.web3;
+  //   const accounts = await web3.eth.getAccounts();
+  //   this.setState({ account: accounts[0] });
+  // }
 
   render() {
     const { isLoggedIn } = this.props;
