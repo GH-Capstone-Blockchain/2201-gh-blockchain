@@ -4,6 +4,9 @@ import Escrow from "../../build/contracts/Escrow.json";
 //blockchain
 import Web3 from "web3";
 
+//style
+import { Button, Typography } from "@mui/material";
+
 export default class MainPage extends React.Component {
   constructor() {
     super();
@@ -69,15 +72,19 @@ export default class MainPage extends React.Component {
           <div>Loading...</div>
         ) : (
           <div>
-            You can send money here!
-            <div> account address: {this.state.account}</div>
+            <Typography variant="h6" margin="30px">
+              You can donate here!
+            </Typography>
+
+            <div> Connected MetaMask address: {this.state.account}</div>
             <div>
               {" "}
-              total donation:{" "}
+              Total donation:{" "}
               {web3.utils.fromWei(this.state.totalDonation, "ether")} ETH
             </div>
-            <button
+            <Button
               name="donation"
+              variant="contained"
               onClick={(event) => {
                 let tipAmount = window.web3.utils.toWei("1", "Ether");
                 console.log(event.target.name, tipAmount);
@@ -85,7 +92,7 @@ export default class MainPage extends React.Component {
               }}
             >
               Send 1 ETH
-            </button>
+            </Button>
           </div>
         )}
       </div>
