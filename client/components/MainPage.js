@@ -11,6 +11,7 @@ export default class MainPage extends React.Component {
       account: "",
       escrow: null,
       totalDonation: 0,
+      loading: true,
     };
   }
 
@@ -44,6 +45,7 @@ export default class MainPage extends React.Component {
       this.setState({ escrow });
       const totalDonation = await escrow.methods.currentTotalDonation().call();
       this.setState({ totalDonation });
+      this.setState({ loading: false });
     } else {
       window.alert("Escrow contract is not deployed to detected network.");
     }
@@ -51,9 +53,15 @@ export default class MainPage extends React.Component {
   render() {
     return (
       <div>
-        You can send money here!
-        <div> account address: {this.state.account}</div>
-        <div> total donation: {this.state.totalDonation}</div>
+        {this.state.loading ? (
+          <div>Loading...</div>
+        ) : (
+          <div>
+            You can send money here!
+            <div> account address: {this.state.account}</div>
+            <div> total donation: {this.state.totalDonation}</div>
+          </div>
+        )}
       </div>
     );
   }
