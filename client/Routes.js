@@ -27,6 +27,7 @@ class Routers extends Component {
   async componentWillMount() {
     // this.loadBlockchainData(this.props.dispatch);
     await this.loadWeb3();
+    await this.loadBlockchainData();
   }
 
   //load web3:
@@ -68,7 +69,9 @@ class Routers extends Component {
   }
 
   async loadBlockchainData() {
-    
+    const web3 = window.web3;
+    const accounts = await web3.eth.getAccounts();
+    console.log(accounts);
   }
 
   render() {
