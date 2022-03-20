@@ -9,6 +9,8 @@ export default class MainPage extends React.Component {
     super();
     this.state = {
       account: "",
+      escrow: null,
+      totalDonation: 0,
     };
   }
 
@@ -39,6 +41,9 @@ export default class MainPage extends React.Component {
     const networkData = Escrow.networks[networkId];
     if (networkData) {
       const escrow = new web3.eth.Contract(Escrow.abi, networkData.address); //create JS version of Escrow smart contract
+      this.setState({ escrow });
+      const totalDonation = await escrow.methods.currentTotalDonation().call();
+      this.setState({ totalDonation });
     } else {
       window.alert("Escrow contract is not deployed to detected network.");
     }
@@ -47,7 +52,8 @@ export default class MainPage extends React.Component {
     return (
       <div>
         You can send money here!
-        <div> {this.state.account}</div>
+        <div> account address: {this.state.account}</div>
+        <div> total donation: {this.state.totalDonation}</div>
       </div>
     );
   }
