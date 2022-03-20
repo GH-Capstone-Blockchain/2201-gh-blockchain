@@ -13,6 +13,7 @@ export default class MainPage extends React.Component {
       totalDonation: 0,
       loading: true,
     };
+    this.tipImageOwner = this.tipImageOwner.bind(this);
   }
 
   async componentWillMount() {
@@ -50,6 +51,17 @@ export default class MainPage extends React.Component {
       window.alert("Escrow contract is not deployed to detected network.");
     }
   }
+
+  tipImageOwner(id, tipAmount) {
+    this.setState({ loading: true });
+    this.state.escrow.methods
+      .receivingFunds(this.state.account)
+      .send({ from: this.state.account, value: tipAmount })
+      .on("transactionHash", (hash) => {
+        this.setState({ loading: false });
+      });
+  }
+
   render() {
     return (
       <div>
@@ -59,7 +71,21 @@ export default class MainPage extends React.Component {
           <div>
             You can send money here!
             <div> account address: {this.state.account}</div>
-            <div> total donation: {this.state.totalDonation}</div>
+            <div>
+              {" "}
+              total donation:{" "}
+              {web3.utils.fromWei(this.state.totalDonation, "ether")} ETH
+            </div>
+            <button
+              name="donation"
+              onClick={(event) => {
+                let tipAmount = window.web3.utils.toWei("1", "Ether");
+                console.log(event.target.name, tipAmount);
+                this.tipImageOwner(event.target.name, tipAmount);
+              }}
+            >
+              Send 1 ETH
+            </button>
           </div>
         )}
       </div>
