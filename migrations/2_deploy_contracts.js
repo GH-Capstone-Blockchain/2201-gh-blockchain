@@ -1,6 +1,6 @@
 const Escrow = artifacts.require("../contracts/Escrow.sol");
 
-const projectAddress = "0x617F2E2fD72FD9D5503197092aC168c91465E7f2";
+const projectAddress = "0x7677EDee2A44ae5D30a1088653f61F6361e92E2a";
 const projectGoal = 100;
 
 module.exports = function (deployer) {
