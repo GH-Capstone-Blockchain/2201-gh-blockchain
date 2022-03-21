@@ -2,7 +2,6 @@ const Sequelize = require('sequelize')
 const db = require('../db')
 const jwt = require('jsonwebtoken')
 const bcrypt = require('bcrypt');
-const axios = require('axios');
 
 const SALT_ROUNDS = 5;
 
@@ -14,7 +13,40 @@ const User = db.define('user', {
   },
   password: {
     type: Sequelize.STRING,
-  }
+  }, 
+  firstName: {
+    type: Sequelize.STRING, 
+    allowNull: false
+  }, 
+  lastName: {
+    type: Sequelize.STRING, 
+    allowNull: false,
+  }, 
+  email: {
+    type: Sequelize.STRING, 
+    allowNull: false, 
+    unique: true,
+  }, 
+  profileImg: {
+    type: Sequelize.STRING, 
+    defaultValue: "https://t4.ftcdn.net/jpg/00/64/67/63/360_F_64676383_LdbmhiNM6Ypzb3FM4PPuFP9rHe7ri8Ju.jpg"
+  }, 
+  gender: {
+    type: Sequelize.ENUM('Female', 'Male', 'Non-binary', 'Different Identity Not Listed', 'No Response')
+  }, 
+  race: {
+    type: Sequelize.ENUM('American Indian or Alaska Native', 'Asian', 'Black or African American', 'Native Hawaiian or Other Pacific Islander', 'White', 'Two or More Races', 'No Response')
+  }, 
+  birthYear: {
+    type: Sequelize.INTEGER
+  }, 
+  //default length of string is 255 characters, IG bio is 150 characters for reference
+  bio: {
+    type: Sequelize.STRING
+  }, 
+  // location: {
+  //   type: Sequelize.GEOMETRY
+  // }
 })
 
 module.exports = User
