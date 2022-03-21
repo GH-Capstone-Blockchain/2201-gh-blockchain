@@ -19,11 +19,41 @@ contract Escrow {
         uint donationAmount
     );
 
+    // struct Project {
+    //     address creatorAddress;
+    //     uint goal;
+    //     uint totalAmtRaised;
+    //     //convert to UNIX timestamps
+    //     uint32 startAt;
+    //     uint32 endAt;
+    //     bool claimed;
+    // }   
+
     constructor(address _project, uint _goalAmount) {
         project = _project;
         goalAmount = _goalAmount;
     }
     
+    // function launch(
+    //     uint _goal,
+    //     uint32 _startAt,
+    //     uint32 _endAt
+    // ) external {
+    //     require(_startAt >= block.timestamp, "start at < now");
+    //     require(_endAt >= _startAt, "end at < start at");
+
+    //     count += 1;
+    //     projects[count] = Project({
+    //         creatorAddress: msg.sender,
+    //         goal: _goal,
+    //         totalAmtRaised: 0,
+    //         startAt: _startAt,
+    //         endAt: _endAt,
+    //         claimed: false
+    //     })
+
+    // }
+
     function receivingFunds(address _supporter) public payable {
         // emit supporterDonated(_supporter, msg.value);
         Donation memory newDonation = Donation(
