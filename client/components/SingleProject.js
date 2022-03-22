@@ -1,26 +1,35 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { Link, useParams } from 'react-router-dom';
 import { fetchProject } from '../store/singleProject';
 
-class SingleProject extends React.Component {
+const SingleProject = (props) => {
+  let params = useParams();
+  let id = parseInt(params.id);
 
-  componentDidMount() {
+  useEffect(() => {
+    const fetchData = async () => {
       try {
-          console.log('THIS.PROPS',);
-        //   
+        await props.fetchProject(id);
       } catch (error) {
-          console.error("error in component did mount", error);
+        console.error('error in fetchData', error);
       }
+    };
+    fetchData();
+  }, []);
+
+  console.log(props);
+  if (!props.project) {
+    return <div>Data is loading...</div>;
   }
-  render() {
-    console.log(this.props);
-    return <div>Test Single Project</div>;
-  }
-}
+  return <div>{props.project.name}</div>;
+};
 
 const mapState = (state) => {
-  return { project: state.project, scientists: state.scientists };
+  return {
+    project: state.project.project,
+    scientists: state.project.scientists,
+  };
 };
 
 const mapDispatch = (dispatch) => {
