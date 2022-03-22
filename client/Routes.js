@@ -4,6 +4,7 @@ import { Route, Routes, Switch } from "react-router-dom";
 import { Login, Signup } from "./components/AuthForm";
 import Home from "./components/Home";
 import MainPage from "./components/MainPage";
+import SingleProject from "./components/SingleProject";
 
 import { me } from "./store";
 
@@ -83,10 +84,11 @@ class Routers extends Component {
     return (
       <div>
         <Routes>
-          <Route exact path="/" element={<MainPage />} />
+          <Route path="/" element={<MainPage />} />
+          <Route path="project/:id" element={<SingleProject />} />
         </Routes>
 
-        {isLoggedIn ? (
+        {/* {isLoggedIn ? (
           <Routes>
             <Route path="/loggedin" element={<Home />} />
           </Routes>
@@ -96,7 +98,7 @@ class Routers extends Component {
             <Route path="login" element={<Login />} />
             <Route path="signup" element={<Signup />} />
           </Routes>
-        )}
+        )} */}
       </div>
     );
   }
