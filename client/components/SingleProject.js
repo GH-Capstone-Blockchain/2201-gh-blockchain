@@ -26,10 +26,9 @@ const SingleProject = (props) => {
   return (
     <div>
       {/* Project Name */}
-      <Typography variant="h4" component="h3">
-        {props.project.name}
-      </Typography>
-      {/* Scientists */}
+      <Typography variant="h4" component="h3">{props.project.name}</Typography>
+
+      {/* Authors (AKA Scientists) */}
       <Typography variant="h6" component="h5">
         By:{' '}
         {props.scientists.map((scientist, idx) => {
@@ -46,13 +45,15 @@ const SingleProject = (props) => {
           }
         })}
       </Typography>
+
       {/* Hero image */}
-      <img src="https://images.immediate.co.uk/production/volatile/sites/4/2021/07/king-sharkeating-e14a18e.jpg?quality=90&resize=620%2C413" />
-      {/* <img src={props.project.imgUrl} /> */}
-      <Typography variant="h5" component="h5">
-        About this project:
-      </Typography>
-      <Typography variant="body1" component="desc">{props.project.description}</Typography>
+      <img src={props.project.imageUrl} />
+      
+      {/* About this project subtitle */}
+      <Typography variant="h5" component="h5">About this project:</Typography>
+      
+      {/* Project description */}
+      <Typography variant="body1" component="h5">{props.project.description}</Typography>
     </div>
   );
 };
