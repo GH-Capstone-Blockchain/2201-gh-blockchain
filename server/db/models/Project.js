@@ -38,6 +38,10 @@ const Project = db.define('project', {
         type: Sequelize.INTEGER, 
         // allowNull: false,
     },
+    isFunded: {
+        type: Sequelize.BOOLEAN,
+        defaultValue: false
+    }
     // location: {
     //     type: Sequelize.GEOMETRY, 
     //     allowNull: false,

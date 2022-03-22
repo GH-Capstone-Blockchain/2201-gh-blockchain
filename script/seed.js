@@ -43,6 +43,19 @@ async function seed() {
     description: "lots of science happening",
   });
 
+  const sharkPaleo = await Project.create({
+    name: "Time traveling through shark skin: Unraveling a pre-historical baseline of Caribbean sharks",
+    description: "How many sharks should there be on Caribbean reefs? Despite evidence suggesting that sharks once existed in numbers unheard of today, this critical question remains unanswered. We discovered that sharks leave a record of their presence in the form of dermal denticles, the tiny, tooth-like scales lining their skin, preserved in reef sediments. We are now pioneering denticles as an ecological tool to reconstruct pre-human shark baselines and supplement surveys on modern reefs.",
+    imageUrl: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQCCCd5HwmUwvLxPpCDuFQ4RLPAriK-7EWhrZojZ_YnMm-gFVR-S791YTWtOMDp61W8QTE&usqp=CAU",
+    videoUrl: "https://www.youtube.com/watch?v=n6Nm50_dyi8",
+    project_timeline_start: "2022-12-01",
+    project_timeline_end: "2023-12-01",
+    campaign_timeline_start: "2022-5-01",
+    campaign_timeline_end: "2022-10-01",
+    fundraising_goal: 3,
+    isFunded: false,
+  })
+
   await users[0].createContribution({projectId: 1, contributionAmount: 100})
 
   //Add categories to project
@@ -50,7 +63,7 @@ async function seed() {
   await project.createCategory({category: 'Earth Science'})
 
   //adding scientist to project
-  await scientistMurphy.addProject(project);
+  await scientistMurphy.addProject(sharkPaleo);
 
   
   console.log(`seeded ${users.length} users`);
