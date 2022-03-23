@@ -20,8 +20,8 @@ contract Campaign {
     uint public goalAmount;
     uint256 public startDate;
     uint256 public endDate;
+    uint public currentTotalDonations;
     Donation[] public donationsList;
-    uint public currentTotalDonations = address(this).balance;
     struct Donation {
         // address supporterAddress;
         uint supporterId;
@@ -38,7 +38,8 @@ contract Campaign {
     }
     //donors can donate to the campaign
     function donate(uint _supporterId) public payable {
-        //require( state whatever )
+        require(block.timestamp >= startDate, “not started”);
+        require(block.timestamp <= endDate, “ended”);
         Donation memory newDonation = Donation(
             {
                 supporterId: _supporterId,
@@ -46,20 +47,17 @@ contract Campaign {
             }
         );
         donationsList.push(newDonation);
+        currentTotalDonations += msg.value;
     }
     //funds are allocated according to goal met...check if goal was met, if so, creatorAddress.transfer(address(this).balance), if not, look it up
     function releaseFund() public {
         ///require( state whatever )
-        //if enddate is later than timestamp when the function is trigger
-        require(address (this).balance >= goalAmount);
-        //if goal is met, only scientist can call this function (require msg.sender == projectAddress)
+        require(projectAddress == msg.sender, “not creator”);
+        require(block.timestamp > endDate, “not ended”);
+        require(address (this).balance >= goalAmount, “sorry, your campaign did not meet its goal”);
         payable(projectAddress).transfer(address (this).balance);
     }
     //scientist can cancel campaign
 }
 //look up how to transfer eth on a certain date in solidity
 //maybe use new Date Javascript function to trigger from the front end a function in smart contract that allocates the funds
-
-
-
-
