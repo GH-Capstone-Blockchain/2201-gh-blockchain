@@ -2,7 +2,7 @@ const router = require("express").Router();
 const {
   models: { User, Project },
 } = require("../db");
-const { requireAdminToken } = require('./gatekeeper');
+const { requireAdminToken, requireUserToken } = require('./gatekeeper');
 module.exports = router;
 
 
@@ -17,9 +17,9 @@ router.get('/', async (req, res, next) => {
 });
 
 // create new project
-router.post('/', requireAdminToken, async (req, res, next) => {
+router.post('/', async (req, res, next) => {
     try {
-      if (!req.admin) throw new Error('Unauthorized');
+      // if (!req.user) throw new Error('Unauthorized');
       const newProject= await Project.create(req.body);
       res.send(newProject);
     } catch (error) {

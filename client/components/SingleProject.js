@@ -23,7 +23,6 @@ const SingleProject = (props) => {
     fetchData();
   }, []);
 
-  console.log(props);
   if (!props.project) {
     return <div>Data is loading...</div>;
   }
