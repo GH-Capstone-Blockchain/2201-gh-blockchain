@@ -5,6 +5,7 @@ import { Login, Signup } from "./components/AuthForm";
 import Home from "./components/Home";
 import MainPage from "./components/MainPage";
 import SingleProject from "./components/SingleProject";
+import AllProjects from "./components/AllProjects";
 
 import { me } from "./store";
 
@@ -86,6 +87,7 @@ class Routers extends Component {
         <Routes>
           <Route path="/" element={<MainPage />} />
           <Route path="project/:id" element={<SingleProject />} />
+          <Route path="allprojects" element={<AllProjects/>}/>
         </Routes>
 
         {/* {isLoggedIn ? (
