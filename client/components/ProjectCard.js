@@ -1,32 +1,46 @@
-import React from 'react'
-import { Card,CardActionArea,CardMedia, CardContent, Typography, Button , CardActions} from "@mui/material";
+import React from "react";
+import {
+  Card,
+  CardActionArea,
+  CardMedia,
+  CardContent,
+  Typography,
+  Button,
+  CardActions,
+  Box,
+  LinearProgress,
+} from "@mui/material";
 
-export default function ProjectCard(props){
-
-    return(
-        <Card sx={{ maxWidth: 345, height:350, }}>
+export default function ProjectCard(props) {
+  const project = props.project;
+  return (
+    <Card sx={{ maxWidth: 500 }}>
       <CardActionArea>
         <CardMedia
           component="img"
           height="140"
-          image="https://static01.nyt.com/images/2020/03/31/world/00virus-scientists1/00virus-scientists1-superJumbo-v2.jpg"
-          alt="green iguana"
+          image={project.imageUrl}
         />
         <CardContent>
-          <Typography gutterBottom variant="h5" component="div">
+          <Box sx={{height: 40, textOverflow: 'ellipsis', overflow: 'hidden' }}>
+          <Typography gutterBottom variant="h6" component="div" >
             {props.project.name}
-          </Typography>
-          <Typography variant="body2" color="text.secondary">
-            Lizards are a widespread group of squamate reptiles, with over 6,000
-            species, ranging across all continents except Antarctica
+          </Typography></Box>
+          <Typography variant="body2" color="text.secondary" sx={{height: 90, overflow: 'hidden', textOverflow: 'ellipsis'}}>
+            {project.description}
           </Typography>
         </CardContent>
       </CardActionArea>
       <CardActions>
+        <Box sx={{ display: 'flex', alignItems: 'center', width: "100%" }}>
+          <Typography>Goal: {project.fundraising_goal}</Typography>
+          <LinearProgress variant="determinate" value={60} sx={{width: 100}}/>
+        </Box>
+
         <Button size="small" color="primary">
-          Share
+          +Donate
         </Button>
       </CardActions>
     </Card>
-    )
+  );
 }
