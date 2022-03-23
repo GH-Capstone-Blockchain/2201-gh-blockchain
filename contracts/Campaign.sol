@@ -38,8 +38,8 @@ contract Campaign {
     }
     //donors can donate to the campaign
     function donate(uint _supporterId) public payable {
-        require(block.timestamp >= startDate, “not started”);
-        require(block.timestamp <= endDate, “ended”);
+        require(block.timestamp >= startDate, 'not started');
+        require(block.timestamp <= endDate, 'ended');
         Donation memory newDonation = Donation(
             {
                 supporterId: _supporterId,
@@ -52,9 +52,9 @@ contract Campaign {
     //funds are allocated according to goal met...check if goal was met, if so, creatorAddress.transfer(address(this).balance), if not, look it up
     function releaseFund() public {
         ///require( state whatever )
-        require(projectAddress == msg.sender, “not creator”);
-        require(block.timestamp > endDate, “not ended”);
-        require(address (this).balance >= goalAmount, “sorry, your campaign did not meet its goal”);
+        require(projectAddress == msg.sender, 'not creator');
+        require(block.timestamp > endDate, 'not ended');
+        require(address (this).balance >= goalAmount, 'sorry, your campaign did not meet its goal');
         payable(projectAddress).transfer(address (this).balance);
     }
     //scientist can cancel campaign
