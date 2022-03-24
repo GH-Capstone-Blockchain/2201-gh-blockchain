@@ -19,12 +19,11 @@ function ScientistsDropDown(props) {
       <MenuItem value="">
         <em>None</em>
       </MenuItem>
-        {props.scientists.map(scientist => {
+        {props.scientists.map(scientist => (
                 <MenuItem key = {scientist.id} value={scientist.id}>
-                  {/* {`${scientist.user.firstName} ${scientist.user.lastName}`} */}
-                  HELLO
+                  {`${scientist.user.firstName} ${scientist.user.lastName}`}
                 </MenuItem>
-        })}
+        ))}
 
     </Select>
   );

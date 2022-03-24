@@ -1,8 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Box, TextField, Button} from "@mui/material";
 import InputAdornment from '@mui/material/InputAdornment';
 import {connect} from 'react-redux'
 import { createProject } from "../store/projects";
+import ScientistsDropDown from './smallComponents/ScientistsDropDown'
 
 function AddProjectForm(props) {
   const [form, setForm] = useState({
@@ -16,11 +17,7 @@ function AddProjectForm(props) {
     campaign_timeline_end: "",
     fundraising_goal: "",
   });
-  const [scientists, setScientists] = useState([])
 
-  useEffect(()=> {
-    setScientists([props.auth.scientists.id])
-  })
   const handleChange=(event) => {
     let value = event.target.value
     // if(event.target.type === 'date') 
@@ -29,7 +26,7 @@ function AddProjectForm(props) {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    props.createProject(form)
+    props.createProject({project: form, scientists: []})
   }
 
   return (
@@ -62,6 +59,7 @@ function AddProjectForm(props) {
           }}
           onChange={handleChange}
         />
+        <ScientistsDropDown/>
         <TextField
           required
           type='date'
