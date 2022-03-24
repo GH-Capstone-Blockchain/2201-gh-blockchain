@@ -19,19 +19,19 @@ const Project = db.define('project', {
         type: Sequelize.STRING, 
     },
     project_timeline_start: {
-        type: Sequelize.DATEONLY, 
+        type: Sequelize.STRING, 
         // allowNull: false,
     },
     project_timeline_end: {
-        type: Sequelize.DATEONLY, 
+        type: Sequelize.STRING, 
         // allowNull: false,
     },
     campaign_timeline_start: {
-        type: Sequelize.DATEONLY, 
+        type: Sequelize.STRING, 
         // allowNull: false,
     },
     campaign_timeline_end: {
-        type: Sequelize.DATEONLY, 
+        type: Sequelize.STRING, 
         // allowNull: false,
     },
     fundraising_goal: {
@@ -41,6 +41,17 @@ const Project = db.define('project', {
     isFunded: {
         type: Sequelize.BOOLEAN,
         defaultValue: false
+    },
+    totalDonations: {
+        type: Sequelize.INTEGER,
+        defaultValue: 0
+    },
+    totalContributions: {
+        type: Sequelize.INTEGER,
+        defaultValue: 0
+    },
+    projectWalletAddress: {
+        type: Sequelize.STRING,
     }
     // location: {
     //     type: Sequelize.GEOMETRY, 
