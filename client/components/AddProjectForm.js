@@ -16,7 +16,11 @@ function AddProjectForm(props) {
     campaign_timeline_end: "",
     fundraising_goal: "",
   });
+  const [scientists, setScientists] = useState([])
 
+  useEffect(()=> {
+    setScientists([props.auth.scientists.id])
+  })
   const handleChange=(event) => {
     let value = event.target.value
     // if(event.target.type === 'date') 
@@ -91,13 +95,24 @@ function AddProjectForm(props) {
           InputLabelProps={{ shrink: true }}
           onChange={handleChange}
         />
-        
+        <TextField
+          required
+          type='string'
+          id="project_wallet_address"
+          label="Project Wallet Address"
+          onChange={handleChange}
+        />
       </div>
       <Button type='submit'>Submit</Button>
     </Box>
   );
 }
 
+const mapState = (state) => {
+  return {
+    auth: state.auth,
+  }
+}
 
 
 const mapDispatch = (dispatch) => {
@@ -106,7 +121,7 @@ const mapDispatch = (dispatch) => {
   };
 };
 
-export default connect(null, mapDispatch)(AddProjectForm);
+export default connect(mapState, mapDispatch)(AddProjectForm);
 
 
 
