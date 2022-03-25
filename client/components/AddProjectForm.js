@@ -4,6 +4,7 @@ import InputAdornment from '@mui/material/InputAdornment';
 import {connect} from 'react-redux'
 import { createProject } from "../store/projects";
 import ScientistsDropDown from './smallComponents/ScientistsDropDown'
+import {loadWeb3} from '../web3/web3'
 
 function AddProjectForm(props) {
   const [form, setForm] = useState({
@@ -18,15 +19,23 @@ function AddProjectForm(props) {
     fundraising_goal: "",
   });
 
+  const [address, setAddress] = useState(null)
+
+  useEffect(async () => {
+   let add = await loadWeb3();
+   setAddress(add[0])
+  }, [])
+
+
   const handleChange=(event) => {
     let value = event.target.value
-    // if(event.target.type === 'date') 
+    if(event.target.type === 'date') value = new Date(value)
     setForm({...form, [event.target.id] : value})
   }
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    props.createProject({project: form, scientists: []})
+    props.createProject({project: form, scientists: [props.auth.scientist.id], address: address})
   }
 
   return (
@@ -63,7 +72,7 @@ function AddProjectForm(props) {
         <TextField
           required
           type='date'
-          id="project_start_date"
+          id="project_timeline_start"
           label="Project Start Date"
           InputLabelProps={{ shrink: true }}
           onChange={handleChange}
@@ -71,7 +80,7 @@ function AddProjectForm(props) {
         <TextField
           required
           type='date'
-          id="project_end_date"
+          id="project_timeline_end"
           label="Project End Date"
           InputLabelProps={{ shrink: true }}
           onChange={handleChange}
@@ -79,7 +88,7 @@ function AddProjectForm(props) {
         <TextField
           required
           type='date'
-          id="campaign_start_date"
+          id="campaign_timeline_start"
           label="Campaign Start Date"
           InputLabelProps={{ shrink: true }}
           onChange={handleChange}
@@ -87,7 +96,7 @@ function AddProjectForm(props) {
         <TextField
           required
           type='date'
-          id="campaign_end_date"
+          id="campaign_timeline_end"
           defaultValue={new Date()}
           label="Campaign End Date"
           InputLabelProps={{ shrink: true }}

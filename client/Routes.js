@@ -9,6 +9,7 @@ import SingleProject from "./components/SingleProject";
 import AllProjects from "./components/AllProjects";
 import AddProjectForm from "./components/AddProjectForm";
 import ScientistsDropDown from "./components/smallComponents/ScientistsDropDown";
+import TestingPage from "./components/Testing";
 
 import { me } from "./store";
 
@@ -76,6 +77,7 @@ class Routers extends Component {
           <Route path='addproject' element={<AddProjectForm/>}/>
           <Route path="login" element={<Login />} />
           <Route path="dropdown" element={<ScientistsDropDown />} />
+          <Route path="test" element={<TestingPage />} />
 
         </Routes>
 
