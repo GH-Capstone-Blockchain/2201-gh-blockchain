@@ -17,6 +17,7 @@ import LinearProgress, {
   LinearProgressProps,
 } from '@mui/material/LinearProgress';
 import theme from './StyleTheme';
+import {loadWeb3} from '../web3/web3'
 
 const SingleProject = (props) => {
   let params = useParams();
@@ -26,11 +27,13 @@ const SingleProject = (props) => {
     const fetchData = async () => {
       try {
         await props.fetchProject(id);
+        await loadWeb3();
       } catch (error) {
         console.error('error in fetchData', error);
       }
     };
     fetchData();
+    
   }, []);
 
   if (!props.project) {

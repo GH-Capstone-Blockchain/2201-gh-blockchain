@@ -20,9 +20,21 @@ router.get('/', async (req, res, next) => {
 router.post('/', async (req, res, next) => {
     try {
       // if (!req.user) throw new Error('Unauthorized');
-      const newProject= await Project.create(req.body);
+      const newProject= await Project.create(req.body.project);
+      await newProject.addScientists(req.body.scientists)
       res.send(newProject);
     } catch (error) {
       next(error);
+    }
+  });
+//update project
+  router.put('/:id', async (req, res, next) => {
+    try {
+      const project = await Project.findByPk(req.params.id)
+      const response = await project.update(req.body);
+      res.status(204);
+      res.send(response)
+    } catch (err) {
+      next(err);
     }
   });
