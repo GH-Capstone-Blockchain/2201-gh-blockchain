@@ -17,13 +17,7 @@ import {
 
 const Navbar = ({ handleClick, isLoggedIn }) => (
   <Box sx={{ flexGrow: 1 }}>
-    <AppBar
-      position="static"
-      sx={{
-        background: "none",
-      }}
-      elevation={0}
-    >
+    <AppBar position="static" elevation={0} style={{ background: "#163147" }}>
       <Toolbar sx={{ display: "flex", justifyContent: "space-between" }}>
         <Link to="/">
           <Box
@@ -33,7 +27,7 @@ const Navbar = ({ handleClick, isLoggedIn }) => (
               flexGrow: 5,
             }}
             alt="DeSci Funder"
-            src="/DeSci_Logo.png"
+            src="/DeSci_Logo2.png"
           />
         </Link>
         <Link to="/">

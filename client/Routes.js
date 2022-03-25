@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import { Route, Routes, Switch } from "react-router-dom";
 import { Login, Signup } from "./components/AuthForm";
 import Home from "./components/Home";
-import MainPage from "./components/MainPage";
+import LandingPage from "./components/LandingPage";
 import SingleProject from "./components/SingleProject";
 import AllProjects from "./components/AllProjects";
 
@@ -85,9 +85,9 @@ class Routers extends Component {
     return (
       <div>
         <Routes>
-          <Route path="/" element={<MainPage />} />
+          <Route path="/" element={<LandingPage />} />
           <Route path="project/:id" element={<SingleProject />} />
-          <Route path="allprojects" element={<AllProjects/>}/>
+          <Route path="allprojects" element={<AllProjects />} />
         </Routes>
 
         {/* {isLoggedIn ? (
