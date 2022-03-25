@@ -18,12 +18,22 @@ function LandingPage(props) {
   }, []);
 
   return (
-    <Grid container>
+    <Grid
+      container
+      sx={{
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        // padding: "10%",
+      }}
+    >
       <Grid item xs={12}>
         <ParticlesComp />
       </Grid>
       <Header />
-      <Featured projects={props.projects} />
+      <Grid item xs={6}>
+        <Featured projects={props.projects} />
+      </Grid>
 
       {/* <Grid container>
         <section id="carousel">

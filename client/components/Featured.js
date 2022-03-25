@@ -16,8 +16,6 @@ export default function Featured(props) {
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
-        fontFamily: "Roboto Condensed",
-        padding: "10%",
       }}
     >
       <Grid item xs={12}>
