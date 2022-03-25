@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Button, Typography, Grid, Box } from "@mui/material";
 
-export default function Header(props) {
+export default function Header() {
   return (
     <Grid container>
       <Grid item xs={12} sx={{ padding: "20px", marginBottom: "2%" }}>

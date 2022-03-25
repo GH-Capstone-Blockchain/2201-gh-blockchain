@@ -4,6 +4,7 @@ import Featured from "./Featured";
 import { connect } from "react-redux";
 import { fetchProjects } from "../store/projects";
 import Header from "./Header";
+import Reasons from "./Reasons";
 
 //style
 import { Button, Typography, Grid, Box, CssBaseline } from "@mui/material";
@@ -31,9 +32,17 @@ function LandingPage(props) {
         <ParticlesComp />
       </Grid>
       <Header />
+      <Grid item xs={3}></Grid>
       <Grid item xs={6}>
         <Featured projects={props.projects} />
       </Grid>
+      <Grid item xs={3}></Grid>
+
+      <Grid item xs={3}></Grid>
+      <Grid item xs={6}>
+        <Reasons />
+      </Grid>
+      <Grid item xs={3}></Grid>
 
       {/* <Grid container>
         <section id="carousel">
