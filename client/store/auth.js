@@ -33,6 +33,17 @@ export const authenticate = (username, password, method) => async dispatch => {
     const res = await axios.post(`/auth/${method}`, {username, password})
     window.localStorage.setItem(TOKEN, res.data.token)
     dispatch(me())
+    //add route for credentials form
+  } catch (authError) {
+    return dispatch(setAuth({error: authError}))
+  }
+}
+
+export const scientistSignUp = (username, password, firstName, lastName, email, method) => async dispatch => {
+  try {
+    const res = await axios.post(`/auth/${method}`, {username, password, firstName, lastName, email})
+    window.localStorage.setItem(TOKEN, res.data.token)
+    dispatch(me())
   } catch (authError) {
     return dispatch(setAuth({error: authError}))
   }

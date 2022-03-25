@@ -1,7 +1,8 @@
 import React, { Component, Fragment } from "react";
 import { connect } from "react-redux";
 import { Route, Routes, Switch } from "react-router-dom";
-import { Login, Signup } from "./components/AuthForm";
+import { Login } from "./components/Login";
+import { Signup } from "./components/SignUp";
 import Home from "./components/Home";
 import MainPage from "./components/MainPage";
 import SingleProject from "./components/SingleProject";
@@ -84,23 +85,29 @@ class Routers extends Component {
 
     return (
       <div>
-        <Routes>
+        {/* <Routes>
           <Route path="/" element={<MainPage />} />
           <Route path="project/:id" element={<SingleProject />} />
           <Route path="allprojects" element={<AllProjects/>}/>
-        </Routes>
+        </Routes> */}
 
-        {/* {isLoggedIn ? (
+        {isLoggedIn ? (
           <Routes>
-            <Route path="/loggedin" element={<Home />} />
+            <Route exact path="/" element={<MainPage />} />
+            <Route exact path="project/:id" element={<SingleProject />} />
+            <Route exact path="allprojects" element={<AllProjects />} />
+            {/* <Route path="/loggedin" element={<Home />} /> */}
           </Routes>
         ) : (
           <Routes>
-            <Route path="/notloggedin" element={<Login />} />
-            <Route path="login" element={<Login />} />
-            <Route path="signup" element={<Signup />} />
+            {/* <Route path="/notloggedin" element={<Login />} /> */}
+            <Route exact path="/" element={<MainPage />} />
+            <Route exact path="/login" element={<Login />} />
+            <Route exact path="/signup" element={<Signup />} />
+            <Route exact path="project/:id" element={<SingleProject />} />
+            <Route exact path="allprojects" element={<AllProjects />} />
           </Routes>
-        )} */}
+        )}
       </div>
     );
   }
