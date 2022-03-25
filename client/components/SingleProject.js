@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { Link, useParams } from 'react-router-dom';
 import { fetchProject } from '../store/singleProject';
@@ -17,24 +17,42 @@ import LinearProgress, {
   LinearProgressProps,
 } from '@mui/material/LinearProgress';
 import theme from './StyleTheme';
-import {loadWeb3} from '../web3/web3'
+import {loadWeb3, loadContractData} from '../web3/web3'
 
 const SingleProject = (props) => {
   let params = useParams();
   let id = parseInt(params.id);
+  const [campaign, setCampaign] = useState({})
+  const [account, setAccount] = useState('')
+  
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         await props.fetchProject(id);
-        await loadWeb3();
+        const accountAddress = await loadWeb3();
+        setAccount(accountAddress[0])
+
       } catch (error) {
         console.error('error in fetchData', error);
       }
     };
     fetchData();
-    
   }, []);
+
+  const handleDonate = async () => {
+    const total = window.web3.utils.toWei("0.2", "Ether")
+    const  campaignContract = await loadContractData(props.project.campaign_contract_address);
+    setCampaign(campaignContract)
+    await campaignContract.methods
+      .donate(2)
+      .send({ from: account, value: total })
+      // .on("transactionHash", (hash) => {
+      //   this.setState({ loading: false });
+      // });
+  }
+
+
 
   if (!props.project) {
     return <div>Data is loading...</div>;
@@ -138,7 +156,7 @@ const SingleProject = (props) => {
                   {props.project.campaign_timeline_end}
                 </Typography>
               </Box>
-              <Button>DONATE</Button>
+              <Button onClick={handleDonate}>DONATE</Button>
             </CardContent>
           </Card>
           {props.project.videoUrl ? (
@@ -161,6 +179,7 @@ const SingleProject = (props) => {
 
 const mapState = (state) => {
   return {
+    auth: state.auth,
     project: state.project.project,
     scientists: state.project.scientists,
   };

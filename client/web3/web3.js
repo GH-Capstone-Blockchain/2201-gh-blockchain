@@ -40,20 +40,13 @@ export async function loadWeb3() {
 }
 
 
-async function loadBlockchainData(contractAddress) {
+export async function loadContractData(contractAddress) {
   const web3 = window.web3;
-  const accounts = await web3.eth.getAccounts();
-  this.setState({ account: accounts[0] });
-
-  const networkId = await web3.eth.net.getId();
-  const networkData = Escrow.networks[networkId];
-  if (networkData) {
-    const escrow = new web3.eth.Contract(Campaign.abi, contractAddress); //create JS version of Escrow smart contract
-    this.setState({ escrow });
-    const totalDonation = await escrow.methods.currentTotalDonation().call();
-    this.setState({ totalDonation });
-    this.setState({ loading: false });
-  } else {
-    window.alert("Escrow contract is not deployed to detected network.");
+  try {
+    const campaign = await new web3.eth.Contract(Campaign.abi, contractAddress); //create JS version of Escrow smart contract
+    console.log(campaign)
+    return campaign
+  } catch (error) {
+    console.log(error)
   }
 }
