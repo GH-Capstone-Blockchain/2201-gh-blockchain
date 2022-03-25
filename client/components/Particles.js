@@ -81,7 +81,7 @@ export default function ParticlesComp(props) {
                 speed: 1,
               },
               bounce: {
-                distance: 200,
+                distance: 10,
               },
               bubble: {
                 distance: 400,
@@ -317,7 +317,7 @@ export default function ParticlesComp(props) {
                 acceleration: 9.81,
                 enable: false,
                 inverse: false,
-                maxSpeed: 50,
+                maxSpeed: 20,
               },
               path: {
                 clamp: true,
@@ -340,7 +340,7 @@ export default function ParticlesComp(props) {
               },
               random: false,
               size: false,
-              speed: 2,
+              speed: 1,
               spin: {
                 acceleration: 0,
                 enable: false,
@@ -377,7 +377,7 @@ export default function ParticlesComp(props) {
               animation: {
                 count: 0,
                 enable: true,
-                speed: 2,
+                speed: 1,
                 sync: false,
                 destroy: "none",
                 startValue: "random",
