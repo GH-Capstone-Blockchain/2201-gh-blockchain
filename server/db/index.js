@@ -15,7 +15,6 @@ User.hasOne(Scientist)
 Scientist.belongsTo(User)
 
 Project.hasMany(Category)
-Category.hasMany(Project)
 
 Scientist.belongsToMany(Project, {through: 'scientist_project'})
 Project.belongsToMany(Scientist, {through: 'scientist_project'})
