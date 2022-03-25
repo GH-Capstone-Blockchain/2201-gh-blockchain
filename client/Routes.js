@@ -70,32 +70,28 @@ class Routers extends Component {
 
     return (
       <div>
-        <Routes>
-          <Route path="/" element={<MainPage />} />
-          <Route path="projects" element={<AllProjects/>}/>
-          <Route path="projects/:id" element={<SingleProject />} />
-          <Route path='addproject' element={<AddProjectForm/>}/>
-          <Route path="login" element={<Login />} />
-          <Route path="dropdown" element={<ScientistsDropDown />} />
-          <Route path="test" element={<TestingPage />} />
-
-        </Routes>
 
         {isLoggedIn ? (
           <Routes>
-            <Route exact path="/" element={<MainPage />} />
-            <Route exact path="project/:id" element={<SingleProject />} />
-            <Route exact path="allprojects" element={<AllProjects />} />
+            <Route path="/" element={<MainPage />} />
+            <Route path="projects" element={<AllProjects />} />
+            <Route path="projects/:id" element={<SingleProject />} />
+            <Route path="addproject" element={<AddProjectForm />} />
+            <Route path="dropdown" element={<ScientistsDropDown />} />
+            <Route path="test" element={<TestingPage />} />
             {/* <Route path="/loggedin" element={<Home />} /> */}
           </Routes>
         ) : (
           <Routes>
             {/* <Route path="/notloggedin" element={<Login />} /> */}
-            <Route exact path="/" element={<MainPage />} />
-            <Route exact path="/login" element={<Login />} />
-            <Route exact path="/signup" element={<Signup />} />
-            <Route exact path="project/:id" element={<SingleProject />} />
-            <Route exact path="allprojects" element={<AllProjects />} />
+            <Route path="/" element={<MainPage />} />
+            <Route path="projects" element={<AllProjects />} />
+            <Route path="projects/:id" element={<SingleProject />} />
+            <Route path="addproject" element={<AddProjectForm />} />
+            <Route path="login" element={<Login />} />
+            <Route path="/signup" element={<Signup />} />
+            <Route path="dropdown" element={<ScientistsDropDown />} />
+            <Route path="test" element={<TestingPage />} />
           </Routes>
         )}
       </div>

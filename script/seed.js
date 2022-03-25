@@ -42,7 +42,7 @@ async function seed() {
       email: 'alecia@seed.js',
       firstName: 'Alecia',
       lastName: 'Carter',
-    })
+    }),
   ]);
 
   //Assigning as scientist
@@ -101,6 +101,7 @@ async function seed() {
   //Add categories to project
   await project.createCategory({ category: 'Mathematics' });
   await project.createCategory({ category: 'Earth Science' });
+  await cephalapodProject.createCategory({ category: 'Mathematics' })
 
   //adding scientist to project
   await scientistMurphy.addProject(sharkPaleo);

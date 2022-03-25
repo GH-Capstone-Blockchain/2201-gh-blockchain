@@ -26,7 +26,6 @@ const scientistEmerson = await users[2].createScientist({
   credentials: "PHD Candidate at Harvard University",
 });
 
-await 
 await bacteriaCave.createCategory({ category: "Biology" });
 
 

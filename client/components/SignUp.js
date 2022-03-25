@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
-import { authenticate } from "../store";
+import { authenticate, scientistSignUp } from "../store/auth";
 import {
   Box,
   TextField,
@@ -17,16 +17,15 @@ import {
  * COMPONENT
  */
 const AuthForm = (props) => {
-  const { name, displayName, handleSubmit, error } = props;
-
+  const { name, displayName, error, authenticate, scientistSignUp } = props;
+  
+  //for radio option between supporter and scientist signup
   const [signupType, setSignupType] = useState({
     type: "",
   });
-
   const handleSignupType = (event) => {
     setSignupType(event.target.value);
   };
-
   const controlProps = (item) => ({
     checked: signupType === item,
     onChange: handleSignupType,
@@ -35,6 +34,8 @@ const AuthForm = (props) => {
     inputProps: { "aria-label": item },
   });
 
+
+  //sign up form functions
   const [form, setForm] = useState({
     username: "",
     password: "",
@@ -48,10 +49,25 @@ const AuthForm = (props) => {
     setForm({ ...form, [event.target.id]: value });
   };
 
-//   const handleSubmit = (event) => {
-//     event.preventDefault();
-//     // props.createProject(form)
-//   };
+  const handleSubmit = (evt) => {
+    if (signupType === 'supporter') {
+      evt.preventDefault();
+      const formName = evt.target.name;
+      const username = evt.target.username.value;
+      const password = evt.target.password.value;
+      authenticate(username, password, formName);
+    } else if (signupType === 'scientist') {
+      evt.preventDefault();
+      const formName = evt.target.name;
+      const username = evt.target.username.value;
+      const password = evt.target.password.value;
+      const firstName = evt.target.firstName.value;
+      const lastName = evt.target.lastName.value;
+      const email = evt.target.email.value;
+      scientistSignUp(username, password, firstName, lastName, email, formName);
+    }
+  };
+
 
   return (
     <Box
@@ -65,7 +81,7 @@ const AuthForm = (props) => {
       onSubmit={handleSubmit}
       name={name}
     >
-      {/* {scientist/supporter option} */}
+      {/* {scientist/supporter radio} */}
       <FormControl style={{marginTop: 25 + "px"}}>
         <FormLabel id="demo-row-radio-buttons-group-label">I am a...</FormLabel>
         <RadioGroup
@@ -99,8 +115,7 @@ const AuthForm = (props) => {
         </div>
       ) : null}
 
-      {/* {scientist sign up form} */
-      console.log(form)}
+      {/* {scientist sign up form} */}
       {signupType === "scientist" ? (
         <div className="form">
           <TextField required id="username" label="Username" onChange={handleChange}></TextField>
@@ -131,13 +146,8 @@ const mapSignup = (state) => {
 
 const mapDispatch = (dispatch) => {
   return {
-    handleSubmit(evt) {
-      evt.preventDefault();
-      const formName = evt.target.name;
-      const username = evt.target.username.value;
-      const password = evt.target.password.value;
-      dispatch(authenticate(username, password, formName));
-    },
+    authenticate: (username, password, method) => dispatch(authenticate(username, password, method)),
+    scientistSignUp: (username, password, firstName, lastName, email, method) => dispatch(scientistSignUp(username, password, firstName, lastName, email, method))
   };
 };
 export const Signup = connect(mapSignup, mapDispatch)(AuthForm);
