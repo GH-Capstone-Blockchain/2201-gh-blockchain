@@ -19,12 +19,17 @@ export default function Featured(props) {
       }}
     >
       <Grid item xs={12}>
-        <Typography variant="h4" color="white" fontFamily="Roboto Condensed">
-          Featured
+        <Typography
+          variant="h4"
+          color="white"
+          fontFamily="Roboto Condensed"
+          marginBottom="10px"
+        >
+          Featured Projects
         </Typography>
         <Box
           sx={{
-            backgroundColor: "white",
+            backgroundColor: "rgba(255, 255, 255, 0.7)",
             padding: "20px",
             borderRadius: "10px",
           }}

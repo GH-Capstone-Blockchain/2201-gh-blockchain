@@ -46,14 +46,21 @@ const reasons2 = [
 
 export default function Reasons() {
   return (
-    <Grid container textAlign="center">
+    <Grid
+      container
+      textAlign="center"
+      sx={{
+        backgroundColor: "rgba(5, 31, 46, 0.7)",
+        borderRadius: "10px",
+        marginTop: "20%",
+      }}
+    >
       <Grid item xs={12}>
         <Typography
           variant="h3"
           sx={{
             color: "white",
             fontFamily: "Roboto Condensed",
-            marginTop: "20%",
             marginBottom: "5%",
           }}
         >
@@ -63,7 +70,7 @@ export default function Reasons() {
       </Grid>
       {reasons1.map((reason) => {
         return (
-          <Grid item xs={4} sx={{ padding: "5px" }}>
+          <Grid item xs={4} sx={{ padding: "10px" }}>
             <img className="img-icon" src={reason.icon} />
             <Typography
               varient="h4"
@@ -79,6 +86,7 @@ export default function Reasons() {
               sx={{
                 color: "#d8e2dc",
                 fontWeight: "light",
+                padding: "10px",
               }}
             >
               {reason.detail}
@@ -88,7 +96,7 @@ export default function Reasons() {
       })}
       {reasons2.map((reason) => {
         return (
-          <Grid item xs={4}>
+          <Grid item xs={4} sx={{ padding: "10px", marginTop: "10px" }}>
             <img className="img-icon" src={reason.icon} />
             <Typography
               varient="h4"
@@ -104,6 +112,7 @@ export default function Reasons() {
               sx={{
                 color: "#d8e2dc",
                 fontWeight: "light",
+                padding: "10px",
               }}
             >
               {reason.detail}

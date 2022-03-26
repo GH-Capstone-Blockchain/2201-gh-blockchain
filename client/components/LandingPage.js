@@ -34,7 +34,7 @@ function LandingPage(props) {
       </Grid>
       <Header />
       <Grid item xs={1}></Grid>
-      <Grid item xs={10} sm={6}>
+      <Grid item xs={10} style={{ maxWidth: "1000px" }}>
         <ProjectsStats />
         <Featured projects={props.projects} />
         <Reasons />
