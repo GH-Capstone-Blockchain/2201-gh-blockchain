@@ -25,6 +25,15 @@ const teamMembers = [
   },
 ];
 
+const suffledMember = (teamMembers) => {
+  for (let i = teamMembers.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    const temp = teamMembers[i];
+    teamMembers[i] = teamMembers[j];
+    teamMembers[j] = temp;
+  }
+  return teamMembers;
+};
 export default function Team() {
   return (
     <Grid
@@ -44,10 +53,10 @@ export default function Team() {
           }}
         >
           {" "}
-          Meat the Team
+          Meet the Team
         </Typography>
       </Grid>
-      {teamMembers.map((member) => {
+      {suffledMember(teamMembers).map((member) => {
         return (
           <Grid item xs={3} sx={{ padding: "10px" }} key={member.name}>
             <a href={member.linkedInUrl} target="_blank">
