@@ -458,6 +458,82 @@ async function seed() {
     isFunded: false,
   });
 
+  const coralReefs = await Project.create({
+    name: "Characterizing the resilience of coral reefs and island people",
+    description:
+      "Corals are one of the most important keystone species on the planet and greatly depend on the microbes in their mucus for survival. This study will test the hypothesis that the microbial community within coral mucus exhibits physicochemical responses during heavy sedimentation events. More specifically, coral reefs that can maintain their steady-state surface layer mucus microbiome will exhibit less signs of physiological stress.",
+    imageUrl:
+      "https://i.guim.co.uk/img/media/4be3d80ea95460c225f4eb6525f1f47a1764797a/0_275_4288_2573/master/4288.jpg?width=465&quality=45&auto=format&fit=max&dpr=2&s=d6afe8fbbd0e29cf1b1f39a7038d00f5",
+    videoUrl: "https://www.youtube.com/embed/ZiULxLLP32s",
+    project_timeline_start: "2022-02-01",
+    project_timeline_end: "2022-09-01",
+    campaign_timeline_start: "2022-04-13",
+    campaign_timeline_end: "2022-06-13",
+    fundraising_goal: 15,
+    isFunded: false,
+  });
+
+  const congoBasin = await Project.create({
+    name: "How are rural communities on the edge of the largest tropical peat swamp forest in the Congo Basin using peat resources?",
+    description:
+      "Climate change and human interference threaten to degrade the world’s largest tropical peatland. No detailed assessment of the human uses of the central Congo Basin swamp forest exists. I will couple a remote sensing study on deforestation with an anthropological study in the Democratic Republic of Congo. I will explore how two communities living on the edge of the peatland forest use these resources and the values and cultural significance that they attribute to this unique ecosystem.",
+    imageUrl:
+      "https://theecologist.org/sites/default/files/styles/inline_l/public/2019-04/congo-basin-via-www.sizeofwales.org_.uk_-e1481900696869.jpg?itok=xNNFIboo",
+    videoUrl: "https://www.youtube.com/embed/6t0k-hcffZw",
+    project_timeline_start: "2022-02-01",
+    project_timeline_end: "2022-09-01",
+    campaign_timeline_start: "2022-04-13",
+    campaign_timeline_end: "2022-06-13",
+    fundraising_goal: 8,
+    isFunded: false,
+  });
+
+  const americanChesnut = await Project.create({
+    name: "Can RNAi be used to reduce the virulence of the pathogens of American chestnut?",
+    description:
+      "The American chestnut (Castanea dentata) was once an important member of the Appalachian ecosystem but was largely destroyed by two introduced plant pathogens. Through the use of techniques previously innovated by researchers at SUNY-ESF, a new form of biotechnology called RNA interference (RNAi) could potentially be pursued to confer resistance to these pathogens by silencing the genes they use to attack American chestnut.",
+    imageUrl:
+      "https://hudsonvalleyone.com/wp-content/uploads/2020/01/American-Chestnut-700x467-1.jpg",
+    videoUrl: "https://www.youtube.com/embed/-mhMdUryolU",
+    project_timeline_start: "2022-02-01",
+    project_timeline_end: "2022-09-01",
+    campaign_timeline_start: "2022-04-13",
+    campaign_timeline_end: "2022-06-13",
+    fundraising_goal: 5,
+    isFunded: false,
+  });
+
+  const romeNewCities = await Project.create({
+    name: "How did Rome create new cities to build an Empire?",
+    description:
+      "How did Rome become a preeminent Empire? How did they serially incorporate regions? To answer these questions we are conducting the archaeological excavation of Libarna, a unique Roman colonial site in North-West Italy. It was founded in 148 BCE right after the Second Punic War when Rome became the dominate power in the Mediterranean. By studying the material culture of the inhabitants we hypothesize we will be able to detect changes to the local indigenous and immigrant populations.",
+    imageUrl:
+      "https://www.history.com/.image/ar_16:9%2Cc_fill%2Ccs_srgb%2Cfl_progressive%2Cq_auto:good%2Cw_1200/MTU3ODc5MDg1MzU2MDMzNzU5/ancient-rome-hero.jpg",
+    videoUrl: "https://www.youtube.com/embed/gxqPbGqYACw",
+    project_timeline_start: "2022-02-01",
+    project_timeline_end: "2022-09-01",
+    campaign_timeline_start: "2022-04-13",
+    campaign_timeline_end: "2022-06-13",
+    fundraising_goal: 22,
+    isFunded: false,
+  });
+
+  const marinePollution = await Project.create({
+    name: "Effects of marine pollution on Halophila hawaiiana",
+    description:
+      "Halophila hawaiiana is a Native Hawaiian seagrass that creates a habitat relied on by many organisms. H. hawaiiana is labeled as vulnerable to stressors likely due to development, invasive species, and pollution. Low leaf density of seagrass in Maunalua Bay compared to other populations of seagrass on Oahu has been observed this is possibly due to marine pollution. This study will measure the effects of ammonium exposure, simulating marine pollution, on H. hawaiiana.",
+    imageUrl:
+    'https://d3t9s8cdqyboc5.cloudfront.net/images?path=1136067/Z6Xj2PaqR1aUKUrCxVsg_IMG_7474 4.jpg&width=640&height=360',
+    videoUrl: "https://www.youtube.com/embed/AXT7y9klHCI",
+    project_timeline_start: "2022-02-01",
+    project_timeline_end: "2022-09-01",
+    campaign_timeline_start: "2022-04-13",
+    campaign_timeline_end: "2022-06-13",
+    fundraising_goal: 4,
+    isFunded: false,
+  });
+
+
   await users[0].createContribution({ projectId: 1, contributionAmount: 100 });
 
   //Add categories to project
@@ -477,6 +553,14 @@ async function seed() {
   await informedConsumers.createCategory({ category: "Social Science" });
   await analysisOfSleep.createCategory({ category: "Computer Science" });
   await analysisOfSleep.createCategory({ category: "Biology" });
+  await coralReefs.createCategory({ category: "Biology" });
+  await coralReefs.createCategory({ category: "Ecology" });
+  await congoBasin.createCategory({ category: "Ecology" });
+  await congoBasin.createCategory({ category: "Biology" });
+  await americanChesnut.createCategory({ category: "Biology" });
+  await americanChesnut.createCategory({ category: "Ecology" });
+  await romeNewCities.createCategory({ category: "Anthropology" });
+  await marinePollution.createCategory({ category: "Ecology" });
 
   //adding scientist to project
   await scientistMurphy.addProject(sharkPaleo);
@@ -500,6 +584,13 @@ async function seed() {
   await scientistLinda.addProject(analysisOfSleep);
   await scientistCHyeRim.addProject(analysisOfSleep);
   await scientistAlex.addProject(analysisOfSleep);
+  await scientistHongni.addProject(coralReefs);
+  await scientistMurphy.addProject(congoBasin);
+  await scientistAlex.addProject(congoBasin);
+  await scientistEmerson.addProject(americanChesnut);
+  await scientistChristian.addProject(romeNewCities);
+  await scientistCHyeRim.addProject(romeNewCities);
+  await scientistJustin.addProject(marinePollution);
 
   console.log(`seeded ${users.length} users`);
   console.log(`seeded successfully`);
