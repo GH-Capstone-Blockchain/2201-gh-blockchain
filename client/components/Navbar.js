@@ -25,9 +25,11 @@ const Navbar = ({ handleClick, isLoggedIn }) => (
             sx={{
               height: 64,
               flexGrow: 5,
+              marginTop: "15%",
+              marginBottom: "15%",
             }}
             alt="DeSci Funder"
-            src="/DeSci_Logo2.png"
+            src="/logo.png"
           />
         </Link>
         <Link to="/">
