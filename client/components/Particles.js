@@ -87,8 +87,8 @@ export default function ParticlesComp(props) {
                 distance: 400,
                 duration: 2,
                 mix: false,
-                opacity: 0.8,
-                size: 40,
+                opacity: 0.4,
+                size: 30,
               },
               connect: {
                 distance: 80,
@@ -102,7 +102,7 @@ export default function ParticlesComp(props) {
                 links: {
                   blink: false,
                   consent: false,
-                  opacity: 1,
+                  opacity: 0.5,
                 },
               },
               light: {
@@ -368,10 +368,10 @@ export default function ParticlesComp(props) {
             opacity: {
               random: {
                 enable: true,
-                minimumValue: 0.1,
+                minimumValue: 0.01,
               },
               value: {
-                min: 0.1,
+                min: 0.01,
                 max: 0.5,
               },
               animation: {
@@ -460,11 +460,11 @@ export default function ParticlesComp(props) {
             size: {
               random: {
                 enable: true,
-                minimumValue: 1,
+                minimumValue: 0.1,
               },
               value: {
                 min: 0.1,
-                max: 10,
+                max: 8,
               },
               animation: {
                 count: 0,

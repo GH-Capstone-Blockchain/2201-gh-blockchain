@@ -5,7 +5,7 @@
 a {
   text-decoration: none;
 }
- 
+
 .form {
   display: flex;
   flex-direction: column;
@@ -16,4 +16,9 @@ a {
 
 .login-signup-button {
   margin: 15px;
+}
+
+.img-icon {
+  width: 80px;
+  height: auto;
 }
