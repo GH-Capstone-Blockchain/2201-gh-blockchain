@@ -4,7 +4,7 @@ import { Route, Routes, Switch } from "react-router-dom";
 import { Login } from "./components/authForms/Login";
 import { Signup } from "./components/authForms/SignUp";
 import Home from "./components/Home";
-import MainPage from "./components/MainPage";
+import LandingPage from "./components/LandingPage";
 import SingleProject from "./components/SingleProject";
 import AllProjects from "./components/AllProjects";
 import AddProjectForm from "./components/AddProjectForm";
@@ -70,10 +70,9 @@ class Routers extends Component {
 
     return (
       <div>
-
         {isLoggedIn ? (
           <Routes>
-            <Route path="/" element={<MainPage />} />
+            <Route path="/" element={<LandingPage />} />
             <Route path="projects" element={<AllProjects />} />
             <Route path="projects/:id" element={<SingleProject />} />
             <Route path="addproject" element={<AddProjectForm />} />
@@ -84,7 +83,7 @@ class Routers extends Component {
         ) : (
           <Routes>
             {/* <Route path="/notloggedin" element={<Login />} /> */}
-            <Route path="/" element={<MainPage />} />
+            <Route path="/" element={<LandingPage />} />
             <Route path="projects" element={<AllProjects />} />
             <Route path="projects/:id" element={<SingleProject />} />
             <Route path="addproject" element={<AddProjectForm />} />
