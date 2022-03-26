@@ -22,7 +22,7 @@ export default function ParticlesComp(props) {
           autoPlay: true,
           background: {
             color: {
-              value: "#163147",
+              value: "#051f2e",
             },
             image: "",
             position: "bottom",

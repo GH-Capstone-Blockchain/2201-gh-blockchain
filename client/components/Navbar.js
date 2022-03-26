@@ -17,7 +17,7 @@ import {
 
 const Navbar = ({ handleClick, isLoggedIn }) => (
   <Box sx={{ flexGrow: 1 }}>
-    <AppBar position="fixed" elevation={0} style={{ background: "#163147" }}>
+    <AppBar position="fixed" elevation={0} style={{ background: "#051f2e" }}>
       <Toolbar sx={{ display: "flex", justifyContent: "space-between" }}>
         <Link to="/">
           <Box
