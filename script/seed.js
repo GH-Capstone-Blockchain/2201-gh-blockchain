@@ -1,9 +1,9 @@
-'use strict';
+"use strict";
 
 const {
   db,
   models: { User, Project },
-} = require('../server/db');
+} = require("../server/db");
 
 /**
  * seed - this function clears the database, updates tables to
@@ -11,101 +11,495 @@ const {
  */
 async function seed() {
   await db.sync({ force: true }); // clears db and matches models to tables
-  console.log('db synced!');
+  console.log("db synced!");
 
   // Creating Users
   const users = await Promise.all([
+    //0
     User.create({
-      username: 'cody123',
-      password: '123',
-      email: 'cody@seed.js',
-      firstName: 'cody',
-      lastName: 'hamilton',
+      username: "cody123",
+      password: "123",
+      email: "cody@seed.js",
+      firstName: "cody",
+      lastName: "hamilton",
     }),
+    //1 scientist
     User.create({
-      username: 'murphy123',
-      password: '123',
-      email: 'murphy@seed.js',
-      firstName: 'murphy',
-      lastName: 'albert',
+      username: "murphy123",
+      password: "123",
+      email: "murphy@seed.js",
+      firstName: "murphy",
+      lastName: "albert",
     }),
+    //2 scientist
     User.create({
-      username: 'SavannahL',
-      password: 'geniusScientist',
-      email: 'savannah@seed.js',
-      firstName: 'Savannah',
-      lastName: 'Laliberte',
+      username: "SavannahL",
+      password: "geniusScientist",
+      email: "savannah@seed.js",
+      firstName: "Savannah",
+      lastName: "Laliberte",
     }),
+    //3 scientist
     User.create({
-      username: 'AleciaC',
-      password: 'anthrolady',
-      email: 'alecia@seed.js',
-      firstName: 'Alecia',
-      lastName: 'Carter',
-    })
+      username: "AleciaC",
+      password: "anthrolady",
+      email: "alecia@seed.js",
+      firstName: "Alecia",
+      lastName: "Carter",
+    }),
+    //4 scientist
+    User.create({
+      username: "RalphieEmerson",
+      password: "1234",
+      email: "ralphieemerson@gmail.com",
+      firstName: "Ralphie",
+      lastName: "Emerson",
+    }),
+    //5 scientist
+    User.create({
+      username: "ChristianS",
+      password: "seasianmothers",
+      email: "ChristianSuharlim@gmail.com",
+      firstName: "Christian",
+      lastName: "Suharlim",
+    }),
+    //6 scientist
+    User.create({
+      username: "lindalinda",
+      password: "3.14159265",
+      email: "linda@seed.js",
+      firstName: "Linda",
+      lastName: "Chilton",
+    }),
+    //7 scientist
+    User.create({
+      username: "AlexC",
+      password: "primatesRule",
+      email: "Alex@seed.js",
+      firstName: "Alex",
+      lastName: "Carter",
+    }),
+    //8 scientist
+    User.create({
+      username: "DoctorJokes",
+      password: "yeayea",
+      email: "docjokes@yahoo.com",
+      firstName: "Lawrence",
+      lastName: "Hong",
+    }),
+    //9 scientist
+    User.create({
+      username: "CHyeRimChoi",
+      password: "chyerim",
+      email: "clarachoi@yahoo.com",
+      firstName: "Clara",
+      lastName: "Choi",
+    }),
+    //10 scientist
+    User.create({
+      username: "HongniFa",
+      password: "hongni123",
+      email: "HongniFa@gmail.com",
+      firstName: "Hong Ni",
+      lastName: "Fa",
+    }),
+    //11 scientist
+    User.create({
+      username: "JustinKay",
+      password: "whatup",
+      email: "JustinKay@gmail.com",
+      firstName: "Justin",
+      lastName: "Kay",
+    }),
+    //12 scientist
+    User.create({
+      username: "CatherineFoley",
+      password: "whatssup",
+      email: "CatherineFoley@gmail.com",
+      firstName: "Catherine",
+      lastName: "Foley",
+    }),
+    //13 scientist
+    User.create({
+      username: "StefanGrundner",
+      password: "whatssup",
+      email: "StefanGrundner@gmail.com",
+      firstName: "Stefan",
+      lastName: "Grundner",
+    }),
+    //14 scientist
+    User.create({
+      username: "BenjaminYetton",
+      password: "whatssup",
+      email: "BenjaminYetton@gmail.com",
+      firstName: "Benjamin",
+      lastName: "Yetton",
+    }),
+    //15
+    User.create({
+      username: "simonwarby",
+      password: "whatssup",
+      email: "simonwarby@gmail.com",
+      firstName: "Simon",
+      lastName: "Warby",
+    }),
+    //16
+    User.create({
+      username: "saramednick",
+      password: "whatssup",
+      email: "saramednick@gmail.com",
+      firstName: "Sara",
+      lastName: "Mednick",
+    }),
+    //17
+    User.create({
+      username: "Karinelacourse",
+      password: "whatssup",
+      email: "Karinelacourse@gmail.com",
+      firstName: "Karine",
+      lastName: "Lacourse",
+    }),
+    //18
+    User.create({
+      username: "AlexRodriguez",
+      password: "whatssup",
+      email: "AlexRodriguez@gmail.com",
+      firstName: "Alex",
+      lastName: "Rodriguez",
+    }),
+    //19
+    User.create({
+      username: "KatieLeung",
+      password: "whatssup",
+      email: "KatieLeung@gmail.com",
+      firstName: "Katie",
+      lastName: "Leung",
+    }),
+    //20
+    User.create({
+      username: "HalleSmith",
+      password: "whatssup",
+      email: "HalleSmith@gmail.com",
+      firstName: "Halle",
+      lastName: "Smith",
+    }),
+    //21
+    User.create({
+      username: "ThomasFelton",
+      password: "whatssup",
+      email: "ThomasFelton@gmail.com",
+      firstName: "Thomas",
+      lastName: "Felton",
+    }),
+    //22
+    User.create({
+      username: "Aisha Hurst",
+      password: "whatssup",
+      email: "Aisha Hurst@gmail.com",
+      firstName: "Aisha",
+      lastName: "Hurst",
+    }),
+    //23
+    User.create({
+      username: "LandynPerkins",
+      password: "whatssup",
+      email: "LandynPerkins@gmail.com",
+      firstName: "Landyn",
+      lastName: "Perkins",
+    }),
+    //24
+    User.create({
+      username: "JasonDeleon",
+      password: "whatssup",
+      email: "JasonDeleon@gmail.com",
+      firstName: "Jason",
+      lastName: "Deleon",
+    }),
+    //25
+    User.create({
+      username: "HayleeNeal",
+      password: "whatssup",
+      email: "HayleeNeal@gmail.com",
+      firstName: "Haylee",
+      lastName: "Neal",
+    }),
+    //26
+    User.create({
+      username: "CiaraHuang",
+      password: "whatssup",
+      email: "CiaraHuang@gmail.com",
+      firstName: "Ciara",
+      lastName: "Huang",
+    }),
+    //27
+    User.create({
+      username: "BrianPark",
+      password: "whatssup",
+      email: "BrianPark@gmail.com",
+      firstName: "Brian",
+      lastName: "Park",
+    }),
+    //28
+    User.create({
+      username: "YeRimKim",
+      password: "whatssup",
+      email: "YeRimKim@gmail.com",
+      firstName: "Yerim",
+      lastName: "Kim",
+    }),
   ]);
 
   //Assigning as scientist
   const scientistMurphy = await users[1].createScientist({
-    publications: 'hello',
-    credentials: 'credentials',
+    publications: "hello",
+    credentials: "credentials",
   });
 
   const scientistSavannah = await users[2].createScientist({
-    publications: 'A Study of Sharks',
-    credentials: 'PHD Candidate at Hawaiʻi Pacific University',
+    publications: "A Study of Sharks",
+    credentials: "PHD Candidate at Hawaiʻi Pacific University",
   });
 
   const scientistAlecia = await users[3].createScientist({
-    publications: 'Developmental transitions in body color in chacma baboon infants: Implications to estimate age and developmental pace.',
-    credentials: 'Lecturer in Evolutionary Anthropology at UCL',
+    publications:
+      "Developmental transitions in body color in chacma baboon infants: Implications to estimate age and developmental pace.",
+    credentials: "Lecturer in Evolutionary Anthropology at UCL",
+  });
+
+  const scientistEmerson = await users[4].createScientist({
+    publications: "Humans and Their Effect on Natural Caves",
+    credentials: "PHD Candidate at Harvard University",
+  });
+
+  const scientistChristian = await users[5].createScientist({
+    publications: "Maternal and Infant Mortality in Southeast Asia",
+    credentials: "Researcher at the Harvard Center for Health Decision Science",
+  });
+
+  const scientistAlex = await users[7].createScientist({
+    publications: "Grooming Practices of Silverback Gorillas",
+    credentials:
+      "Lecturer in Evolutionanry Anthropology at University College London",
+  });
+
+  const scientistLinda = await users[6].createScientist({
+    publications: "A Study of Jokes",
+    credentials: "PHD Candidate at Washington University",
+  });
+
+  const scientistDocJokes = await users[8].createScientist({
+    publications: "A Study of Jokes",
+    credentials: "Researcher at Washington University",
+  });
+
+  const scientistCHyeRim = await users[9].createScientist({
+    publications: "How Poverty Affects Human Infertility",
+    credentials: "PHD Candidate at University of California",
+  });
+
+  const scientistHongni = await users[10].createScientist({
+    publications: "An Overview of Modern Day Primates",
+    credentials: "PHD Candidate at UCLA",
+  });
+
+  const scientistJustin = await users[11].createScientist({
+    publications: "How to Study A Mammal Through the Use of AI",
+    credentials: "Researcher at UC Berkeley",
+  });
+
+  const scientistCatherine = await users[12].createScientist({
+    publications: "An Overview of Modern Day Primates",
+    credentials: "PHD Candidate at UC Berkeley",
+  });
+
+  const scientistStefan = await users[13].createScientist({
+    publications: "Psychology of Consumerism",
+    credentials: "PHD Candidate at Georgetown University",
+  });
+
+  const scientistBenjamin = await users[14].createScientist({
+    publications: "Sleep Cycles",
+    credentials: "PHD Candidate at University of Canterbury, Christchurch",
   });
 
   //Creating Projects
-  const project = await Project.create({
-    name: 'Science',
-    description: 'lots of science happening',
+  const bacteriaCave = await Project.create({
+    name: "How do bacteria respond when humans damage caves?",
+    description:
+      "The Tongass National Forest in Alaska contains both damaged and undamaged caves. These caves are homes to a bacteria-rich mineraloid formation called moonmilk. Microbial communities play critical roles in maintaining ecosystem stability. This motivated my of team of cavers and cave explorers to travel to remote field sites this summer to collect and analyze samples and attempt to answer the question: Does human-caused damage to cave formations change the moonmilk ecosystem?",
+    imageUrl:
+      "https://d3t9s8cdqyboc5.cloudfront.net/images?path=1148380/lGu5QYcRTkyeSv56C7Ms_Logsdon_Sampling_Stripes_CDecelle.jpg&width=640&height=360",
+    videoUrl: "https://www.youtube.com/embed/apSPGHbIHbw",
+    project_timeline_start: "2022-07-01",
+    project_timeline_end: "2022-12-01",
+    campaign_timeline_start: "2022-04-15",
+    campaign_timeline_end: "2022-06-15",
+    fundraising_goal: 6,
+    isFunded: false,
+  });
+
+  const maternalMortality = await Project.create({
+    name: "Mathematical model to reduce maternal and infant mortality in Southeast Asia",
+    description:
+      "Maternal and child mortality in Southeast Asian countries is still very high, especially in poor and rural areas. The goal of our study is to develop user-friendly mathematical model to improve referral of high-risk term pregnancies in resource-poor settings; creating a more resource-efficient health system, while delivering better health outcomes to mothers and children.",
+    imageUrl:
+      "https://i.pinimg.com/originals/e6/ae/e3/e6aee3fb730dfce4e34afc6cc823eae5.jpg",
+    videoUrl: "https://www.youtube.com/embed/42HIaK6fuWA",
+    project_timeline_start: "2022-10-15",
+    project_timeline_end: "2023-03-01",
+    campaign_timeline_start: "2022-05-01",
+    campaign_timeline_end: "2022-07-01",
+    fundraising_goal: 2,
+    isFunded: false,
   });
 
   const sharkPaleo = await Project.create({
-    name: 'Time traveling through shark skin: Unraveling a pre-historical baseline of Caribbean sharks',
+    name: "Time traveling through shark skin: Unraveling a pre-historical baseline of Caribbean sharks",
     description:
-      'How many sharks should there be on Caribbean reefs? Despite evidence suggesting that sharks once existed in numbers unheard of today, this critical question remains unanswered. We discovered that sharks leave a record of their presence in the form of dermal denticles, the tiny, tooth-like scales lining their skin, preserved in reef sediments. We are now pioneering denticles as an ecological tool to reconstruct pre-human shark baselines and supplement surveys on modern reefs.',
-    imageUrl: 'https://fishcostarica.com/wp-content/uploads/fishing_shark_costa_rica.jpg',
-    videoUrl: 'https://www.youtube.com/embed/4HGNqFdaD34',
-    project_timeline_start: '2022-12-01',
-    project_timeline_end: '2023-12-01',
-    campaign_timeline_start: '2022-5-01',
-    campaign_timeline_end: '2022-10-01',
+      "How many sharks should there be on Caribbean reefs? Despite evidence suggesting that sharks once existed in numbers unheard of today, this critical question remains unanswered. We discovered that sharks leave a record of their presence in the form of dermal denticles, the tiny, tooth-like scales lining their skin, preserved in reef sediments. We are now pioneering denticles as an ecological tool to reconstruct pre-human shark baselines and supplement surveys on modern reefs.",
+    imageUrl:
+      "https://fishcostarica.com/wp-content/uploads/fishing_shark_costa_rica.jpg",
+    videoUrl: "https://www.youtube.com/embed/4HGNqFdaD34",
+    project_timeline_start: "2022-12-01",
+    project_timeline_end: "2023-12-01",
+    campaign_timeline_start: "2022-5-01",
+    campaign_timeline_end: "2022-10-01",
     fundraising_goal: 3,
     isFunded: false,
   });
 
   const cephalapodProject = await Project.create({
-    name: 'What can cephalopods teach us about spatial memory and learning?',
+    name: "What can cephalopods teach us about spatial memory and learning?",
     description:
-      'Cephalopods and vertebrates have gone through similar circumstances that required adaptations such as learning and memory abilities. These skills are seen in some cephalopods which are able to solve mazes and navigate complex environments. The timing of this skill development in cephalopod evolution remains unknown. This project determines the spatial learning abilities of the O.bimaculoides by measuring recognition of habitats and pathway to the hidden food source.',
+      "Cephalopods and vertebrates have gone through similar circumstances that required adaptations such as learning and memory abilities. These skills are seen in some cephalopods which are able to solve mazes and navigate complex environments. The timing of this skill development in cephalopod evolution remains unknown. This project determines the spatial learning abilities of the O.bimaculoides by measuring recognition of habitats and pathway to the hidden food source.",
     imageUrl:
-      'https://www.leisurepro.com/blog/wp-content/uploads/2020/04/shutterstock_274092959.jpg',
-    videoUrl: 'https://www.youtube.com/embed/oSyEZAm8nb8',
-    project_timeline_start: '2022-06-01',
-    project_timeline_end: '2023-10-15',
-    campaign_timeline_start: '2022-5-01',
-    campaign_timeline_end: '2022-10-01',
+      "https://www.leisurepro.com/blog/wp-content/uploads/2020/04/shutterstock_274092959.jpg",
+    videoUrl: "https://www.youtube.com/embed/oSyEZAm8nb8",
+    project_timeline_start: "2022-06-01",
+    project_timeline_end: "2023-10-15",
+    campaign_timeline_start: "2022-5-01",
+    campaign_timeline_end: "2022-10-01",
     fundraising_goal: 40,
+    isFunded: false,
+  });
+
+  const funnyJokes = await Project.create({
+    name: "Why are jokes funny?",
+    description:
+      "The first step of my research is to come up with theories for why jokes are funny. Next we will test those theories on thousands of jokes.Once we test theories for why jokes are funny, we can use those theories to improve old jokes and make new ones.",
+    imageUrl:
+      "https://i.pinimg.com/originals/3a/d9/75/3ad975c766a414b1dcf2de3778b700ab.jpg",
+    videoUrl: "https://www.youtube.com/watch?v=IgYlRrgNiQQ",
+    project_timeline_start: "2022-10-01",
+    project_timeline_end: "2023-9-01",
+    campaign_timeline_start: "2022-6-01",
+    campaign_timeline_end: "2022-10-01",
+    fundraising_goal: 3,
+    isFunded: false,
+  });
+
+  const mommyPrimates = await Project.create({
+    name: "Do Primate Mothers Grieve?",
+    description:
+      "Do primates understand death? Can they grieve? When a primate baby dies, often the mother will carry its corpse, in some cases for weeks. Some suggest this is evidence of grief. But we can look for other markers of grief, like those that humans show: depression, loss of appetite and lethargy. In this study, we will conduct a field study of macaques to quantify mothers behavioural responses to the deaths of their infants and search for evidence of grief.",
+    imageUrl:
+      "https://s3.amazonaws.com/spectrumnews-web-assets/uploads/2017/11/macaque-familycc.jpg",
+    videoUrl: "https://www.youtube.com/embed/_yahK7ib9ys",
+    project_timeline_start: "2022-10-01",
+    project_timeline_end: "2023-9-01",
+    campaign_timeline_start: "2022-6-01",
+    campaign_timeline_end: "2022-10-01",
+    fundraising_goal: 3,
+    isFunded: false,
+  });
+
+  const sealBehaviorWithAI = await Project.create({
+    name: "Understanding seal behavior with artificial intelligence",
+    description:
+      "Seals are important indicators for the health of our oceans, but it is often difficult to monitor their populations, especially in remote regions. Time-lapse cameras have made this monitoring more feasible, however the scale of data produced by these tools is prohibitively large. This project will enable automated AI-based analysis of this data via the publication of a large high-quality dataset of images collected of seal populations on remote islands near Antarctica over the last ten years.",
+    imageUrl:
+      "https://d3t9s8cdqyboc5.cloudfront.net/images?path=1149908/xnQwyCcxSMSQp6nLM86U_IMG_3958.JPG&width=640&height=360",
+    videoUrl: "https://www.youtube.com/embed/BF2TZq-ntRQ",
+    project_timeline_start: "2022-10-01",
+    project_timeline_end: "2023-04-01",
+    campaign_timeline_start: "2022-03-21",
+    campaign_timeline_end: "2022-10-01",
+    fundraising_goal: 5,
+    isFunded: false,
+  });
+
+  const informedConsumers = await Project.create({
+    name: "Why do informed consumers refrain from buying ethical products? Applying insights from behavioural economics",
+    description:
+      "Studies have shown that even well-informed consumers rarely purchase ethical products. Insights from behavioural economics suggest that informing consumers is not enough. In addition, consumers need to be reassured that other consumers purchase equally ethical products. Only then will they express their ethical values in their own purchase decisions and thus force firms to produce compliantly. My aim is to conduct an economic laboratory experiment that allows for analysing this market dynamics.",
+    imageUrl:
+      "https://d3t9s8cdqyboc5.cloudfront.net/images?path=137525/PIrVIQ8bSgmnX0kVhtaF_COLOURBOX20181414.jpg&width=640&height=360",
+    videoUrl: "https://www.youtube.com/embed/UEtE-el6KKs",
+    project_timeline_start: "2022-06-01",
+    project_timeline_end: "2023-02-01",
+    campaign_timeline_start: "2022-03-01",
+    campaign_timeline_end: "2022-06-01",
+    fundraising_goal: 3,
+    isFunded: false,
+  });
+
+  const analysisOfSleep = await Project.create({
+    name: "The People vs. Academia: Crowdsourcing the analysis of sleep",
+    description:
+      "Brainwaves during sleep are a window into cognition, early marker of mental disorders, and brain deterioration due to age. However, detection of brainwave patterns by highly trained experts is extremely time consuming and costly! We hypothesize, that through the power of crowdsourcing, the general public can match the performance of these learned experts and help us find these important patterns in the brain.",
+    imageUrl:
+      "https://d3t9s8cdqyboc5.cloudfront.net/images?path=49841/CuwopAXPSaeYpPyJwYhz_MODA Pic.png&width=640&height=360",
+    videoUrl: "https://www.youtube.com/embed/6XmY6_WojuU",
+    project_timeline_start: "2022-02-01",
+    project_timeline_end: "2022-09-01",
+    campaign_timeline_start: "2022-04-13",
+    campaign_timeline_end: "2022-06-13",
+    fundraising_goal: 8,
     isFunded: false,
   });
 
   await users[0].createContribution({ projectId: 1, contributionAmount: 100 });
 
   //Add categories to project
-  await project.createCategory({ category: 'Mathematics' });
-  await project.createCategory({ category: 'Earth Science' });
+  await cephalapodProject.createCategory({ category: "Biology" });
+  await bacteriaCave.createCategory({ category: "Biology" });
+  await maternalMortality.createCategory({ category: "Ecology" });
+  await maternalMortality.createCategory({ category: "Mathematics" });
+  await maternalMortality.createCategory({ category: "Biology" });
+  await mommyPrimates.createCategory({ category: "Anthropology" });
+  await mommyPrimates.createCategory({ category: "Psychology" });
+  await funnyJokes.createCategory({ category: "Mathematics" });
+  await funnyJokes.createCategory({ category: "Computer Science" });
+  await sealBehaviorWithAI.createCategory({ category: "Computer Science" });
+  await sealBehaviorWithAI.createCategory({ category: "Biology" });
+  await sealBehaviorWithAI.createCategory({ category: "Ecology" });
+  await informedConsumers.createCategory({ category: "Economics" });
+  await informedConsumers.createCategory({ category: "Social Science" });
+  await analysisOfSleep.createCategory({ category: "Computer Science" });
+  await analysisOfSleep.createCategory({ category: "Biology" });
 
   //adding scientist to project
   await scientistMurphy.addProject(sharkPaleo);
   await scientistSavannah.addProject(sharkPaleo);
+  await scientistHongni.addProject(sharkPaleo);
+  await scientistHongni.addProject(cephalapodProject);
   await scientistAlecia.addProject(cephalapodProject);
+  await scientistAlex.addProject(bacteriaCave);
+  await scientistEmerson.addProject(bacteriaCave);
+  await scientistChristian.addProject(maternalMortality);
+  await scientistCHyeRim.addProject(maternalMortality);
+  await scientistDocJokes.addProject(funnyJokes);
+  await scientistLinda.addProject(funnyJokes);
+  await scientistHongni.addProject(mommyPrimates);
+  await scientistAlex.addProject(mommyPrimates);
+  await scientistJustin.addProject(sealBehaviorWithAI);
+  await scientistCatherine.addProject(sealBehaviorWithAI);
+  await scientistStefan.addProject(informedConsumers);
+  await scientistLinda.addProject(informedConsumers);
+  await scientistBenjamin.addProject(analysisOfSleep);
+  await scientistLinda.addProject(analysisOfSleep);
+  await scientistCHyeRim.addProject(analysisOfSleep);
+  await scientistAlex.addProject(analysisOfSleep);
 
   console.log(`seeded ${users.length} users`);
   console.log(`seeded successfully`);
@@ -123,16 +517,16 @@ async function seed() {
  The `seed` function is concerned only with modifying the database.
 */
 async function runSeed() {
-  console.log('seeding...');
+  console.log("seeding...");
   try {
     await seed();
   } catch (err) {
     console.error(err);
     process.exitCode = 1;
   } finally {
-    console.log('closing db connection');
+    console.log("closing db connection");
     await db.close();
-    console.log('db connection closed');
+    console.log("db connection closed");
   }
 }
 
