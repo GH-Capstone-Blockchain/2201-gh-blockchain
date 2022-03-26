@@ -52,7 +52,7 @@ export default function Reasons() {
       sx={{
         backgroundColor: "rgba(5, 31, 46, 0.7)",
         borderRadius: "10px",
-        marginTop: "20%",
+        marginTop: "15%",
       }}
     >
       <Grid item xs={12}>
@@ -70,7 +70,7 @@ export default function Reasons() {
       </Grid>
       {reasons1.map((reason) => {
         return (
-          <Grid item xs={4} sx={{ padding: "10px" }}>
+          <Grid item xs={4} sx={{ padding: "10px" }} key={reason.title}>
             <img className="img-icon" src={reason.icon} />
             <Typography
               varient="h4"
@@ -96,7 +96,12 @@ export default function Reasons() {
       })}
       {reasons2.map((reason) => {
         return (
-          <Grid item xs={4} sx={{ padding: "10px", marginTop: "10px" }}>
+          <Grid
+            item
+            xs={4}
+            sx={{ padding: "10px", marginTop: "10px" }}
+            key={reason.title}
+          >
             <img className="img-icon" src={reason.icon} />
             <Typography
               varient="h4"

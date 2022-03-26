@@ -6,6 +6,7 @@ import { fetchProjects } from "../store/projects";
 import Header from "./Header";
 import Reasons from "./Reasons";
 import ProjectsStats from "./ProjectsStats";
+import Team from "./Team";
 
 //style
 import { Button, Typography, Grid, Box, CssBaseline } from "@mui/material";
@@ -38,6 +39,7 @@ function LandingPage(props) {
         <ProjectsStats />
         <Featured projects={props.projects} />
         <Reasons />
+        <Team />
       </Grid>
       <Grid item xs={1}></Grid>
 
