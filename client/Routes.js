@@ -1,8 +1,8 @@
 import React, { Component, Fragment } from "react";
 import { connect } from "react-redux";
 import { Route, Routes, Switch } from "react-router-dom";
-import { Login } from "./components/Login";
-import { Signup } from "./components/SignUp";
+import { Login } from "./components/authForms/Login";
+import { Signup } from "./components/authForms/SignUp";
 import Home from "./components/Home";
 import MainPage from "./components/MainPage";
 import SingleProject from "./components/SingleProject";

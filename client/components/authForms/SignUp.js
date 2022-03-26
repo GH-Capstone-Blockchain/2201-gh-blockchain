@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
-import { authenticate, scientistSignUp } from "../store/auth";
+import { authenticate, scientistSignUp } from "../../store/auth";
 import {
   Box,
   TextField,
@@ -18,7 +18,7 @@ import {
  */
 const AuthForm = (props) => {
   const { name, displayName, error, authenticate, scientistSignUp } = props;
-  
+
   //for radio option between supporter and scientist signup
   const [signupType, setSignupType] = useState({
     type: "",
@@ -33,7 +33,6 @@ const AuthForm = (props) => {
     name: "size-radio-button-demo",
     inputProps: { "aria-label": item },
   });
-
 
   //sign up form functions
   const [form, setForm] = useState({
@@ -50,13 +49,13 @@ const AuthForm = (props) => {
   };
 
   const handleSubmit = (evt) => {
-    if (signupType === 'supporter') {
+    if (signupType === "supporter") {
       evt.preventDefault();
       const formName = evt.target.name;
       const username = evt.target.username.value;
       const password = evt.target.password.value;
       authenticate(username, password, formName);
-    } else if (signupType === 'scientist') {
+    } else if (signupType === "scientist") {
       evt.preventDefault();
       const formName = evt.target.name;
       const username = evt.target.username.value;
@@ -64,10 +63,20 @@ const AuthForm = (props) => {
       const firstName = evt.target.firstName.value;
       const lastName = evt.target.lastName.value;
       const email = evt.target.email.value;
-      scientistSignUp(username, password, firstName, lastName, email, formName);
+      const publications = evt.target.publications.value;
+      const credentials = evt.target.credentials.value;
+      scientistSignUp(
+        username,
+        password,
+        firstName,
+        lastName,
+        email,
+        publications,
+        credentials,
+        formName
+      );
     }
   };
-
 
   return (
     <Box
@@ -82,14 +91,14 @@ const AuthForm = (props) => {
       name={name}
     >
       {/* {scientist/supporter radio} */}
-      <FormControl style={{marginTop: 25 + "px"}}>
+      <FormControl style={{ marginTop: 25 + "px" }}>
         <FormLabel id="demo-row-radio-buttons-group-label">I am a...</FormLabel>
         <RadioGroup
           row
           aria-labelledby="demo-row-radio-buttons-group-label"
           name="row-radio-buttons-group"
           defaultValue="supporter"
-          style={{marginBottom: 10 + "px"}}
+          style={{ marginBottom: 10 + "px" }}
         >
           <FormControlLabel
             value="supporter"
@@ -107,8 +116,19 @@ const AuthForm = (props) => {
       {/* {supporter sign up form} */}
       {signupType === "supporter" ? (
         <div className="form">
-          <TextField required id="username" label="Username" onChange={handleChange}></TextField>
-          <TextField required id="password" label="Password" onChange={handleChange}></TextField>
+          <TextField
+            required
+            id="username"
+            label="Username"
+            onChange={handleChange}
+          ></TextField>
+          <TextField
+            required
+            type="password"
+            id="password"
+            label="Password"
+            onChange={handleChange}
+          ></TextField>
           <div className="login-signup-button">
             <Button type="submit">{displayName}</Button>
           </div>
@@ -118,11 +138,53 @@ const AuthForm = (props) => {
       {/* {scientist sign up form} */}
       {signupType === "scientist" ? (
         <div className="form">
-          <TextField required id="username" label="Username" onChange={handleChange}></TextField>
-          <TextField required id="password" label="Password" onChange={handleChange}></TextField>
-          <TextField required id="firstName" label="First Name" onChange={handleChange}></TextField>
-          <TextField required id="lastName" label="Last Name" onChange={handleChange}></TextField>
-          <TextField required id="email" label="Email" onChange={handleChange}></TextField>
+          <TextField
+            required
+            id="username"
+            label="Username"
+            onChange={handleChange}
+          ></TextField>
+          <TextField
+            required
+            type="password"
+            id="password"
+            label="Password"
+            onChange={handleChange}
+          ></TextField>
+          <TextField
+            required
+            id="firstName"
+            label="First Name"
+            onChange={handleChange}
+          ></TextField>
+          <TextField
+            required
+            id="lastName"
+            label="Last Name"
+            onChange={handleChange}
+          ></TextField>
+          <TextField
+            required
+            id="email"
+            label="Email"
+            onChange={handleChange}
+          ></TextField>
+          <TextField
+            required
+            id="publications"
+            label="Publications"
+            multiline
+            rows={4}
+            onChange={handleChange}
+          ></TextField>
+          <TextField
+            required
+            id="credentials"
+            label="Credentials"
+            multiline
+            rows={4}
+            onChange={handleChange}
+          ></TextField>
           <div className="login-signup-button">
             <Button type="submit">{displayName}</Button>
           </div>
@@ -146,8 +208,21 @@ const mapSignup = (state) => {
 
 const mapDispatch = (dispatch) => {
   return {
-    authenticate: (username, password, method) => dispatch(authenticate(username, password, method)),
-    scientistSignUp: (username, password, firstName, lastName, email, method) => dispatch(scientistSignUp(username, password, firstName, lastName, email, method))
+    authenticate: (username, password, method) =>
+      dispatch(authenticate(username, password, method)),
+    scientistSignUp: (
+      username,
+      password,
+      firstName,
+      lastName,
+      email,
+      publications,
+      credentials,
+      method
+    ) =>
+      dispatch(
+        scientistSignUp(username, password, firstName, lastName, email, publications, credentials, method)
+      ),
   };
 };
 export const Signup = connect(mapSignup, mapDispatch)(AuthForm);

@@ -38,12 +38,18 @@ export const authenticate = (username, password, method) => async dispatch => {
   }
 }
 
-export const scientistSignUp = (username, password, firstName, lastName, email, method) => async dispatch => {
+export const scientistSignUp = (username, password, firstName, lastName, email, publications, credentials, method) => async dispatch => {
   try {
+    //creating user
     const res = await axios.post(`/auth/${method}`, {username, password, firstName, lastName, email})
     window.localStorage.setItem(TOKEN, res.data.token)
-    console.log('=====', res)
-    //add route for credentials form
+    
+    //associating user to scientist
+    const userScientist = await axios.post('/api/scientists', {
+      id: res.data.userId,
+      publications: publications,
+      credentials: credentials
+    })
     dispatch(me())
   } catch (authError) {
     return dispatch(setAuth({error: authError}))

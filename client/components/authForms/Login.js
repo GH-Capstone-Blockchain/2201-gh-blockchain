@@ -1,7 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
-import { authenticate } from "../store";
-import { Box, TextField, Button, Alert, Container } from "@mui/material";
+import { authenticate } from "../../store";
+import { Box, TextField, Button, Alert } from "@mui/material";
 
 /**
  * COMPONENT
@@ -23,7 +23,7 @@ const AuthForm = (props) => {
     >
       <div className="form">
         <TextField required id="username" label="Username"></TextField>
-        <TextField required id="password" label="Password"></TextField>
+        <TextField required type="password" id="password" label="Password"></TextField>
       </div>
       <div className="login-signup-button">
         <Button type="submit">{displayName}</Button>
