@@ -44,14 +44,14 @@ const mommyPrimates = await Project.create({
 });
 
 User.create({
-    username: 'aleciaC',
+    username: 'AlexC',
     password: 'primatesRule',
-    email: 'alecia@seed.js',
-    firstName: 'Alecia',
+    email: 'Alex@seed.js',
+    firstName: 'Alex',
     lastName: 'Carter',
   })
 
-  const scientistAlecia = await users[2].createScientist({
+  const scientistAlex = await users[2].createScientist({
     publications: 'Grooming Practices of Silverback Gorillas',
     credentials: 'Lecturer in Evolutionanry Anthropology at University College London',
   });
