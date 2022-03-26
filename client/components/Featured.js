@@ -26,7 +26,7 @@ export default function Featured(props) {
           sx={{
             backgroundColor: "white",
             padding: "20px",
-            borderRadius: "2%",
+            borderRadius: "10px",
           }}
         >
           <Grid container spacing={2}>

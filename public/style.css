@@ -22,3 +22,18 @@ a {
   width: 80px;
   height: auto;
 }
+
+.stats {
+  font-size: 3em;
+  font-family: "Roboto Condensed";
+}
+
+#project-data {
+  color: #c7feff;
+}
+#supporter-data {
+  color: #ddffc7;
+}
+#fund-data {
+  color: #fff9c7;
+}
