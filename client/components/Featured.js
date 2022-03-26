@@ -1,9 +1,11 @@
 import ProjectCard from "./ProjectCard";
 import { connect } from "react-redux";
+import { Link } from "react-router-dom";
+
 import React from "react";
 
 //style
-import { Typography, Grid, Box } from "@mui/material";
+import { Typography, Grid, Box, Button } from "@mui/material";
 
 export default function Featured(props) {
   //first three projects will be featured
@@ -18,7 +20,7 @@ export default function Featured(props) {
         alignItems: "center",
       }}
     >
-      <Grid item xs={12}>
+      <Grid item xs={10}>
         <Typography
           variant="h4"
           color="white"
@@ -27,6 +29,14 @@ export default function Featured(props) {
         >
           Featured Projects
         </Typography>
+      </Grid>
+      <Grid item xs={2} textAlign="right">
+        <Link to="/projects">
+          <Button variant="contained">See All</Button>
+        </Link>
+      </Grid>
+
+      <Grid item xs={12}>
         <Box
           sx={{
             backgroundColor: "rgba(255, 255, 255, 0.7)",
