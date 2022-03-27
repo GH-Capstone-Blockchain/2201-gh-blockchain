@@ -17,7 +17,7 @@ import LinearProgress, {
   LinearProgressProps,
 } from '@mui/material/LinearProgress';
 import theme from './StyleTheme';
-import {loadWeb3, loadContractData} from '../web3/web3'
+import {loadWeb3, loadContractData} from '../web3/web3';
 
 const SingleProject = (props) => {
   let params = useParams();
@@ -45,7 +45,7 @@ const SingleProject = (props) => {
     const  campaignContract = await loadContractData(props.project.campaign_contract_address);
     setCampaign(campaignContract)
     await campaignContract.methods
-      .donate(2)
+      .donate(props.auth.id)
       .send({ from: account, value: total })
       // .on("transactionHash", (hash) => {
       //   this.setState({ loading: false });
