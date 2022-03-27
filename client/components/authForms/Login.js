@@ -1,7 +1,18 @@
 import React from "react";
 import { connect } from "react-redux";
 import { authenticate } from "../../store";
-import { Box, TextField, Button, Alert } from "@mui/material";
+import {
+  Box,
+  TextField,
+  Button,
+  Alert,
+  Container,
+  CssBaseline,
+  Avatar,
+  Grid,
+  Typography,
+} from "@mui/material";
+import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 
 /**
  * COMPONENT
@@ -10,28 +21,73 @@ const AuthForm = (props) => {
   const { name, displayName, handleSubmit, error } = props;
 
   return (
-    <Box
-      className="form"
-      component="form"
+    <Grid
+      container
+      spacing={2}
       sx={{
-        "& .MuiTextField-root": { m: 1, width: "25ch" },
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        // background: "#051f2e",
       }}
-      noValidate
-      autoComplete="off"
-      onSubmit={handleSubmit}
-      name={name}
     >
-      <div className="form">
-        <TextField required id="username" label="Username"></TextField>
-        <TextField required type="password" id="password" label="Password"></TextField>
-      </div>
-      <div className="login-signup-button">
-        <Button type="submit">{displayName}</Button>
-      </div>
-      {error && error.response && (
-        <Alert severity="error"> {error.response.data} </Alert>
-      )}
-    </Box>
+      <Grid item xs={12} sx={{ margin: "10px" }}></Grid>
+      <Container component="main" maxWidth="sm">
+        <CssBaseline />
+        <Box
+          sx={{
+            marginTop: 8,
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+          }}
+        >
+          <Box
+            className="form"
+            component="form"
+            sx={{
+              "& .MuiTextField-root": { m: 1, width: "25ch" },
+            }}
+            noValidate
+            autoComplete="off"
+            onSubmit={handleSubmit}
+            name={name}
+          >
+            <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
+              <LockOutlinedIcon />
+            </Avatar>
+            <Typography color="secondary" component="h1" variant="h5">
+              {displayName}
+            </Typography>
+            <TextField
+              required
+              id="username"
+              label="Username"
+              fullWidth
+            ></TextField>
+            <TextField
+              fullWidth
+              required
+              type="password"
+              id="password"
+              label="Password"
+            ></TextField>
+            <Button
+              type="submit"
+              fullWidth
+              variant="contained"
+              sx={{ mt: 3, mb: 2 }}
+            >
+              {displayName}
+            </Button>
+            {error && error.response && (
+              <Alert severity="error"> {error.response.data} </Alert>
+            )}
+          </Box>
+        </Box>
+      </Container>
+      <Grid item xs={12} sx={{ margin: "7%" }}></Grid>
+    </Grid>
   );
 };
 

@@ -10,7 +10,7 @@ export default function Footer() {
         left: "0",
         bottom: "0",
         backgroundColor: "#051f2e",
-        padding: "70px",
+        padding: "50px",
         opacity: "0.8",
         display: "flex",
         alignItems: "center",
