@@ -17,7 +17,7 @@ import {
 
 const Navbar = ({ handleClick, isLoggedIn }) => (
   <Box sx={{ flexGrow: 1 }}>
-    <AppBar position="fixed" elevation={0} style={{ background: "#163147" }}>
+    <AppBar position="fixed" elevation={0} style={{ background: "#051f2e" }}>
       <Toolbar sx={{ display: "flex", justifyContent: "space-between" }}>
         <Link to="/">
           <Box
@@ -25,9 +25,11 @@ const Navbar = ({ handleClick, isLoggedIn }) => (
             sx={{
               height: 64,
               flexGrow: 5,
+              marginTop: "15%",
+              marginBottom: "15%",
             }}
             alt="DeSci Funder"
-            src="/DeSci_Logo2.png"
+            src="/logo.png"
           />
         </Link>
         <Link to="/">
@@ -36,14 +38,17 @@ const Navbar = ({ handleClick, isLoggedIn }) => (
             variant="h5"
             sx={{ letterSpacing: 5, m: 1, fontWeight: "bold" }}
           >
-            <span className="main-title-span">DeSci </span>Funder
+            De
+            <span className="main-title-span">Sci </span>Funder
           </Typography>
         </Link>
 
         {isLoggedIn ? (
           <div>
             {/* The navbar will show these links after you log in */}
-            <Link to="/home">Home</Link>
+            <Link to="/projects">
+              <Button>All Projects</Button>
+            </Link>
             <a href="#" onClick={handleClick}>
               Logout
             </a>
@@ -51,6 +56,10 @@ const Navbar = ({ handleClick, isLoggedIn }) => (
         ) : (
           <div>
             {/* The navbar will show these links before you log in */}
+            <Link to="/projects">
+              <Button>All Projects</Button>
+            </Link>
+
             <Link to="/login">
               <Button>Login</Button>
             </Link>

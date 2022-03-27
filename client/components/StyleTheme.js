@@ -5,14 +5,14 @@ import Button from "@mui/material/Button";
 const theme = createTheme({
   palette: {
     primary: {
-      light: "#80deea",
-      main: "#0097a7",
-      dark: "#00838f",
+      light: "#c4fcf7",
+      main: "#8aded6",
+      dark: "#95fff6",
       contrastText: "#fff",
     },
     secondary: {
       light: "#ef9a9a",
-      main: "#fe6d73",
+      main: "#fdff7e",
       dark: "#fe6d73",
       contrastText: "#000",
     },

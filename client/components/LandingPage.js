@@ -5,9 +5,11 @@ import { connect } from "react-redux";
 import { fetchProjects } from "../store/projects";
 import Header from "./Header";
 import Reasons from "./Reasons";
+import ProjectsStats from "./ProjectsStats";
+import Team from "./Team";
 
 //style
-import { Button, Typography, Grid, Box, CssBaseline } from "@mui/material";
+import { Grid } from "@mui/material";
 
 function LandingPage(props) {
   useEffect(async () => {
@@ -32,17 +34,14 @@ function LandingPage(props) {
         <ParticlesComp />
       </Grid>
       <Header />
-      <Grid item xs={3}></Grid>
-      <Grid item xs={6}>
+      <Grid item xs={1}></Grid>
+      <Grid item xs={10} style={{ maxWidth: "1000px" }}>
+        <ProjectsStats />
         <Featured projects={props.projects} />
-      </Grid>
-      <Grid item xs={3}></Grid>
-
-      <Grid item xs={3}></Grid>
-      <Grid item xs={6}>
         <Reasons />
+        <Team />
       </Grid>
-      <Grid item xs={3}></Grid>
+      <Grid item xs={1}></Grid>
 
       {/* <Grid container>
         <section id="carousel">

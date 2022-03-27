@@ -12,10 +12,13 @@ export default function Header() {
         >
           Support your scientists
           <span className="main-title-span"> directly</span> <br /> through
-          DeSci Funder
+          <span className="main-title-blue"> De</span>
+          <span className="main-title-span">Sci </span>
+          <span className="main-title-blue">Funder</span>
         </Typography>
         <Typography
-          color="primary"
+          marginTop="30px"
+          color="primary.light"
           variant="h5"
           textAlign="center"
           sx={{ fontFamily: "Roboto Condensed" }}
@@ -24,7 +27,7 @@ export default function Header() {
         </Typography>
       </Grid>
       <Grid item xs={12} textAlign="center">
-        <Button variant="contained" sx={{ mt: 4, mb: 2 }}>
+        <Button variant="contained" sx={{ mt: 4, mb: 2, color: "#051f2e" }}>
           Start Here
         </Button>
       </Grid>

@@ -1,11 +1,14 @@
 .main-title-span {
-  color: #fe6d73;
+  color: #fdfe9c;
+}
+.main-title-blue {
+  color: #8aded6;
 }
 
 a {
   text-decoration: none;
 }
- 
+
 .form {
   display: flex;
   flex-direction: column;
@@ -16,4 +19,25 @@ a {
 
 .login-signup-button {
   margin: 15px;
+}
+
+.img-icon {
+  width: 80px;
+  height: auto;
+  margin: 10px;
+}
+
+.stats {
+  font-size: 3em;
+  font-family: "Roboto Condensed";
+}
+
+#project-data {
+  color: #c7feff;
+}
+#supporter-data {
+  color: #d6f9d1;
+}
+#fund-data {
+  color: #fdff7e;
 }
