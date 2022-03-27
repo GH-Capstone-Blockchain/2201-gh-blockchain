@@ -11,7 +11,7 @@ import {
   Typography,
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
-import MuiAppBar from '@mui/material/AppBar';
+import MuiAppBar from "@mui/material/AppBar";
 import { styled, useTheme } from "@mui/material/styles";
 import { connect } from "react-redux";
 import { fetchProjects } from "../store/projects";

@@ -11,7 +11,13 @@ import {
   Radio,
   FormLabel,
   FormControl,
+  Grid,
+  Container,
+  Avatar,
+  CssBaseline,
+  Typography,
 } from "@mui/material";
+import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 
 /**
  * COMPONENT
@@ -79,125 +85,169 @@ const AuthForm = (props) => {
   };
 
   return (
-    <Box
-      className="form"
-      component="form"
+    <Grid
+      container
+      spacing={2}
       sx={{
-        "& .MuiTextField-root": { m: 1, width: "25ch" },
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        // background: "#051f2e",
       }}
-      noValidate
-      autoComplete="off"
-      onSubmit={handleSubmit}
-      name={name}
     >
-      {/* {scientist/supporter radio} */}
-      <FormControl style={{ marginTop: 25 + "px" }}>
-        <FormLabel id="demo-row-radio-buttons-group-label">I am a...</FormLabel>
-        <RadioGroup
-          row
-          aria-labelledby="demo-row-radio-buttons-group-label"
-          name="row-radio-buttons-group"
-          defaultValue="supporter"
-          style={{ marginBottom: 10 + "px" }}
+      <Grid item xs={12} sx={{ margin: "10px" }}></Grid>
+      <Container component="main" maxWidth="sm">
+        <CssBaseline />
+        <Box
+          sx={{
+            marginTop: 8,
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+          }}
         >
-          <FormControlLabel
-            value="supporter"
-            control={<Radio {...controlProps("supporter")} size="small" />}
-            label="Supporter"
-          />
-          <FormControlLabel
-            value="scientist"
-            control={<Radio {...controlProps("scientist")} size="small" />}
-            label="Scientist"
-          />
-        </RadioGroup>
-      </FormControl>
+          <Box
+            className="form"
+            component="form"
+            sx={{
+              "& .MuiTextField-root": { m: 1, width: "25ch" },
+            }}
+            noValidate
+            autoComplete="off"
+            onSubmit={handleSubmit}
+            name={name}
+          >
+            <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
+              <LockOutlinedIcon />
+            </Avatar>
+            <Typography color="secondary" component="h1" variant="h5">
+              {displayName}
+            </Typography>
+            {/* {scientist/supporter radio} */}
+            <FormControl style={{ marginTop: 25 + "px" }}>
+              <FormLabel id="demo-row-radio-buttons-group-label">
+                I am a...
+              </FormLabel>
+              <RadioGroup
+                row
+                aria-labelledby="demo-row-radio-buttons-group-label"
+                name="row-radio-buttons-group"
+                defaultValue="supporter"
+                style={{ marginBottom: 10 + "px" }}
+              >
+                <FormControlLabel
+                  value="supporter"
+                  control={
+                    <Radio {...controlProps("supporter")} size="small" />
+                  }
+                  label="Supporter"
+                />
+                <FormControlLabel
+                  value="scientist"
+                  control={
+                    <Radio {...controlProps("scientist")} size="small" />
+                  }
+                  label="Scientist"
+                />
+              </RadioGroup>
+            </FormControl>
+            {/* {supporter sign up form} */}
+            {signupType === "supporter" ? (
+              <div className="form">
+                <TextField
+                  required
+                  id="username"
+                  label="Username"
+                  onChange={handleChange}
+                ></TextField>
+                <TextField
+                  required
+                  type="password"
+                  id="password"
+                  label="Password"
+                  onChange={handleChange}
+                ></TextField>
+                <Button
+                  type="submit"
+                  fullWidth
+                  variant="contained"
+                  sx={{ mt: 3, mb: 2 }}
+                >
+                  {displayName}
+                </Button>
+              </div>
+            ) : null}
 
-      {/* {supporter sign up form} */}
-      {signupType === "supporter" ? (
-        <div className="form">
-          <TextField
-            required
-            id="username"
-            label="Username"
-            onChange={handleChange}
-          ></TextField>
-          <TextField
-            required
-            type="password"
-            id="password"
-            label="Password"
-            onChange={handleChange}
-          ></TextField>
-          <div className="login-signup-button">
-            <Button type="submit">{displayName}</Button>
-          </div>
-        </div>
-      ) : null}
+            {/* {scientist sign up form} */}
+            {signupType === "scientist" ? (
+              <div className="form">
+                <TextField
+                  required
+                  id="username"
+                  label="Username"
+                  onChange={handleChange}
+                ></TextField>
+                <TextField
+                  required
+                  type="password"
+                  id="password"
+                  label="Password"
+                  onChange={handleChange}
+                ></TextField>
+                <TextField
+                  required
+                  id="firstName"
+                  label="First Name"
+                  onChange={handleChange}
+                ></TextField>
+                <TextField
+                  required
+                  id="lastName"
+                  label="Last Name"
+                  onChange={handleChange}
+                ></TextField>
+                <TextField
+                  required
+                  id="email"
+                  label="Email"
+                  onChange={handleChange}
+                ></TextField>
+                <TextField
+                  required
+                  id="publications"
+                  label="Publications"
+                  multiline
+                  rows={4}
+                  onChange={handleChange}
+                ></TextField>
+                <TextField
+                  required
+                  id="credentials"
+                  label="Credentials"
+                  multiline
+                  rows={4}
+                  onChange={handleChange}
+                ></TextField>
+                <Button
+                  type="submit"
+                  fullWidth
+                  variant="contained"
+                  sx={{ mt: 3, mb: 2 }}
+                >
+                  {displayName}
+                </Button>
+              </div>
+            ) : null}
 
-      {/* {scientist sign up form} */}
-      {signupType === "scientist" ? (
-        <div className="form">
-          <TextField
-            required
-            id="username"
-            label="Username"
-            onChange={handleChange}
-          ></TextField>
-          <TextField
-            required
-            type="password"
-            id="password"
-            label="Password"
-            onChange={handleChange}
-          ></TextField>
-          <TextField
-            required
-            id="firstName"
-            label="First Name"
-            onChange={handleChange}
-          ></TextField>
-          <TextField
-            required
-            id="lastName"
-            label="Last Name"
-            onChange={handleChange}
-          ></TextField>
-          <TextField
-            required
-            id="email"
-            label="Email"
-            onChange={handleChange}
-          ></TextField>
-          <TextField
-            required
-            id="publications"
-            label="Publications"
-            multiline
-            rows={4}
-            onChange={handleChange}
-          ></TextField>
-          <TextField
-            required
-            id="credentials"
-            label="Credentials"
-            multiline
-            rows={4}
-            onChange={handleChange}
-          ></TextField>
-          <div className="login-signup-button">
-            <Button type="submit">{displayName}</Button>
-          </div>
-        </div>
-      ) : null}
-
-      {error && error.response && (
-        <Alert severity="error"> {error.response.data} </Alert>
-      )}
-    </Box>
+            {error && error.response && (
+              <Alert severity="error"> {error.response.data} </Alert>
+            )}
+          </Box>
+        </Box>
+      </Container>
+    </Grid>
   );
 };
-
 const mapSignup = (state) => {
   return {
     name: "signup",
@@ -221,7 +271,16 @@ const mapDispatch = (dispatch) => {
       method
     ) =>
       dispatch(
-        scientistSignUp(username, password, firstName, lastName, email, publications, credentials, method)
+        scientistSignUp(
+          username,
+          password,
+          firstName,
+          lastName,
+          email,
+          publications,
+          credentials,
+          method
+        )
       ),
   };
 };

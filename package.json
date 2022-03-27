@@ -42,6 +42,7 @@
     "morgan": "^1.10.0",
     "node-polyfill-webpack-plugin": "^1.1.4",
     "pg": "^8.7.3",
+    "react-awesome-reveal": "^3.8.1",
     "react-material-ui-carousel": "^3.2.0",
     "react-scroll": "^1.8.6",
     "react-spring": "^9.4.4",
