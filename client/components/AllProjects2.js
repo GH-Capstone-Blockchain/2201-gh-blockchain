@@ -42,6 +42,7 @@ function AllProjects(props) {
       </Grid>
 
       <Grid item xs={1} />
+      <Grid item xs={12} sx={{ margin: "7%" }}></Grid>
     </Grid>
   );
 }
