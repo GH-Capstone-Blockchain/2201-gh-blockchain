@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Typography, Grid, Avatar, Box, IconButton } from "@mui/material";
 import { Link } from "react-router-dom";
+import { Fade } from "react-awesome-reveal";
 
 const teamMembers = [
   {
@@ -36,49 +37,51 @@ const suffledMember = (teamMembers) => {
 };
 export default function Team() {
   return (
-    <Grid
-      container
-      textAlign="center"
-      sx={{
-        marginTop: "10%",
-      }}
-    >
-      <Grid item xs={12}>
-        <Typography
-          variant="h3"
-          sx={{
-            color: "white",
-            fontFamily: "Roboto Condensed",
-            marginBottom: "5%",
-          }}
-        >
-          {" "}
-          Meet the Team
-        </Typography>
+    <Fade down delay={200} duration={1000}>
+      <Grid
+        container
+        textAlign="center"
+        sx={{
+          marginTop: "10%",
+        }}
+      >
+        <Grid item xs={12}>
+          <Typography
+            variant="h3"
+            sx={{
+              color: "white",
+              fontFamily: "Roboto Condensed",
+              marginBottom: "5%",
+            }}
+          >
+            {" "}
+            Meet the Team
+          </Typography>
+        </Grid>
+        {suffledMember(teamMembers).map((member) => {
+          return (
+            <Grid item xs={3} sx={{ padding: "10px" }} key={member.name}>
+              <a href={member.linkedInUrl} target="_blank">
+                <Avatar
+                  src={member.img}
+                  alt="Remy Sharp"
+                  sx={{ width: 200, height: 200 }}
+                />
+              </a>
+              <Typography
+                varient="h4"
+                sx={{
+                  color: "white",
+                  fontFamily: "Roboto Condensed",
+                  fontSize: "1.5em",
+                }}
+              >
+                {member.name}
+              </Typography>
+            </Grid>
+          );
+        })}
       </Grid>
-      {suffledMember(teamMembers).map((member) => {
-        return (
-          <Grid item xs={3} sx={{ padding: "10px" }} key={member.name}>
-            <a href={member.linkedInUrl} target="_blank">
-              <Avatar
-                src={member.img}
-                alt="Remy Sharp"
-                sx={{ width: 200, height: 200 }}
-              />
-            </a>
-            <Typography
-              varient="h4"
-              sx={{
-                color: "white",
-                fontFamily: "Roboto Condensed",
-                fontSize: "1.5em",
-              }}
-            >
-              {member.name}
-            </Typography>
-          </Grid>
-        );
-      })}
-    </Grid>
+    </Fade>
   );
 }

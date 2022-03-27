@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { Button, Typography, Grid, Box } from "@mui/material";
 
+import { Fade } from "react-awesome-reveal";
+
 export default function Header() {
   return (
     <Grid container>

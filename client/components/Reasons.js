@@ -1,7 +1,6 @@
 import React from "react";
 import { Button, Typography, Grid, Box } from "@mui/material";
-
-import {} from "@mui/icons-material";
+import { Fade } from "react-awesome-reveal";
 
 const reasons1 = [
   {
@@ -46,85 +45,88 @@ const reasons2 = [
 
 export default function Reasons() {
   return (
-    <Grid
-      container
-      textAlign="center"
-      sx={{
-        backgroundColor: "rgba(5, 31, 46, 0.7)",
-        borderRadius: "10px",
-        marginTop: "15%",
-      }}
-    >
-      <Grid item xs={12}>
-        <Typography
-          variant="h3"
-          sx={{
-            color: "white",
-            fontFamily: "Roboto Condensed",
-            marginBottom: "5%",
-          }}
-        >
-          {" "}
-          No more platform fees
-        </Typography>
-      </Grid>
-      {reasons1.map((reason) => {
-        return (
-          <Grid item xs={4} sx={{ padding: "10px" }} key={reason.title}>
-            <img className="img-icon" src={reason.icon} />
-            <Typography
-              varient="h4"
-              sx={{
-                color: "white",
-                fontFamily: "Roboto Condensed",
-                fontSize: "1.5em",
-              }}
-            >
-              {reason.title}
-            </Typography>
-            <Typography
-              sx={{
-                color: "#d8e2dc",
-                fontWeight: "light",
-                padding: "10px",
-              }}
-            >
-              {reason.detail}
-            </Typography>
-          </Grid>
-        );
-      })}
-      {reasons2.map((reason) => {
-        return (
-          <Grid
-            item
-            xs={4}
-            sx={{ padding: "10px", marginTop: "10px" }}
-            key={reason.title}
+    <Fade down delay={200} duration={1000}>
+      <Grid
+        container
+        textAlign="center"
+        sx={{
+          backgroundColor: "rgba(5, 31, 46, 0.7)",
+          borderRadius: "10px",
+          marginTop: "15%",
+        }}
+      >
+        <Grid item xs={12}>
+          <Typography
+            variant="h3"
+            sx={{
+              color: "white",
+              fontFamily: "Roboto Condensed",
+              marginBottom: "5%",
+            }}
           >
-            <img className="img-icon" src={reason.icon} />
-            <Typography
-              varient="h4"
-              sx={{
-                color: "white",
-                fontFamily: "Roboto Condensed",
-                fontSize: "1.5em",
-              }}
+            {" "}
+            No more platform fees
+          </Typography>
+        </Grid>
+        {reasons1.map((reason) => {
+          return (
+            <Grid item xs={4} sx={{ padding: "10px" }} key={reason.title}>
+              <img className="img-icon" src={reason.icon} />
+              <Typography
+                varient="h4"
+                sx={{
+                  color: "white",
+                  fontFamily: "Roboto Condensed",
+                  fontSize: "1.5em",
+                }}
+              >
+                {reason.title}
+              </Typography>
+              <Typography
+                sx={{
+                  color: "#d8e2dc",
+                  fontWeight: "light",
+                  padding: "10px",
+                }}
+              >
+                {reason.detail}
+              </Typography>
+            </Grid>
+          );
+        })}
+
+        {reasons2.map((reason) => {
+          return (
+            <Grid
+              item
+              xs={4}
+              sx={{ padding: "10px", marginTop: "10px" }}
+              key={reason.title}
             >
-              {reason.title}
-            </Typography>
-            <Typography
-              sx={{
-                color: "#d8e2dc",
-                fontWeight: "light",
-                padding: "10px",
-              }}
-            >
-              {reason.detail}
-            </Typography>
-          </Grid>
-        );
-      })}
-    </Grid>
+              <img className="img-icon" src={reason.icon} />
+              <Typography
+                varient="h4"
+                sx={{
+                  color: "white",
+                  fontFamily: "Roboto Condensed",
+                  fontSize: "1.5em",
+                }}
+              >
+                {reason.title}
+              </Typography>
+              <Typography
+                sx={{
+                  color: "#d8e2dc",
+                  fontWeight: "light",
+                  padding: "10px",
+                }}
+              >
+                {reason.detail}
+              </Typography>
+            </Grid>
+          );
+        })}
+      </Grid>
+    </Fade>
   );
 }
