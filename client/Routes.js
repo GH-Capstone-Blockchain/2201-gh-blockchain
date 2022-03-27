@@ -6,7 +6,7 @@ import { Signup } from "./components/authForms/SignUp";
 import Home from "./components/Home";
 import LandingPage from "./components/LandingPage";
 import SingleProject from "./components/SingleProject";
-import AllProjects from "./components/AllProjects";
+import AllProjects from "./components/AllProjects2";
 import AddProjectForm from "./components/AddProjectForm";
 import ScientistsDropDown from "./components/smallComponents/ScientistsDropDown";
 import TestingPage from "./components/Testing";
