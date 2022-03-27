@@ -9,7 +9,7 @@ import ProjectsStats from "./ProjectsStats";
 import Team from "./Team";
 
 //style
-import { Button, Typography, Grid, Box, CssBaseline } from "@mui/material";
+import { Grid } from "@mui/material";
 
 function LandingPage(props) {
   useEffect(async () => {

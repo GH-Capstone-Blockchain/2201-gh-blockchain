@@ -63,7 +63,7 @@ export default function ProjectsStats() {
         <Typography
           varient="h4"
           sx={{
-            color: "#ddffc7",
+            color: "#d6f9d1",
             fontFamily: "Roboto Condensed",
             fontSize: "1.5em",
           }}
@@ -78,7 +78,7 @@ export default function ProjectsStats() {
         <Typography
           varient="h4"
           sx={{
-            color: "#fff9c7",
+            color: "#fbfda7",
             fontFamily: "Roboto Condensed",
             fontSize: "1.5em",
           }}

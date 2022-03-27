@@ -38,14 +38,17 @@ const Navbar = ({ handleClick, isLoggedIn }) => (
             variant="h5"
             sx={{ letterSpacing: 5, m: 1, fontWeight: "bold" }}
           >
-            <span className="main-title-span">DeSci </span>Funder
+            De
+            <span className="main-title-span">Sci </span>Funder
           </Typography>
         </Link>
 
         {isLoggedIn ? (
           <div>
             {/* The navbar will show these links after you log in */}
-            <Link to="/home">Home</Link>
+            <Link to="/projects">
+              <Button>All Projects</Button>
+            </Link>
             <a href="#" onClick={handleClick}>
               Logout
             </a>
@@ -53,6 +56,10 @@ const Navbar = ({ handleClick, isLoggedIn }) => (
         ) : (
           <div>
             {/* The navbar will show these links before you log in */}
+            <Link to="/projects">
+              <Button>All Projects</Button>
+            </Link>
+
             <Link to="/login">
               <Button>Login</Button>
             </Link>
