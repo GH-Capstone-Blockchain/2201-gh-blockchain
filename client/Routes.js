@@ -10,6 +10,7 @@ import AllProjects from "./components/AllProjects2";
 import AddProjectForm from "./components/AddProjectForm";
 import ScientistsDropDown from "./components/smallComponents/ScientistsDropDown";
 import TestingPage from "./components/Testing";
+import ProfilePage from "./components/userProfile/ProfilePage";
 
 import { me } from "./store";
 
@@ -78,6 +79,7 @@ class Routers extends Component {
             <Route path="addproject" element={<AddProjectForm />} />
             <Route path="dropdown" element={<ScientistsDropDown />} />
             <Route path="test" element={<TestingPage />} />
+            <Route path="/user/:id" element={<ProfilePage />} />
             {/* <Route path="/loggedin" element={<Home />} /> */}
           </Routes>
         ) : (
@@ -90,6 +92,7 @@ class Routers extends Component {
             <Route path="login" element={<Login />} />
             <Route path="/signup" element={<Signup />} />
             <Route path="dropdown" element={<ScientistsDropDown />} />
+            <Route path="/user/:id" element={<ProfilePage />} />
             <Route path="test" element={<TestingPage />} />
           </Routes>
         )}
