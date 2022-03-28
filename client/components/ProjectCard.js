@@ -10,6 +10,7 @@ import {
   Box,
   LinearProgress,
 } from "@mui/material";
+import {Link} from 'react-router-dom'
 
 export default function ProjectCard(props) {
   const project = props.project;
@@ -21,9 +22,11 @@ export default function ProjectCard(props) {
     }
   };
   return (
+    
     <Card sx={{ maxWidth: 500 }} variant="outlined">
-      <CardActionArea>
+      <CardActionArea component={Link} to={`projects/${project.id}`}>
         <CardMedia component="img" height="140" image={project.imageUrl} />
+  
         <CardContent>
           <Box
             sx={{ height: 40, textOverflow: "ellipsis", overflow: "hidden" }}
@@ -54,7 +57,9 @@ export default function ProjectCard(props) {
         <Button size="small" color="primary">
           +Donate
         </Button>
+        
       </CardActions>
     </Card>
+    
   );
 }
