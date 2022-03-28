@@ -9,11 +9,11 @@ const ProjectDashboard = (props) => {
   let id = parseInt(params.id);
 
   const [form, setForm] = useState({
-    name: '',
+    name: props.project.name || '',
     description: '',
     imageUrl: '',
-    videoUrl: '',
-    project_timeline_start: '',
+    videoUrl: props.project.videoUrl || '',
+    project_timeline_start: props.project_timeline_start || '',
     project_timeline_end: '',
   });
 
