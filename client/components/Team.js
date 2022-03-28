@@ -6,7 +6,7 @@ import { Fade } from "react-awesome-reveal";
 const teamMembers = [
   {
     name: "Anna Hippee",
-    img: "https://media-exp1.licdn.com/dms/image/D4E35AQFuMjtqUTxn8w/profile-framedphoto-shrink_800_800/0/1647565893459?e=1648418400&v=beta&t=RO14PRARUuNv1nyRWTeyaDXGyVgTEjKrjgL05PLrxIM",
+    img: "annaH.jpg",
     linkedInUrl: "https://www.linkedin.com/in/annahippee/",
   },
   {
@@ -16,12 +16,12 @@ const teamMembers = [
   },
   {
     name: "Ju Hye Hwoang",
-    img: "https://media-exp1.licdn.com/dms/image/D4D35AQG5oUooTjmBig/profile-framedphoto-shrink_800_800/0/1647734337562?e=1648418400&v=beta&t=crsdLDSweteLfyOn63zrDAD8pLeR28IZg1n178fqjU0",
+    img: "grace.jpg",
     linkedInUrl: "https://www.linkedin.com/in/juhyehwoang/",
   },
   {
     name: "Vivian Baik",
-    img: "https://media-exp1.licdn.com/dms/image/C4D03AQHX2GrTKWlC2Q/profile-displayphoto-shrink_800_800/0/1516787163377?e=1653523200&v=beta&t=tMGxrt7uWK2a5svBDTh-QFu8Nza-cUG_LYLtoIVIenU",
+    img: "vivian.jpg",
     linkedInUrl: "https://www.linkedin.com/in/vivianbaik/",
   },
 ];
