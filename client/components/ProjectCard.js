@@ -24,7 +24,7 @@ export default function ProjectCard(props) {
   return (
     
     <Card sx={{ maxWidth: 500 }} variant="outlined">
-      <CardActionArea component={Link} to={`projects/${project.id}`}>
+      <CardActionArea component={Link} to={`/projects/${project.id}`}>
         <CardMedia component="img" height="140" image={project.imageUrl} />
   
         <CardContent>
