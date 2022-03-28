@@ -122,7 +122,7 @@ const capitalizeName = (user) => {
   user.lastName = user.lastName.charAt(0).toUpperCase() + user.lastName.slice(1).toLowerCase()
 }
 
-User.beforeCreate(capitalizeName)
+// User.beforeCreate(capitalizeName) //... does not work when supporter signs up because firstname and lastname is not required to sign up
 User.beforeCreate(hashPassword);
 User.beforeUpdate(hashPassword);
 User.beforeBulkCreate((users) => Promise.all(users.map(hashPassword)));
