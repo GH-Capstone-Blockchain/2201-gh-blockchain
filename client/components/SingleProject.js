@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { Link, useParams } from 'react-router-dom';
 import { fetchProject } from '../store/singleProject';
+import { fetchContributions, createContribution } from '../store/contributions';
 import {
   Typography,
   Box,
@@ -17,22 +18,23 @@ import LinearProgress, {
   LinearProgressProps,
 } from '@mui/material/LinearProgress';
 import theme from './StyleTheme';
-import {loadWeb3, loadContractData} from '../web3/web3';
+import { loadWeb3, loadContractData } from '../web3/web3';
 
 const SingleProject = (props) => {
   let params = useParams();
   let id = parseInt(params.id);
-  const [campaign, setCampaign] = useState({})
-  const [account, setAccount] = useState('')
-  
+  const [campaign, setCampaign] = useState({});
+  const [account, setAccount] = useState('');
 
+  
   useEffect(() => {
     const fetchData = async () => {
       try {
         await props.fetchProject(id);
+        await props.fetchContributions(id);
         const accountAddress = await loadWeb3();
-        setAccount(accountAddress[0])
-
+        setAccount(accountAddress[0]);
+        console.log(totalContributions);
       } catch (error) {
         console.error('error in fetchData', error);
       }
@@ -41,19 +43,24 @@ const SingleProject = (props) => {
   }, []);
 
   const handleDonate = async () => {
-    const total = window.web3.utils.toWei("0.2", "Ether")
-    const  campaignContract = await loadContractData(props.project.campaign_contract_address);
-    setCampaign(campaignContract)
-    await campaignContract.methods
-      .donate(props.auth.id)
-      .send({ from: account, value: total })
-      // .on("transactionHash", (hash) => {
-      //   this.setState({ loading: false });
-      // });
-  }
-
-
-
+    try {
+      const total = window.web3.utils.toWei('0.05', 'Ether');
+      const campaignContract = await loadContractData(
+        props.project.campaign_contract_address
+      );
+      setCampaign(campaignContract);
+      await campaignContract.methods
+        .donate(props.auth.id)
+        .send({ from: account, value: total });
+      // Had to hardcode in 100 because the wei amount creates sequelize errors (too big of integer -- need to address this);
+      await props.createContribution(id, props.auth.id, 100);
+    } catch (error) {
+      console.error('error in handleDonate', error);
+    }
+    // .on("transactionHash", (hash) => {
+    //   this.setState({ loading: false });
+    // });
+  };
   if (!props.project) {
     return <div>Data is loading...</div>;
   }
@@ -124,7 +131,7 @@ const SingleProject = (props) => {
             {props.project.project_timeline_end}
           </Typography>
 
-          <Card style={{display: 'inline-block'}}>
+          <Card style={{ display: 'inline-block' }}>
             <CardContent>
               {/* Progress Label */}
               <Typography
@@ -132,10 +139,10 @@ const SingleProject = (props) => {
                 margin="15px"
                 sx={{ fontWeight: 'bold' }}
               >
-                0% of {props.project.fundraising_goal}
+                0% of{' '}
+                {props.project.fundraising_goal}
               </Typography>
-              
-
+              {/* Need to add contribution data here */}
               <Box margin="15px" sx={{ display: 'flex', alignItems: 'center' }}>
                 <Box sx={{ width: '40%', mr: 1 }}>
                   <LinearProgress variant="determinate" value={0} />
@@ -182,12 +189,16 @@ const mapState = (state) => {
     auth: state.auth,
     project: state.project.project,
     scientists: state.project.scientists,
+    contributions: state.contributions,
   };
 };
 
 const mapDispatch = (dispatch) => {
   return {
     fetchProject: (projectId) => dispatch(fetchProject(projectId)),
+    fetchContributions: (projectId) => dispatch(fetchContributions(projectId)),
+    createContribution: (projectId, userId, contributionAmt) =>
+      dispatch(createContribution(projectId, userId, contributionAmt)),
   };
 };
 
