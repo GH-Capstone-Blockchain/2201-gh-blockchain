@@ -3,7 +3,7 @@ import axios from 'axios';
 // action type constants
 
 const FETCH_PROJECT = 'FETCH_PROJECT';
-// const UPDATE_PROJECT = 'UPDATE_PROJECT';
+const UPDATE_PROJECT = 'UPDATE_PROJECT';
 
 // action creators
 
@@ -15,12 +15,12 @@ const _fetchProject = (project, scientists) => {
   };
 };
 
-// const _updateProject = (project) => {
-//   return {
-//     type: UPDATE_PROJECT,
-//     project,
-//   };
-// };
+const _updateProject = (project) => {
+  return {
+    type: UPDATE_PROJECT,
+    project,
+  };
+};
 
 // thunks
 
@@ -40,8 +40,13 @@ export const fetchProject = (projectId) => {
 export const updateProject = (updatedProject) => {
   return async (dispatch) => {
     try {
-        const { data } = await axios.put(`api/projects/:${updatedProject.id}`, updatedProject);
-        dispatch(fetchProject(updatedProject.id))
+      console.log(updatedProject);
+      const { data } = await axios.put(
+        `/api/projects/${updatedProject.id}`,
+        updatedProject
+      );
+      console.log(data);
+      dispatch(_updateProject(updatedProject));
     } catch (error) {
       console.error('Error in updateProject thunk', error);
     }
@@ -61,6 +66,8 @@ export default function singleProjectReducer(
         project: action.project,
         scientists: action.scientists,
       };
+    case UPDATE_PROJECT:
+      return state;
     default:
       return state;
   }
