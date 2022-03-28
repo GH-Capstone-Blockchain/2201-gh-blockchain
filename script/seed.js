@@ -2,7 +2,7 @@
 
 const {
   db,
-  models: { User, Project },
+  models: { User, Project, Contribution },
 } = require("../server/db");
 
 /**
@@ -592,6 +592,9 @@ async function seed() {
   await scientistCHyeRim.addProject(romeNewCities);
   await scientistJustin.addProject(marinePollution);
 
+  await marinePollution.createContribution({userId: 3, contributionAmount: 3})
+  await marinePollution.createContribution({userId: 4, contributionAmount: 5})
+
   console.log(`seeded ${users.length} users`);
   console.log(`seeded successfully`);
   return {
@@ -601,6 +604,10 @@ async function seed() {
     },
   };
 }
+
+
+
+
 
 /*
  We've separated the `seed` function from the `runSeed` function.

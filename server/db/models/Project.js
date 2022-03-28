@@ -38,6 +38,10 @@ const Project = db.define('project', {
         type: Sequelize.INTEGER, 
         // allowNull: false,
     },
+    reachedGoal: {
+        type: Sequelize.BOOLEAN, 
+        defaultValue: false
+    },
     isFunded: {
         type: Sequelize.BOOLEAN,
         defaultValue: false

@@ -103,7 +103,6 @@ const SingleProject = (props) => {
         <Box margin="15px" maxWidth="750">
           <img src={props.project.imageUrl} />
         </Box>
-
         {/* About this project subtitle */}
         <Typography variant="h5" margin="15px" sx={{ fontWeight: "bold" }}>
           About this project:
@@ -114,6 +113,7 @@ const SingleProject = (props) => {
           {props.project.description}
         </Typography>
 
+
         {/* Project Start */}
         <Typography
           variant="subtitle2"
@@ -122,11 +122,9 @@ const SingleProject = (props) => {
         >
           Project start:{" "}
         </Typography>
-
         <Typography variant="body1" margin="15px" component="h5">
           {props.project.project_timeline_start}
         </Typography>
-
         {/* Project End */}
         <Typography
           variant="subtitle2"
@@ -135,7 +133,6 @@ const SingleProject = (props) => {
         >
           Project end:{" "}
         </Typography>
-
         <Typography variant="body1" margin="15px" component="h5">
           {props.project.project_timeline_end}
         </Typography>
