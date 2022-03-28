@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from 'react';
-import { connect } from 'react-redux';
-import { Link, useParams } from 'react-router-dom';
-import { fetchProject } from '../store/singleProject';
-import { fetchContributions, createContribution } from '../store/contributions';
+import React, { useEffect, useState } from "react";
+import { connect } from "react-redux";
+import { Link, useParams } from "react-router-dom";
+import { fetchProject } from "../store/singleProject";
+import { fetchContributions, createContribution } from "../store/contributions";
 import {
   Typography,
   Box,
@@ -13,20 +13,19 @@ import {
   CardContent,
   Button,
   Divider,
-} from '@mui/material';
+} from "@mui/material";
 import LinearProgress, {
   LinearProgressProps,
-} from '@mui/material/LinearProgress';
-import theme from './StyleTheme';
-import { loadWeb3, loadContractData } from '../web3/web3';
+} from "@mui/material/LinearProgress";
+import theme from "./StyleTheme";
+import { loadWeb3, loadContractData } from "../web3/web3";
 
 const SingleProject = (props) => {
   let params = useParams();
   let id = parseInt(params.id);
   const [campaign, setCampaign] = useState({});
-  const [account, setAccount] = useState('');
+  const [account, setAccount] = useState("");
 
-  
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -35,7 +34,7 @@ const SingleProject = (props) => {
         const accountAddress = await loadWeb3();
         setAccount(accountAddress[0]);
       } catch (error) {
-        console.error('error in fetchData', error);
+        console.error("error in fetchData", error);
       }
     };
     fetchData();
@@ -43,7 +42,7 @@ const SingleProject = (props) => {
 
   const handleDonate = async () => {
     try {
-      const total = window.web3.utils.toWei('0.05', 'Ether');
+      const total = window.web3.utils.toWei("0.05", "Ether");
       const campaignContract = await loadContractData(
         props.project.campaign_contract_address
       );
@@ -54,7 +53,7 @@ const SingleProject = (props) => {
       // Had to hardcode in 100 because the wei amount creates sequelize errors (too big of integer -- need to address this);
       await props.createContribution(id, props.auth.id, 100);
     } catch (error) {
-      console.error('error in handleDonate', error);
+      console.error("error in handleDonate", error);
     }
     // .on("transactionHash", (hash) => {
     //   this.setState({ loading: false });
@@ -68,25 +67,17 @@ const SingleProject = (props) => {
       <ThemeProvider theme={theme}>
         <Container maxWidth="lg">
           {/* Project Name */}
-          <Typography variant="h4" margin="15px" sx={{ fontWeight: 'bold' }}>
+          <Typography variant="h4" margin="15px" sx={{ fontWeight: "bold" }}>
             {props.project.name}
           </Typography>
 
           {/* Authors (AKA Scientists) */}
           <Typography variant="subtitle1" margin="15px">
-            By:{' '}
+            By:{" "}
             {props.scientists.map((scientist, idx) => {
-              let firstName =
-                scientist.user.firstName[0].toUpperCase() +
-                scientist.user.firstName.slice(1);
-              let lastName =
-                scientist.user.lastName[0].toUpperCase() +
-                scientist.user.lastName.slice(1);
-              if (idx === props.scientists.length - 1) {
-                return `${firstName} ${lastName}`;
-              } else {
-                return `${firstName} ${lastName}, `;
-              }
+                let names = `${scientist.user.firstName} ${scientist.user.lastName}`;
+                if(idx !== props.scientists.length -1) names += ', '
+                return names
             })}
           </Typography>
           {/* Hero image */}
@@ -95,7 +86,7 @@ const SingleProject = (props) => {
           </Box>
 
           {/* About this project subtitle */}
-          <Typography variant="h5" margin="15px" sx={{ fontWeight: 'bold' }}>
+          <Typography variant="h5" margin="15px" sx={{ fontWeight: "bold" }}>
             About this project:
           </Typography>
 
@@ -108,9 +99,9 @@ const SingleProject = (props) => {
           <Typography
             variant="subtitle2"
             margin="15px"
-            sx={{ fontWeight: 'bold' }}
+            sx={{ fontWeight: "bold" }}
           >
-            Project start:{' '}
+            Project start:{" "}
           </Typography>
 
           <Typography variant="body1" margin="15px" component="h5">
@@ -121,29 +112,28 @@ const SingleProject = (props) => {
           <Typography
             variant="subtitle2"
             margin="15px"
-            sx={{ fontWeight: 'bold' }}
+            sx={{ fontWeight: "bold" }}
           >
-            Project end:{' '}
+            Project end:{" "}
           </Typography>
 
           <Typography variant="body1" margin="15px" component="h5">
             {props.project.project_timeline_end}
           </Typography>
 
-          <Card style={{ display: 'inline-block' }}>
+          <Card style={{ display: "inline-block" }}>
             <CardContent>
               {/* Progress Label */}
               <Typography
                 variant="h5"
                 margin="15px"
-                sx={{ fontWeight: 'bold' }}
+                sx={{ fontWeight: "bold" }}
               >
-                0% of{' '}
-                {props.project.fundraising_goal}
+                0% of {props.project.fundraising_goal}
               </Typography>
               {/* Need to add contribution data here */}
-              <Box margin="15px" sx={{ display: 'flex', alignItems: 'center' }}>
-                <Box sx={{ width: '40%', mr: 1 }}>
+              <Box margin="15px" sx={{ display: "flex", alignItems: "center" }}>
+                <Box sx={{ width: "40%", mr: 1 }}>
                   <LinearProgress variant="determinate" value={0} />
                 </Box>
                 <Box sx={{ minWidth: 35 }}>
@@ -153,12 +143,12 @@ const SingleProject = (props) => {
                   >{`${Math.round(0)}%`}</Typography>
                 </Box>
                 <Typography variant="subtitle2" margin="15px">
-                  <strong>Campaign Start:</strong>{' '}
+                  <strong>Campaign Start:</strong>{" "}
                   {props.project.campaign_timeline_start}
                 </Typography>
                 <Divider></Divider>
                 <Typography variant="subtitle2" margin="15px">
-                  <strong>Campaign End:</strong>{' '}
+                  <strong>Campaign End:</strong>{" "}
                   {props.project.campaign_timeline_end}
                 </Typography>
               </Box>
