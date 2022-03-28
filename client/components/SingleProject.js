@@ -34,7 +34,6 @@ const SingleProject = (props) => {
         await props.fetchContributions(id);
         const accountAddress = await loadWeb3();
         setAccount(accountAddress[0]);
-        console.log(totalContributions);
       } catch (error) {
         console.error('error in fetchData', error);
       }
