@@ -139,3 +139,33 @@ export function ImageAlert(props) {
     </Dialog>
   );
 }
+export function ErrorTransactionAlert(props) {
+  return (
+    <Dialog
+      open={props.open}
+      onClose={props.handleClose}
+      aria-labelledby="alert-dialog-title"
+      aria-describedby="alert-dialog-description"
+    >
+      <DialogTitle id="alert-dialog-title">
+        {"There Was An Error!"}
+      </DialogTitle>
+      <DialogContent>
+        <DialogContentText id="alert-dialog-description">
+          It's possible the scientist didn't set up the project correctly or your MetaMask is not properly configured!
+        </DialogContentText>
+      </DialogContent>
+      <DialogActions>
+        {/* <Button
+          target="_blank"
+          href="https://support.google.com/websearch/answer/118238?hl=en&co=GENIE.Platform%3DDesktop"
+        >
+          I need more help!
+        </Button> */}
+        <Button onClick={props.handleClose} autoFocus>
+          Try Again!
+        </Button>
+      </DialogActions>
+    </Dialog>
+  );
+}

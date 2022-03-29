@@ -27,7 +27,7 @@ function ProjectCard(props) {
       return project.description;
     }
   };
-  const goal = Math.round(props.conversion * project.fundraising_goal);
+  const goal = Math.ceil(props.conversion * (project.fundraising_goal / Math.pow(10,18)));
   const contributions =
     Math.round(props.conversion * project.totalDonations * 100) / 100;
   const percent = Math.floor((contributions / goal) * 100);
