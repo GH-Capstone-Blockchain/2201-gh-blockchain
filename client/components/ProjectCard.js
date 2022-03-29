@@ -14,14 +14,15 @@ import { Link } from "react-router-dom";
 import { fetchConversion } from "../store/conversion";
 import { connect } from "react-redux";
 
+
 function ProjectCard(props) {
   useEffect(() => {
     props.fetchConversion();
   }, []);
   const project = props.project;
   const shortenedDescription = () => {
-    if (project.description.length > 150) {
-      return project.description.slice(0, 150).concat("...");
+    if (project.description.length > 100) {
+      return project.description.slice(0, 100).concat("...");
     } else {
       return project.description;
     }

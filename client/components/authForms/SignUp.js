@@ -69,6 +69,7 @@ const AuthForm = (props) => {
       const firstName = evt.target.firstName.value;
       const lastName = evt.target.lastName.value;
       const email = evt.target.email.value;
+      const type = "scientist";
       const publications = evt.target.publications.value;
       const credentials = evt.target.credentials.value;
       scientistSignUp(
@@ -77,6 +78,7 @@ const AuthForm = (props) => {
         firstName,
         lastName,
         email,
+        type,
         publications,
         credentials,
         formName
@@ -266,6 +268,7 @@ const mapDispatch = (dispatch) => {
       firstName,
       lastName,
       email,
+      type,
       publications,
       credentials,
       method
@@ -277,6 +280,7 @@ const mapDispatch = (dispatch) => {
           firstName,
           lastName,
           email,
+          type,
           publications,
           credentials,
           method

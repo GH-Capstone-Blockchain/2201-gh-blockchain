@@ -1,20 +1,59 @@
 import React, { useEffect, useState } from "react";
-import { Grid, Box, Toolbar, IconButton, Typography } from "@mui/material";
-import MenuIcon from "@mui/icons-material/Menu";
-import MuiAppBar from "@mui/material/AppBar";
-import { styled, useTheme } from "@mui/material/styles";
+import {
+  Grid,
+  Box,
+  Toolbar,
+  IconButton,
+  Typography,
+  Button,
+} from "@mui/material";
+import {
+  Biotech,
+  Functions,
+  Spa,
+  DirectionsWalk,
+  Computer,
+  Psychology,
+  FactCheck,
+} from "@mui/icons-material";
 import { connect } from "react-redux";
 import { fetchProjects } from "../store/projects";
 import ProjectCard from "./ProjectCard";
-import PersistentDrawerLeft from "./SideBarSearch";
-import CssBaseline from "@mui/material/CssBaseline";
+
+const categoriesArr = [
+  { name: "All", icon: <FactCheck /> },
+  { name: "Biology", icon: <Biotech /> },
+  { name: "Ecology", icon: <Spa /> },
+  { name: "Mathematics", icon: <Functions /> },
+  { name: "Anthropology", icon: <DirectionsWalk /> },
+  { name: "Computer Science", icon: <Computer /> },
+  { name: "Psychology", icon: <Psychology /> },
+];
 
 function AllProjects(props) {
   const [isLoading, setIsLoading] = useState(true);
-  const theme = useTheme();
+  const [filter, setFilter] = useState("");
+
+  const generateColor = () => {
+    const r = Math.floor(Math.random() * 256);
+    const g = Math.floor(Math.random() * 256);
+    const b = Math.floor(Math.random() * 256);
+    return `rgb(${r},${g},${b},0.8)`;
+  };
+
+  const allProjects = props.projects || [];
+  const filteredProjects =
+    !filter || filter === "All"
+      ? allProjects
+      : allProjects.filter((project) => {
+          if (project.categories.length > 0) {
+            return project.categories[0].category.includes(filter);
+          }
+        });
 
   useEffect(async () => {
     await props.fetchProjects();
+    // await props.filterProjects();
     setIsLoading(false);
   }, []);
   if (isLoading) return <img src={"https://i.stack.imgur.com/ATB3o.gif"} />;
@@ -29,11 +68,29 @@ function AllProjects(props) {
         // background: "#051f2e",
       }}
     >
-      <Grid item xs={12} sx={{ margin: "7%" }}></Grid>
+      <Grid item xs={12} sx={{ margin: "5%" }} />
       <Grid item xs={1} />
       <Grid item xs={10} style={{ maxWidth: "1000px" }}>
-        <Grid container spacing={3}>
-          {props.projects.map((project) => (
+        {categoriesArr.map((category) => {
+          return (
+            <Button
+              key={category.name}
+              variant="outlined"
+              startIcon={category.icon}
+              style={{
+                color: generateColor(),
+                margin: "10px",
+              }}
+              onClick={() => {
+                setFilter(category.name);
+              }}
+            >
+              {category.name}
+            </Button>
+          );
+        })}
+        <Grid container spacing={3} marginTop="30px">
+          {filteredProjects.map((project) => (
             <Grid key={project.id} item xs={4}>
               <ProjectCard project={project} />
             </Grid>
