@@ -1,13 +1,14 @@
-import { createStore, combineReducers, applyMiddleware } from 'redux';
-import { createLogger } from 'redux-logger';
-import thunkMiddleware from 'redux-thunk';
-import { composeWithDevTools } from 'redux-devtools-extension';
-import auth from './auth';
-import projects from './projects';
-import project from './singleProject';
-import scientists from './scientists';
-import contributions from './contributions';
-import conversion from './conversion'
+import { createStore, combineReducers, applyMiddleware } from "redux";
+import { createLogger } from "redux-logger";
+import thunkMiddleware from "redux-thunk";
+import { composeWithDevTools } from "redux-devtools-extension";
+import auth from "./auth";
+import projects from "./projects";
+import project from "./singleProject";
+import scientists from "./scientists";
+import contributions from "./contributions";
+import conversion from "./conversion";
+import categories from "./categories";
 
 const reducer = combineReducers({
   auth,
@@ -15,7 +16,8 @@ const reducer = combineReducers({
   projects,
   scientists,
   contributions,
-  conversion
+  conversion,
+  categories,
 });
 const middleware = composeWithDevTools(
   applyMiddleware(thunkMiddleware, createLogger({ collapsed: true }))
@@ -23,4 +25,4 @@ const middleware = composeWithDevTools(
 const store = createStore(reducer, middleware);
 
 export default store;
-export * from './auth';
+export * from "./auth";

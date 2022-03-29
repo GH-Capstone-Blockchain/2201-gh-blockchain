@@ -6,6 +6,7 @@ router.use("/projects", require("./projects"));
 router.use("/project", require("./project"));
 router.use("/scientists", require("./scientists"));
 router.use("/contributions", require("./contribution"));
+router.use("/categories", require("./categories"));
 
 router.use((req, res, next) => {
   const error = new Error("Not Found");
