@@ -24,3 +24,16 @@ router.get('/:projectId', async (req, res, next) => {
         next(error);
     }
 })
+
+//get contributions for specific user
+router.get('/user/:userId', async (req, res, next) => {
+  try {
+      const project = await Contribution.findAll({
+        where: {userId: req.params.userId},
+        include: [Project]
+      });
+      res.json(project);
+  } catch (error) {
+      next(error);
+  }
+})

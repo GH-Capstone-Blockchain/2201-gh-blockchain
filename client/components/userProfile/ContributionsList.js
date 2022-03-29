@@ -12,7 +12,7 @@ import {
   LinearProgress,
 } from "@mui/material";
 import { Link } from "react-router-dom";
-import { fetchProject } from "../../store/singleProject";
+import { fetchContributionsByUser } from "../../store/contributions";
 
 const ContributionsList = (props) => {
 
@@ -102,7 +102,7 @@ const mapState = (state) => {
 
 const mapDispatch = (dispatch) => {
   return {
-    fetchProject: (projectId) => dispatch(fetchProject(projectId)), 
+    fetchContributionsByUser: (userId) => dispatch(fetchContributionsByUser(userId)), 
   };
 };
 
