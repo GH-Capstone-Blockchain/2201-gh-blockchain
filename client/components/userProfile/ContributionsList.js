@@ -19,7 +19,6 @@ const ContributionsList = (props) => {
     await props.fetchContributionsByUser(props.user.id);
   }, []);
 
-  console.log("====props====", props);
   return (
     <div>
       <h1>Contributions</h1>

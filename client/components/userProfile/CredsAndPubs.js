@@ -2,7 +2,19 @@ import React from "react";
 import { connect } from "react-redux";
 
 const CredsAndPubs = (props) => {
-  return <h1>Hi there! You've reached the Creds and Pubs</h1>;
+  console.log('----->', props)
+  return (
+    <div>
+      <div>
+        <h2>Credentials</h2>
+        <p>{props.user.scientist.credentials}</p>
+      </div>
+      <div>
+        <h2>Publications</h2>
+        <p>{props.user.scientist.publications}</p>
+      </div>
+    </div>
+  );
 };
 
 const mapState = (state) => {
