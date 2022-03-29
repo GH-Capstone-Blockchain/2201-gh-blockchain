@@ -12,27 +12,28 @@ const Contribution = db.define("contribution", {
     allowNull: false,
   },
   //in Wei
-  contributionAmount: Sequelize.INTEGER,
+  contributionAmount: Sequelize.BIGINT,
 });
 
 module.exports = Contribution;
 
 const findTotalContribution = async (contribution) => {
-  console.log(contribution)
+  let contributionAmount = parseInt(contribution.contributionAmount)
   let project = await Project.findByPk(contribution.projectId);
-  console.log(project)
+  let totalDonations = parseInt(project.totalDonations)
   if (
-    project.totalDonations + contribution.contributionAmount >
+    totalDonations + contributionAmount >
     project.fundraising_goal
   ) {
     await project.update({
-      totalDonations: project.totalDonations + contribution.contributionAmount,
+      totalDonations: totalDonations + contributionAmount,
       reachedGoal: true,
     });
-  } else
+  } else {
     await project.update({
-      totalDonations: project.totalDonations + contribution.contributionAmount,
+      totalDonations: totalDonations + contributionAmount,
     });
+  }
 };
 
 Contribution.afterCreate(findTotalContribution);

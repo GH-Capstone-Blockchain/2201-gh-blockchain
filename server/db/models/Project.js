@@ -35,7 +35,7 @@ const Project = db.define('project', {
         // allowNull: false,
     },
     fundraising_goal: {
-        type: Sequelize.INTEGER, 
+        type: Sequelize.BIGINT, 
         // allowNull: false,
     },
     reachedGoal: {
@@ -47,7 +47,7 @@ const Project = db.define('project', {
         defaultValue: false
     },
     totalDonations: {
-        type: Sequelize.INTEGER,
+        type: Sequelize.BIGINT,
         defaultValue: 0
     },
     project_wallet_address: {
