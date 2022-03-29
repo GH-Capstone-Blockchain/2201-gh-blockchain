@@ -37,7 +37,14 @@ function ProjectCard(props) {
         <CardMedia component="img" height="140" image={project.imageUrl} />
 
         <CardContent>
-          <Box sx={{ height: 55, overflow: "hidden", marginBottom: "3px", textAlign: "center"}}>
+          <Box
+            sx={{
+              height: 55,
+              overflow: "hidden",
+              marginBottom: "3px",
+              textAlign: "center",
+            }}
+          >
             <Typography
               gutterBottom
               variant="h6"
@@ -49,8 +56,8 @@ function ProjectCard(props) {
                 lineHeight: "90%",
                 fontWeight: "bold",
                 justifyContent: "center",
-                fontFamily: "Roboto Condensed", 
-                color: '#051f2e'
+                fontFamily: "Roboto Condensed",
+                color: "#051f2e",
               }}
             >
               {props.project.name}
@@ -73,13 +80,29 @@ function ProjectCard(props) {
             width: "100%",
           }}
         >
-          <Typography sx={{ alignSelf: "left", fontFamily: "Roboto Condensed", color: '#051f2e', fontWeight:'bold' }}> Goal: ${goal}</Typography>
+          <Typography
+            sx={{
+              alignSelf: "left",
+              fontFamily: "Roboto Condensed",
+              color: "#051f2e",
+              fontWeight: "bold",
+            }}
+          >
+            {" "}
+            Goal: ${goal}
+          </Typography>
           <LinearProgress
             variant="determinate"
             value={percent > 100 ? 100 : percent}
             sx={{ width: 120, alignSelf: "center" }}
           />
-          <Typography sx={{ alignSelf: "right",fontFamily: "Roboto Condensed", color: '#051f2e'}}>
+          <Typography
+            sx={{
+              alignSelf: "right",
+              fontFamily: "Roboto Condensed",
+              color: "#051f2e",
+            }}
+          >
             {percent > 100 ? 100 : percent}%
           </Typography>
         </Box>
