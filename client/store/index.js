@@ -7,7 +7,8 @@ import projects from './projects';
 import project from './singleProject';
 import scientists from './scientists';
 import contributions from './contributions';
-import conversion from './conversion'
+import user from './user';
+import conversion from './conversion';
 
 const reducer = combineReducers({
   auth,
@@ -15,6 +16,7 @@ const reducer = combineReducers({
   projects,
   scientists,
   contributions,
+  user,
   conversion
 });
 const middleware = composeWithDevTools(

@@ -17,10 +17,23 @@ export const addContribution = (contribution) => {
   };
 };
 
+//for a particular project
 export const fetchContributions = (projectId) => {
   return async (dispatch) => {
     try {
       const { data } = await axios.get(`/api/contributions/${projectId}`);
+      dispatch(setContributions(data));
+    } catch (error) {
+      console.error('error in fetch contributions thunk', error);
+    }
+  };
+};
+
+//for a particular user
+export const fetchContributionsByUser = (userId) => {
+  return async (dispatch) => {
+    try {
+      const { data } = await axios.get(`/api/contributions/${userId}`);
       dispatch(setContributions(data));
     } catch (error) {
       console.error('error in fetch contributions thunk', error);

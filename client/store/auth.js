@@ -24,6 +24,7 @@ export const me = () => async dispatch => {
         authorization: token
       }
     })
+    history.push(`/user/${res.data.id}`) //!not rendering on call
     return dispatch(setAuth(res.data))
   }
 }
