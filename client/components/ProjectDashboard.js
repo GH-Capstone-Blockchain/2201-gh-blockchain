@@ -1,8 +1,28 @@
 import React, { useEffect, useState } from 'react';
-import { Grid, Box, TextField, Button, Typography, List, ListItem, ListItemText } from '@mui/material';
+import {
+  Grid,
+  Box,
+  TextField,
+  Button,
+  Typography,
+  Card,
+  CardMedia,
+  CardContent,
+  CardActions,
+  Link,
+  Divider,
+  Paper,
+} from '@mui/material';
 import { connect } from 'react-redux';
 import { updateProject, fetchProject } from '../store/singleProject';
 import { useParams } from 'react-router-dom';
+import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
+import {
+  YouTubeAlert,
+  FundrasingGoalAlert,
+  WalletAlert,
+  ImageAlert,
+} from './smallComponents/InfoAlerts';
 
 const ProjectDashboard = (props) => {
   let params = useParams();
@@ -17,6 +37,9 @@ const ProjectDashboard = (props) => {
     project_timeline_start: '',
     project_timeline_end: '',
   });
+
+  const [youtubeAlert, setyoutubeAlert] = useState(false);
+  const [imageAlert, setImageAlert] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -39,10 +62,15 @@ const ProjectDashboard = (props) => {
     };
     fetchData();
   }, []);
-
+  const handleClose = () => {
+    setyoutubeAlert(false);
+    setImageAlert(false);
+  };
   const handleChange = (e) => {
     let value = e.target.value;
     if (e.target.type === 'date') value = new Date(value);
+    if (e.target.id === 'videoUrl')
+      value = 'https://www.youtube.com/embed/' + value;
     setForm({ ...form, [e.target.id]: value });
   };
 
@@ -57,10 +85,24 @@ const ProjectDashboard = (props) => {
       sx={{
         display: 'flex',
         justifyContent: 'center',
-        alignItems: 'center',
+        alignItems: 'flex-start',
         // background: "#051f2e",
       }}
     >
+      <Grid
+        item
+        xs={12}
+        sx={{ marginTop: '10%', marginBottom: '5%' }}
+        textAlign="center"
+      >
+        <Typography
+          variant="h2"
+          color="#051f2e"
+          sx={{ fontFamily: 'Roboto Condensed', fontSize: '50px' }}
+        >
+          Project Dashboard
+        </Typography>
+      </Grid>
       <Box
         component="form"
         sx={{
@@ -70,35 +112,21 @@ const ProjectDashboard = (props) => {
         autoComplete="off"
         onSubmit={handleSubmit}
       >
-        <Grid
-          item
-          xs={12}
-          sx={{ marginTop: '20%', marginBottom: '10%' }}
-          textAlign="center"
-        >
-          <Typography
-            variant="h2"
-            color="#051f2e"
-            sx={{ fontFamily: 'Roboto Condensed', fontSize: '50px' }}
-          >
-            Project Dashboard
-          </Typography>
-        </Grid>
         <Grid item xs={1} />
-        <Grid item xs={12} style={{ maxWidth: '800px' }}>
+        <Grid item xs={12} style={{ maxWidth: '400px' }}>
           <Grid
             container
             // spacing={2}
             sx={{
               display: 'flex',
-              justifyContent: 'space-between',
-              alignItems: 'center',
+              justifyContent: 'center',
+              alignItems: 'flex-start',
               // background: "#051f2e",
             }}
           >
-            <Grid item xs={8}>
+            <Grid item xs={12}>
               <TextField
-                fullwidth
+                fullwidth="true"
                 required
                 id="name"
                 label="Project Name"
@@ -107,9 +135,9 @@ const ProjectDashboard = (props) => {
                 defaultValue={props.project.name}
               />
             </Grid>
-            <Grid item xs={8}>
+            <Grid item xs={12}>
               <TextField
-                fullwidth
+                fullwidth="true"
                 id="description"
                 label="Project Description"
                 multiline
@@ -119,7 +147,7 @@ const ProjectDashboard = (props) => {
                 defaultValue={props.project.description}
               />
             </Grid>
-            <Grid item xs={8}>
+            <Grid item xs={12}>
               <TextField
                 required
                 id="imageUrl"
@@ -128,18 +156,26 @@ const ProjectDashboard = (props) => {
                 InputLabelProps={{ shrink: true }}
                 defaultValue={props.project.imageUrl}
               />
+              <Button>
+                <InfoOutlinedIcon onClick={() => setImageAlert(true)} />
+              </Button>
+              <ImageAlert handleClose={handleClose} open={imageAlert} />
             </Grid>
-            <Grid item xs={8}>
+            <Grid item xs={12}>
               <TextField
                 required
                 id="videoUrl"
-                label="Video URL"
+                label="YouTube Video ID"
                 onChange={handleChange}
                 InputLabelProps={{ shrink: true }}
                 defaultValue={props.project.videoUrl}
               />
+              <Button>
+                <InfoOutlinedIcon onClick={() => setyoutubeAlert(true)} />
+              </Button>
+              <YouTubeAlert handleClose={handleClose} open={youtubeAlert} />
             </Grid>
-            <Grid item xs={8}>
+            <Grid item xs={12}>
               <TextField
                 required
                 type="date"
@@ -150,7 +186,7 @@ const ProjectDashboard = (props) => {
                 onChange={handleChange}
               />
             </Grid>
-            <Grid item xs={8}>
+            <Grid item xs={12}>
               <TextField
                 required
                 type="date"
@@ -162,48 +198,112 @@ const ProjectDashboard = (props) => {
               />
             </Grid>
           </Grid>
-          <Grid item xs={1} />
           <Grid item xs={12} marginBottom="50px"></Grid>
           <Grid
             container
             spacing={2}
             sx={{
               display: 'flex',
-              justifyContent: 'space-between',
+              justifyContent: 'center',
               alignItems: 'center',
               // background: "#051f2e",
             }}
           >
             <Grid item xs={4}>
-              <Button fullwidth type="submit" sx={{ marginBottom: '10%' }}>
+              <Button
+                fullwidth="true"
+                type="submit"
+                sx={{ marginBottom: '10%' }}
+              >
                 Submit
-              </Button>
-            </Grid>
-            <Grid item xs={4}>
-              <Button fullwidth type="submit" sx={{ marginBottom: '10%' }}>
-                Release Funds
               </Button>
             </Grid>
           </Grid>
         </Grid>
       </Box>
-      <Grid item xs={12} style={{ maxWidth: '800px' }}>
+      <Grid item xs={12} style={{ maxWidth: '600px' }}>
         <Grid
           container
           // spacing={2}
           sx={{
             display: 'flex',
-            justifyContent: 'space-between',
-            alignItems: 'center',
+            justifyContent: 'flex-start',
+            alignItems: 'flex-start',
             // background: "#051f2e",
           }}
         >
-          {/* <List>
-            <ListItem>
-              <ListItemText primary={props.project.name}/>
-            </ListItem>
-          </List> */}
-          
+          <Grid item xs={12} align="flex-start">
+            <Card sx={{ maxWidth: 600 }}>
+              <CardMedia
+                component="img"
+                height="180"
+                image={props.project.imageUrl}
+                alt="green iguana"
+              />
+              <CardContent>
+                <Typography
+                  gutterBottom
+                  variant="h5"
+                  component="div"
+                  color="#051f2e"
+                  sx={{ fontFamily: 'Roboto Condensed', fontSize: '20px' }}
+                >
+                  {props.project.name}
+                </Typography>
+                <Typography
+                  variant="body2"
+                  color="text.secondary"
+                  sx={{ fontFamily: 'Roboto Condensed' }}
+                >
+                  {props.project.description}
+                </Typography>
+                <Typography
+                  variant="body2"
+                  color="text.secondary"
+                  sx={{ fontFamily: 'Roboto Condensed' }}
+                >
+                  Project Start Date:{' '}
+                  {new Date(
+                    props.project.project_timeline_start
+                  ).toDateString()}
+                </Typography>
+
+                <Typography
+                  variant="body2"
+                  color="text.secondary"
+                  sx={{ fontFamily: 'Roboto Condensed' }}
+                >
+                  Project End Date:{' '}
+                  {new Date(props.project.project_timeline_end).toDateString()}
+                </Typography>
+                <Typography
+                  variant="body2"
+                  component="div"
+                  color="text.secondary"
+                  sx={{ fontFamily: 'Roboto Condensed' }}
+                >
+                  {' '}
+                  Funding Goal Met:{' '}
+                  {props.project.reachedGoal
+                    ? 'Yes'
+                    : `Not yet, ${
+                        props.project.fundraising_goal -
+                        props.project.totalDonations
+                      } ETH left to go`}
+                </Typography>
+              </CardContent>
+              <CardActions>
+                <Button size="small" href={props.project.videoUrl}>
+                  Video Link
+                </Button>
+                {props.project.reachedGoal ? (
+                  <Button size="small">Release Funds</Button>
+                ) : (
+                  ''
+                )}
+              </CardActions>
+            </Card>
+          </Grid>
         </Grid>
       </Grid>
     </Grid>
