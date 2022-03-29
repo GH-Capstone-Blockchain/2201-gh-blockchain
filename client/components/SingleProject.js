@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
 import { Link, useParams } from "react-router-dom";
+import { convertDate } from "./smallComponents/utilities";
 import { fetchProject } from "../store/singleProject";
 import { fetchContributions, createContribution } from "../store/contributions";
+import { fetchConversion } from "../store/conversion";
 import {
   Typography,
   Box,
@@ -20,6 +22,7 @@ import LinearProgress, {
 } from "@mui/material/LinearProgress";
 import theme from "./StyleTheme";
 import { loadWeb3, loadContractData } from "../web3/web3";
+import DonateCard from "./DonateCard";
 
 const SingleProject = (props) => {
   let params = useParams();
@@ -34,6 +37,7 @@ const SingleProject = (props) => {
         await props.fetchContributions(id);
         const accountAddress = await loadWeb3();
         setAccount(accountAddress[0]);
+        await props.fetchConversion();
       } catch (error) {
         console.error("error in fetchData", error);
       }
@@ -74,24 +78,31 @@ const SingleProject = (props) => {
         // background: "#051f2e",
       }}
     >
-      <Grid item xs={12} sx={{ margin: "4%" }}></Grid>
+      <Grid item xs={12} sx={{ display: "flex", margin: "4%" }}></Grid>
 
-      <Container maxWidth="lg">
+      <Container
+        sx={{ display: "flex", flexDirection: "column" }}
+        maxWidth="lg"
+      >
         {/* Project Name */}
-        <Typography variant="h4" margin="15px" sx={{ fontWeight: "bold" }}>
+        <Typography
+          variant="h4"
+          margin="15px"
+          sx={{
+            fontFamily: "Roboto Condensed",
+            color: "#051f2e",
+            fontWeight: "bold",
+          }}
+        >
           {props.project.name}
         </Typography>
 
         {/* Authors (AKA Scientists) */}
-        <Typography variant="subtitle1" margin="15px">
+        <Typography variant="subtitle1" margin="15px" sx={{ color: "#051f2e" }}>
           By:{" "}
           {props.scientists.map((scientist, idx) => {
-            let firstName =
-              scientist.user.firstName[0].toUpperCase() +
-              scientist.user.firstName.slice(1);
-            let lastName =
-              scientist.user.lastName[0].toUpperCase() +
-              scientist.user.lastName.slice(1);
+            let firstName = scientist.user.firstName;
+            let lastName = scientist.user.lastName;
             if (idx === props.scientists.length - 1) {
               return `${firstName} ${lastName}`;
             } else {
@@ -100,75 +111,59 @@ const SingleProject = (props) => {
           })}
         </Typography>
         {/* Hero image */}
-        <Box margin="15px" maxWidth="750">
-          <img src={props.project.imageUrl} />
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: "row",
+            justifyContent: "space-between",
+            alignSelf: "center",
+            alignItems: "center",
+          }}
+          margin="15px"
+          maxWidth="750"
+        >
+          <img style={{'borderRadius' : "10px", "width":'700px', "height":'400px', 'objectFit': 'cover'} }src={props.project.imageUrl} />
+          <DonateCard
+            project={props.project}
+            conversion={props.conversion}
+            handleDonate={handleDonate}
+          />
         </Box>
         {/* About this project subtitle */}
-        <Typography variant="h5" margin="15px" sx={{ fontWeight: "bold" }}>
+        <Typography
+          variant="h5"
+          margin="15px"
+          sx={{
+            fontSize: "30px",
+            fontFamily: "Roboto Condensed",
+            color: "#051f2e",
+            fontWeight: "bold",
+          }}
+        >
           About this project:
         </Typography>
 
-        {/* Project description */}
+        {/* Project Timeline */}
+        <Box sx={{display:'flex', flexDirection:'row'}}>
+        <Typography
+          variant="subtitle2"
+          margin="15px"
+          sx={{ fontWeight: "bold" }}
+        >
+          Project Timeline:{" "}
+        </Typography>
         <Typography variant="body1" margin="15px" component="h5">
+          {props.project
+            ? convertDate(props.project.project_timeline_start)
+            : ""} to {props.project ? convertDate(props.project.project_timeline_end) : ""}
+        </Typography>  
+        </Box>
+                {/* Project description */}
+                <Typography variant="body1" margin="15px" component="h5">
           {props.project.description}
         </Typography>
-
-
-        {/* Project Start */}
-        <Typography
-          variant="subtitle2"
-          margin="15px"
-          sx={{ fontWeight: "bold" }}
-        >
-          Project start:{" "}
-        </Typography>
-        <Typography variant="body1" margin="15px" component="h5">
-          {props.project.project_timeline_start}
-        </Typography>
-        {/* Project End */}
-        <Typography
-          variant="subtitle2"
-          margin="15px"
-          sx={{ fontWeight: "bold" }}
-        >
-          Project end:{" "}
-        </Typography>
-        <Typography variant="body1" margin="15px" component="h5">
-          {props.project.project_timeline_end}
-        </Typography>
-
-        <Card style={{ display: "inline-block" }}>
-          <CardContent>
-            {/* Progress Label */}
-            <Typography variant="h5" margin="15px" sx={{ fontWeight: "bold" }}>
-              0% of {props.project.fundraising_goal}
-            </Typography>
-            {/* Need to add contribution data here */}
-            <Box margin="15px" sx={{ display: "flex", alignItems: "center" }}>
-              <Box sx={{ width: "40%", mr: 1 }}>
-                <LinearProgress variant="determinate" value={0} />
-              </Box>
-              <Box sx={{ minWidth: 35 }}>
-                <Typography
-                  variant="body2"
-                  color="text.secondary"
-                >{`${Math.round(0)}%`}</Typography>
-              </Box>
-              <Typography variant="subtitle2" margin="15px">
-                <strong>Campaign Start:</strong>{" "}
-                {props.project.campaign_timeline_start}
-              </Typography>
-              <Divider></Divider>
-              <Typography variant="subtitle2" margin="15px">
-                <strong>Campaign End:</strong>{" "}
-                {props.project.campaign_timeline_end}
-              </Typography>
-            </Box>
-            <Button onClick={handleDonate}>DONATE</Button>
-          </CardContent>
-        </Card>
         {props.project.videoUrl ? (
-          <Box>
+          <Box sx={{display:'flex', justifyContent:'center', margin:'20px'}}>
             <iframe
               width="854"
               height="480"
@@ -190,6 +185,7 @@ const mapState = (state) => {
     project: state.project.project,
     scientists: state.project.scientists,
     contributions: state.contributions,
+    conversion: state.conversion,
   };
 };
 
@@ -199,6 +195,7 @@ const mapDispatch = (dispatch) => {
     fetchContributions: (projectId) => dispatch(fetchContributions(projectId)),
     createContribution: (projectId, userId, contributionAmt) =>
       dispatch(createContribution(projectId, userId, contributionAmt)),
+    fetchConversion: () => dispatch(fetchConversion()),
   };
 };
 
