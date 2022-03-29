@@ -15,27 +15,23 @@ import { Link } from "react-router-dom";
 import { fetchContributionsByUser } from "../../store/contributions";
 
 const ContributionsList = (props) => {
-
-
-
   useEffect(async () => {
     await props.fetchContributionsByUser(props.user.id);
   }, []);
 
-  const shortenedDescription = () => {
-    if (project.description.length > 150) {
-      return project.description.slice(0, 150).concat("...");
-    } else {
-      return project.description;
-    }
-  };
-
+  console.log("====props====", props);
   return (
     <div>
       <h1>Contributions</h1>
       {props.contributions.map((contribution) => {
-        const project = contribution;
-        
+        const project = contribution.project;
+        const shortenedDescription = () => {
+          if (project.description.length > 150) {
+            return project.description.slice(0, 150).concat("...");
+          } else {
+            return project.description;
+          }
+        };
         return (
           <Card sx={{ maxWidth: 500 }} variant="outlined">
             <CardActionArea component={Link} to={`/projects/${project.id}`}>
@@ -70,24 +66,13 @@ const ContributionsList = (props) => {
                 </Typography>
               </CardContent>
             </CardActionArea>
-            <CardActions>
-              <Box
-                sx={{ display: "flex", alignItems: "center", width: "100%" }}
-              >
-                <Typography>Goal: {project.fundraising_goal}</Typography>
-                <LinearProgress
-                  variant="determinate"
-                  value={60}
-                  sx={{ width: 100 }}
-                />
-              </Box>
-
-              <Button size="small" color="primary">
-                +Donate
-              </Button>
-            </CardActions>
+            <CardContent>
+              <Typography>
+                Donated: {contribution.contributionAmount}
+              </Typography>
+            </CardContent>
           </Card>
-      )
+        );
       })}
     </div>
   );
@@ -101,7 +86,8 @@ const mapState = (state) => {
 
 const mapDispatch = (dispatch) => {
   return {
-    fetchContributionsByUser: (userId) => dispatch(fetchContributionsByUser(userId)), 
+    fetchContributionsByUser: (userId) =>
+      dispatch(fetchContributionsByUser(userId)),
   };
 };
 

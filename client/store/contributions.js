@@ -36,7 +36,7 @@ export const fetchContributionsByUser = (userId) => {
       const { data } = await axios.get(`/api/contributions/user/${userId}`);
       dispatch(setContributions(data));
     } catch (error) {
-      console.error('error in fetch contributions thunk', error);
+      console.error('error in fetch contributions for specific user thunk', error);
     }
   };
 };
