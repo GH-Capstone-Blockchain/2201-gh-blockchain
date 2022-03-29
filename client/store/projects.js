@@ -3,7 +3,6 @@ import Campaign from "../../build/contracts/Campaign.json";
 
 const SET_PROJECTS = "SET_PROJECTS";
 const ADD_PROJECT = "ADD_PROJECT";
-const FILTER_PROJECTS = "FILTER_PROJECTS";
 
 export const setProjects = (projects) => {
   return {
@@ -16,13 +15,6 @@ export const addProject = (newProject) => {
   return {
     type: ADD_PROJECT,
     newProject,
-  };
-};
-
-export const filterProjects = (filter) => {
-  return {
-    type: FILTER_PROJECTS,
-    filter,
   };
 };
 
@@ -83,9 +75,6 @@ export default function projectsReducer(state = initialState, action) {
 
     case ADD_PROJECT:
       return [...state, action.newProject];
-
-    case FILTER_PROJECTS:
-      return state;
 
     default:
       return state;

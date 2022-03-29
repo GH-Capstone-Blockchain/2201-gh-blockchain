@@ -17,7 +17,7 @@ import {
   FactCheck,
 } from "@mui/icons-material";
 import { connect } from "react-redux";
-import { fetchProjects, filterProjects } from "../store/projects";
+import { fetchProjects } from "../store/projects";
 import ProjectCard from "./ProjectCard";
 
 const categoriesArr = [
@@ -51,8 +51,6 @@ function AllProjects(props) {
           }
         });
 
-  console.log("************* ", filteredProjects);
-
   useEffect(async () => {
     await props.fetchProjects();
     // await props.filterProjects();
@@ -85,7 +83,6 @@ function AllProjects(props) {
               }}
               onClick={() => {
                 setFilter(category.name);
-                // props.filterProjects(category.name);
               }}
             >
               {category.name}
@@ -117,7 +114,6 @@ const mapState = (state) => {
 const mapDispatch = (dispatch) => {
   return {
     fetchProjects: () => dispatch(fetchProjects()),
-    filterProjects: (filter) => dispatch(fetchProjects(filter)),
   };
 };
 
