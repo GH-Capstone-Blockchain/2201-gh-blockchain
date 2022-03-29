@@ -13,8 +13,11 @@ import {
   WalletAlert,
   ImageAlert,
 } from "./smallComponents/InfoAlerts";
+import { useNavigate } from 'react-router-dom'
+import { fetchConversion } from '../store/conversion'
 
 function AddProjectForm(props) {
+  const navigate = useNavigate();
   const [form, setForm] = useState({
     name: "",
     description: "",
@@ -36,6 +39,7 @@ function AddProjectForm(props) {
   useEffect(async () => {
     let add = await loadWeb3();
     setAddress(add[0]);
+    props.fetchConversion()
   }, []);
   const handleClose = () => {
     setyoutubeAlert(false);
@@ -45,6 +49,7 @@ function AddProjectForm(props) {
   };
   const handleChange = (event) => {
     let value = event.target.value;
+    if(event.target.id === 'fundraising_goal') value = (value / props.conversion) * Math.pow(10, 18)
     if (event.target.id === "videoUrl")
       value = "https://www.youtube.com/embed/" + value;
     if (event.target.type === "date") value = new Date(value);
@@ -58,6 +63,7 @@ function AddProjectForm(props) {
       scientists: [props.auth.scientist.id],
       address: address,
     });
+    // navigate('/projects')
   };
 
   return (
@@ -110,6 +116,7 @@ function AddProjectForm(props) {
                 fullWidth
                 id="name"
                 label="Project Name"
+                inputProps={{ maxLength: 90 }}
                 onChange={handleChange}
               />
             </Grid>
@@ -301,12 +308,14 @@ function AddProjectForm(props) {
 const mapState = (state) => {
   return {
     auth: state.auth,
+    conversion: state.conversion
   };
 };
 
 const mapDispatch = (dispatch) => {
   return {
     createProject: (newProject) => dispatch(createProject(newProject)),
+    fetchConversion: () => dispatch(fetchConversion()),
   };
 };
 

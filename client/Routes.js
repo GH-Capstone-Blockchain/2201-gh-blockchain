@@ -82,7 +82,7 @@ class Routers extends Component {
             <Route path="addproject" element={<AddProjectForm />} />
             <Route path="dropdown" element={<ScientistsDropDown />} />
             <Route path="test" element={<TestingPage />} />
-            <Route path="/user/:id" element={<ProfilePage />} />
+            <Route path="user/:id" element={<ProfilePage />} />
             <Route path="dashboard/:id" element={<ProjectDashboard />} />
             {/* <Route path="/loggedin" element={<Home />} /> */}
           </Routes>
