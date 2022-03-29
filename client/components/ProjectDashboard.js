@@ -19,8 +19,6 @@ import { useParams } from 'react-router-dom';
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
 import {
   YouTubeAlert,
-  FundrasingGoalAlert,
-  WalletAlert,
   ImageAlert,
 } from './smallComponents/InfoAlerts';
 
@@ -38,30 +36,39 @@ const ProjectDashboard = (props) => {
     project_timeline_end: '',
   });
 
+  const [isUpdated, setIsUpdated] = useState(false);
+
   const [youtubeAlert, setyoutubeAlert] = useState(false);
   const [imageAlert, setImageAlert] = useState(false);
- 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        await props.fetchProject(id);
-        if (props.project) {
-          await setForm({
-            id: id,
-            name: props.project.name,
-            description: props.project.description,
-            imageUrl: props.project.imageUrl,
-            videoUrl: props.project.videoUrl,
-            project_timeline_start: props.project.project_timeline_start,
-            project_timeline_end: props.project.project_timeline_end,
-          });
-        }
-      } catch (error) {
-        console.error('error in fetchData', error);
+  
+  const fetchData = async () => {
+    try {
+      await props.fetchProject(id);
+      if (props.project) {
+        await setForm({
+          id: id,
+          name: props.project.name,
+          description: props.project.description,
+          imageUrl: props.project.imageUrl,
+          videoUrl: props.project.videoUrl,
+          project_timeline_start: props.project.project_timeline_start,
+          project_timeline_end: props.project.project_timeline_end,
+        });
       }
-    };
+      setIsUpdated(false);
+    } catch (error) {
+      console.error('error in fetchData', error);
+    }
+  };
+
+  useEffect(() => {
     fetchData();
   }, []);
+
+  useEffect(() => {
+    fetchData();
+  }, [isUpdated])
+
   const handleClose = () => {
     setyoutubeAlert(false);
     setImageAlert(false);
@@ -77,6 +84,7 @@ const ProjectDashboard = (props) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     props.updateProject(form);
+    setIsUpdated(true);
   };
   return (
     <Grid
