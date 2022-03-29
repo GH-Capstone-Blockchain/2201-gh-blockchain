@@ -13,41 +13,68 @@ import {
   Avatar,
   Tooltip,
   Typography,
+  Grid,
 } from "@mui/material";
 
 const Navbar = ({ handleClick, isLoggedIn }) => (
-  <Box sx={{ flexGrow: 1 }}>
+  <div>
     <AppBar position="fixed" elevation={0} style={{ background: "#051f2e" }}>
-      <Toolbar sx={{ display: "flex", justifyContent: "space-between" }}>
-        <Link to="/">
-          <Box
-            component="img"
+      <Grid
+        container
+        sx={{
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "flex-end",
+        }}
+      >
+        <Grid item xs={3}>
+          <Grid
+            container
             sx={{
-              height: 64,
-              flexGrow: 5,
-              marginTop: "15%",
-              marginBottom: "15%",
+              display: "flex",
+              justifyContent: "flex-start",
+              alignItems: "flex-end",
             }}
-            alt="DeSci Funder"
-            src="/logo.png"
-          />
-        </Link>
-        <Link to="/">
-          <Typography
-            color="primary"
-            variant="h5"
-            sx={{ letterSpacing: 5, m: 1, fontWeight: "bold" }}
           >
-            De
-            <span className="main-title-span">Sci </span>Funder
-          </Typography>
-        </Link>
+            <Grid item xs={3}>
+              <Link to="/">
+                <Box
+                  component="img"
+                  sx={{
+                    height: "50px",
+                    margin: "10px",
+                    marginBottom: "4px",
+                  }}
+                  alt="DeSci Funder"
+                  src="/logo.png"
+                />
+              </Link>
+            </Grid>
+            <Grid item xs={9}>
+              <Link to="/">
+                <Typography
+                  color="primary"
+                  variant="h5"
+                  sx={{ fontFamily: "Roboto Condensed", marginBottom: "4px" }}
+                >
+                  De
+                  <span className="main-title-span">Sci </span>Funder
+                </Typography>
+              </Link>
+            </Grid>
+          </Grid>
+        </Grid>
 
+        {/* <Grid item xs = {10} */}
         {isLoggedIn ? (
           <div>
             {/* The navbar will show these links after you log in */}
+
             <Link to="/projects">
               <Button>All Projects</Button>
+            </Link>
+            <Link to="/about">
+              <Button>About</Button>
             </Link>
             <Link to="/addproject">
               <Button>Create Project</Button>
@@ -62,7 +89,9 @@ const Navbar = ({ handleClick, isLoggedIn }) => (
             <Link to="/projects">
               <Button>All Projects</Button>
             </Link>
-
+            <Link to="/about">
+              <Button>About</Button>
+            </Link>
             <Link to="/login">
               <Button>Login</Button>
             </Link>
@@ -71,9 +100,9 @@ const Navbar = ({ handleClick, isLoggedIn }) => (
             </Link>
           </div>
         )}
-      </Toolbar>
+      </Grid>
     </AppBar>
-  </Box>
+  </div>
 );
 
 /**
