@@ -32,7 +32,7 @@ export const fetchProjects = () => {
 export const createProject = (newProject) => {
   return async (dispatch) => {
     try {
-      console.log("====", newProject);
+      // console.log("====", newProject);
       const { data } = await axios.post("/api/projects", newProject);
       // uint _campaignId, uint _scientistId, address _projectAddress, string memory _title, uint _goalAmount, uint256 _startDate, uint256 _endDate
       const date1 = Math.floor(Date.parse(data.campaign_timeline_start) / 1000);

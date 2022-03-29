@@ -24,6 +24,7 @@ export const me = () => async dispatch => {
         authorization: token
       }
     })
+    history.push(`/user/${res.data.id}`) //!not rendering on call
     return dispatch(setAuth(res.data))
   }
 }
@@ -38,10 +39,10 @@ export const authenticate = (username, password, method) => async dispatch => {
   }
 }
 
-export const scientistSignUp = (username, password, firstName, lastName, email, publications, credentials, method) => async dispatch => {
+export const scientistSignUp = (username, password, firstName, lastName, email, type, publications, credentials, method) => async dispatch => {
   try {
     //creating user
-    const res = await axios.post(`/auth/${method}`, {username, password, firstName, lastName, email})
+    const res = await axios.post(`/auth/${method}`, {username, password, firstName, lastName, email, type})
     window.localStorage.setItem(TOKEN, res.data.token)
     
     //associating user to scientist

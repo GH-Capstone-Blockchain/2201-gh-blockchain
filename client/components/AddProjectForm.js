@@ -6,6 +6,13 @@ import { createProject } from "../store/projects";
 import ScientistsDropDown from "./smallComponents/ScientistsDropDown";
 import { loadWeb3 } from "../web3/web3";
 import { Link } from "react-router-dom";
+import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
+import {
+  YouTubeAlert,
+  FundrasingGoalAlert,
+  WalletAlert,
+  ImageAlert,
+} from "./smallComponents/InfoAlerts";
 
 function AddProjectForm(props) {
   const [form, setForm] = useState({
@@ -19,6 +26,10 @@ function AddProjectForm(props) {
     campaign_timeline_end: "",
     fundraising_goal: "",
   });
+  const [youtubeAlert, setyoutubeAlert] = useState(false);
+  const [goalAlert, setGoalAlert] = useState(false);
+  const [addressAlert, setAddressAlert] = useState(false);
+  const [imageAlert, setImageAlert] = useState(false);
 
   const [address, setAddress] = useState(null);
 
@@ -26,9 +37,16 @@ function AddProjectForm(props) {
     let add = await loadWeb3();
     setAddress(add[0]);
   }, []);
-
+  const handleClose = () => {
+    setyoutubeAlert(false);
+    setGoalAlert(false);
+    setAddressAlert(false);
+    setImageAlert(false);
+  };
   const handleChange = (event) => {
     let value = event.target.value;
+    if (event.target.id === "videoUrl")
+      value = "https://www.youtube.com/embed/" + value;
     if (event.target.type === "date") value = new Date(value);
     setForm({ ...form, [event.target.id]: value });
   };
@@ -95,14 +113,14 @@ function AddProjectForm(props) {
                 onChange={handleChange}
               />
             </Grid>
-            <Grid item xs={2}>
+            {/* <Grid item xs={2}>
               <ScientistsDropDown />
-            </Grid>
-            <Grid item xs={2}>
+            </Grid> */}
+            <Grid item xs={4} sx={{ display: "flex", flexDirection: "row" }}>
               <TextField
                 fullWidth
                 id="fundraising_goal"
-                label="Fundraising Goal (in USD)"
+                label="Fundraising Goal"
                 type="number"
                 InputProps={{
                   startAdornment: (
@@ -111,9 +129,13 @@ function AddProjectForm(props) {
                 }}
                 onChange={handleChange}
               />
+              <Button>
+                <InfoOutlinedIcon onClick={() => setGoalAlert(true)} />
+              </Button>
+              <FundrasingGoalAlert handleClose={handleClose} open={goalAlert} />
             </Grid>
 
-            <Grid item xs={12}>
+            <Grid item xs={12} sx={{ display: "flex", flexDirection: "row" }}>
               <TextField
                 fullWidth
                 required
@@ -122,6 +144,10 @@ function AddProjectForm(props) {
                 label="Project Wallet Address"
                 onChange={handleChange}
               />
+              <Button>
+                <InfoOutlinedIcon onClick={() => setAddressAlert(true)} />
+              </Button>
+              <WalletAlert handleClose={handleClose} open={addressAlert} />
             </Grid>
             <Grid item xs={6}>
               <TextField
@@ -144,23 +170,39 @@ function AddProjectForm(props) {
                   // background: "#051f2e",
                 }}
               >
-                <Grid item xs={12}>
+                <Grid
+                  item
+                  xs={12}
+                  sx={{ display: "flex", flexDirection: "row" }}
+                >
                   <TextField
                     fullWidth
                     required
                     id="imageUrl"
                     label="Image URL"
                     onChange={handleChange}
-                  />
+                  />{" "}
+                  <Button>
+                    <InfoOutlinedIcon onClick={() => setImageAlert(true)} />
+                  </Button>
+                  <ImageAlert handleClose={handleClose} open={imageAlert} />
                 </Grid>
-                <Grid item xs={12}>
+                <Grid
+                  item
+                  xs={12}
+                  sx={{ display: "flex", flexDirection: "row" }}
+                >
                   <TextField
                     fullWidth
                     required
                     id="videoUrl"
-                    label="Video URL"
+                    label="YouTube Video ID"
                     onChange={handleChange}
                   />
+                  <Button>
+                    <InfoOutlinedIcon onClick={() => setyoutubeAlert(true)} />
+                  </Button>
+                  <YouTubeAlert handleClose={handleClose} open={youtubeAlert} />
                 </Grid>
               </Grid>
             </Grid>

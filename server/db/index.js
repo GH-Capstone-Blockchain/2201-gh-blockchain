@@ -9,7 +9,11 @@ const Contribution = require('./models/Contribution')
 const Scientist = require('./models/Scientist')
 
 User.hasMany(Contribution)
+Contribution.belongsTo(User)
+
 Project.hasMany(Contribution)
+Contribution.belongsTo(Project)
+
 
 User.hasOne(Scientist)
 Scientist.belongsTo(User)

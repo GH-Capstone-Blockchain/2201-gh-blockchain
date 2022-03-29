@@ -30,6 +30,7 @@ async function seed() {
       email: "murphy@seed.js",
       firstName: "murphy",
       lastName: "albert",
+      type: "scientist"
     }),
     //2 scientist
     User.create({
@@ -38,6 +39,7 @@ async function seed() {
       email: "savannah@seed.js",
       firstName: "Savannah",
       lastName: "Laliberte",
+      type: "scientist"
     }),
     //3 scientist
     User.create({
@@ -46,6 +48,7 @@ async function seed() {
       email: "alecia@seed.js",
       firstName: "Alecia",
       lastName: "Carter",
+      type: "scientist"
     }),
     //4 scientist
     User.create({
@@ -54,6 +57,7 @@ async function seed() {
       email: "ralphieemerson@gmail.com",
       firstName: "Ralphie",
       lastName: "Emerson",
+      type: "scientist"
     }),
     //5 scientist
     User.create({
@@ -62,6 +66,7 @@ async function seed() {
       email: "ChristianSuharlim@gmail.com",
       firstName: "Christian",
       lastName: "Suharlim",
+      type: "scientist"
     }),
     //6 scientist
     User.create({
@@ -70,6 +75,7 @@ async function seed() {
       email: "linda@seed.js",
       firstName: "Linda",
       lastName: "Chilton",
+      type: "scientist"
     }),
     //7 scientist
     User.create({
@@ -78,6 +84,7 @@ async function seed() {
       email: "Alex@seed.js",
       firstName: "Alex",
       lastName: "Carter",
+      type: "scientist"
     }),
     //8 scientist
     User.create({
@@ -86,6 +93,7 @@ async function seed() {
       email: "docjokes@yahoo.com",
       firstName: "Lawrence",
       lastName: "Hong",
+      type: "scientist"
     }),
     //9 scientist
     User.create({
@@ -94,6 +102,7 @@ async function seed() {
       email: "clarachoi@yahoo.com",
       firstName: "Clara",
       lastName: "Choi",
+      type: "scientist"
     }),
     //10 scientist
     User.create({
@@ -102,6 +111,7 @@ async function seed() {
       email: "HongniFa@gmail.com",
       firstName: "Hong Ni",
       lastName: "Fa",
+      type: "scientist"
     }),
     //11 scientist
     User.create({
@@ -110,6 +120,7 @@ async function seed() {
       email: "JustinKay@gmail.com",
       firstName: "Justin",
       lastName: "Kay",
+      type: "scientist"
     }),
     //12 scientist
     User.create({
@@ -118,6 +129,7 @@ async function seed() {
       email: "CatherineFoley@gmail.com",
       firstName: "Catherine",
       lastName: "Foley",
+      type: "scientist"
     }),
     //13 scientist
     User.create({
@@ -126,6 +138,7 @@ async function seed() {
       email: "StefanGrundner@gmail.com",
       firstName: "Stefan",
       lastName: "Grundner",
+      type: "scientist"
     }),
     //14 scientist
     User.create({
@@ -134,6 +147,7 @@ async function seed() {
       email: "BenjaminYetton@gmail.com",
       firstName: "Benjamin",
       lastName: "Yetton",
+      type: "scientist"
     }),
     //15
     User.create({
@@ -593,6 +607,9 @@ async function seed() {
   await scientistJustin.addProject(marinePollution);
 
   await marinePollution.createContribution({userId: 3, contributionAmount: 3})
+  await marinePollution.createContribution({userId: 2, contributionAmount: 3})
+  await informedConsumers.createContribution({userId: 2, contributionAmount: 3})
+  await congoBasin.createContribution({userId: 2, contributionAmount: 3})
   await marinePollution.createContribution({userId: 4, contributionAmount: 5})
 
   console.log(`seeded ${users.length} users`);
