@@ -14,6 +14,8 @@ export default function Footer() {
         opacity: "0.8",
         display: "flex",
         alignItems: "center",
+        marginLeft: "auto",
+        marginRight: "auto",
       }}
     >
       <Grid item xs={12} textAlign="center">
