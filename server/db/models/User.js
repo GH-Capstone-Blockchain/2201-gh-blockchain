@@ -61,7 +61,8 @@ const User = db.define("user", {
   //   type: Sequelize.GEOMETRY
   // },
   type: {
-    type: Sequelize.ENUM("supporter", "admin"), //"admin" matching the requireAdminToken in gatekeeper.js
+    type: Sequelize.ENUM("supporter", "scientist"),
+    defaultValue: "supporter",
   },
 });
 
