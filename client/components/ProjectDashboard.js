@@ -40,7 +40,7 @@ const ProjectDashboard = (props) => {
 
   const [youtubeAlert, setyoutubeAlert] = useState(false);
   const [imageAlert, setImageAlert] = useState(false);
-
+ 
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -133,6 +133,7 @@ const ProjectDashboard = (props) => {
                 onChange={handleChange}
                 InputLabelProps={{ shrink: true }}
                 defaultValue={props.project.name}
+                inputProps={{ maxLength: 90 }}
               />
             </Grid>
             <Grid item xs={12}>
