@@ -12,6 +12,7 @@ import ScientistsDropDown from "./components/smallComponents/ScientistsDropDown"
 import TestingPage from "./components/Testing";
 import ProjectDashboard from "./components/ProjectDashboard";
 import ProfilePage from "./components/userProfile/ProfilePage";
+import AboutPage from "./components/AboutPage";
 
 import { me } from "./store";
 
@@ -75,6 +76,7 @@ class Routers extends Component {
         {isLoggedIn ? (
           <Routes>
             <Route path="/" element={<LandingPage />} />
+            <Route path="/about" element={<AboutPage />} />
             <Route path="projects" element={<AllProjects />} />
             <Route path="projects/:id" element={<SingleProject />} />
             <Route path="addproject" element={<AddProjectForm />} />
@@ -88,6 +90,7 @@ class Routers extends Component {
           <Routes>
             {/* <Route path="/notloggedin" element={<Login />} /> */}
             <Route path="/" element={<LandingPage />} />
+            <Route path="/about" element={<AboutPage />} />
             <Route path="projects" element={<AllProjects />} />
             <Route path="projects/:id" element={<SingleProject />} />
             <Route path="addproject" element={<AddProjectForm />} />
