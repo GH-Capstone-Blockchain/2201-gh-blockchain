@@ -3,6 +3,7 @@ import Campaign from "../../build/contracts/Campaign.json";
 
 const SET_PROJECTS = "SET_PROJECTS";
 const ADD_PROJECT = "ADD_PROJECT";
+const FILTER_PROJECTS = "FILTER_PROJECTS";
 
 export const setProjects = (projects) => {
   return {
@@ -15,6 +16,13 @@ export const addProject = (newProject) => {
   return {
     type: ADD_PROJECT,
     newProject,
+  };
+};
+
+export const filterProjects = (filter) => {
+  return {
+    type: FILTER_PROJECTS,
+    filter,
   };
 };
 
@@ -35,8 +43,8 @@ export const createProject = (newProject) => {
       console.log("====", newProject);
       const { data } = await axios.post("/api/projects", newProject);
       // uint _campaignId, uint _scientistId, address _projectAddress, string memory _title, uint _goalAmount, uint256 _startDate, uint256 _endDate
-      const date1 = Math.floor(Date.parse(data.campaign_timeline_start) / 1000)
-      const date2 = Math.floor(Date.parse(data.campaign_timeline_end) / 1000)
+      const date1 = Math.floor(Date.parse(data.campaign_timeline_start) / 1000);
+      const date2 = Math.floor(Date.parse(data.campaign_timeline_end) / 1000);
       console.log(date1, date2);
       const web3 = window.web3;
       const newCampaign = new web3.eth.Contract(Campaign.abi);
@@ -49,7 +57,7 @@ export const createProject = (newProject) => {
             data.project_wallet_address,
             data.name,
             data.fundraising_goal,
-            date1, 
+            date1,
             date2,
             // Date.parse(data.campaign_timeline_start),
             // Date.parse(data.campaign_timeline_end),
@@ -75,6 +83,9 @@ export default function projectsReducer(state = initialState, action) {
 
     case ADD_PROJECT:
       return [...state, action.newProject];
+
+    case FILTER_PROJECTS:
+      return state;
 
     default:
       return state;

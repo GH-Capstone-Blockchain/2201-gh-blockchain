@@ -14,12 +14,14 @@ import {
   DirectionsWalk,
   Computer,
   Psychology,
+  FactCheck,
 } from "@mui/icons-material";
 import { connect } from "react-redux";
-import { fetchProjects } from "../store/projects";
+import { fetchProjects, filterProjects } from "../store/projects";
 import ProjectCard from "./ProjectCard";
 
 const categoriesArr = [
+  { name: "All", icon: <FactCheck /> },
   { name: "Biology", icon: <Biotech /> },
   { name: "Ecology", icon: <Spa /> },
   { name: "Mathematics", icon: <Functions /> },
@@ -30,6 +32,7 @@ const categoriesArr = [
 
 function AllProjects(props) {
   const [isLoading, setIsLoading] = useState(true);
+  const [filter, setFilter] = useState("");
 
   const generateColor = () => {
     const r = Math.floor(Math.random() * 256);
@@ -38,8 +41,21 @@ function AllProjects(props) {
     return `rgb(${r},${g},${b},0.8)`;
   };
 
+  const allProjects = props.projects || [];
+  const filteredProjects =
+    !filter || filter === "All"
+      ? allProjects
+      : allProjects.filter((project) => {
+          if (project.categories.length > 0) {
+            return project.categories[0].category.includes(filter);
+          }
+        });
+
+  console.log("************* ", filteredProjects);
+
   useEffect(async () => {
     await props.fetchProjects();
+    // await props.filterProjects();
     setIsLoading(false);
   }, []);
   if (isLoading) return <img src={"https://i.stack.imgur.com/ATB3o.gif"} />;
@@ -60,7 +76,6 @@ function AllProjects(props) {
         {categoriesArr.map((category) => {
           return (
             <Button
-              type="submit"
               key={category.name}
               variant="outlined"
               startIcon={category.icon}
@@ -68,13 +83,17 @@ function AllProjects(props) {
                 color: generateColor(),
                 margin: "10px",
               }}
+              onClick={() => {
+                setFilter(category.name);
+                // props.filterProjects(category.name);
+              }}
             >
               {category.name}
             </Button>
           );
         })}
         <Grid container spacing={3} marginTop="30px">
-          {props.projects.map((project) => (
+          {filteredProjects.map((project) => (
             <Grid key={project.id} item xs={4}>
               <ProjectCard project={project} />
             </Grid>
@@ -98,6 +117,7 @@ const mapState = (state) => {
 const mapDispatch = (dispatch) => {
   return {
     fetchProjects: () => dispatch(fetchProjects()),
+    filterProjects: (filter) => dispatch(fetchProjects(filter)),
   };
 };
 
