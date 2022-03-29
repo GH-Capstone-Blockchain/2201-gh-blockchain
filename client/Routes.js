@@ -1,23 +1,24 @@
-import React, { Component, Fragment } from 'react';
-import { connect } from 'react-redux';
-import { Route, Routes, Switch } from 'react-router-dom';
-import { Login } from './components/authForms/Login';
-import { Signup } from './components/authForms/SignUp';
-import Home from './components/Home';
-import LandingPage from './components/LandingPage';
-import SingleProject from './components/SingleProject';
-import AllProjects from './components/AllProjects2';
-import AddProjectForm from './components/AddProjectForm';
-import ScientistsDropDown from './components/smallComponents/ScientistsDropDown';
-import TestingPage from './components/Testing';
-import ProjectDashboard from './components/ProjectDashboard';
+import React, { Component, Fragment } from "react";
+import { connect } from "react-redux";
+import { Route, Routes, Switch } from "react-router-dom";
+import { Login } from "./components/authForms/Login";
+import { Signup } from "./components/authForms/SignUp";
+import Home from "./components/Home";
+import LandingPage from "./components/LandingPage";
+import SingleProject from "./components/SingleProject";
+import AllProjects from "./components/AllProjects2";
+import AddProjectForm from "./components/AddProjectForm";
+import ScientistsDropDown from "./components/smallComponents/ScientistsDropDown";
+import TestingPage from "./components/Testing";
+import ProjectDashboard from "./components/ProjectDashboard";
+import ProfilePage from "./components/userProfile/ProfilePage";
 
-import { me } from './store';
+import { me } from "./store";
 
 //blockchain
-import Web3 from 'web3';
+import Web3 from "web3";
 
-import { loadWeb3, loadAccount } from './store/interactions';
+import { loadWeb3, loadAccount } from "./store/interactions";
 
 /**
  * COMPONENT
