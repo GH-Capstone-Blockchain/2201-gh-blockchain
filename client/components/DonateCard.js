@@ -22,6 +22,7 @@ export default function DonateCard(props) {
     Math.round(props.conversion * (project.totalDonations / Math.pow(10,18)) * 100) / 100;
   const percent = Math.floor((project.totalDonations / project.fundraising_goal) * 100);
 
+
   const handleChange = (event) => {
     setDonation(event.target.value);
   };

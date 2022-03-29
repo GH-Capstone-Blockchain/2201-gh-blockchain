@@ -169,3 +169,33 @@ export function ErrorTransactionAlert(props) {
     </Dialog>
   );
 }
+export function SayThankYou(props) {
+  return (
+    <Dialog
+      open={props.open}
+      onClose={props.handleClose}
+      aria-labelledby="alert-dialog-title"
+      aria-describedby="alert-dialog-description"
+    >
+      <DialogTitle id="alert-dialog-title">
+        {"Thank you for your donation!"}
+      </DialogTitle>
+      <DialogContent>
+        <DialogContentText id="alert-dialog-description">
+          Your donation of ${props.donation} will be such a big help!!
+        </DialogContentText>
+      </DialogContent>
+      <DialogActions>
+        {/* <Button
+          target="_blank"
+          href="https://support.google.com/websearch/answer/118238?hl=en&co=GENIE.Platform%3DDesktop"
+        >
+          I need more help!
+        </Button> */}
+        <Button onClick={props.handleClose} autoFocus>
+          You're Welcome!
+        </Button>
+      </DialogActions>
+    </Dialog>
+  );
+}

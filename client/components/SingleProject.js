@@ -24,6 +24,7 @@ import theme from "./StyleTheme";
 import { loadWeb3, loadContractData } from "../web3/web3";
 import DonateCard from "./DonateCard";
 import { ErrorTransactionAlert } from "./smallComponents/InfoAlerts";
+import { SayThankYou } from "./smallComponents/InfoAlerts";
 
 const SingleProject = (props) => {
   let params = useParams();
@@ -31,6 +32,9 @@ const SingleProject = (props) => {
   const [campaign, setCampaign] = useState({});
   const [account, setAccount] = useState("");
   const [error, setError] = useState(false)
+  const [thankYou, setThankYou] = useState(false)
+  const [donation, setDonation] = useState(0)
+
 
   useEffect(() => {
     const fetchData = async () => {
@@ -47,8 +51,10 @@ const SingleProject = (props) => {
     fetchData();
   }, []);
 
+
   const handleDonate = async (donation) => {
     try {
+      setDonation(donation)
       const eth = donation / props.conversion
       const total = window.web3.utils.toWei(`${eth}`, "Ether");
       console.log(total)
@@ -61,6 +67,7 @@ const SingleProject = (props) => {
         .send({ from: account, value: total });
       // Had to hardcode in 100 because the wei amount creates sequelize errors (too big of integer -- need to address this);
       await props.createContribution(id, props.auth.id, eth * Math.pow(10,18));
+        setThankYou(true)
     } catch (error) {
       console.error("error in handleDonate", error);
       setError(true);
@@ -73,6 +80,7 @@ const SingleProject = (props) => {
   
   const handleClose = () => {
     setError(false)
+    setThankYou(false)
   }
 
   if (!props.project) {
@@ -91,6 +99,7 @@ const SingleProject = (props) => {
     >
       <Grid item xs={12} sx={{ display: "flex", margin: "4%" }}></Grid>
       <ErrorTransactionAlert handleClose={handleClose} open={error}/>
+      <SayThankYou handleClose={handleClose} donation={donation} open={thankYou}/>
       <Container
         sx={{ display: "flex", flexDirection: "column" }}
         maxWidth="lg"
