@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
 import {
   Card,
@@ -16,9 +16,11 @@ import { fetchContributionsByUser } from "../../store/contributions";
 
 const ContributionsList = (props) => {
 
-  // useEffect(async () => {
-  //   await props.fetchProject(id);
-  // }, []);
+
+
+  useEffect(async () => {
+    await props.fetchContributionsByUser(props.user.id);
+  }, []);
 
   const shortenedDescription = () => {
     if (project.description.length > 150) {
@@ -28,68 +30,64 @@ const ContributionsList = (props) => {
     }
   };
 
-  const getProject = async (projectId) => {
-    await props.fetchProject(projectId);
-  };
-
   return (
     <div>
       <h1>Contributions</h1>
-      {props.user.contributions.map((contribution) => {
-        const project = getProject(contribution.projectId)
-        console.log("--------->>>>>", project)
-      //   return (
-      //     <Card sx={{ maxWidth: 500 }} variant="outlined">
-      //       <CardActionArea component={Link} to={`/projects/${project.id}`}>
-      //         <CardMedia
-      //           component="img"
-      //           height="140"
-      //           image={project.imageUrl}
-      //         />
+      {props.contributions.map((contribution) => {
+        const project = contribution;
+        
+        return (
+          <Card sx={{ maxWidth: 500 }} variant="outlined">
+            <CardActionArea component={Link} to={`/projects/${project.id}`}>
+              <CardMedia
+                component="img"
+                height="140"
+                image={project.imageUrl}
+              />
 
-      //         <CardContent>
-      //           <Box
-      //             sx={{
-      //               height: 40,
-      //               textOverflow: "ellipsis",
-      //               overflow: "hidden",
-      //             }}
-      //           >
-      //             <Typography gutterBottom variant="h6" component="div">
-      //               {project.name}
-      //             </Typography>
-      //           </Box>
-      //           <Typography
-      //             variant="body2"
-      //             color="text.secondary"
-      //             sx={{
-      //               height: 90,
-      //               overflow: "hidden",
-      //               textOverflow: "ellipsis",
-      //             }}
-      //           >
-      //             {shortenedDescription()}
-      //           </Typography>
-      //         </CardContent>
-      //       </CardActionArea>
-      //       <CardActions>
-      //         <Box
-      //           sx={{ display: "flex", alignItems: "center", width: "100%" }}
-      //         >
-      //           <Typography>Goal: {project.fundraising_goal}</Typography>
-      //           <LinearProgress
-      //             variant="determinate"
-      //             value={60}
-      //             sx={{ width: 100 }}
-      //           />
-      //         </Box>
+              <CardContent>
+                <Box
+                  sx={{
+                    height: 40,
+                    textOverflow: "ellipsis",
+                    overflow: "hidden",
+                  }}
+                >
+                  <Typography gutterBottom variant="h6" component="div">
+                    {project.name}
+                  </Typography>
+                </Box>
+                <Typography
+                  variant="body2"
+                  color="text.secondary"
+                  sx={{
+                    height: 90,
+                    overflow: "hidden",
+                    textOverflow: "ellipsis",
+                  }}
+                >
+                  {shortenedDescription()}
+                </Typography>
+              </CardContent>
+            </CardActionArea>
+            <CardActions>
+              <Box
+                sx={{ display: "flex", alignItems: "center", width: "100%" }}
+              >
+                <Typography>Goal: {project.fundraising_goal}</Typography>
+                <LinearProgress
+                  variant="determinate"
+                  value={60}
+                  sx={{ width: 100 }}
+                />
+              </Box>
 
-      //         <Button size="small" color="primary">
-      //           +Donate
-      //         </Button>
-      //       </CardActions>
-      //     </Card>
-      // )
+              <Button size="small" color="primary">
+                +Donate
+              </Button>
+            </CardActions>
+          </Card>
+      )
       })}
     </div>
   );
@@ -97,6 +95,7 @@ const ContributionsList = (props) => {
 
 const mapState = (state) => {
   return {
+    contributions: state.contributions,
   };
 };
 

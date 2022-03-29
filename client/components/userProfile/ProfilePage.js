@@ -22,7 +22,6 @@ const ProfilePage = (props) => {
   let params = useParams();
   const id = parseInt(params.id);
   const [isLoading, setIsLoading] = useState(true);
-  console.log("==props===", props);
 
   useEffect(async () => {
     await props.fetchUser(id);
