@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {
   Card,
   CardActionArea,
@@ -11,8 +11,14 @@ import {
   LinearProgress,
 } from "@mui/material";
 import { Link } from "react-router-dom";
+import { fetchConversion } from "../store/conversion";
+import { connect } from "react-redux";
 
-export default function ProjectCard(props) {
+
+function ProjectCard(props) {
+  useEffect(() => {
+    props.fetchConversion();
+  }, []);
   const project = props.project;
   const shortenedDescription = () => {
     if (project.description.length > 100) {
@@ -21,6 +27,11 @@ export default function ProjectCard(props) {
       return project.description;
     }
   };
+  const goal = Math.ceil(props.conversion * (project.fundraising_goal / Math.pow(10,18)));
+  const contributions =
+    Math.round(props.conversion * project.totalDonations * 100) / 100;
+  const percent = Math.floor((contributions / goal) * 100);
+  console.log(contributions, percent);
   return (
     <Card sx={{ maxWidth: 500 }} variant="outlined">
       <CardActionArea component={Link} to={`/projects/${project.id}`}>
@@ -28,9 +39,28 @@ export default function ProjectCard(props) {
 
         <CardContent>
           <Box
-            sx={{ height: 40, textOverflow: "ellipsis", overflow: "hidden" }}
+            sx={{
+              height: 55,
+              overflow: "hidden",
+              marginBottom: "3px",
+              textAlign: "center",
+            }}
           >
-            <Typography gutterBottom variant="h6" component="div">
+            <Typography
+              gutterBottom
+              variant="h6"
+              component="div"
+              sx={{
+                display: "inline",
+                height: 55,
+                fontSize: "18px",
+                lineHeight: "90%",
+                fontWeight: "bold",
+                justifyContent: "center",
+                fontFamily: "Roboto Condensed",
+                color: "#051f2e",
+              }}
+            >
               {props.project.name}
             </Typography>
           </Box>
@@ -44,19 +74,58 @@ export default function ProjectCard(props) {
         </CardContent>
       </CardActionArea>
       <CardActions>
-        <Box sx={{ display: "flex", alignItems: "center", width: "100%" }}>
-          <Typography>Goal: {project.fundraising_goal}</Typography>
+        <Box
+          sx={{
+            display: "flex",
+            justifyContent: "space-between",
+            width: "100%",
+          }}
+        >
+          <Typography
+            sx={{
+              alignSelf: "left",
+              fontFamily: "Roboto Condensed",
+              color: "#051f2e",
+              fontWeight: "bold",
+            }}
+          >
+            {" "}
+            Goal: ${goal}
+          </Typography>
           <LinearProgress
             variant="determinate"
-            value={60}
-            sx={{ width: 100 }}
+            value={percent > 100 ? 100 : percent}
+            sx={{ width: 120, alignSelf: "center" }}
           />
+          <Typography
+            sx={{
+              alignSelf: "right",
+              fontFamily: "Roboto Condensed",
+              color: "#051f2e",
+            }}
+          >
+            {percent > 100 ? 100 : percent}%
+          </Typography>
         </Box>
 
-        <Button size="small" color="primary">
+        {/* <Button size="small" color="primary">
           +Donate
-        </Button>
+        </Button> */}
       </CardActions>
     </Card>
   );
 }
+
+const mapState = (state) => {
+  return {
+    conversion: state.conversion,
+  };
+};
+
+const mapDispatch = (dispatch) => {
+  return {
+    fetchConversion: () => dispatch(fetchConversion()),
+  };
+};
+
+export default connect(mapState, mapDispatch)(ProjectCard);
