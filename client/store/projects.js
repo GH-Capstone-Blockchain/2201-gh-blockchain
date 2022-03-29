@@ -24,7 +24,20 @@ export const fetchProjects = () => {
       const { data } = await axios.get("/api/projects");
       dispatch(setProjects(data));
     } catch (error) {
-      console.log(error);
+      console.log('error in fetchProjects thunk', error);
+    }
+  };
+};
+
+//to fetch all projects associated with a specific scientist
+export const fetchProjectsByScientist = (scientistId) => {
+  return async (dispatch) => {
+    try {
+      const { data } = await axios.get(`/api/projects/scientist/${scientistId}`);
+      const projects = data.projects
+      dispatch(setProjects(projects));
+    } catch (error) {
+      console.log('error in fetchProjectsByScientist thunk', error);
     }
   };
 };

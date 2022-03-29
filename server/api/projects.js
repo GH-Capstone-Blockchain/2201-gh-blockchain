@@ -17,10 +17,10 @@ router.get("/", async (req, res, next) => {
   }
 });
 
-//get all projects associated with a specific scientist
-router.get("/scientist/:id", async (req, res, next) => {
+//get all projects associated with a specific scientist ..."/api/projects/scientist/:id"
+router.get("/scientist/:scientistId", async (req, res, next) => {
   try {
-    const projects = await Scientist.findByPk(req.params.id, { include: Project });
+    const projects = await Scientist.findByPk(req.params.scientistId, { include: Project });
     res.json(projects);
   } catch (err) {
     next(err);

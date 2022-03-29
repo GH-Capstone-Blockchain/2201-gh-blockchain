@@ -607,9 +607,12 @@ async function seed() {
   await scientistJustin.addProject(marinePollution);
 
   await marinePollution.createContribution({userId: 3, contributionAmount: 3})
-  await marinePollution.createContribution({userId: 2, contributionAmount: 3})
-  await informedConsumers.createContribution({userId: 2, contributionAmount: 3})
-  await congoBasin.createContribution({userId: 2, contributionAmount: 3})
+  await marinePollution.createContribution({userId: 18, contributionAmount: 3})
+  await informedConsumers.createContribution({userId: 18, contributionAmount: 3})
+  await congoBasin.createContribution({userId: 18, contributionAmount: 3})
+  await coralReefs.createContribution({userId: 20, contributionAmount: 3})
+  await analysisOfSleep.createContribution({userId: 20, contributionAmount: 3})
+  await congoBasin.createContribution({userId: 20, contributionAmount: 3})
   await marinePollution.createContribution({userId: 4, contributionAmount: 5})
 
   console.log(`seeded ${users.length} users`);

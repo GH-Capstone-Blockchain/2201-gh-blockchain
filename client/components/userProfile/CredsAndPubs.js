@@ -2,7 +2,7 @@ import React from "react";
 import { connect } from "react-redux";
 
 const CredsAndPubs = (props) => {
-  console.log('----->', props)
+
   return (
     <div>
       <div>
