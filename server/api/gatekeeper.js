@@ -2,16 +2,17 @@ const {
   models: { User },
 } = require('../db');
 
-const requireAdminToken = async (req, res, next) => {
+const requireScientistToken = async (req, res, next) => {
   try {
     const token = req.headers.authorization;
     const user = await User.findByToken(token);
-    if (user.type === 'admin') req.admin = user;
+    if (user.type === 'scientist') req.scientist = user;
     next();
   } catch (error) {
     next(error);
   }
 };
+
 const requireUserToken = async (req, res, next) => {
   try {
     const token = req.headers.authorization;
@@ -24,6 +25,6 @@ const requireUserToken = async (req, res, next) => {
 };
 
 module.exports = {
-  requireAdminToken,
+  requireScientistToken,
   requireUserToken,
 };

@@ -2,7 +2,7 @@ const router = require("express").Router();
 const {
   models: { User, Project },
 } = require("../db");
-const { requireAdminToken, requireUserToken } = require('./gatekeeper');
+const { requireScientistToken, requireUserToken } = require('./gatekeeper');
 module.exports = router;
 
 

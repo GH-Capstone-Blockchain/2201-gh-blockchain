@@ -79,6 +79,7 @@ class Routers extends Component {
             <Route path="addproject" element={<AddProjectForm />} />
             <Route path="dropdown" element={<ScientistsDropDown />} />
             <Route path="test" element={<TestingPage />} />
+            <Route path="/user/:id" element={<ProfilePage />} />
             <Route path="dashboard/:id" element={<ProjectDashboard />} />
             {/* <Route path="/loggedin" element={<Home />} /> */}
           </Routes>
@@ -92,6 +93,7 @@ class Routers extends Component {
             <Route path="login" element={<Login />} />
             <Route path="/signup" element={<Signup />} />
             <Route path="dropdown" element={<ScientistsDropDown />} />
+            <Route path="/user/:id" element={<ProfilePage />} />
             <Route path="test" element={<TestingPage />} />
           </Routes>
         )}
