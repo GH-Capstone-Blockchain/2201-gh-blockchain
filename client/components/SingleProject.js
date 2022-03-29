@@ -23,12 +23,14 @@ import LinearProgress, {
 import theme from "./StyleTheme";
 import { loadWeb3, loadContractData } from "../web3/web3";
 import DonateCard from "./DonateCard";
+import { ErrorTransactionAlert } from "./smallComponents/InfoAlerts";
 
 const SingleProject = (props) => {
   let params = useParams();
   let id = parseInt(params.id);
   const [campaign, setCampaign] = useState({});
   const [account, setAccount] = useState("");
+  const [error, setError] = useState(false)
 
   useEffect(() => {
     const fetchData = async () => {
@@ -45,9 +47,11 @@ const SingleProject = (props) => {
     fetchData();
   }, []);
 
-  const handleDonate = async () => {
+  const handleDonate = async (donation) => {
     try {
-      const total = window.web3.utils.toWei("0.05", "Ether");
+      const eth = donation / props.conversion
+      const total = window.web3.utils.toWei(`${eth}`, "Ether");
+      console.log(total)
       const campaignContract = await loadContractData(
         props.project.campaign_contract_address
       );
@@ -56,14 +60,21 @@ const SingleProject = (props) => {
         .donate(props.auth.id)
         .send({ from: account, value: total });
       // Had to hardcode in 100 because the wei amount creates sequelize errors (too big of integer -- need to address this);
-      await props.createContribution(id, props.auth.id, 100);
+      await props.createContribution(id, props.auth.id, eth * Math.pow(10,18));
     } catch (error) {
       console.error("error in handleDonate", error);
+      setError(true);
     }
     // .on("transactionHash", (hash) => {
     //   this.setState({ loading: false });
     // });
   };
+
+  
+  const handleClose = () => {
+    setError(false)
+  }
+
   if (!props.project) {
     return <div>Data is loading...</div>;
   }
@@ -79,7 +90,7 @@ const SingleProject = (props) => {
       }}
     >
       <Grid item xs={12} sx={{ display: "flex", margin: "4%" }}></Grid>
-
+      <ErrorTransactionAlert handleClose={handleClose} open={error}/>
       <Container
         sx={{ display: "flex", flexDirection: "column" }}
         maxWidth="lg"
@@ -126,6 +137,7 @@ const SingleProject = (props) => {
           <DonateCard
             project={props.project}
             conversion={props.conversion}
+            loggedIn = {props.auth.id}
             handleDonate={handleDonate}
           />
         </Box>
