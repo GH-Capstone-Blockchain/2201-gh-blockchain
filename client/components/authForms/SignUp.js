@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
+import { Link } from "react-router-dom";
 import { authenticate, scientistSignUp } from "../../store/auth";
 import {
   Box,
@@ -19,7 +20,6 @@ import {
 } from "@mui/material";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import { useNavigate } from "react-router-dom";
-
 
 /**
  * COMPONENT
@@ -50,6 +50,10 @@ const AuthForm = (props) => {
     firstName: "",
     lastName: "",
     email: "",
+  });
+
+  const [showHaveAnAccount, setShowHaveAnAccount] = useState({
+    haveAnAccount: true,
   });
 
   const handleChange = (event) => {
@@ -141,6 +145,7 @@ const AuthForm = (props) => {
                 name="row-radio-buttons-group"
                 defaultValue="supporter"
                 style={{ marginBottom: 10 + "px" }}
+                onClick={() => setShowHaveAnAccount({ haveAnAccount: false })}
               >
                 <FormControlLabel
                   value="supporter"
@@ -158,6 +163,12 @@ const AuthForm = (props) => {
                 />
               </RadioGroup>
             </FormControl>
+            {showHaveAnAccount.haveAnAccount ? (
+              <Link to={"/login"}>
+                <Typography padding={3}>Already have an account?</Typography>
+              </Link>
+            ) : null}
+
             {/* {supporter sign up form} */}
             {signupType === "supporter" ? (
               <div className="form">
@@ -182,6 +193,9 @@ const AuthForm = (props) => {
                 >
                   {displayName}
                 </Button>
+                <Link to={"/login"}>
+                  <Typography padding={5}>Already have an account?</Typography>
+                </Link>
               </div>
             ) : null}
 
@@ -243,6 +257,9 @@ const AuthForm = (props) => {
                 >
                   {displayName}
                 </Button>
+                <Link to={"/login"}>
+                  <Typography padding={5}>Already have an account?</Typography>
+                </Link>
               </div>
             ) : null}
 
