@@ -124,7 +124,8 @@ async function seed() {
       gender: "Male",
       race: "White",
       birthYear: 1978,
-      bio: "I love science so I'm here to support!"
+      bio: "I love science so I'm here to support!",
+      profileImg: userImg[Math.floor(Math.random() * userImg.length)],
     }),
     //1 scientist
     User.create({
@@ -137,7 +138,8 @@ async function seed() {
       gender: "Male",
       race: "White",
       birthYear: 1988,
-      bio: "Hi there, I am happy to join this community!"
+      bio: "Hi there, I am happy to join this community!",
+      profileImg: userImg[Math.floor(Math.random() * userImg.length)],
     }),
     //2 scientist
     User.create({
@@ -150,7 +152,8 @@ async function seed() {
       gender: "Female",
       race: "American Indian or Alaska Native",
       birthYear: 1990,
-      bio: "What an awesome time to be a researcher."
+      bio: "What an awesome time to be a researcher.",
+      profileImg: userImg[Math.floor(Math.random() * userImg.length)],
     }),
     //3 scientist
     User.create({
@@ -164,6 +167,7 @@ async function seed() {
       gender: "Female",
       race: "Two or More Races",
       birthYear: 1965,
+      profileImg: userImg[Math.floor(Math.random() * userImg.length)],
     }),
     //4 scientist
     User.create({
@@ -173,6 +177,7 @@ async function seed() {
       firstName: "Ralphie",
       lastName: "Emerson",
       type: "scientist",
+      profileImg: userImg[Math.floor(Math.random() * userImg.length)],
     }),
     //5 scientist
     User.create({
@@ -185,7 +190,8 @@ async function seed() {
       gender: "Female",
       race: "American Indian or Alaska Native",
       birthYear: 1990,
-      bio: "I have a fascination with biology so I'm here to share my studies with you!"
+      bio: "I have a fascination with biology so I'm here to share my studies with you!",
+      profileImg: userImg[Math.floor(Math.random() * userImg.length)],
     }),
     //6 scientist
     User.create({
@@ -195,6 +201,7 @@ async function seed() {
       firstName: "Linda",
       lastName: "Chilton",
       type: "scientist",
+      profileImg: userImg[Math.floor(Math.random() * userImg.length)],
     }),
     //7 scientist
     User.create({
@@ -204,6 +211,7 @@ async function seed() {
       firstName: "Alex",
       lastName: "Carter",
       type: "scientist",
+      profileImg: userImg[Math.floor(Math.random() * userImg.length)],
     }),
     //8 scientist
     User.create({
@@ -213,6 +221,7 @@ async function seed() {
       firstName: "Lawrence",
       lastName: "Hong",
       type: "scientist",
+      profileImg: userImg[Math.floor(Math.random() * userImg.length)],
     }),
     //9 scientist
     User.create({
@@ -222,6 +231,7 @@ async function seed() {
       firstName: "Clara",
       lastName: "Choi",
       type: "scientist",
+      profileImg: userImg[Math.floor(Math.random() * userImg.length)],
     }),
     //10 scientist
     User.create({
@@ -231,6 +241,7 @@ async function seed() {
       firstName: "Hong Ni",
       lastName: "Fa",
       type: "scientist",
+      profileImg: userImg[Math.floor(Math.random() * userImg.length)],
     }),
     //11 scientist
     User.create({
