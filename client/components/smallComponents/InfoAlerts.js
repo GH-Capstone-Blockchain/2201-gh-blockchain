@@ -147,21 +147,14 @@ export function ErrorTransactionAlert(props) {
       aria-labelledby="alert-dialog-title"
       aria-describedby="alert-dialog-description"
     >
-      <DialogTitle id="alert-dialog-title">
-        {"There Was An Error!"}
-      </DialogTitle>
+      <DialogTitle id="alert-dialog-title">{"There Was An Error!"}</DialogTitle>
       <DialogContent>
         <DialogContentText id="alert-dialog-description">
-          It's possible the scientist didn't set up the project correctly or your MetaMask is not properly configured!
+          It's possible the scientist didn't set up the project correctly or
+          your MetaMask is not properly configured!
         </DialogContentText>
       </DialogContent>
       <DialogActions>
-        {/* <Button
-          target="_blank"
-          href="https://support.google.com/websearch/answer/118238?hl=en&co=GENIE.Platform%3DDesktop"
-        >
-          I need more help!
-        </Button> */}
         <Button onClick={props.handleClose} autoFocus>
           Try Again!
         </Button>
@@ -201,17 +194,43 @@ export function AddProjectError(props) {
       aria-labelledby="alert-dialog-title"
       aria-describedby="alert-dialog-description"
     >
-      <DialogTitle id="alert-dialog-title">
-        {"There was an error!"}
-      </DialogTitle>
+      <DialogTitle id="alert-dialog-title">{"There was an error!"}</DialogTitle>
       <DialogContent>
         <DialogContentText id="alert-dialog-description">
-          Check your form for any validation errors and/or use the information icons on the right for help.
+          Check your form for any validation errors and/or use the information
+          icons on the right for help.
         </DialogContentText>
       </DialogContent>
       <DialogActions>
         <Button onClick={props.handleClose} autoFocus>
           Okay, got it!
+        </Button>
+      </DialogActions>
+    </Dialog>
+  );
+}
+export function NoMetaMaskError(props) {
+  return (
+    <Dialog
+      open={props.open}
+      onClose={props.handleClose}
+      aria-labelledby="alert-dialog-title"
+      aria-describedby="alert-dialog-description"
+    >
+      <DialogTitle id="alert-dialog-title">
+        {"You Don't Have MetaMask Installed!"}
+      </DialogTitle>
+      <DialogContent>
+        <DialogContentText id="alert-dialog-description">
+          Download MetaMask in order to make contributions!
+        </DialogContentText>
+      </DialogContent>
+      <DialogActions>
+        <Button target="_blank" href="https://metamask.io/download/">
+          Download MetaMask!
+        </Button>
+        <Button onClick={props.handleClose} autoFocus>
+          Just browsing!
         </Button>
       </DialogActions>
     </Dialog>

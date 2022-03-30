@@ -29,7 +29,7 @@ import theme from "./StyleTheme";
 import { loadWeb3, loadContractData } from "../web3/web3";
 import DonateCard from "./DonateCard";
 import { ErrorTransactionAlert } from "./smallComponents/InfoAlerts";
-import { SayThankYou } from "./smallComponents/InfoAlerts";
+import { SayThankYou, NoMetaMaskError } from "./smallComponents/InfoAlerts";
 import ContributionList from "./smallComponents/ContributionsList";
 
 const SingleProject = (props) => {
@@ -40,6 +40,7 @@ const SingleProject = (props) => {
   const [error, setError] = useState(false)
   const [thankYou, setThankYou] = useState(false)
   const [donation, setDonation] = useState(0)
+  const [noMetamask, setNoMetamask] = useState(false)
 
 
   useEffect(() => {
@@ -48,7 +49,8 @@ const SingleProject = (props) => {
         await props.fetchProject(id);
         await props.fetchContributions(id);
         const accountAddress = await loadWeb3();
-        setAccount(accountAddress[0]);
+        if(accountAddress) setAccount(accountAddress[0]);
+        if(!accountAddress) setNoMetamask(true)
         await props.fetchConversion();
       } catch (error) {
         console.error("error in fetchData", error);
@@ -86,6 +88,7 @@ const SingleProject = (props) => {
   const handleClose = () => {
     setError(false)
     setThankYou(false)
+    setNoMetamask(false)
   }
 
   if (!props.project) {
@@ -106,6 +109,7 @@ const SingleProject = (props) => {
       <Grid item xs={12} sx={{ display: "flex", margin: "4%" }}></Grid>
       <ErrorTransactionAlert handleClose={handleClose} open={error}/>
       <SayThankYou handleClose={handleClose} donation={donation} open={thankYou}/>
+      <NoMetaMaskError handleClose={handleClose} open={noMetamask}/>
       <Container
         sx={{ display: "flex", flexDirection: "column" }}
         maxWidth="lg"

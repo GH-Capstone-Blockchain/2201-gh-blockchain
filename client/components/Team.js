@@ -42,7 +42,8 @@ export default function Team() {
         container
         textAlign="center"
         sx={{
-          marginTop: "10%",
+          marginTop: "100px",
+          marginBottom:'200px'
         }}
       >
         <Grid item xs={12}>
