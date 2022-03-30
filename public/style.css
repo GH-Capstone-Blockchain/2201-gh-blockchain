@@ -41,3 +41,21 @@ a {
 #fund-data {
   color: #fdff7e;
 }
+
+/* 403 Access Forbidden Page */
+.access-forbidden-page {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 5em;
+}
+
+.access-forbidden-page h1 {
+  color: red;
+  font-size: 5em;
+}
+
+.access-forbidden-page h2 {
+  font-size: 2em;
+}
