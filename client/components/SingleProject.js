@@ -16,11 +16,11 @@ import {
   Button,
   Divider,
   Grid,
-  // Avatar,
-  // ListItemAvatar,
-  // ListItemText,
-  // ListItem,
-  // List
+  Avatar,
+  ListItemAvatar,
+  ListItemText,
+  ListItem,
+  List,
 } from "@mui/material";
 import LinearProgress, {
   LinearProgressProps,
@@ -82,7 +82,7 @@ const SingleProject = (props) => {
   if (!props.project) {
     return <div>Data is loading...</div>;
   }
-  console.log('------->', props.contributions)
+
   return (
     <Grid
       container
@@ -224,12 +224,34 @@ const SingleProject = (props) => {
               color: "#051f2e",
               fontWeight: "bold",
             }}
-          >Contributions: </Typography>
-           {/* <List sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}>
-             {props.contributions.map(contribution => (
-
-             ))}
-           </List> */}
+          >
+            Contributions:{" "}
+          </Typography>
+          <List
+            sx={{ width: "100%", maxWidth: 360, bgcolor: "background.paper" }}
+          >
+            {props.contributions.map((contribution) => (
+              <Link to={`/user/${contribution.user.id}`}>
+                <ListItem alignItems="flex-start">
+                  <ListItemAvatar>
+                    <Avatar
+                      alt="profile picture"
+                      src={contribution.user.profileImg}
+                    />
+                  </ListItemAvatar>
+                  <ListItemText
+                    primary={contribution.user.username}
+                    secondary={
+                      <React.Fragment>
+                        {contribution.user.bio}
+                      </React.Fragment>
+                    }
+                  />
+                </ListItem>
+                <Divider variant="inset" component="li" />
+              </Link>
+            ))}
+          </List>
         </Box>
       </Container>
     </Grid>
