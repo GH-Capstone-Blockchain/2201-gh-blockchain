@@ -16,6 +16,11 @@ import {
   Button,
   Divider,
   Grid,
+  // Avatar,
+  // ListItemAvatar,
+  // ListItemText,
+  // ListItem,
+  // List
 } from "@mui/material";
 import LinearProgress, {
   LinearProgressProps,
@@ -77,6 +82,7 @@ const SingleProject = (props) => {
   if (!props.project) {
     return <div>Data is loading...</div>;
   }
+  console.log('------->', props.contributions)
   return (
     <Grid
       container
@@ -116,15 +122,13 @@ const SingleProject = (props) => {
             if (idx === props.scientists.length - 1) {
               return (
                 <Link to={`/user/${scientist.user.id}`}>
-                  {firstName} {" "}
-                  {lastName}
+                  {firstName} {lastName}
                 </Link>
               );
             } else {
               return (
                 <Link to={`/user/${scientist.user.id}`}>
-                  {firstName} {" "}
-                  {lastName},{" "}
+                  {firstName} {lastName},{" "}
                 </Link>
               );
             }
@@ -209,6 +213,24 @@ const SingleProject = (props) => {
         ) : (
           <div></div>
         )}
+        {/* {Contributions List} */}
+        <Box>
+          <Typography
+            variant="h5"
+            margin="15px"
+            sx={{
+              fontSize: "22px",
+              fontFamily: "Roboto Condensed",
+              color: "#051f2e",
+              fontWeight: "bold",
+            }}
+          >Contributions: </Typography>
+           {/* <List sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}>
+             {props.contributions.map(contribution => (
+
+             ))}
+           </List> */}
+        </Box>
       </Container>
     </Grid>
   );
