@@ -30,6 +30,7 @@ import { loadWeb3, loadContractData } from "../web3/web3";
 import DonateCard from "./DonateCard";
 import { ErrorTransactionAlert } from "./smallComponents/InfoAlerts";
 import { SayThankYou } from "./smallComponents/InfoAlerts";
+import ContributionList from "./smallComponents/ContributionsList";
 
 const SingleProject = (props) => {
   let params = useParams();
@@ -236,31 +237,7 @@ const SingleProject = (props) => {
           >
             Contributions:{" "}
           </Typography>
-          <List
-            sx={{ width: "100%", maxWidth: 360, bgcolor: "background.paper" }}
-          >
-            {props.contributions.map((contribution) => (
-              <Link to={`/user/${contribution.user.id}`}>
-                <ListItem alignItems="flex-start">
-                  <ListItemAvatar>
-                    <Avatar
-                      alt="profile picture"
-                      src={contribution.user.profileImg}
-                    />
-                  </ListItemAvatar>
-                  <ListItemText
-                    primary={contribution.user.username}
-                    secondary={
-                      <React.Fragment>
-                        {contribution.user.bio}
-                      </React.Fragment>
-                    }
-                  />
-                </ListItem>
-                <Divider variant="inset" component="li" />
-              </Link>
-            ))}
-          </List>
+            <ContributionList contributions={props.contributions}/>
         </Box>
       </Container>
     </Grid>
