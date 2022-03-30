@@ -218,11 +218,11 @@ export function NoMetaMaskError(props) {
       aria-describedby="alert-dialog-description"
     >
       <DialogTitle id="alert-dialog-title">
-        {"You Don't Have MetaMask Installed!"}
+        {"MetaMask Is Not Detected!"}
       </DialogTitle>
       <DialogContent>
         <DialogContentText id="alert-dialog-description">
-          Download MetaMask in order to make contributions!
+          Download MetaMask or login in order to make contributions or create a project.
         </DialogContentText>
       </DialogContent>
       <DialogActions>

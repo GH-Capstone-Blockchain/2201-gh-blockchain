@@ -12,6 +12,7 @@ import {
   FundrasingGoalAlert,
   WalletAlert,
   ImageAlert,
+  NoMetaMaskError
 } from "./smallComponents/InfoAlerts";
 import { useNavigate } from 'react-router-dom'
 import { fetchConversion } from '../store/conversion'
@@ -34,12 +35,14 @@ function AddProjectForm(props) {
   const [goalAlert, setGoalAlert] = useState(false);
   const [addressAlert, setAddressAlert] = useState(false);
   const [imageAlert, setImageAlert] = useState(false);
+  const [noMetamask, setNoMetamask] = useState(false)
 
   const [address, setAddress] = useState(null);
 
   useEffect(async () => {
-    let add = await loadWeb3();
-    setAddress(add[0]);
+    const accountAddress = await loadWeb3();
+    if(accountAddress) setAccount(accountAddress[0]);
+    if(!accountAddress) setNoMetamask(true)
     props.fetchConversion()
   }, []);
   const handleClose = () => {
@@ -47,6 +50,7 @@ function AddProjectForm(props) {
     setGoalAlert(false);
     setAddressAlert(false);
     setImageAlert(false);
+    setNoMetamask(false);
   };
   const handleChange = (event) => {
     let value = event.target.value;
@@ -78,6 +82,7 @@ function AddProjectForm(props) {
         // background: "#051f2e",
       }}
     >
+      <NoMetaMaskError handleClose={handleClose} open={noMetamask}/>
       <Box
         component="form"
         sx={{}}

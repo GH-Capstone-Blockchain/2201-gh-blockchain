@@ -28,8 +28,7 @@ import LinearProgress, {
 import theme from "./StyleTheme";
 import { loadWeb3, loadContractData } from "../web3/web3";
 import DonateCard from "./DonateCard";
-import { ErrorTransactionAlert } from "./smallComponents/InfoAlerts";
-import { SayThankYou, NoMetaMaskError } from "./smallComponents/InfoAlerts";
+import { SayThankYou, NoMetaMaskError, ErrorTransactionAlert} from "./smallComponents/InfoAlerts";
 import ContributionList from "./smallComponents/ContributionsList";
 
 const SingleProject = (props) => {
