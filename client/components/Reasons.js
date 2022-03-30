@@ -7,19 +7,19 @@ const reasons1 = [
     icon: "icon-decentralized.png",
     title: "Decentralized",
     detail:
-      "DeSci Funder utilizes the blockchain technology, so there is no intermediary body between the supporters and scientists",
+      "DeSci Funder utilizes blockchain technology to create a trustless platform for crowdfunding scientific research — without third-party fees.",
   },
   {
     icon: "icon-transparent.png",
     title: "Transparent",
     detail:
-      "All transactions are available to the public thanks to Blockchain.",
+      "All transactions are available to the public thanks to the Ethereum blockchain.",
   },
   {
     icon: "icon-immutable.png",
     title: "Immutable",
     detail:
-      "Once transaction is accepted to blockchain, the data in the transaction cannot be altered.",
+      "Once a transaction is added to the Etherum blockchain, the data in the transaction cannot be altered.",
   },
 ];
 const reasons2 = [
@@ -27,19 +27,19 @@ const reasons2 = [
     icon: "icon-noFees.png",
     title: "No Fees",
     detail:
-      "Since there is no intermediary body involved, DeSci Funder takes zero fee.",
+      "Since there is no third-party involved, all funding raised on DeSci Funder goes directly to researchers.",
   },
   {
     icon: "icon-directConnect.png",
     title: "Directly Connected",
     detail:
-      "Unlike the traditional scientific research funding system, supporters donations directly reach the scientist.",
+      "Unlike the traditional scientific research funding system, supporters can directly contribute to research they care about.",
   },
   {
     icon: "icon-awareness.png",
     title: "Increased Awareness",
     detail:
-      "By directly connecting the scientists and the pulic, DeSci Funder increases the awareness of science and current social issues.",
+      "By directly connecting scientists and the public, DeSci Funder increases awareness of cutting-edge scientific research and current social issues.",
   },
 ];
 
