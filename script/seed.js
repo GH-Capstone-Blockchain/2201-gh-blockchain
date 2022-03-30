@@ -478,7 +478,7 @@ async function seed() {
     project_timeline_end: "2022-12-01",
     campaign_timeline_start: "2022-04-15",
     campaign_timeline_end: "2022-06-15",
-    fundraising_goal: 6,
+    fundraising_goal: 6 * Math.pow(10,18),
     isFunded: false,
   });
 
@@ -493,7 +493,7 @@ async function seed() {
     project_timeline_end: "2023-03-01",
     campaign_timeline_start: "2022-05-01",
     campaign_timeline_end: "2022-07-01",
-    fundraising_goal: 2,
+    fundraising_goal: 2 * Math.pow(10,18), 
     isFunded: false,
   });
 
@@ -508,7 +508,7 @@ async function seed() {
     project_timeline_end: "2023-12-01",
     campaign_timeline_start: "2022-5-01",
     campaign_timeline_end: "2022-10-01",
-    fundraising_goal: 3,
+    fundraising_goal: 3* Math.pow(10,18),
     isFunded: false,
   });
 
@@ -523,7 +523,7 @@ async function seed() {
     project_timeline_end: "2023-10-15",
     campaign_timeline_start: "2022-5-01",
     campaign_timeline_end: "2022-10-01",
-    fundraising_goal: 40,
+    fundraising_goal: 4 * Math.pow(10,18),
     isFunded: false,
   });
 
@@ -538,7 +538,7 @@ async function seed() {
     project_timeline_end: "2023-9-01",
     campaign_timeline_start: "2022-6-01",
     campaign_timeline_end: "2022-10-01",
-    fundraising_goal: 3,
+    fundraising_goal: 3* Math.pow(10,18),
     isFunded: false,
   });
 
@@ -553,7 +553,7 @@ async function seed() {
     project_timeline_end: "2023-9-01",
     campaign_timeline_start: "2022-6-01",
     campaign_timeline_end: "2022-10-01",
-    fundraising_goal: 3,
+    fundraising_goal: 3 * Math.pow(10,18),
     isFunded: false,
   });
 
@@ -568,7 +568,7 @@ async function seed() {
     project_timeline_end: "2023-04-01",
     campaign_timeline_start: "2022-03-21",
     campaign_timeline_end: "2022-10-01",
-    fundraising_goal: 5,
+    fundraising_goal: 5 * Math.pow(10,18),
     isFunded: false,
   });
 
@@ -583,7 +583,7 @@ async function seed() {
     project_timeline_end: "2023-02-01",
     campaign_timeline_start: "2022-03-01",
     campaign_timeline_end: "2022-06-01",
-    fundraising_goal: 3,
+    fundraising_goal: 3 * Math.pow(10,18),
     isFunded: false,
   });
 
@@ -598,7 +598,7 @@ async function seed() {
     project_timeline_end: "2022-09-01",
     campaign_timeline_start: "2022-04-13",
     campaign_timeline_end: "2022-06-13",
-    fundraising_goal: 8,
+    fundraising_goal: 8 * Math.pow(10,18),
     isFunded: false,
   });
 
@@ -613,7 +613,7 @@ async function seed() {
     project_timeline_end: "2022-09-01",
     campaign_timeline_start: "2022-04-13",
     campaign_timeline_end: "2022-06-13",
-    fundraising_goal: 15,
+    fundraising_goal: 1 * Math.pow(10,18),
     isFunded: false,
   });
 
@@ -628,7 +628,7 @@ async function seed() {
     project_timeline_end: "2022-09-01",
     campaign_timeline_start: "2022-04-13",
     campaign_timeline_end: "2022-06-13",
-    fundraising_goal: 8,
+    fundraising_goal: 8 * Math.pow(10,18),
     isFunded: false,
   });
 
@@ -643,7 +643,7 @@ async function seed() {
     project_timeline_end: "2022-09-01",
     campaign_timeline_start: "2022-04-13",
     campaign_timeline_end: "2022-06-13",
-    fundraising_goal: 5,
+    fundraising_goal: 5 * Math.pow(10,18),
     isFunded: false,
   });
 
@@ -658,7 +658,7 @@ async function seed() {
     project_timeline_end: "2022-09-01",
     campaign_timeline_start: "2022-04-13",
     campaign_timeline_end: "2022-06-13",
-    fundraising_goal: 22,
+    fundraising_goal: 2 * Math.pow(10,18),
     isFunded: false,
   });
 
@@ -673,7 +673,7 @@ async function seed() {
     project_timeline_end: "2022-09-01",
     campaign_timeline_start: "2022-04-13",
     campaign_timeline_end: "2022-06-13",
-    fundraising_goal: 4,
+    fundraising_goal: 4 * Math.pow(10,18),
     isFunded: false,
   });
 
