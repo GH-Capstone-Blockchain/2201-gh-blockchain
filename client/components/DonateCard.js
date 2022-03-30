@@ -16,6 +16,7 @@ import { useNavigate } from "react-router-dom";
 
 export default function DonateCard(props) {
   const navigate = useNavigate();
+  const textInput = React.useRef(null);
   const [donation, setDonation] = useState(0);
   const project = props.project;
   const usdVals = projectToUSD(project, props.conversion)
@@ -109,6 +110,7 @@ export default function DonateCard(props) {
                 label="Donation Value"
                 variant="outlined"
                 type="number"
+                inputRef={textInput}
                 InputProps={{
                   startAdornment: (
                     <InputAdornment position="start">$</InputAdornment>
@@ -118,7 +120,10 @@ export default function DonateCard(props) {
               />
               <Button
                 sx={{ alignSelf: "center", marginTop: "12px" }}
-                onClick={() => {props.handleDonate(donation)}}
+                onClick={async () => {
+                  await props.handleDonate(donation)
+                  textInput.current.value = ""
+                }}
               >
                 DONATE
               </Button>
