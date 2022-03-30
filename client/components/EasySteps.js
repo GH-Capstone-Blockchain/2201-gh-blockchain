@@ -9,20 +9,20 @@ import {
 
 const easySteps = [
   {
-    icon: <AccountBalanceWallet sx={{ color: "#ffef94", fontSize: 70 }} />,
+    icon: <AccountBalanceWallet sx={{ color: "#fff8cc", fontSize: 70 }} />,
     title: "Connect your wallet",
     detail:
       "DeSci Funder currently supports MetaMask, a crypto wallet extension for your browser. Learn more here.",
     color: "#ffef94",
   },
   {
-    icon: <NoteAdd sx={{ color: "#94fdff", fontSize: 70 }} />,
+    icon: <NoteAdd sx={{ color: "#ccfff3", fontSize: 70 }} />,
     title: "Create your campaign",
     detail: "As a scientist, you can easily create your campaign here.",
     color: "#94fdff",
   },
   {
-    icon: <VolunteerActivism sx={{ color: "#fcb3c1", fontSize: 70 }} />,
+    icon: <VolunteerActivism sx={{ color: "#ffd9e3", fontSize: 70 }} />,
     title: "Support your favorite research",
     detail:
       "Whether you are a scientist or a regular supporter, you can make a donation to as many researches as you want without any minimum amount.",
@@ -51,7 +51,7 @@ export default function Reasons() {
               marginBottom: "5%",
             }}
           >
-            Take these <span className="main-title-span">easy</span> steps
+            Take these <span className="main-title-blue">easy</span> steps
           </Typography>
         </Grid>
         {easySteps.map((reason) => {

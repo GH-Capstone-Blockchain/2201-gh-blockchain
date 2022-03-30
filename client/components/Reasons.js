@@ -64,7 +64,7 @@ export default function Reasons() {
               marginBottom: "5%",
             }}
           >
-            <span className="main-title-span">No more </span>platform fees
+            <span className="main-title-blue">No more </span>platform fees
           </Typography>
         </Grid>
         {reasons1.map((reason) => {

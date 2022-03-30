@@ -73,9 +73,9 @@ const Navbar = ({ handleClick, isLoggedIn }) => (
             <Link to="/projects">
               <Button>All Projects</Button>
             </Link>
-            <Link to="/about">
+            {/* <Link to="/about">
               <Button>About</Button>
-            </Link>
+            </Link> */}
             <Link to="/addproject">
               <Button>Create Project</Button>
             </Link>
@@ -89,9 +89,9 @@ const Navbar = ({ handleClick, isLoggedIn }) => (
             <Link to="/projects">
               <Button>All Projects</Button>
             </Link>
-            <Link to="/about">
+            {/* <Link to="/about">
               <Button>About</Button>
-            </Link>
+            </Link> */}
             <Link to="/login">
               <Button>Login</Button>
             </Link>
