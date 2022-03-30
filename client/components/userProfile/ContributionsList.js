@@ -21,7 +21,7 @@ const ContributionsList = (props) => {
 
   return (
     <div>
-      <h1>Contributions</h1>
+      <h1>Projects Contributed To </h1>
       {props.contributions.map((contribution) => {
         const project = contribution.project;
         const shortenedDescription = () => {

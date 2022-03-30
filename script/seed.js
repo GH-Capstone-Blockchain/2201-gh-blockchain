@@ -118,9 +118,13 @@ async function seed() {
     User.create({
       username: "cody123",
       password: "123",
-      email: "cody@seed.js",
-      firstName: "cody",
-      lastName: "hamilton",
+      email: "cody@gmail.com",
+      firstName: "Cody",
+      lastName: "Hamilton",
+      gender: "Male",
+      race: "White",
+      birthYear: 1978,
+      bio: "I love science so I'm here to support!"
     }),
     //1 scientist
     User.create({
@@ -130,6 +134,10 @@ async function seed() {
       firstName: "murphy",
       lastName: "albert",
       type: "scientist",
+      gender: "Male",
+      race: "White",
+      birthYear: 1988,
+      bio: "Hi there, I am happy to join this community!"
     }),
     //2 scientist
     User.create({
@@ -138,8 +146,11 @@ async function seed() {
       email: "savannah@seed.js",
       firstName: "Savannah",
       lastName: "Laliberte",
-      bio: "Science is my passion!",
       type: "scientist",
+      gender: "Female",
+      race: "American Indian or Alaska Native",
+      birthYear: 1990,
+      bio: "What an awesome time to be a researcher."
     }),
     //3 scientist
     User.create({
@@ -149,6 +160,10 @@ async function seed() {
       firstName: "Alecia",
       lastName: "Carter",
       type: "scientist",
+      bio: "Science is my passion!",
+      gender: "Female",
+      race: "Two or More Races",
+      birthYear: 1965,
     }),
     //4 scientist
     User.create({
@@ -167,6 +182,10 @@ async function seed() {
       firstName: "Christian",
       lastName: "Suharlim",
       type: "scientist",
+      gender: "Female",
+      race: "American Indian or Alaska Native",
+      birthYear: 1990,
+      bio: "I have a fascination with biology so I'm here to share my studies with you!"
     }),
     //6 scientist
     User.create({
