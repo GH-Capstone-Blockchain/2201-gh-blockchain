@@ -37,22 +37,22 @@ const ProfilePage = (props) => {
 
   return (
     <div>
-      <div id="top-half">
-        <div id="pic-name">
-          <img src={props.user.profileImg} />
+      <Box id="top-half">
+        <Card id="pic-name">
+          <img src={props.user.profileImg} alt="profile picture" width="300px"/>
           <h3>
           {props.user.username}
           </h3>
-        </div>
-        <div id="user-info">
+        </Card>
+        <Card id="user-info">
           <Typography>Name: {capitalizeName(props.user)}</Typography>
           <Typography>Email: {props.user.email}</Typography>
           <Typography>Gender: {props.user.gender}</Typography>
           <Typography>Race: {props.user.race}</Typography>
           <Typography>Birth Year: {props.user.birthYear}</Typography>
           <Typography>Bio: {props.user.bio}</Typography>
-        </div>
-      </div>
+        </Card>
+      </Box>
       {props.user.scientist ? (
         <>
           <CredsAndPubs auth={props.auth} user={props.user} />
