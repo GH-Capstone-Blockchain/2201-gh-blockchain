@@ -19,6 +19,7 @@ export default function Featured(props) {
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
+        marginTop: "10%",
       }}
     >
       <Grid item xs={10}>
