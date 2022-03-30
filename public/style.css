@@ -59,3 +59,12 @@ a {
 .access-forbidden-page h2 {
   font-size: 2em;
 }
+
+a {
+  text-decoration: none;
+  color: black;
+}
+
+a:hover {
+  text-decoration: underline
+}
