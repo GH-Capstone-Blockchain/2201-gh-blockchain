@@ -1,6 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
-import { useHistory } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { authenticate } from "../../store";
 import {
   Box,
@@ -96,6 +96,9 @@ const AuthForm = (props) => {
             >
               {displayName}
             </Button>
+            <Link to={"/signup"}>
+                <Typography padding={3}>Don't have an account? Sign up here!</Typography>
+              </Link>
             {error && error.response && (
               <Alert severity="error"> {error.response.data} </Alert>
             )}

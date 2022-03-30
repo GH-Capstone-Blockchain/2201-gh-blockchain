@@ -14,6 +14,7 @@ import {
 import { Link } from "react-router-dom";
 import { fetchContributionsByUser } from "../../store/contributions";
 
+
 const ContributionsList = (props) => {
   useEffect(async () => {
     await props.fetchContributionsByUser(props.user.id);
@@ -21,7 +22,7 @@ const ContributionsList = (props) => {
 
   return (
     <div>
-      <h1>Projects Contributed To </h1>
+      <h1>Projects I Contributed To </h1>
       {props.contributions.map((contribution) => {
         const project = contribution.project;
         const shortenedDescription = () => {
@@ -65,11 +66,6 @@ const ContributionsList = (props) => {
                 </Typography>
               </CardContent>
             </CardActionArea>
-            <CardContent>
-              <Typography>
-                Donated: {contribution.contributionAmount}
-              </Typography>
-            </CardContent>
           </Card>
         );
       })}
