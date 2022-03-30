@@ -16,6 +16,11 @@ import {
   Button,
   Divider,
   Grid,
+  Avatar,
+  ListItemAvatar,
+  ListItemText,
+  ListItem,
+  List,
 } from "@mui/material";
 import LinearProgress, {
   LinearProgressProps,
@@ -30,7 +35,7 @@ const SingleProject = (props) => {
   let id = parseInt(params.id);
   const [campaign, setCampaign] = useState({});
   const [account, setAccount] = useState("");
-  const [error, setError] = useState(false)
+  const [error, setError] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -49,9 +54,9 @@ const SingleProject = (props) => {
 
   const handleDonate = async (donation) => {
     try {
-      const eth = donation / props.conversion
+      const eth = donation / props.conversion;
       const total = window.web3.utils.toWei(`${eth}`, "Ether");
-      console.log(total)
+      console.log(total);
       const campaignContract = await loadContractData(
         props.project.campaign_contract_address
       );
@@ -60,7 +65,7 @@ const SingleProject = (props) => {
         .donate(props.auth.id)
         .send({ from: account, value: total });
       // Had to hardcode in 100 because the wei amount creates sequelize errors (too big of integer -- need to address this);
-      await props.createContribution(id, props.auth.id, eth * Math.pow(10,18));
+      await props.createContribution(id, props.auth.id, eth * Math.pow(10, 18));
     } catch (error) {
       console.error("error in handleDonate", error);
       setError(true);
@@ -70,14 +75,14 @@ const SingleProject = (props) => {
     // });
   };
 
-  
   const handleClose = () => {
-    setError(false)
-  }
+    setError(false);
+  };
 
   if (!props.project) {
     return <div>Data is loading...</div>;
   }
+
   return (
     <Grid
       container
@@ -90,7 +95,7 @@ const SingleProject = (props) => {
       }}
     >
       <Grid item xs={12} sx={{ display: "flex", margin: "4%" }}></Grid>
-      <ErrorTransactionAlert handleClose={handleClose} open={error}/>
+      <ErrorTransactionAlert handleClose={handleClose} open={error} />
       <Container
         sx={{ display: "flex", flexDirection: "column" }}
         maxWidth="lg"
@@ -115,9 +120,17 @@ const SingleProject = (props) => {
             let firstName = scientist.user.firstName;
             let lastName = scientist.user.lastName;
             if (idx === props.scientists.length - 1) {
-              return `${firstName} ${lastName}`;
+              return (
+                <Link to={`/user/${scientist.user.id}`}>
+                  {firstName} {lastName}
+                </Link>
+              );
             } else {
-              return `${firstName} ${lastName}, `;
+              return (
+                <Link to={`/user/${scientist.user.id}`}>
+                  {firstName} {lastName},{" "}
+                </Link>
+              );
             }
           })}
         </Typography>
@@ -133,11 +146,19 @@ const SingleProject = (props) => {
           margin="15px"
           maxWidth="750"
         >
-          <img style={{'borderRadius' : "10px", "width":'700px', "height":'400px', 'objectFit': 'cover'} }src={props.project.imageUrl} />
+          <img
+            style={{
+              borderRadius: "10px",
+              width: "700px",
+              height: "400px",
+              objectFit: "cover",
+            }}
+            src={props.project.imageUrl}
+          />
           <DonateCard
             project={props.project}
             conversion={props.conversion}
-            loggedIn = {props.auth.id}
+            loggedIn={props.auth.id}
             handleDonate={handleDonate}
           />
         </Box>
@@ -156,26 +177,32 @@ const SingleProject = (props) => {
         </Typography>
 
         {/* Project Timeline */}
-        <Box sx={{display:'flex', flexDirection:'row'}}>
-        <Typography
-          variant="subtitle2"
-          margin="15px"
-          sx={{ fontWeight: "bold" }}
-        >
-          Project Timeline:{" "}
-        </Typography>
-        <Typography variant="body1" margin="15px" component="h5">
-          {props.project
-            ? convertDate(props.project.project_timeline_start)
-            : ""} to {props.project ? convertDate(props.project.project_timeline_end) : ""}
-        </Typography>  
+        <Box sx={{ display: "flex", flexDirection: "row" }}>
+          <Typography
+            variant="subtitle2"
+            margin="15px"
+            sx={{ fontWeight: "bold" }}
+          >
+            Project Timeline:{" "}
+          </Typography>
+          <Typography variant="body1" margin="15px" component="h5">
+            {props.project
+              ? convertDate(props.project.project_timeline_start)
+              : ""}{" "}
+            to{" "}
+            {props.project
+              ? convertDate(props.project.project_timeline_end)
+              : ""}
+          </Typography>
         </Box>
-                {/* Project description */}
-                <Typography variant="body1" margin="15px" component="h5">
+        {/* Project description */}
+        <Typography variant="body1" margin="15px" component="h5">
           {props.project.description}
         </Typography>
         {props.project.videoUrl ? (
-          <Box sx={{display:'flex', justifyContent:'center', margin:'20px'}}>
+          <Box
+            sx={{ display: "flex", justifyContent: "center", margin: "20px" }}
+          >
             <iframe
               width="854"
               height="480"
@@ -186,6 +213,46 @@ const SingleProject = (props) => {
         ) : (
           <div></div>
         )}
+        {/* {Contributions List} */}
+        <Box>
+          <Typography
+            variant="h5"
+            margin="15px"
+            sx={{
+              fontSize: "22px",
+              fontFamily: "Roboto Condensed",
+              color: "#051f2e",
+              fontWeight: "bold",
+            }}
+          >
+            Contributions:{" "}
+          </Typography>
+          <List
+            sx={{ width: "100%", maxWidth: 360, bgcolor: "background.paper" }}
+          >
+            {props.contributions.map((contribution) => (
+              <Link to={`/user/${contribution.user.id}`}>
+                <ListItem alignItems="flex-start">
+                  <ListItemAvatar>
+                    <Avatar
+                      alt="profile picture"
+                      src={contribution.user.profileImg}
+                    />
+                  </ListItemAvatar>
+                  <ListItemText
+                    primary={contribution.user.username}
+                    secondary={
+                      <React.Fragment>
+                        {contribution.user.bio}
+                      </React.Fragment>
+                    }
+                  />
+                </ListItem>
+                <Divider variant="inset" component="li" />
+              </Link>
+            ))}
+          </List>
+        </Box>
       </Container>
     </Grid>
   );

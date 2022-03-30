@@ -6,17 +6,17 @@ import CredsAndPubs from "./CredsAndPubs";
 import ProjectsList from "./ProjectsList";
 import ContributionsList from "./ContributionsList";
 import {
-    Typography,
-    Box,
-    Container,
-    Paper,
-    ThemeProvider,
-    Card,
-    CardContent,
-    Button,
-    Divider,
-    Grid,
-  } from "@mui/material";
+  Typography,
+  Box,
+  Container,
+  Paper,
+  ThemeProvider,
+  Card,
+  CardContent,
+  Button,
+  Divider,
+  Grid,
+} from "@mui/material";
 
 const ProfilePage = (props) => {
   let params = useParams();
@@ -33,25 +33,32 @@ const ProfilePage = (props) => {
     <div>
       <div id="top-half">
         <div id="pic-name">
-            <img src={props.user.profileImg} />
-            <h3>{props.user.firstName} {props.user.lastName}</h3>
+          <img src={props.user.profileImg} />
+          <h3>
+            {props.user.firstName} {props.user.lastName}
+          </h3>
         </div>
         <div id="user-info">
-            <Typography>Email: {props.user.email}</Typography>
-            <Typography>Gender: {props.user.gender}</Typography>
-            <Typography>Race: {props.user.race}</Typography>
-            <Typography>Birth Year: {props.user.birthYear}</Typography>
-            <Typography>Bio: {props.user.bio}</Typography>
+          <Typography>Email: {props.user.email}</Typography>
+          <Typography>Gender: {props.user.gender}</Typography>
+          <Typography>Race: {props.user.race}</Typography>
+          <Typography>Birth Year: {props.user.birthYear}</Typography>
+          <Typography>Bio: {props.user.bio}</Typography>
         </div>
       </div>
       {props.user.scientist ? (
         <>
-          <CredsAndPubs auth={props.auth} user= {props.user}/>
-          <ProjectsList auth={props.auth} user= {props.user}/>
+          <CredsAndPubs auth={props.auth} user={props.user} />
+          <ProjectsList auth={props.auth} user={props.user} />
         </>
       ) : (
-        <ContributionsList auth={props.auth} user= {props.user}/>
+        <ContributionsList auth={props.auth} user={props.user} />
       )}
+      {props.auth.password === props.user.password ? (
+        <Link to={`/`}>
+          <Button>Edit Account Info</Button>
+        </Link>
+      ) : null}
     </div>
   );
 };

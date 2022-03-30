@@ -25,80 +25,36 @@ import { loadWeb3, loadAccount } from "./store/interactions";
  * COMPONENT
  */
 class Routers extends Component {
-  // constructor() {
-  //   super();
-  //   this.state = {
-  //     account: "",
-  //   };
-  // }
-
   componentDidMount() {
     this.props.loadInitialData();
   }
-
-  // async componentWillMount() {
-  //   await this.loadWeb3();
-  //   await this.loadBlockchainData();
-  // }
-
-  //load web3:
-  // async loadBlockchainData(dispatch) {
-  //   const web3 = await loadWeb3(dispatch);
-  //   await loadAccount(web3, dispatch);
-  //   const accounts = await web3.eth.getAccounts();
-  //   console.log(accounts);
-  // }
-
-  // async loadWeb3() {
-  //   if (window.ethereum) {
-  //     window.web3 = new Web3(window.ethereum);
-  //     await window.ethereum.enable();
-  //   } else if (window.web3) {
-  //     window.web3 = new Web3(window.web3.currentProvider);
-  //   } else {
-  //     window.alert(
-  //       "Non-Ethereum browser detected. You should consider trying MetaMask!"
-  //     );
-  //   }
-  // }
-
-  // async loadBlockchainData() {
-  //   const web3 = window.web3;
-  //   const accounts = await web3.eth.getAccounts();
-  //   this.setState({ account: accounts[0] });
-  // }
 
   render() {
     const { isLoggedIn } = this.props;
 
     return (
       <div>
+        <Routes>
+          <Route path="/" element={<LandingPage />} />
+          <Route path="/about" element={<AboutPage />} />
+          <Route path="projects" element={<AllProjects />} />
+          <Route path="projects/:id" element={<SingleProject />} />
+          <Route path="dropdown" element={<ScientistsDropDown />} />
+          <Route path="test" element={<TestingPage />} />
+          <Route path="user/:id" element={<ProfilePage />} />
+        </Routes>
         {isLoggedIn ? (
           <Routes>
-            <Route path="/" element={<LandingPage />} />
-            {/* <Route path="/about" element={<AboutPage />} /> */}
-            <Route path="projects" element={<AllProjects />} />
-            <Route path="projects/:id" element={<SingleProject />} />
             <Route path="addproject" element={<AddProjectForm />} />
-            <Route path="dropdown" element={<ScientistsDropDown />} />
-            <Route path="test" element={<TestingPage />} />
-            <Route path="user/:id" element={<ProfilePage />} />
             <Route path="dashboard/:id" element={<ProjectDashboard />} />
             {/* <Route path="/loggedin" element={<Home />} /> */}
           </Routes>
         ) : (
           <Routes>
             {/* <Route path="/notloggedin" element={<Login />} /> */}
-            <Route path="/" element={<LandingPage />} />
-            {/* <Route path="/about" element={<AboutPage />} /> */}
-            <Route path="projects" element={<AllProjects />} />
-            <Route path="projects/:id" element={<SingleProject />} />
-            <Route path="addproject" element={<AddProjectForm />} />
+
             <Route path="login" element={<Login />} />
             <Route path="/signup" element={<Signup />} />
-            <Route path="dropdown" element={<ScientistsDropDown />} />
-            <Route path="/user/:id" element={<ProfilePage />} />
-            <Route path="test" element={<TestingPage />} />
           </Routes>
         )}
       </div>
