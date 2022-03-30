@@ -17,10 +17,10 @@ import { connect } from 'react-redux';
 import { updateProject, fetchProject } from '../store/singleProject';
 import { useParams } from 'react-router-dom';
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
-import {
-  YouTubeAlert,
-  ImageAlert,
-} from './smallComponents/InfoAlerts';
+import { YouTubeAlert, ImageAlert } from './smallComponents/InfoAlerts';
+import NoProjectsToViewPage from './NoProjectsToViewPage';
+import { projectToUSD } from './smallComponents/utilities';
+import { fetchConversion } from '../store/conversion';
 
 const ProjectDashboard = (props) => {
   let params = useParams();
@@ -36,11 +36,17 @@ const ProjectDashboard = (props) => {
     project_timeline_end: '',
   });
 
+  if (props.project.fundraising_goal) {
+    console.log('PROJECT TO CONVERT', props.project);
+    let results = projectToUSD(props.project, props.conversion);
+    console.log(results);
+  }
+
   const [isUpdated, setIsUpdated] = useState(false);
 
   const [youtubeAlert, setyoutubeAlert] = useState(false);
   const [imageAlert, setImageAlert] = useState(false);
-  
+
   const fetchData = async () => {
     try {
       await props.fetchProject(id);
@@ -55,6 +61,7 @@ const ProjectDashboard = (props) => {
           project_timeline_end: props.project.project_timeline_end,
         });
       }
+      await props.fetchConversion();
       setIsUpdated(false);
     } catch (error) {
       console.error('error in fetchData', error);
@@ -67,7 +74,7 @@ const ProjectDashboard = (props) => {
 
   useEffect(() => {
     fetchData();
-  }, [isUpdated])
+  }, [isUpdated]);
 
   const handleClose = () => {
     setyoutubeAlert(false);
@@ -86,6 +93,13 @@ const ProjectDashboard = (props) => {
     props.updateProject(form);
     setIsUpdated(true);
   };
+  if (!props.project.name) {
+    return (
+      <div>
+        <NoProjectsToViewPage />
+      </div>
+    );
+  }
   return (
     <Grid
       container
@@ -324,6 +338,7 @@ const mapState = (state) => {
     auth: state.auth,
     project: state.project.project,
     scientists: state.project.scientists,
+    conversion: state.conversion,
   };
 };
 
@@ -331,6 +346,7 @@ const mapDispatch = (dispatch) => {
   return {
     updateProject: (project) => dispatch(updateProject(project)),
     fetchProject: (projectId) => dispatch(fetchProject(projectId)),
+    fetchConversion: () => dispatch(fetchConversion()),
   };
 };
 
