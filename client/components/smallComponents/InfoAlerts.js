@@ -169,3 +169,51 @@ export function ErrorTransactionAlert(props) {
     </Dialog>
   );
 }
+export function SayThankYou(props) {
+  return (
+    <Dialog
+      open={props.open}
+      onClose={props.handleClose}
+      aria-labelledby="alert-dialog-title"
+      aria-describedby="alert-dialog-description"
+    >
+      <DialogTitle id="alert-dialog-title">
+        {"Thank you for your donation!"}
+      </DialogTitle>
+      <DialogContent>
+        <DialogContentText id="alert-dialog-description">
+          Your donation of ${props.donation} will be such a big help!!
+        </DialogContentText>
+      </DialogContent>
+      <DialogActions>
+        <Button onClick={props.handleClose} autoFocus>
+          You're Welcome!
+        </Button>
+      </DialogActions>
+    </Dialog>
+  );
+}
+export function AddProjectError(props) {
+  return (
+    <Dialog
+      open={props.open}
+      onClose={props.handleClose}
+      aria-labelledby="alert-dialog-title"
+      aria-describedby="alert-dialog-description"
+    >
+      <DialogTitle id="alert-dialog-title">
+        {"There was an error!"}
+      </DialogTitle>
+      <DialogContent>
+        <DialogContentText id="alert-dialog-description">
+          Check your form for any validation errors and/or use the information icons on the right for help.
+        </DialogContentText>
+      </DialogContent>
+      <DialogActions>
+        <Button onClick={props.handleClose} autoFocus>
+          Okay, got it!
+        </Button>
+      </DialogActions>
+    </Dialog>
+  );
+}

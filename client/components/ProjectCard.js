@@ -27,11 +27,11 @@ function ProjectCard(props) {
       return project.description;
     }
   };
-  const goal = Math.ceil(props.conversion * (project.fundraising_goal / Math.pow(10,18)));
+  const goal = Math.round(props.conversion * (project.fundraising_goal / Math.pow(10,18)));
   const contributions =
-    Math.round(props.conversion * project.totalDonations * 100) / 100;
-  const percent = Math.floor((contributions / goal) * 100);
-  console.log(contributions, percent);
+    Math.round(props.conversion * (project.totalDonations / Math.pow(10,18)) * 100) / 100;
+  const percent = Math.floor((project.totalDonations / project.fundraising_goal) * 100);
+
   return (
     <Card sx={{ maxWidth: 500 }} variant="outlined">
       <CardActionArea component={Link} to={`/projects/${project.id}`}>

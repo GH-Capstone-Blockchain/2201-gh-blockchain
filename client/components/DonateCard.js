@@ -17,10 +17,16 @@ export default function DonateCard(props) {
   const navigate = useNavigate();
   const [donation, setDonation] = useState(0);
   const project = props.project;
-  const goal = Math.round(props.conversion * (project.fundraising_goal / Math.pow(10,18)));
+  const goal = Math.round(
+    props.conversion * (project.fundraising_goal / Math.pow(10, 18))
+  );
   const contributions =
-    Math.round(props.conversion * (project.totalDonations / Math.pow(10,18)) * 100) / 100;
-  const percent = Math.floor((project.totalDonations / project.fundraising_goal) * 100);
+    Math.round(
+      props.conversion * (project.totalDonations / Math.pow(10, 18)) * 100
+    ) / 100;
+  const percent = Math.floor(
+    (project.totalDonations / project.fundraising_goal) * 100
+  );
 
   const handleChange = (event) => {
     setDonation(event.target.value);
@@ -120,7 +126,7 @@ export default function DonateCard(props) {
               />
               <Button
                 sx={{ alignSelf: "center", marginTop: "12px" }}
-                onClick={() => props.handleDonate(donation)}
+                onClick={() => {props.handleDonate(donation)}}
               >
                 DONATE
               </Button>
