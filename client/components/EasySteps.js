@@ -6,20 +6,25 @@ import {
   NoteAdd,
   VolunteerActivism,
 } from "@mui/icons-material";
+import { Link } from "react-router-dom";
 
 const easySteps = [
   {
     icon: <AccountBalanceWallet sx={{ color: "#fff8cc", fontSize: 70 }} />,
     title: "Connect your wallet",
     detail:
-      "DeSci Funder currently supports MetaMask, a crypto wallet extension for your browser. Learn more here.",
+      "DeSci Funder currently supports MetaMask, a crypto wallet extension for your browser.",
     color: "#ffef94",
+    link: "https://metamask.io/",
+    external: true,
   },
   {
     icon: <NoteAdd sx={{ color: "#ccfff3", fontSize: 70 }} />,
     title: "Create your campaign",
     detail: "As a scientist, you can easily create your campaign here.",
     color: "#94fdff",
+    link: "/signup",
+    external: false,
   },
   {
     icon: <VolunteerActivism sx={{ color: "#ffd9e3", fontSize: 70 }} />,
@@ -27,6 +32,8 @@ const easySteps = [
     detail:
       "Whether you are a scientist or a regular supporter, you can make a donation to as many researches as you want without any minimum amount.",
     color: "#fcb3c1",
+    link: "/projects",
+    external: false,
   },
 ];
 
@@ -57,26 +64,53 @@ export default function Reasons() {
         {easySteps.map((reason) => {
           return (
             <Grid item xs={4} sx={{ padding: "10px" }} key={reason.title}>
-              {reason.icon}
-              <Typography
-                varient="h4"
-                color="white"
-                sx={{
-                  fontFamily: "Roboto Condensed",
-                  fontSize: "1.5em",
-                }}
-              >
-                {reason.title}
-              </Typography>
-              <Typography
-                sx={{
-                  color: "#d8e2dc",
-                  fontWeight: "light",
-                  padding: "10px",
-                }}
-              >
-                {reason.detail}
-              </Typography>
+              {!reason.external ? (
+                <Link to={reason.link}>
+                  {reason.icon}
+                  <Typography
+                    varient="h4"
+                    color="white"
+                    sx={{
+                      fontFamily: "Roboto Condensed",
+                      fontSize: "1.5em",
+                    }}
+                  >
+                    {reason.title}
+                  </Typography>
+                  <Typography
+                    sx={{
+                      color: "#d8e2dc",
+                      fontWeight: "light",
+                      padding: "10px",
+                    }}
+                  >
+                    {reason.detail}
+                  </Typography>
+                </Link>
+              ) : (
+                <a href={reason.link} target="_blank" >
+                  {reason.icon}
+                  <Typography
+                    varient="h4"
+                    color="white"
+                    sx={{
+                      fontFamily: "Roboto Condensed",
+                      fontSize: "1.5em",
+                    }}
+                  >
+                    {reason.title}
+                  </Typography>
+                  <Typography
+                    sx={{
+                      color: "#d8e2dc",
+                      fontWeight: "light",
+                      padding: "10px",
+                    }}
+                  >
+                    {reason.detail}
+                  </Typography>
+                </a>
+              )}
             </Grid>
           );
         })}
