@@ -186,14 +186,32 @@ export function SayThankYou(props) {
         </DialogContentText>
       </DialogContent>
       <DialogActions>
-        {/* <Button
-          target="_blank"
-          href="https://support.google.com/websearch/answer/118238?hl=en&co=GENIE.Platform%3DDesktop"
-        >
-          I need more help!
-        </Button> */}
         <Button onClick={props.handleClose} autoFocus>
           You're Welcome!
+        </Button>
+      </DialogActions>
+    </Dialog>
+  );
+}
+export function AddProjectError(props) {
+  return (
+    <Dialog
+      open={props.open}
+      onClose={props.handleClose}
+      aria-labelledby="alert-dialog-title"
+      aria-describedby="alert-dialog-description"
+    >
+      <DialogTitle id="alert-dialog-title">
+        {"There was an error!"}
+      </DialogTitle>
+      <DialogContent>
+        <DialogContentText id="alert-dialog-description">
+          Check your form for any validation errors and/or use the information icons on the right for help.
+        </DialogContentText>
+      </DialogContent>
+      <DialogActions>
+        <Button onClick={props.handleClose} autoFocus>
+          Okay, got it!
         </Button>
       </DialogActions>
     </Dialog>
