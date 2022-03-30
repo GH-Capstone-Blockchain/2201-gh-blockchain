@@ -16,7 +16,7 @@ import {
   Grid,
 } from "@mui/material";
 
-const Navbar = ({ handleClick, isLoggedIn }) => (
+const Navbar = ({ handleClick, isLoggedIn, auth }) => (
   <div>
     <AppBar position="fixed" elevation={0} style={{ background: "#051f2e" }}>
       <Grid
@@ -70,27 +70,32 @@ const Navbar = ({ handleClick, isLoggedIn }) => (
           <div>
             {/* The navbar will show these links after you log in */}
 
-            <Link to="/projects">
-              <Button>All Projects</Button>
-            </Link>
             <Link to="/about">
               <Button>About</Button>
             </Link>
-            <Link to="/addproject">
-              <Button>Create Project</Button>
+            <Link to="/projects">
+              <Button>All Projects</Button>
             </Link>
-            <a href="#" onClick={handleClick}>
+            {auth.scientist ? (
+              <Link to="/addproject">
+                <Button>Create Project</Button>
+              </Link>
+            ) : null}
+            <Link to={`/user/${auth.id}`}>
+              <Button>My Profile</Button>
+            </Link>
+            <a href="/login" onClick={handleClick}>
               <Button>Logout</Button>
             </a>
           </div>
         ) : (
           <div>
             {/* The navbar will show these links before you log in */}
-            <Link to="/projects">
-              <Button>All Projects</Button>
-            </Link>
             <Link to="/about">
               <Button>About</Button>
+            </Link>
+            <Link to="/projects">
+              <Button>All Projects</Button>
             </Link>
             <Link to="/login">
               <Button>Login</Button>
@@ -111,6 +116,7 @@ const Navbar = ({ handleClick, isLoggedIn }) => (
 const mapState = (state) => {
   return {
     isLoggedIn: !!state.auth.id,
+    auth: state.auth,
   };
 };
 
