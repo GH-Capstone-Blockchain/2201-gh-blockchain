@@ -18,12 +18,15 @@ import {
   Typography,
 } from "@mui/material";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
+import { useNavigate } from "react-router-dom";
+
 
 /**
  * COMPONENT
  */
 const AuthForm = (props) => {
   const { name, displayName, error, authenticate, scientistSignUp } = props;
+  const navigate = useNavigate();
 
   //for radio option between supporter and scientist signup
   const [signupType, setSignupType] = useState({
@@ -60,6 +63,7 @@ const AuthForm = (props) => {
       const formName = evt.target.name;
       const username = evt.target.username.value;
       const password = evt.target.password.value;
+      navigate("/projects")
       authenticate(username, password, formName);
     } else if (signupType === "scientist") {
       evt.preventDefault();
@@ -72,6 +76,7 @@ const AuthForm = (props) => {
       const type = "scientist";
       const publications = evt.target.publications.value;
       const credentials = evt.target.credentials.value;
+      navigate("/projects")
       scientistSignUp(
         username,
         password,
