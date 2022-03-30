@@ -42,6 +42,7 @@ export const fetchContributionsByUser = (userId) => {
 };
 
 export const createContribution = (projectId, userId, contributionAmt) => {
+  console.log(projectId, userId, contributionAmt)
   return async (dispatch) => {
     try {
       const { data } = await axios.post('/api/contributions', {
@@ -49,7 +50,7 @@ export const createContribution = (projectId, userId, contributionAmt) => {
         projectId: projectId,
         contributionAmount: contributionAmt,
       });
-      dispatch(addContribution(data));
+      dispatch(fetchContributions(projectId));
     } catch (error) {
       console.error('error in createContribution thunk', error);
     }
