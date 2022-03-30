@@ -16,14 +16,21 @@ import {
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import { useNavigate } from "react-router-dom";
 
-
 /**
  * COMPONENT
  */
 const AuthForm = (props) => {
-  const { name, displayName, handleSubmit, error } = props;
+  const { name, displayName, authenticate, error } = props;
   const navigate = useNavigate();
 
+  const handleSubmit = (evt) => {
+    evt.preventDefault();
+    const formName = evt.target.name;
+    const username = evt.target.username.value;
+    const password = evt.target.password.value;
+    navigate("/projects");
+    authenticate(username, password, formName);
+  };
 
   return (
     <Grid
@@ -117,14 +124,8 @@ const mapLogin = (state) => {
 
 const mapDispatch = (dispatch) => {
   return {
-    handleSubmit(evt) {
-      evt.preventDefault();
-      const formName = evt.target.name;
-      const username = evt.target.username.value;
-      const password = evt.target.password.value;
-      dispatch(authenticate(username, password, formName));
-      navigate("/projects")
-    },
+    authenticate: (username, password, formName) =>
+      dispatch(authenticate(username, password, formName)),
   };
 };
 
