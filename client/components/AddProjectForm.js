@@ -23,6 +23,7 @@ function AddProjectForm(props) {
     description: "",
     imageUrl: "",
     videoUrl: "",
+    project_wallet_address: '',
     project_timeline_start: "",
     project_timeline_end: "",
     campaign_timeline_start: "",
@@ -56,14 +57,14 @@ function AddProjectForm(props) {
     setForm({ ...form, [event.target.id]: value });
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    props.createProject({
+    await props.createProject({
       project: form,
       scientists: [props.auth.scientist.id],
       address: address,
     });
-    // navigate('/projects')
+    navigate('/projects')
   };
 
   return (
@@ -146,6 +147,7 @@ function AddProjectForm(props) {
               <TextField
                 fullWidth
                 required
+                error = {form.project_wallet_address.length > 0 && !form.project_wallet_address.match(/^0x[a-fA-F0-9]{40}$/)}
                 type="string"
                 id="project_wallet_address"
                 label="Project Wallet Address"
@@ -204,6 +206,7 @@ function AddProjectForm(props) {
                     required
                     id="videoUrl"
                     label="YouTube Video ID"
+                    inputProps={{ maxLength: 11 }}
                     onChange={handleChange}
                   />
                   <Button>
