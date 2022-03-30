@@ -36,7 +36,7 @@ class Routers extends Component {
       <div>
         <Routes>
           <Route path="/" element={<LandingPage />} />
-          <Route path="/about" element={<AboutPage />} />
+          {/* <Route path="/about" element={<AboutPage />} /> */}
           <Route path="projects" element={<AllProjects />} />
           <Route path="projects/:id" element={<SingleProject />} />
           <Route path="dropdown" element={<ScientistsDropDown />} />
