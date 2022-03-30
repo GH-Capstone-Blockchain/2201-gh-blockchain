@@ -28,10 +28,9 @@ export async function loadWeb3() {
       return address
     } else if (window.web3) {
       window.web3 = new Web3(window.web3.currentProvider);
+      return true
     } else {
-      window.alert(
-        "Non-Ethereum browser detected. You should consider trying MetaMask!"
-      );
+      return false
     }
   } catch (error) {
     console.log(error)
