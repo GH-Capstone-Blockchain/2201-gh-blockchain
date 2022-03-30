@@ -4,9 +4,10 @@ import { Container, Typography, Grid, Box } from "@mui/material";
 export default function Footer() {
   return (
     <Grid
+      className={"footer"}
       container
       sx={{
-        position: "static",
+        position: "fixed",
         left: "0",
         bottom: "0",
         backgroundColor: "#051f2e",

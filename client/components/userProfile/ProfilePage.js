@@ -29,23 +29,30 @@ const ProfilePage = (props) => {
   }, []);
   if (isLoading) return <img src={"https://i.stack.imgur.com/ATB3o.gif"} />;
 
+  const capitalizeName = (user) => {
+    user.firstName = user.firstName.charAt(0).toUpperCase() + user.firstName.slice(1).toLowerCase()
+    user.lastName = user.lastName.charAt(0).toUpperCase() + user.lastName.slice(1).toLowerCase()
+    return user.firstName + " " + user.lastName
+  }
+
   return (
     <div>
-      <div id="top-half">
-        <div id="pic-name">
-          <img src={props.user.profileImg} />
+      <Box id="top-half">
+        <Card id="pic-name">
+          <img src={props.user.profileImg} alt="profile picture" width="300px"/>
           <h3>
-            {props.user.firstName} {props.user.lastName}
+          {props.user.username}
           </h3>
-        </div>
-        <div id="user-info">
+        </Card>
+        <Card id="user-info">
+          <Typography>Name: {capitalizeName(props.user)}</Typography>
           <Typography>Email: {props.user.email}</Typography>
           <Typography>Gender: {props.user.gender}</Typography>
           <Typography>Race: {props.user.race}</Typography>
           <Typography>Birth Year: {props.user.birthYear}</Typography>
           <Typography>Bio: {props.user.bio}</Typography>
-        </div>
-      </div>
+        </Card>
+      </Box>
       {props.user.scientist ? (
         <>
           <CredsAndPubs auth={props.auth} user={props.user} />
