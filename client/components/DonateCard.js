@@ -10,24 +10,16 @@ import {
   TextField,
   InputAdornment,
 } from "@mui/material";
-import { convertDate } from "./smallComponents/utilities";
+import { convertDate, projectToUSD } from "./smallComponents/utilities";
 import { useNavigate } from "react-router-dom";
+
 
 export default function DonateCard(props) {
   const navigate = useNavigate();
   const [donation, setDonation] = useState(0);
   const project = props.project;
-  const goal = Math.round(
-    props.conversion * (project.fundraising_goal / Math.pow(10, 18))
-  );
-  const contributions =
-    Math.round(
-      props.conversion * (project.totalDonations / Math.pow(10, 18)) * 100
-    ) / 100;
-  const percent = Math.floor(
-    (project.totalDonations / project.fundraising_goal) * 100
-  );
-
+  const usdVals = projectToUSD(project, props.conversion)
+ 
   const handleChange = (event) => {
     setDonation(event.target.value);
   };
@@ -67,11 +59,11 @@ export default function DonateCard(props) {
               }}
             >
               {" "}
-              Goal: ${goal}
+              Goal: ${usdVals.fundraisingGoal}
             </Typography>
             <LinearProgress
               variant="determinate"
-              value={percent > 100 ? 100 : percent}
+              value={usdVals.percentReached > 100 ? 100 : usdVals.percentReached }
               sx={{ width: 120, alignSelf: "center" }}
             />
             <Typography
@@ -82,7 +74,7 @@ export default function DonateCard(props) {
                 marginLeft: "8px",
               }}
             >
-              {percent > 100 ? 100 : percent}%
+              {usdVals.percentReached > 100 ? 100 : usdVals.percentReached}%
             </Typography>
           </Box>
 
