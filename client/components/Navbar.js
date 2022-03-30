@@ -74,12 +74,17 @@ const Navbar = ({ handleClick, isLoggedIn, auth }) => (
               <Button>About</Button>
             </Link>
             <Link to="/projects">
-              <Button>All Projects</Button>
+              <Button>Projects</Button>
             </Link>
             {auth.scientist ? (
-              <Link to="/addproject">
-                <Button>Create Project</Button>
-              </Link>
+              <>
+                <Link to="/addproject">
+                  <Button>Start A Project</Button>
+                </Link>
+                <Link to={`/dashboard/${auth.id}`}>
+                  <Button>Dashboard</Button>
+                </Link>
+              </>
             ) : null}
             <Link to={`/user/${auth.id}`}>
               <Button>My Profile</Button>
@@ -95,7 +100,7 @@ const Navbar = ({ handleClick, isLoggedIn, auth }) => (
               <Button>About</Button>
             </Link>
             <Link to="/projects">
-              <Button>All Projects</Button>
+              <Button>Projects</Button>
             </Link>
             <Link to="/login">
               <Button>Login</Button>

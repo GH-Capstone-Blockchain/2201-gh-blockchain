@@ -33,7 +33,7 @@ const ProjectsList = (props) => {
           }
         };
         return (
-          <Card sx={{ maxWidth: 500 }} variant="outlined">
+          <Card sx={{ maxWidth: 500 }} variant="outlined" key={project.id}>
             <CardActionArea component={Link} to={`/projects/${project.id}`}>
               <CardMedia
                 component="img"
