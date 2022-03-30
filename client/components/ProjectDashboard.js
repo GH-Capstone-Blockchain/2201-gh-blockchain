@@ -108,7 +108,7 @@ const ProjectDashboard = (props) => {
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'flex-start',
-        // background: "#051f2e",
+        marginBottom: '200px'
       }}
     >
       <Grid
