@@ -18,7 +18,7 @@ router.post('/', async (req, res, next) => {
 router.get('/:projectId', async (req, res, next) => {
     try {
         const project = await Project.findByPk(req.params.projectId);
-        const projectContributions = await project.getContributions();
+        const projectContributions = await project.getContributions({include: [User]});
         res.json(projectContributions);
     } catch (error) {
         next(error);

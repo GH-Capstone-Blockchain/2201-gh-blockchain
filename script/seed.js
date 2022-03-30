@@ -39,6 +39,7 @@ async function seed() {
       email: "savannah@seed.js",
       firstName: "Savannah",
       lastName: "Laliberte",
+      bio: "Science is my passion!",
       type: "scientist"
     }),
     //3 scientist
