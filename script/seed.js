@@ -5,6 +5,98 @@ const {
   models: { User, Project, Contribution },
 } = require("../server/db");
 
+//additional users
+const userNames = [
+  "Vivian",
+  "Leo",
+  "Joe",
+  "Josephine",
+  "Anna",
+  "Brooke",
+  "Carol",
+  "Ying",
+  "Diana",
+  "EB",
+  "Jessica",
+  "Joanne",
+  "Johanna",
+  "Grace",
+  "Kaia",
+  "Katelyn",
+  "Kelsey",
+  "Kimberley",
+  "Kristin",
+  "L",
+  "Lauren",
+  "Leah",
+  "Lei",
+  "Linda",
+  "Mai",
+  "Maxiel",
+  "Rusty",
+  "May",
+  "Melissa",
+  "Merle",
+  "Mica",
+  "Olivia",
+  "Pamela",
+  "Qina",
+  "Sara",
+  "Sarina",
+  "Serena",
+  "Violet",
+  "Woramon",
+];
+const type = ["supporter", "scientist"];
+const userImg = [
+  "https://www.thesprucepets.com/thmb/wpN_ZunUaRQAc_WRdAQRxeTbyoc=/4231x2820/filters:fill(auto,1)/adorable-white-pomeranian-puppy-spitz-921029690-5c8be25d46e0fb000172effe.jpg",
+  "https://keyassets.timeincuk.net/inspirewp/live/wp-content/uploads/sites/8/2021/02/GettyImages-997141470-e1614176377827.jpg",
+  "https://images.unsplash.com/photo-1615751072497-5f5169febe17?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8Y3V0ZSUyMGRvZ3xlbnwwfHwwfHw%3D&w=1000&q=80",
+  "http://images6.fanpop.com/image/photos/43100000/cute-dog-dogs-43117551-736-736.jpg",
+  "https://i.pinimg.com/originals/be/82/15/be821544fc5f328567cb538f96edb49a.jpg",
+  "https://preview.redd.it/8qyel6cy6qh31.jpg?auto=webp&s=aaae74229c2568be852042a5f945b5fb6b8e3a8d",
+  "https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/lifestyle-bestdogbreeds-1577128927.png?crop=0.502xw:1.00xh;0.263xw,0&resize=640:*",
+  "https://imagesvc.meredithcorp.io/v3/mm/image?url=https%3A%2F%2Fstatic.onecms.io%2Fwp-content%2Fuploads%2Fsites%2F37%2F2020%2F09%2F22%2F50-cute-dog-names.jpg",
+  "https://static.boredpanda.com/blog/wp-content/org_uploads/2014/06/cute-dog.jpg",
+  "https://www.scotsman.com/webimg/b25lY21zOjViZjVjYjc0LTgwZDctNGE4Zi1iNWZiLTE1MDA3YzAyNzJjYTo4ZDMyZGI1Yy03NDcxLTRhMjEtODA4ZS0xNTM4MWYxOGQ2Y2M=.jpg?width=2048&enable=upscale",
+  "https://www.pumpkin.care/blog/wp-content/uploads/2020/11/20-Cutest-Dog-Names.jpg",
+  "https://www.thesprucepets.com/thmb/EpDM0nWiLTrA-cTT577VmD4b-80=/2448x2448/smart/filters:no_upscale()/FunnyDogSmiling-ef11b73fa1834734b8c47025039fcd43.jpg",
+  "https://cdn1.tedsby.com/storage/5/0/1/501631/collectible-dog-belle-white-chihuahua-puppy-with-rose-in-its-mouth-felted-interior-toy-ooak.jpg",
+  "https://hashtaglegend.com/wp-content/uploads/2020/08/international-dog-day-1024x1024.jpg",
+  "https://d17fnq9dkz9hgj.cloudfront.net/uploads/2018/04/Frenchie_05.jpg",
+  "https://i.pinimg.com/736x/f3/89/ef/f389efb2a57669d9b50b97659507a2fe.jpg",
+  "https://i.pinimg.com/736x/dc/cb/4e/dccb4ed0fb9d7ee6e4478be4cd5d86f7.jpg",
+];
+
+const userBio = [
+  "The greatest glory in living lies not in never falling, but in rising every time we fall.",
+  "The way to get started is to quit talking and begin doing.",
+  "Your time is limited, so don't waste it living someone else's life. Don't be trapped by dogma – which is living with the results of other people's thinking.",
+  "If life were predictable it would cease to be life, and be without flavor.",
+  "If you look at what you have in life, you'll always have more. If you look at what you don't have in life, you'll never have enough. ",
+  "If you set your goals ridiculously high and it's a failure, you will fail above everyone else's success. ",
+  "Life is what happens when you're busy making other plans.",
+  "Spread love everywhere you go. Let no one ever come to you without leaving happier.",
+  "When you reach the end of your rope, tie a knot in it and hang on.",
+  "Always remember that you are absolutely unique. Just like everyone else.",
+  "Don't judge each day by the harvest you reap but by the seeds that you plant.",
+  "The future belongs to those who believe in the beauty of their dreams.",
+  "Tell me and I forget. Teach me and I remember. Involve me and I learn.",
+];
+const usersData = userNames.map((username) => ({
+  username: username,
+  password: "123",
+  email: `${username}@seed.js`,
+  profileImg: userImg[Math.floor(Math.random() * userImg.length)],
+  firstName: username,
+  lastName: "Hopper",
+  gender: "No Response",
+  race: "No Response",
+  birthYear: Math.floor(Math.random() * (2005 - 1970) + 1970),
+  type: type[Math.floor(Math.random() * type.length)],
+  bio: userBio[Math.floor(Math.random() * userBio.length)],
+}));
+
 /**
  * seed - this function clears the database, updates tables to
  *      match the models, and populates the database.
@@ -12,6 +104,13 @@ const {
 async function seed() {
   await db.sync({ force: true }); // clears db and matches models to tables
   console.log("db synced!");
+
+  //additonal users (from GH)
+  const additionalUsers = await Promise.all(
+    usersData.map((ghStudent) => {
+      return User.create(ghStudent);
+    })
+  );
 
   // Creating Users
   const users = await Promise.all([
@@ -30,7 +129,7 @@ async function seed() {
       email: "murphy@seed.js",
       firstName: "murphy",
       lastName: "albert",
-      type: "scientist"
+      type: "scientist",
     }),
     //2 scientist
     User.create({
@@ -40,7 +139,7 @@ async function seed() {
       firstName: "Savannah",
       lastName: "Laliberte",
       bio: "Science is my passion!",
-      type: "scientist"
+      type: "scientist",
     }),
     //3 scientist
     User.create({
@@ -49,7 +148,7 @@ async function seed() {
       email: "alecia@seed.js",
       firstName: "Alecia",
       lastName: "Carter",
-      type: "scientist"
+      type: "scientist",
     }),
     //4 scientist
     User.create({
@@ -58,7 +157,7 @@ async function seed() {
       email: "ralphieemerson@gmail.com",
       firstName: "Ralphie",
       lastName: "Emerson",
-      type: "scientist"
+      type: "scientist",
     }),
     //5 scientist
     User.create({
@@ -67,7 +166,7 @@ async function seed() {
       email: "ChristianSuharlim@gmail.com",
       firstName: "Christian",
       lastName: "Suharlim",
-      type: "scientist"
+      type: "scientist",
     }),
     //6 scientist
     User.create({
@@ -76,7 +175,7 @@ async function seed() {
       email: "linda@seed.js",
       firstName: "Linda",
       lastName: "Chilton",
-      type: "scientist"
+      type: "scientist",
     }),
     //7 scientist
     User.create({
@@ -85,7 +184,7 @@ async function seed() {
       email: "Alex@seed.js",
       firstName: "Alex",
       lastName: "Carter",
-      type: "scientist"
+      type: "scientist",
     }),
     //8 scientist
     User.create({
@@ -94,7 +193,7 @@ async function seed() {
       email: "docjokes@yahoo.com",
       firstName: "Lawrence",
       lastName: "Hong",
-      type: "scientist"
+      type: "scientist",
     }),
     //9 scientist
     User.create({
@@ -103,7 +202,7 @@ async function seed() {
       email: "clarachoi@yahoo.com",
       firstName: "Clara",
       lastName: "Choi",
-      type: "scientist"
+      type: "scientist",
     }),
     //10 scientist
     User.create({
@@ -112,7 +211,7 @@ async function seed() {
       email: "HongniFa@gmail.com",
       firstName: "Hong Ni",
       lastName: "Fa",
-      type: "scientist"
+      type: "scientist",
     }),
     //11 scientist
     User.create({
@@ -121,7 +220,7 @@ async function seed() {
       email: "JustinKay@gmail.com",
       firstName: "Justin",
       lastName: "Kay",
-      type: "scientist"
+      type: "scientist",
     }),
     //12 scientist
     User.create({
@@ -130,7 +229,7 @@ async function seed() {
       email: "CatherineFoley@gmail.com",
       firstName: "Catherine",
       lastName: "Foley",
-      type: "scientist"
+      type: "scientist",
     }),
     //13 scientist
     User.create({
@@ -139,7 +238,7 @@ async function seed() {
       email: "StefanGrundner@gmail.com",
       firstName: "Stefan",
       lastName: "Grundner",
-      type: "scientist"
+      type: "scientist",
     }),
     //14 scientist
     User.create({
@@ -148,7 +247,7 @@ async function seed() {
       email: "BenjaminYetton@gmail.com",
       firstName: "Benjamin",
       lastName: "Yetton",
-      type: "scientist"
+      type: "scientist",
     }),
     //15
     User.create({
@@ -538,7 +637,7 @@ async function seed() {
     description:
       "Halophila hawaiiana is a Native Hawaiian seagrass that creates a habitat relied on by many organisms. H. hawaiiana is labeled as vulnerable to stressors likely due to development, invasive species, and pollution. Low leaf density of seagrass in Maunalua Bay compared to other populations of seagrass on Oahu has been observed this is possibly due to marine pollution. This study will measure the effects of ammonium exposure, simulating marine pollution, on H. hawaiiana.",
     imageUrl:
-    'https://d3t9s8cdqyboc5.cloudfront.net/images?path=1136067/Z6Xj2PaqR1aUKUrCxVsg_IMG_7474 4.jpg&width=640&height=360',
+      "https://d3t9s8cdqyboc5.cloudfront.net/images?path=1136067/Z6Xj2PaqR1aUKUrCxVsg_IMG_7474 4.jpg&width=640&height=360",
     videoUrl: "https://www.youtube.com/embed/AXT7y9klHCI",
     project_timeline_start: "2022-02-01",
     project_timeline_end: "2022-09-01",
@@ -547,7 +646,6 @@ async function seed() {
     fundraising_goal: 4,
     isFunded: false,
   });
-
 
   await users[0].createContribution({ projectId: 1, contributionAmount: 100 });
 
@@ -607,16 +705,32 @@ async function seed() {
   await scientistCHyeRim.addProject(romeNewCities);
   await scientistJustin.addProject(marinePollution);
 
-  await marinePollution.createContribution({userId: 3, contributionAmount: 3})
-  await marinePollution.createContribution({userId: 18, contributionAmount: 3})
-  await informedConsumers.createContribution({userId: 18, contributionAmount: 3})
-  await congoBasin.createContribution({userId: 18, contributionAmount: 3})
-  await coralReefs.createContribution({userId: 20, contributionAmount: 3})
-  await analysisOfSleep.createContribution({userId: 20, contributionAmount: 3})
-  await congoBasin.createContribution({userId: 20, contributionAmount: 3})
-  await marinePollution.createContribution({userId: 4, contributionAmount: 5})
+  await marinePollution.createContribution({
+    userId: 3,
+    contributionAmount: 3,
+  });
+  await marinePollution.createContribution({
+    userId: 18,
+    contributionAmount: 3,
+  });
+  await informedConsumers.createContribution({
+    userId: 18,
+    contributionAmount: 3,
+  });
+  await congoBasin.createContribution({ userId: 18, contributionAmount: 3 });
+  await coralReefs.createContribution({ userId: 20, contributionAmount: 3 });
+  await analysisOfSleep.createContribution({
+    userId: 20,
+    contributionAmount: 3,
+  });
+  await congoBasin.createContribution({ userId: 20, contributionAmount: 3 });
+  await marinePollution.createContribution({
+    userId: 4,
+    contributionAmount: 5,
+  });
 
   console.log(`seeded ${users.length} users`);
+  console.log(`seeded ${additionalUsers.length} additioinal users`);
   console.log(`seeded successfully`);
   return {
     users: {
@@ -625,10 +739,6 @@ async function seed() {
     },
   };
 }
-
-
-
-
 
 /*
  We've separated the `seed` function from the `runSeed` function.
