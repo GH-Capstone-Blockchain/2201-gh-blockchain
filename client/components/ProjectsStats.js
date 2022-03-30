@@ -101,7 +101,7 @@ export default function ProjectsStats() {
               ...downArrowStyles,
             }}
           >
-            <KeyboardArrowDown color="primary" sx={{ fontSize: 70 }} />
+            <KeyboardArrowDown sx={{ color: "#fdfe9c", fontSize: 70 }} />
           </animated.div>
         </IconButton>
       </Grid>
