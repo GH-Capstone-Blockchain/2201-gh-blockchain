@@ -30,43 +30,112 @@ const ProfilePage = (props) => {
   if (isLoading) return <img src={"https://i.stack.imgur.com/ATB3o.gif"} />;
 
   const capitalizeName = (user) => {
-    user.firstName = user.firstName.charAt(0).toUpperCase() + user.firstName.slice(1).toLowerCase()
-    user.lastName = user.lastName.charAt(0).toUpperCase() + user.lastName.slice(1).toLowerCase()
-    return user.firstName + " " + user.lastName
-  }
+    user.firstName =
+      user.firstName.charAt(0).toUpperCase() +
+      user.firstName.slice(1).toLowerCase();
+    user.lastName =
+      user.lastName.charAt(0).toUpperCase() +
+      user.lastName.slice(1).toLowerCase();
+    return user.firstName + " " + user.lastName;
+  };
 
   return (
-    <div>
-      <Box id="top-half">
-        <Card id="pic-name">
-          <img src={props.user.profileImg} alt="profile picture" width="300px"/>
-          <h3>
-          {props.user.username}
-          </h3>
-        </Card>
-        <Card id="user-info">
-          <Typography>Name: {capitalizeName(props.user)}</Typography>
-          <Typography>Email: {props.user.email}</Typography>
-          <Typography>Gender: {props.user.gender}</Typography>
-          <Typography>Race: {props.user.race}</Typography>
-          <Typography>Birth Year: {props.user.birthYear}</Typography>
-          <Typography>Bio: {props.user.bio}</Typography>
-        </Card>
-      </Box>
+    <Grid
+      container
+      spacing={2}
+      sx={{
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "flex-start",
+      }}
+    >
+      <Grid
+        item
+        xs={12}
+        sx={{ marginTop: "130px", marginBottom: "30px" }}
+        textAlign="center"
+      >
+        <Typography
+          variant="h2"
+          color="#051f2e"
+          sx={{ fontFamily: "Roboto Condensed", fontSize: "50px" }}
+        >
+          {props.user.username}'s Profile
+        </Typography>
+      </Grid>
+      <Grid item xs={1} />
+      <Grid item xs={10} style={{ maxWidth: "800px" }}>
+        <Grid
+          container
+          spacing={2}
+          sx={{ marginTop: "20px", marginBottom: "20px" }}
+        >
+          <Grid
+            item
+            xs={4}
+            sx={{ marginTop: "20px", marginBottom: "20px" }}
+            textAlign="center"
+          >
+            <Card id="pic-name">
+              <img
+                src={props.user.profileImg}
+                alt="profile picture"
+                width="300px"
+              />
+              <h3>{props.user.username}</h3>
+            </Card>
+          </Grid>
+          <Grid
+            item
+            xs={8}
+            sx={{ marginTop: "20px", marginBottom: "20px" }}
+            textAlign="left"
+          >
+            <Card id="user-info">
+              <Typography>Name: {capitalizeName(props.user)}</Typography>
+              <Typography>Email: {props.user.email}</Typography>
+              <Typography>Gender: {props.user.gender}</Typography>
+              <Typography>Race: {props.user.race}</Typography>
+              <Typography>Birth Year: {props.user.birthYear}</Typography>
+              <Typography>Bio: {props.user.bio}</Typography>
+            </Card>
+          </Grid>
+        </Grid>
+      </Grid>
+      <Grid item xs={1} />
+
       {props.user.scientist ? (
         <>
-          <CredsAndPubs auth={props.auth} user={props.user} />
-          <ProjectsList auth={props.auth} user={props.user} />
+          <Grid item xs={1} />
+          <Grid item xs={10} style={{ maxWidth: "800px" }}>
+            <Grid
+              container
+              spacing={2}
+              sx={{
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "flex-start",
+              }}
+            >
+              <Grid item xs={12}>
+                <CredsAndPubs auth={props.auth} user={props.user} />
+                <ProjectsList auth={props.auth} user={props.user} />
+              </Grid>
+            </Grid>
+          </Grid>
+          <Grid item xs={1} />
         </>
       ) : (
-        <ContributionsList auth={props.auth} user={props.user} />
+        <Grid item xs={12}>
+          <ContributionsList auth={props.auth} user={props.user} />
+        </Grid>
       )}
       {props.auth.password === props.user.password ? (
         <Link to={`/`}>
-          <Button>Edit Account Info</Button>
+          <Button variant="contained">Edit Account Info</Button>
         </Link>
       ) : null}
-    </div>
+    </Grid>
   );
 };
 
