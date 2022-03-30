@@ -14,7 +14,6 @@ import ProjectDashboard from "./components/ProjectDashboard";
 import ProfilePage from "./components/userProfile/ProfilePage";
 import AboutPage from "./components/AboutPage";
 
-
 import { me } from "./store";
 
 //blockchain
@@ -37,7 +36,7 @@ class Routers extends Component {
       <div>
         <Routes>
           <Route path="/" element={<LandingPage />} />
-          <Route path="/about" element={<AboutPage />} />
+          {/* <Route path="/about" element={<AboutPage />} /> */}
           <Route path="projects" element={<AllProjects />} />
           <Route path="projects/:id" element={<SingleProject />} />
           <Route path="dropdown" element={<ScientistsDropDown />} />
@@ -53,6 +52,7 @@ class Routers extends Component {
         ) : (
           <Routes>
             {/* <Route path="/notloggedin" element={<Login />} /> */}
+
             <Route path="login" element={<Login />} />
             <Route path="/signup" element={<Signup />} />
           </Routes>

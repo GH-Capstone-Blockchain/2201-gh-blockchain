@@ -1,13 +1,9 @@
 import React, { useState } from "react";
-import { Typography, Grid } from "@mui/material";
+import { Typography, Grid, IconButton } from "@mui/material";
 import { animated, useSpring } from "react-spring";
+import { KeyboardArrowDown } from "@mui/icons-material";
 
 export default function ProjectsStats() {
-  //   const data = [
-  //     { title: "projects funded", number: 2398 },
-  //     { title: "supported", number: 13523 },
-  //     { title: "raised", number: 78303927161 },
-  //   ];
   const totalProjects = 454;
   const totalSupporters = 13523;
   const totalMoneyRaised = 7830392;
@@ -22,6 +18,12 @@ export default function ProjectsStats() {
     from: { val: 0 },
   });
 
+  //arrow icon movement
+  const downArrowStyles = useSpring({
+    loop: { reverse: true },
+    from: { y: 0 },
+    to: { y: 10 },
+  });
   return (
     <Grid
       container
@@ -29,62 +31,79 @@ export default function ProjectsStats() {
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
-        backgroundColor: "rgba(5, 31, 46, 0.7)",
-        borderRadius: "10px",
-        marginTop: "15%",
-        marginBottom: "15%",
-        paddingBottom: "5%",
       }}
     >
-      {/* <Grid item xs={12}>
-        <Typography variant="h4" color="white" fontFamily="Roboto Condensed">
-          Total
-        </Typography>
-      </Grid> */}
-      <Grid item xs={4} textAlign="center">
-        <animated.h1 className="stats" id="project-data">
-          {propsTotalProjs.val.to((val) => Math.floor(val))}
-        </animated.h1>
-        <Typography
-          varient="h4"
+      <Grid item xs={12}>
+        <Grid
+          container
           sx={{
-            color: "#c7feff",
-            fontFamily: "Roboto Condensed",
-            fontSize: "1.5em",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            backgroundColor: "rgba(5, 31, 46, 0.7)",
+            borderRadius: "10px",
+            marginTop: "5%",
+            marginBottom: "1%",
+            paddingBottom: "5%",
           }}
         >
-          projects funded
-        </Typography>
+          <Grid item xs={4} textAlign="center">
+            <animated.h1 className="stats" id="project-data">
+              {propsTotalProjs.val.to((val) => Math.floor(val))}
+            </animated.h1>
+            <Typography
+              varient="h4"
+              sx={{
+                color: "#c7feff",
+                fontFamily: "Roboto Condensed",
+                fontSize: "1.5em",
+              }}
+            >
+              projects funded
+            </Typography>
+          </Grid>
+          <Grid item xs={4} textAlign="center">
+            <animated.h1 className="stats" id="supporter-data">
+              {propsTotalSupporters.val.to((val) => Math.floor(val))}
+            </animated.h1>
+            <Typography
+              varient="h4"
+              sx={{
+                color: "#d6f9d1",
+                fontFamily: "Roboto Condensed",
+                fontSize: "1.5em",
+              }}
+            >
+              supported
+            </Typography>
+          </Grid>
+          <Grid item xs={4} textAlign="center">
+            <animated.h1 className="stats" id="fund-data">
+              {propsTotalRaised.val.to((val) => Math.floor(val))}
+            </animated.h1>
+            <Typography
+              varient="h4"
+              sx={{
+                color: "#fbfda7",
+                fontFamily: "Roboto Condensed",
+                fontSize: "1.5em",
+              }}
+            >
+              USD raised
+            </Typography>
+          </Grid>
+        </Grid>
       </Grid>
-      <Grid item xs={4} textAlign="center">
-        <animated.h1 className="stats" id="supporter-data">
-          {propsTotalSupporters.val.to((val) => Math.floor(val))}
-        </animated.h1>
-        <Typography
-          varient="h4"
-          sx={{
-            color: "#d6f9d1",
-            fontFamily: "Roboto Condensed",
-            fontSize: "1.5em",
-          }}
-        >
-          supported
-        </Typography>
-      </Grid>
-      <Grid item xs={4} textAlign="center">
-        <animated.h1 className="stats" id="fund-data">
-          {propsTotalRaised.val.to((val) => Math.floor(val))}
-        </animated.h1>
-        <Typography
-          varient="h4"
-          sx={{
-            color: "#fbfda7",
-            fontFamily: "Roboto Condensed",
-            fontSize: "1.5em",
-          }}
-        >
-          USD raised
-        </Typography>
+      <Grid item xs={12} textAlign="center">
+        <IconButton>
+          <animated.div
+            style={{
+              ...downArrowStyles,
+            }}
+          >
+            <KeyboardArrowDown sx={{ color: "#fdfe9c", fontSize: 70 }} />
+          </animated.div>
+        </IconButton>
       </Grid>
     </Grid>
   );

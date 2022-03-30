@@ -29,7 +29,7 @@ const AuthForm = (props) => {
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
-        // background: "#051f2e",
+        marginTop: "80px",
       }}
     >
       <Grid item xs={12} sx={{ margin: "10px" }}></Grid>
@@ -37,7 +37,6 @@ const AuthForm = (props) => {
         <CssBaseline />
         <Box
           sx={{
-            marginTop: 8,
             display: "flex",
             flexDirection: "column",
             alignItems: "center",
@@ -47,7 +46,7 @@ const AuthForm = (props) => {
             className="form"
             component="form"
             sx={{
-              "& .MuiTextField-root": { m: 1, width: "25ch" },
+              "& .MuiTextField-root": { m: 1, width: "300px" },
             }}
             noValidate
             autoComplete="off"
@@ -57,7 +56,12 @@ const AuthForm = (props) => {
             <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
               <LockOutlinedIcon />
             </Avatar>
-            <Typography color="secondary" component="h1" variant="h5">
+            <Typography
+              color="secondary"
+              component="h1"
+              variant="h5"
+              marginBottom="20px"
+            >
               {displayName}
             </Typography>
             <TextField
@@ -77,7 +81,7 @@ const AuthForm = (props) => {
               type="submit"
               fullWidth
               variant="contained"
-              sx={{ mt: 3, mb: 2 }}
+              sx={{ mt: 3, mb: 2, width: "300px" }}
             >
               {displayName}
             </Button>

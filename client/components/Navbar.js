@@ -70,9 +70,9 @@ const Navbar = ({ handleClick, isLoggedIn, auth }) => (
           <div>
             {/* The navbar will show these links after you log in */}
 
-            <Link to="/about">
+            {/* <Link to="/about">
               <Button>About</Button>
-            </Link>
+            </Link> */}
             <Link to="/projects">
               <Button>Projects</Button>
             </Link>
@@ -96,9 +96,10 @@ const Navbar = ({ handleClick, isLoggedIn, auth }) => (
         ) : (
           <div>
             {/* The navbar will show these links before you log in */}
-            <Link to="/about">
+
+            {/* <Link to="/about">
               <Button>About</Button>
-            </Link>
+            </Link> */}
             <Link to="/projects">
               <Button>Projects</Button>
             </Link>
