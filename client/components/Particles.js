@@ -93,7 +93,7 @@ export default function ParticlesComp(props) {
               connect: {
                 distance: 80,
                 links: {
-                  opacity: 0.5,
+                  opacity: 0.3,
                 },
                 radius: 60,
               },
@@ -102,7 +102,7 @@ export default function ParticlesComp(props) {
                 links: {
                   blink: false,
                   consent: false,
-                  opacity: 0.5,
+                  opacity: 0.2,
                 },
               },
               light: {
@@ -280,7 +280,7 @@ export default function ParticlesComp(props) {
               distance: 150,
               enable: true,
               frequency: 1,
-              opacity: 0.4,
+              opacity: 0.2,
               shadow: {
                 blur: 5,
                 color: {

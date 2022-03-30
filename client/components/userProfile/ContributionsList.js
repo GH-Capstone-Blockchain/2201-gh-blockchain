@@ -19,7 +19,6 @@ const ContributionsList = (props) => {
     await props.fetchContributionsByUser(props.user.id);
   }, []);
 
-  console.log("====props====", props);
   return (
     <div>
       <h1>Contributions</h1>
@@ -33,7 +32,7 @@ const ContributionsList = (props) => {
           }
         };
         return (
-          <Card sx={{ maxWidth: 500 }} variant="outlined">
+          <Card sx={{ maxWidth: 500 }} variant="outlined" key={contribution.id}>
             <CardActionArea component={Link} to={`/projects/${project.id}`}>
               <CardMedia
                 component="img"

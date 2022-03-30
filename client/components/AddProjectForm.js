@@ -12,7 +12,6 @@ import {
   FundrasingGoalAlert,
   WalletAlert,
   ImageAlert,
-  AddProjectError
 } from "./smallComponents/InfoAlerts";
 import { useNavigate } from 'react-router-dom'
 import { fetchConversion } from '../store/conversion'
@@ -35,7 +34,7 @@ function AddProjectForm(props) {
   const [goalAlert, setGoalAlert] = useState(false);
   const [addressAlert, setAddressAlert] = useState(false);
   const [imageAlert, setImageAlert] = useState(false);
-  const [error, setError] = useState(false)
+
   const [address, setAddress] = useState(null);
 
   useEffect(async () => {
@@ -48,7 +47,6 @@ function AddProjectForm(props) {
     setGoalAlert(false);
     setAddressAlert(false);
     setImageAlert(false);
-    setError(false)
   };
   const handleChange = (event) => {
     let value = event.target.value;
@@ -60,18 +58,13 @@ function AddProjectForm(props) {
   };
 
   const handleSubmit = async (event) => {
-    try {
-      event.preventDefault();
-      await props.createProject({
-        project: form,
-        scientists: [props.auth.scientist.id],
-        address: address,
-      });
-      navigate('/projects')
-    } catch (error) {
-      setError(error)
-    }
-
+    event.preventDefault();
+    await props.createProject({
+      project: form,
+      scientists: [props.auth.scientist.id],
+      address: address,
+    });
+    navigate('/projects')
   };
 
   return (
@@ -92,7 +85,6 @@ function AddProjectForm(props) {
         autoComplete="off"
         onSubmit={handleSubmit}
       >
-        <AddProjectError handleClose={handleClose} open={error}/>
         <Grid
           item
           xs={12}
@@ -332,17 +324,3 @@ const mapDispatch = (dispatch) => {
 
 export default connect(mapState, mapDispatch)(AddProjectForm);
 
-{
-  /* <LocalizationProvider dateAdapter={AdapterDateFns}>
-<DesktopDatePicker
-  label="Helper text example"
-  value={new Date()}
-  renderInput={(params) => (
-    <TextField
-      {...params}
-      helperText={params?.inputProps?.placeholder}
-    />
-  )}
-/>
-</LocalizationProvider> */
-}

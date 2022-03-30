@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+
 import { Button, Typography, Grid, Box } from "@mui/material";
 
 import { Fade } from "react-awesome-reveal";
@@ -29,9 +31,15 @@ export default function Header() {
         </Typography>
       </Grid>
       <Grid item xs={12} textAlign="center">
-        <Button variant="contained" sx={{ mt: 4, mb: 2, color: "#051f2e" }}>
+        <Link to="/signup">
+        <Button
+          variant="contained"
+          size="large"
+          sx={{ mt: 4, mb: 2, color: "#051f2e" }}
+        >
           Start Here
         </Button>
+        </Link>
       </Grid>
     </Grid>
   );

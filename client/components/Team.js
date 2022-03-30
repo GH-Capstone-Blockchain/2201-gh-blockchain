@@ -11,7 +11,7 @@ const teamMembers = [
   },
   {
     name: "Brooke Wilder",
-    img: "https://media-exp1.licdn.com/dms/image/D5635AQHLQtz1tZReww/profile-framedphoto-shrink_800_800/0/1647295681456?e=1648418400&v=beta&t=4d2mSBeOPGp1a7fAK0K3GvKpDXTMSC04PJDb160vInk",
+    img: "brooke.jpg",
     linkedInUrl: "https://www.linkedin.com/in/bkwilder/",
   },
   {

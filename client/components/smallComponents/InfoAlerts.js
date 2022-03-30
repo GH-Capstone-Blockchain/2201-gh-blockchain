@@ -122,7 +122,7 @@ export function ImageAlert(props) {
         <DialogContentText id="alert-dialog-description">
           You must use an image that is on the internet. When you find an image
           you like online, you can right click on it to 'Copy Image Address'.
-          Paste that here! Please be mindful of copywrite laws :)
+          Paste that here! Please be mindful of copyright laws :)
         </DialogContentText>
       </DialogContent>
       <DialogActions>

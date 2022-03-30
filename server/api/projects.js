@@ -1,6 +1,6 @@
 const router = require("express").Router();
 const {
-  models: { User, Project, Category },
+  models: { User, Project, Category, Scientist },
 } = require("../db");
 
 const { requireScientistToken, requireUserToken } = require("./gatekeeper");
@@ -11,6 +11,16 @@ module.exports = router;
 router.get("/", async (req, res, next) => {
   try {
     const projects = await Project.findAll({ include: Category });
+    res.json(projects);
+  } catch (err) {
+    next(err);
+  }
+});
+
+//get all projects associated with a specific scientist ..."/api/projects/scientist/:id"
+router.get("/scientist/:scientistId", async (req, res, next) => {
+  try {
+    const projects = await Scientist.findByPk(req.params.scientistId, { include: Project });
     res.json(projects);
   } catch (err) {
     next(err);
