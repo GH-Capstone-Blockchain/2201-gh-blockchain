@@ -91,9 +91,6 @@ const Navbar = ({ handleClick, isLoggedIn, auth, profileImg }) => {
                   <Link to="/addproject">
                     <Button>Start A Project</Button>
                   </Link>
-                  <Link to={`/dashboard/${auth.id}`}>
-                    <Button>Dashboard</Button>
-                  </Link>
                 </>
               ) : null}
               <Link to={`/user/${auth.id}`}>

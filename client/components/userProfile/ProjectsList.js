@@ -17,10 +17,11 @@ import { Link } from "react-router-dom";
 
 const ProjectsList = (props) => {
   useEffect(async () => {
-    await props.fetchProjectsByScientist(props.user.id);
+    await props.fetchProjectsByScientist(props.user.scientist.id);
   }, []);
 
   const projects = props.projects;
+
 
   return (
     <Grid
@@ -97,6 +98,13 @@ const ProjectsList = (props) => {
                         {shortenedDescription()}
                       </Typography>
                     </CardContent>
+                    {props.auth.password === props.user.password ? (
+                      <CardContent>
+                        <Link to={`/dashboard/${project.id}`}>
+                          <Button>Project Dashboard</Button>
+                        </Link>
+                      </CardContent>
+                    ) : null}
                   </CardActionArea>
                 </Card>
               </Grid>
