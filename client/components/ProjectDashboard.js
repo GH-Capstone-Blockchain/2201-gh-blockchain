@@ -105,12 +105,12 @@ const ProjectDashboard = (props) => {
   const handleReleaseFunds = async () => {
     try {
       const campaignContract = await loadContractData(
-        props.project.campaign_project_address
+        props.project.campaign_contract_address
       );
       console.log("contract", campaignContract);
       await campaignContract.methods
         .releaseFund()
-        .send({ from: props.project.campaign_project_address });
+        .send({ from: props.project.project_wallet_address });
     } catch (error) {
       console.error("error in release funds", error);
     }
