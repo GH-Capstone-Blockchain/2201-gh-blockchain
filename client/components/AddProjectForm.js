@@ -17,6 +17,7 @@ import {
 import { useNavigate } from "react-router-dom";
 import { fetchConversion } from "../store/conversion";
 import AccessForbiddenPage from "./AccessForbiddenPage";
+import CategoryDropDown from "./smallComponents/CategoryDropDown";
 
 function AddProjectForm(props) {
   const navigate = useNavigate();
@@ -32,11 +33,13 @@ function AddProjectForm(props) {
     campaign_timeline_end: "",
     fundraising_goal: "",
   });
+  const [categories, setCategories] = useState([])
   const [youtubeAlert, setyoutubeAlert] = useState(false);
   const [goalAlert, setGoalAlert] = useState(false);
   const [addressAlert, setAddressAlert] = useState(false);
   const [imageAlert, setImageAlert] = useState(false);
   const [noMetamask, setNoMetamask] = useState(false);
+
 
   const [address, setAddress] = useState(null);
 
@@ -53,8 +56,15 @@ function AddProjectForm(props) {
     setImageAlert(false);
     setNoMetamask(false);
   };
+  const handleCategoryChange = (event) => {
+    const value = event.target.value
+    typeof value === 'string' ? value.split(',') : value,
+    setCategories(value)
+    console.log(categories)
+  }
   const handleChange = (event) => {
     let value = event.target.value;
+
     if (event.target.id === "fundraising_goal")
       value = (value / props.conversion) * Math.pow(10, 18);
     if (event.target.id === "videoUrl")
@@ -69,6 +79,7 @@ function AddProjectForm(props) {
       project: form,
       scientists: [props.auth.scientist.id],
       address: address,
+      categories: categories
     });
     navigate("/projects");
   };
@@ -122,6 +133,7 @@ function AddProjectForm(props) {
                   // background: "#051f2e",
                 }}
               >
+                <Grid item xs={12}><CategoryDropDown handleChange={handleCategoryChange} category={categories}/></Grid>
                 <Grid item xs={8}>
                   <TextField
                     required
