@@ -20,6 +20,8 @@ const ContributionsList = (props) => {
     await props.fetchContributionsByUser(props.user.id);
   }, []);
 
+
+
   return (
     <Grid
       container
@@ -96,6 +98,17 @@ const ContributionsList = (props) => {
                         {shortenedDescription()}
                       </Typography>
                     </CardContent>
+                    {/* for releasing funds after campaign has failed */}
+                    {/* {
+                      !project.isFunded && project.date.passed && auth === userId
+                      ? (
+                        <CardContent>
+                        <Button>
+                          Release Donation
+                        </Button>
+                      </CardContent>
+                      ) : null
+                    } */}
                   </CardActionArea>
                 </Card>
               </Grid>

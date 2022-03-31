@@ -7,27 +7,6 @@ import {
   Typography,
   Button,
 } from "@mui/material";
-import {
-  Biotech,
-  Functions,
-  Spa,
-  DirectionsWalk,
-  Computer,
-  Psychology,
-  FactCheck,
-  School,
-  Science, 
-  Cyclone, 
-  SettingsSuggest,
-  People, 
-  Healing,
-  Brush,
-  BackupTable,
-  Public,
-  EmojiObjects,
-  AccountBalance, 
-  Android
-} from "@mui/icons-material";
 import { connect } from "react-redux";
 import { fetchProjects } from "../store/projects";
 import ProjectCard from "./ProjectCard";

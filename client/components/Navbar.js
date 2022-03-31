@@ -160,11 +160,6 @@ const Navbar = ({ handleClick, isLoggedIn, auth, profileImg }) => {
                             <Button>Start A Project</Button>
                           </Link>
                         </Grid>
-                        <Grid item>
-                          <Link to={`/dashboard/${auth.id}`}>
-                            <Button>Dashboard</Button>
-                          </Link>
-                        </Grid>
                       </>
                     ) : null}
                     <Grid item>
@@ -193,22 +188,23 @@ const Navbar = ({ handleClick, isLoggedIn, auth, profileImg }) => {
                     </Grid>
                   </div>
                 ) : (
-                  <Grid item>
-                    {/* The navbar will show these links before you log in */}
-
-                    {/* <Link to="/about">
-              <Button>About</Button>
-            </Link> */}
-                    <Link to="/projects">
-                      <Button>All Projects</Button>
-                    </Link>
-                    <Link to="/login">
-                      <Button>Login</Button>
-                    </Link>
-                    <Link to="/signup">
-                      <Button>Sign Up</Button>
-                    </Link>
-                  </Grid>
+                  <div>
+                    <Grid item>
+                      <Link to="/projects">
+                        <Button>All Projects</Button>
+                      </Link>
+                    </Grid>
+                    <Grid item>
+                      <Link to="/login">
+                        <Button>Login</Button>
+                      </Link>
+                    </Grid>
+                    <Grid item>
+                      <Link to="/signup">
+                        <Button>Sign Up</Button>
+                      </Link>
+                    </Grid>
+                  </div>
                 )}
               </Grid>
             </Drawer>
@@ -280,9 +276,6 @@ const Navbar = ({ handleClick, isLoggedIn, auth, profileImg }) => {
               <>
                 <Link to="/addproject">
                   <Button>Start A Project</Button>
-                </Link>
-                <Link to={`/dashboard/${auth.id}`}>
-                  <Button>Dashboard</Button>
                 </Link>
               </>
             ) : null}
