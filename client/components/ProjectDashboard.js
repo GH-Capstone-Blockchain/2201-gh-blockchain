@@ -21,6 +21,7 @@ import { YouTubeAlert, ImageAlert } from './smallComponents/InfoAlerts';
 import NoProjectsToViewPage from './NoProjectsToViewPage';
 import { projectToUSD } from './smallComponents/utilities';
 import { fetchConversion } from '../store/conversion';
+import { loadWeb3, loadContractData } from "../web3/web3";
 
 const ProjectDashboard = (props) => {
   let params = useParams();
@@ -36,20 +37,22 @@ const ProjectDashboard = (props) => {
     project_timeline_end: '',
   });
 
-  if (props.project.fundraising_goal) {
-    console.log('PROJECT TO CONVERT', props.project);
-    let results = projectToUSD(props.project, props.conversion);
-    console.log(results);
-  }
+  // if (props.project.fundraising_goal) {
+  //   console.log('PROJECT TO CONVERT', props.project);
+  //   let results = projectToUSD(props.project, props.conversion);
+  //   console.log(results);
+  // }
 
   const [isUpdated, setIsUpdated] = useState(false);
-
+  const [account, setAccount] = useState("");
   const [youtubeAlert, setyoutubeAlert] = useState(false);
   const [imageAlert, setImageAlert] = useState(false);
 
   const fetchData = async () => {
     try {
       await props.fetchProject(id);
+      const accountAddress = await loadWeb3();
+      if(accountAddress) setAccount(accountAddress[0]);
       if (props.project) {
         await setForm({
           id: id,
@@ -93,6 +96,19 @@ const ProjectDashboard = (props) => {
     props.updateProject(form);
     setIsUpdated(true);
   };
+  const handleReleaseFunds = async () => {
+    try {
+      const campaignContract = await loadContractData(props.project.campaign_project_address);
+      console.log('contract', campaignContract);
+      await campaignContract.methods
+      .releaseFund()
+      .send({from: props.project.campaign_project_address})
+    } catch (error) {
+      console.error('error in release funds', error);
+    }
+  }
+
+
   if (!props.project.name) {
     return (
       <div>
@@ -320,7 +336,7 @@ const ProjectDashboard = (props) => {
                   Video Link
                 </Button>
                 {props.project.reachedGoal ? (
-                  <Button size="small">Release Funds</Button>
+                  <Button size="small" onClick={handleReleaseFunds}>Release Funds</Button>
                 ) : (
                   ''
                 )}
