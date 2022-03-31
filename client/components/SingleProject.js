@@ -28,19 +28,23 @@ import LinearProgress, {
 import theme from "./StyleTheme";
 import { loadWeb3, loadContractData } from "../web3/web3";
 import DonateCard from "./DonateCard";
-import { SayThankYou, NoMetaMaskError, ErrorTransactionAlert} from "./smallComponents/InfoAlerts";
+import {
+  SayThankYou,
+  NoMetaMaskError,
+  ErrorTransactionAlert,
+} from "./smallComponents/InfoAlerts";
 import ContributionList from "./smallComponents/ContributionsList";
+import CategoriesByProject from "./CategoriesByProject";
 
 const SingleProject = (props) => {
   let params = useParams();
   let id = parseInt(params.id);
   const [campaign, setCampaign] = useState({});
   const [account, setAccount] = useState("");
-  const [error, setError] = useState(false)
-  const [thankYou, setThankYou] = useState(false)
-  const [donation, setDonation] = useState(0)
-  const [noMetamask, setNoMetamask] = useState(false)
-
+  const [error, setError] = useState(false);
+  const [thankYou, setThankYou] = useState(false);
+  const [donation, setDonation] = useState(0);
+  const [noMetamask, setNoMetamask] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -48,8 +52,8 @@ const SingleProject = (props) => {
         await props.fetchProject(id);
         await props.fetchContributions(id);
         const accountAddress = await loadWeb3();
-        if(accountAddress) setAccount(accountAddress[0]);
-        if(!accountAddress) setNoMetamask(true)
+        if (accountAddress) setAccount(accountAddress[0]);
+        if (!accountAddress) setNoMetamask(true);
         await props.fetchConversion();
       } catch (error) {
         console.error("error in fetchData", error);
@@ -58,11 +62,10 @@ const SingleProject = (props) => {
     fetchData();
   }, []);
 
-
   const handleDonate = async (donation) => {
     try {
-      setDonation(donation)
-      const eth = donation / props.conversion
+      setDonation(donation);
+      const eth = donation / props.conversion;
       const total = window.web3.utils.toWei(`${eth}`, "Ether");
       console.log(total);
       const campaignContract = await loadContractData(
@@ -73,8 +76,8 @@ const SingleProject = (props) => {
         .donate(props.auth.id)
         .send({ from: account, value: total });
       // Had to hardcode in 100 because the wei amount creates sequelize errors (too big of integer -- need to address this);
-      await props.createContribution(id, props.auth.id, eth * Math.pow(10,18));
-        setThankYou(true)
+      await props.createContribution(id, props.auth.id, eth * Math.pow(10, 18));
+      setThankYou(true);
     } catch (error) {
       console.error("error in handleDonate", error);
       setError(true);
@@ -85,10 +88,10 @@ const SingleProject = (props) => {
   };
 
   const handleClose = () => {
-    setError(false)
-    setThankYou(false)
-    setNoMetamask(false)
-  }
+    setError(false);
+    setThankYou(false);
+    setNoMetamask(false);
+  };
 
   if (!props.project) {
     return <div>Data is loading...</div>;
@@ -106,9 +109,13 @@ const SingleProject = (props) => {
       }}
     >
       <Grid item xs={12} sx={{ display: "flex", margin: "4%" }}></Grid>
-      <ErrorTransactionAlert handleClose={handleClose} open={error}/>
-      <SayThankYou handleClose={handleClose} donation={donation} open={thankYou}/>
-      <NoMetaMaskError handleClose={handleClose} open={noMetamask}/>
+      <ErrorTransactionAlert handleClose={handleClose} open={error} />
+      <SayThankYou
+        handleClose={handleClose}
+        donation={donation}
+        open={thankYou}
+      />
+      <NoMetaMaskError handleClose={handleClose} open={noMetamask} />
       <Container
         sx={{ display: "flex", flexDirection: "column" }}
         maxWidth="lg"
@@ -159,15 +166,19 @@ const SingleProject = (props) => {
           margin="15px"
           maxWidth="750"
         >
-          <img
-            style={{
-              borderRadius: "10px",
-              width: "700px",
-              height: "400px",
-              objectFit: "cover",
-            }}
-            src={props.project.imageUrl}
-          />
+          <Box sx={{ display: "flex", flexDirection: "column" }}>
+            <img
+              style={{
+                borderRadius: "10px",
+                width: "700px",
+                height: "400px",
+                objectFit: "cover",
+              }}
+              src={props.project.imageUrl}
+            />
+            <CategoriesByProject project={props.project}/>
+          </Box>
+
           <DonateCard
             project={props.project}
             conversion={props.conversion}
@@ -240,7 +251,7 @@ const SingleProject = (props) => {
           >
             Contributions:{" "}
           </Typography>
-            <ContributionList contributions={props.contributions}/>
+          <ContributionList contributions={props.contributions} />
         </Box>
       </Container>
     </Grid>
