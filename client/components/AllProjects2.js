@@ -81,7 +81,7 @@ function AllProjects(props) {
           <Typography
             variant="h2"
             color="#051f2e"
-            sx={{ fontFamily: "Roboto Condensed", fontSize: "50px" }}
+            sx={{ fontFamily: "Roboto Condensed" }}
           >
             Explore Researches
           </Typography>

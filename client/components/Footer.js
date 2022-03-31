@@ -11,7 +11,7 @@ export default function Footer() {
         left: "0",
         bottom: "0",
         backgroundColor: "#051f2e",
-        padding: "30px",
+        padding: "15px",
         // opacity: "0.8",
         display: "flex",
         alignItems: "center",
@@ -19,8 +19,10 @@ export default function Footer() {
         marginRight: "auto",
       }}
     >
-      <Grid item xs={12} textAlign="center">
-        <Box component="img" alt="DeSci Funder" src="/logo.png" height="50px" />
+      <Grid item xs={6} textAlign="right">
+        <Box component="img" alt="DeSci Funder" src="/logo.png" height="30px" />
+      </Grid>
+      <Grid item xs={6} textAlign="left">
         <Typography sx={{ color: "white" }}> © 2022 DeSci Funder </Typography>
       </Grid>
     </Grid>
