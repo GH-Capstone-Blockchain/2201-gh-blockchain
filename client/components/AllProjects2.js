@@ -15,20 +15,47 @@ import {
   Computer,
   Psychology,
   FactCheck,
+  School,
+  Science, 
+  Cyclone, 
+  SettingsSuggest,
+  People, 
+  Healing,
+  Brush,
+  BackupTable,
+  Public,
+  EmojiObjects,
+  AccountBalance, 
+  Android
 } from "@mui/icons-material";
 import { connect } from "react-redux";
 import { fetchProjects } from "../store/projects";
 import ProjectCard from "./ProjectCard";
+import {categoriesArr} from './smallComponents/utilities'
 
-const categoriesArr = [
-  { name: "All", icon: <FactCheck /> },
-  { name: "Biology", icon: <Biotech /> },
-  { name: "Ecology", icon: <Spa /> },
-  { name: "Mathematics", icon: <Functions /> },
-  { name: "Anthropology", icon: <DirectionsWalk /> },
-  { name: "Computer Science", icon: <Computer /> },
-  // { name: "Psychology", icon: <Psychology /> },
-];
+// const categoriesArr = [
+//   { name: "All", icon: <FactCheck /> },
+//   { name: "Biology", icon: <Biotech /> },
+//   { name: "Ecology", icon: <Spa /> },
+//   { name: "Mathematics", icon: <Functions /> },
+//   { name: "Anthropology", icon: <DirectionsWalk /> },
+//   { name: "Computer Science", icon: <Computer /> },
+//   { name: "Psychology", icon: <Psychology /> },
+//   { name: "Education", icon: <School /> },
+//   { name: "Chemistry", icon: <Science /> },
+//   { name: "Physics", icon: <Cyclone /> },
+//   { name: "Paleontology", icon: <Android /> },
+//   { name: "Engineering", icon: <SettingsSuggest/> },
+//   { name: "Social Science", icon: <People /> },
+//   { name: "Medicine", icon: <Healing /> },
+//   { name: "Art and Design", icon: <Brush /> },
+//   { name: "Data Science", icon: <BackupTable /> },
+//   { name: "Earth Science", icon: <Public /> },
+//   { name: "Neuroscience", icon: <EmojiObjects /> },
+//   { name: "Political Science", icon: <AccountBalance /> },
+// ];
+
+
 
 function AllProjects(props) {
   const [isLoading, setIsLoading] = useState(true);
@@ -47,7 +74,7 @@ function AllProjects(props) {
       ? allProjects
       : allProjects.filter((project) => {
           if (project.categories.length > 0) {
-            return project.categories[0].category.includes(filter);
+            return project.categories.map(category => category.category).includes(filter)
           }
         });
 
