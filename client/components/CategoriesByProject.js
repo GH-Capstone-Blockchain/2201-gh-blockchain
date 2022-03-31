@@ -6,14 +6,11 @@ export default function CategoriesByProject(props) {
   const [loading, setLoading] = useState(true);
   const [categories, setCategories] = useState([]);
   const [array, setArray] = useState([])
-  console.log("PROOPPPPSSSS", props);
 
   useEffect(() => {
-    console.log("hello");
     if (props.project.categories) {
       setCategories(props.project.categories.map(category=> category.category));
       setLoading(false);
-      console.log(categories)
     }
   },[props]);
 
