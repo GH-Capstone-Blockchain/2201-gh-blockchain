@@ -60,14 +60,13 @@ const SingleProject = (props) => {
       }
     };
     fetchData();
-  }, []);
+  }, [thankYou]);
 
   const handleDonate = async (donation) => {
     try {
       setDonation(donation);
       const eth = donation / props.conversion;
       const total = window.web3.utils.toWei(`${eth}`, "Ether");
-      console.log(total);
       const campaignContract = await loadContractData(
         props.project.campaign_contract_address
       );
@@ -183,6 +182,7 @@ const SingleProject = (props) => {
             project={props.project}
             conversion={props.conversion}
             loggedIn={props.auth.id}
+            submit={thankYou}
             handleDonate={handleDonate}
           />
         </Box>
@@ -252,6 +252,7 @@ const SingleProject = (props) => {
             Contributions:{" "}
           </Typography>
           <ContributionList contributions={props.contributions} />
+          <Box sx={{height:'5em'}}></Box>
         </Box>
       </Container>
     </Grid>

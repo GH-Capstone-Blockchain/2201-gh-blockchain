@@ -3,7 +3,7 @@ import {List, Link, ListItem, ListItemAvatar, Avatar, ListItemText} from '@mui/m
 
 export default function ContributionList(props) {
   return (
-    <List sx={{ display: 'flex', flexDirection: 'row', flexWrap:'wrap', width: "100%", maxWidth: 500, bgcolor: "background.paper" }}>
+    <List sx={{ display: 'flex', flexDirection: 'row', flexWrap:'wrap', width: "100%", maxWidth: 500, bgcolor: "background.paper"}}>
       {props.contributions.map((contribution) => (
         <Link to={`/user/${contribution.user.id}`}>
           <ListItem alignItems="flex-start">

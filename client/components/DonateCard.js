@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Card,
   CardContent,
@@ -19,13 +19,12 @@ export default function DonateCard(props) {
   const textInput = React.useRef(null);
   const [donation, setDonation] = useState(0);
   const project = props.project;
-  const usdVals = projectToUSD(project, props.conversion)
- 
+  let usdVals = projectToUSD(project, props.conversion)
+
   const handleChange = (event) => {
     setDonation(event.target.value);
   };
 
-  console.log(props.conversion);
 
   return (
     <Card style={{ display: "flex", marginLeft: "20px", height: "80%" }}>
