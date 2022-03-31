@@ -1,19 +1,42 @@
 import React from "react";
 import { connect } from "react-redux";
 
-const CredsAndPubs = (props) => {
+import {
+  Typography,
+  Paper,
+  Card,
+  Button,
+  Grid,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableRow,
+  Avatar,
+  Box,
+} from "@mui/material";
 
+const CredsAndPubs = (props) => {
   return (
-    <div>
-      <div>
-        <h2>Credentials</h2>
-        <p>{props.user.scientist.credentials}</p>
-      </div>
-      <div>
-        <h2>Publications</h2>
-        <p>{props.user.scientist.publications}</p>
-      </div>
-    </div>
+    <TableContainer component={Paper}>
+      <Table sx={{ minWidth: 650 }} size="small" aria-label="a dense table">
+        <TableBody>
+          <TableRow>
+            <TableCell sx={{ width: "40px", fontWeight: "bold" }}>
+              Credentials:
+            </TableCell>
+            <TableCell>{props.user.scientist.credentials}</TableCell>
+          </TableRow>
+
+          <TableRow>
+            <TableCell sx={{ width: "40px", fontWeight: "bold" }}>
+              Publications:
+            </TableCell>
+            <TableCell>{props.user.scientist.publications}</TableCell>
+          </TableRow>
+        </TableBody>
+      </Table>
+    </TableContainer>
   );
 };
 

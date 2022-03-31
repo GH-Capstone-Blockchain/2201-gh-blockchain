@@ -7,15 +7,17 @@ import ProjectsList from "./ProjectsList";
 import ContributionsList from "./ContributionsList";
 import {
   Typography,
-  Box,
-  Container,
   Paper,
-  ThemeProvider,
   Card,
-  CardContent,
   Button,
-  Divider,
   Grid,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableRow,
+  Avatar,
+  Box,
 } from "@mui/material";
 
 const ProfilePage = (props) => {
@@ -47,6 +49,7 @@ const ProfilePage = (props) => {
         display: "flex",
         justifyContent: "center",
         alignItems: "flex-start",
+        marginBottom: "100px",
       }}
     >
       <Grid
@@ -58,13 +61,12 @@ const ProfilePage = (props) => {
         <Typography
           variant="h2"
           color="#051f2e"
-          sx={{ fontFamily: "Roboto Condensed", fontSize: "50px" }}
+          sx={{ fontFamily: "Roboto Condensed" }}
         >
           {props.user.username}'s Profile
         </Typography>
       </Grid>
-      <Grid item xs={1} />
-      <Grid item xs={10} style={{ maxWidth: "800px" }}>
+      <Grid item xs={12} style={{ maxWidth: "800px" }}>
         <Grid
           container
           spacing={2}
@@ -72,42 +74,86 @@ const ProfilePage = (props) => {
         >
           <Grid
             item
-            xs={4}
+            xs={12}
+            md={4}
             sx={{ marginTop: "20px", marginBottom: "20px" }}
             textAlign="center"
           >
-            <Card id="pic-name">
-              <img
+            <Box
+              sx={{
+                display: "flex",
+                alignItems: "center",
+                flexDirection: "column",
+              }}
+            >
+              <Avatar
                 src={props.user.profileImg}
-                alt="profile picture"
-                width="300px"
+                alt="Remy Sharp"
+                sx={{ width: 200, height: 200 }}
               />
-              <h3>{props.user.username}</h3>
-            </Card>
+              <Typography
+                varient="h4"
+                color="primary.dark"
+                sx={{
+                  fontFamily: "Roboto Condensed",
+                  fontSize: "1.5em",
+                }}
+              >
+                {props.user.username}
+              </Typography>
+              {props.auth.password === props.user.password ? (
+                <Link to={`/`}>
+                  <Button variant="contained">Edit</Button>
+                </Link>
+              ) : null}
+            </Box>
           </Grid>
           <Grid
             item
-            xs={8}
+            xs={12}
+            md={8}
             sx={{ marginTop: "20px", marginBottom: "20px" }}
             textAlign="left"
           >
-            <Card id="user-info">
-              <Typography>Name: {capitalizeName(props.user)}</Typography>
-              <Typography>Email: {props.user.email}</Typography>
-              <Typography>Gender: {props.user.gender}</Typography>
-              <Typography>Race: {props.user.race}</Typography>
-              <Typography>Birth Year: {props.user.birthYear}</Typography>
-              <Typography>Bio: {props.user.bio}</Typography>
-            </Card>
+            <TableContainer component={Paper}>
+              <Table
+                sx={{ minWidth: 650 }}
+                size="small"
+                aria-label="a dense table"
+              >
+                <TableBody>
+                  <TableRow>
+                    <TableCell>Name:</TableCell>
+                    <TableCell>{capitalizeName(props.user)}</TableCell>
+                  </TableRow>
+                  <TableRow>
+                    <TableCell>Email:</TableCell>
+                    <TableCell>{props.user.email}</TableCell>
+                  </TableRow>
+                  <TableRow>
+                    <TableCell>Gender:</TableCell>
+                    <TableCell>{props.user.gender}</TableCell>
+                  </TableRow>
+                  <TableRow>
+                    <TableCell>Race:</TableCell>
+                    <TableCell>{props.user.race}</TableCell>
+                  </TableRow>
+                  <TableRow>
+                    <TableCell>Birth Year:</TableCell>
+                    <TableCell>{props.user.birthYear}</TableCell>
+                  </TableRow>
+                  <TableRow>
+                    <TableCell>Bio:</TableCell>
+                    <TableCell>{props.user.bio}</TableCell>
+                  </TableRow>
+                </TableBody>
+              </Table>
+            </TableContainer>
           </Grid>
         </Grid>
-      </Grid>
-      <Grid item xs={1} />
 
-      {props.user.scientist ? (
-        <>
-          <Grid item xs={1} />
-          <Grid item xs={10} style={{ maxWidth: "800px" }}>
+        {props.user.scientist ? (
+          <>
             <Grid
               container
               spacing={2}
@@ -122,19 +168,13 @@ const ProfilePage = (props) => {
                 <ProjectsList auth={props.auth} user={props.user} />
               </Grid>
             </Grid>
+          </>
+        ) : (
+          <Grid item xs={12}>
+            <ContributionsList auth={props.auth} user={props.user} />
           </Grid>
-          <Grid item xs={1} />
-        </>
-      ) : (
-        <Grid item xs={12}>
-          <ContributionsList auth={props.auth} user={props.user} />
-        </Grid>
-      )}
-      {props.auth.password === props.user.password ? (
-        <Link to={`/`}>
-          <Button variant="contained">Edit Account Info</Button>
-        </Link>
-      ) : null}
+        )}
+      </Grid>
     </Grid>
   );
 };
