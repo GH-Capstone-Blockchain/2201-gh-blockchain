@@ -46,7 +46,7 @@ const Navbar = ({ handleClick, isLoggedIn, auth, profileImg }) => {
                 alignItems: "flex-end",
               }}
             >
-              <Grid item xs={3}>
+              <Grid item xs={3} sx={{ minWidth: "60px" }}>
                 <Link to="/">
                   <Box
                     component="img"
