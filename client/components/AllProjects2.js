@@ -83,12 +83,12 @@ function AllProjects(props) {
             color="#051f2e"
             sx={{ fontFamily: "Roboto Condensed" }}
           >
-            Explore Researches
+            Explore Research
           </Typography>
         </Grid>
 
-        <Grid item xs={1} />
-        <Grid item xs={10} style={{ maxWidth: "1000px" }}>
+        {/* <Grid item xs={1} /> */}
+        <Grid item xs={12} style={{ maxWidth: "1000px" }}>
           <Grid
             container
             sx={{
@@ -97,6 +97,7 @@ function AllProjects(props) {
               alignItems: "center",
             }}
           >
+            {" "}
             {categoriesArr.map((category) => {
               return (
                 <Grid item key={category.name}>
@@ -119,14 +120,14 @@ function AllProjects(props) {
           </Grid>
           <Grid container spacing={2.5} marginTop="30px">
             {filteredProjects.map((project) => (
-              <Grid key={project.id} item xs={4}>
+              <Grid key={project.id} item xs={12} md={4}>
                 <ProjectCard project={project} />
               </Grid>
             ))}
           </Grid>
         </Grid>
 
-        <Grid item xs={1} />
+        {/* <Grid item xs={1} /> */}
         <Grid item xs={12} sx={{ margin: "7%" }}></Grid>
       </Grid>
     </Box>
