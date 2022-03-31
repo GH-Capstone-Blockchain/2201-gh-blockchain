@@ -33,6 +33,7 @@ router.post("/", async (req, res, next) => {
     // if (!req.user) throw new Error('Unauthorized');
     const newProject = await Project.create(req.body.project);
     await newProject.addScientists(req.body.scientists);
+    Promise.all(req.body.categories.map(category => newProject.createCategory({ category: category })))
     res.send(newProject);
   } catch (error) {
     next(error);
