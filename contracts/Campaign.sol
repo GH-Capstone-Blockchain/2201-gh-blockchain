@@ -51,9 +51,9 @@ contract Campaign {
     //funds are allocated according to goal met...check if goal was met, if so, creatorAddress.transfer(address(this).balance), if not, look it up
     function releaseFund() public {
         ///require( state whatever )
-        require(projectAddress == msg.sender, 'not creator');
-        require(block.timestamp > endDate, 'not ended');
-        require(address (this).balance >= goalAmount, 'sorry, your campaign did not meet its goal');
+        // require(projectAddress == msg.sender, 'not creator');
+        // require(block.timestamp > endDate, 'not ended');
+        // require(address (this).balance >= goalAmount, 'sorry, your campaign did not meet its goal');
         payable(projectAddress).transfer(address (this).balance);
     }
     function refund(uint _supporterId) external {
