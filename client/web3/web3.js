@@ -1,5 +1,5 @@
 import Web3 from 'web3';
-import Campaign from '../../build/contracts/Campaign.json'
+import Campaign from '../../build/contracts/Campaign.json';
 
 //this will initialize a web3 instance with the metamask provider that Metamask injects on the browser
 //"window" variable cannot be accessed using Next.js since Next does server side rendering and
@@ -23,29 +23,36 @@ export async function loadWeb3() {
   try {
     if (window.ethereum) {
       window.web3 = new Web3(window.ethereum);
-      const address = await window.ethereum
-      .request({ method: 'eth_requestAccounts' })
-      return address
+      const address = await window.ethereum.request({
+        method: 'eth_requestAccounts',
+      });
+      window.ethereum.on('accountsChanged', async () => {
+        window.location.reload(true);
+      })
+      return address;
     } else if (window.web3) {
       window.web3 = new Web3(window.web3.currentProvider);
-      return true
+      return true;
     } else {
-      return false
+      return false;
     }
   } catch (error) {
-    console.log(error)
+    console.log(error);
   }
-
 }
 
+window.ethereum.on('accountsChanged', async () => {
+  console.log('accounts changing!')
+  await loadWeb3();
+});
 
 export async function loadContractData(contractAddress) {
   const web3 = window.web3;
   try {
     const campaign = await new web3.eth.Contract(Campaign.abi, contractAddress); //create JS version of Escrow smart contract
-    console.log(campaign)
-    return campaign
+    console.log(campaign);
+    return campaign;
   } catch (error) {
-    console.log(error)
+    console.log(error);
   }
 }
