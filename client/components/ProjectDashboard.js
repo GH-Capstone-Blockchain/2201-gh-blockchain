@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState } from 'react';
 import {
   Grid,
   Box,
@@ -12,17 +12,18 @@ import {
   Link,
   Divider,
   Paper,
-} from "@mui/material";
-import { connect } from "react-redux";
-import { updateProject, fetchProject } from "../store/singleProject";
-import { useParams } from "react-router-dom";
-import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
-import { YouTubeAlert, ImageAlert } from "./smallComponents/InfoAlerts";
-import NoProjectsToViewPage from "./NoProjectsToViewPage";
-import { projectToUSD } from "./smallComponents/utilities";
-import { fetchConversion } from "../store/conversion";
-import { loadWeb3, loadContractData } from "../web3/web3";
-import AccessForbiddenPage from "./AccessForbiddenPage";
+  LinearProgress,
+} from '@mui/material';
+import { connect } from 'react-redux';
+import { updateProject, fetchProject } from '../store/singleProject';
+import { useParams } from 'react-router-dom';
+import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
+import { YouTubeAlert, ImageAlert } from './smallComponents/InfoAlerts';
+import NoProjectsToViewPage from './NoProjectsToViewPage';
+import { projectToUSD } from './smallComponents/utilities';
+import { fetchConversion } from '../store/conversion';
+import { loadWeb3, loadContractData } from '../web3/web3';
+import AccessForbiddenPage from './AccessForbiddenPage';
 
 const ProjectDashboard = (props) => {
   let params = useParams();
@@ -34,23 +35,17 @@ const ProjectDashboard = (props) => {
   );
 
   const [form, setForm] = useState({
-    id: "",
-    name: "",
-    description: "",
-    imageUrl: "",
-    videoUrl: "",
-    project_timeline_start: "",
-    project_timeline_end: "",
+    id: '',
+    name: '',
+    description: '',
+    imageUrl: '',
+    videoUrl: '',
+    project_timeline_start: '',
+    project_timeline_end: '',
   });
 
-  // if (props.project.fundraising_goal) {
-  //   console.log('PROJECT TO CONVERT', props.project);
-  //   let results = projectToUSD(props.project, props.conversion);
-  //   console.log(results);
-  // }
-
   const [isUpdated, setIsUpdated] = useState(false);
-  const [account, setAccount] = useState("");
+  const [account, setAccount] = useState('');
   const [youtubeAlert, setyoutubeAlert] = useState(false);
   const [imageAlert, setImageAlert] = useState(false);
 
@@ -73,9 +68,13 @@ const ProjectDashboard = (props) => {
       await props.fetchConversion();
       setIsUpdated(false);
     } catch (error) {
-      console.error("error in fetchData", error);
+      console.error('error in fetchData', error);
     }
   };
+
+  console.log('PROJECT TO CONVERT', props.project);
+  let results = projectToUSD(props.project, props.conversion);
+  console.log(results);
 
   useEffect(() => {
     fetchData();
@@ -91,9 +90,9 @@ const ProjectDashboard = (props) => {
   };
   const handleChange = (e) => {
     let value = e.target.value;
-    if (e.target.type === "date") value = new Date(value);
-    if (e.target.id === "videoUrl")
-      value = "https://www.youtube.com/embed/" + value;
+    if (e.target.type === 'date') value = new Date(value);
+    if (e.target.id === 'videoUrl')
+      value = 'https://www.youtube.com/embed/' + value;
     setForm({ ...form, [e.target.id]: value });
   };
 
@@ -107,12 +106,12 @@ const ProjectDashboard = (props) => {
       const campaignContract = await loadContractData(
         props.project.campaign_contract_address
       );
-      console.log("contract", campaignContract);
+      console.log('contract', campaignContract);
       await campaignContract.methods
         .releaseFund()
         .send({ from: props.project.project_wallet_address });
     } catch (error) {
-      console.error("error in release funds", error);
+      console.error('error in release funds', error);
     }
   };
 
@@ -131,22 +130,22 @@ const ProjectDashboard = (props) => {
           container
           spacing={2}
           sx={{
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "flex-start",
-            marginBottom: "200px",
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'flex-start',
+            marginBottom: '200px',
           }}
         >
           <Grid
             item
             xs={12}
-            sx={{ marginTop: "10%", marginBottom: "5%" }}
+            sx={{ marginTop: '10%', marginBottom: '5%' }}
             textAlign="center"
           >
             <Typography
               variant="h2"
               color="#051f2e"
-              sx={{ fontFamily: "Roboto Condensed", fontSize: "50px" }}
+              sx={{ fontFamily: 'Roboto Condensed', fontSize: '50px' }}
             >
               Project Dashboard
             </Typography>
@@ -154,21 +153,21 @@ const ProjectDashboard = (props) => {
           <Box
             component="form"
             sx={{
-              "& .MuiTextField-root": { m: 1, width: "25ch" },
+              '& .MuiTextField-root': { m: 1, width: '25ch' },
             }}
             noValidate
             autoComplete="off"
             onSubmit={handleSubmit}
           >
             <Grid item xs={1} />
-            <Grid item xs={12} style={{ maxWidth: "400px" }}>
+            <Grid item xs={12} style={{ maxWidth: '400px' }}>
               <Grid
                 container
                 // spacing={2}
                 sx={{
-                  display: "flex",
-                  justifyContent: "center",
-                  alignItems: "flex-start",
+                  display: 'flex',
+                  justifyContent: 'center',
+                  alignItems: 'flex-start',
                   // background: "#051f2e",
                 }}
               >
@@ -254,9 +253,9 @@ const ProjectDashboard = (props) => {
                 container
                 spacing={2}
                 sx={{
-                  display: "flex",
-                  justifyContent: "center",
-                  alignItems: "center",
+                  display: 'flex',
+                  justifyContent: 'center',
+                  alignItems: 'center',
                   // background: "#051f2e",
                 }}
               >
@@ -264,7 +263,7 @@ const ProjectDashboard = (props) => {
                   <Button
                     fullwidth="true"
                     type="submit"
-                    sx={{ marginBottom: "10%" }}
+                    sx={{ marginBottom: '10%' }}
                   >
                     Submit
                   </Button>
@@ -272,14 +271,14 @@ const ProjectDashboard = (props) => {
               </Grid>
             </Grid>
           </Box>
-          <Grid item xs={12} style={{ maxWidth: "600px" }}>
+          <Grid item xs={12} style={{ maxWidth: '600px' }}>
             <Grid
               container
               // spacing={2}
               sx={{
-                display: "flex",
-                justifyContent: "flex-start",
-                alignItems: "flex-start",
+                display: 'flex',
+                justifyContent: 'flex-start',
+                alignItems: 'flex-start',
                 // background: "#051f2e",
               }}
             >
@@ -289,7 +288,6 @@ const ProjectDashboard = (props) => {
                     component="img"
                     height="180"
                     image={props.project.imageUrl}
-                    alt="green iguana"
                   />
                   <CardContent>
                     <Typography
@@ -297,53 +295,83 @@ const ProjectDashboard = (props) => {
                       variant="h5"
                       component="div"
                       color="#051f2e"
-                      sx={{ fontFamily: "Roboto Condensed", fontSize: "20px" }}
+                      sx={{ fontFamily: 'Roboto Condensed', fontSize: '20px' }}
                     >
                       {props.project.name}
                     </Typography>
                     <Typography
                       variant="body2"
                       color="text.secondary"
-                      sx={{ fontFamily: "Roboto Condensed" }}
+                      sx={{ fontFamily: 'Roboto Condensed' }}
                     >
                       {props.project.description}
                     </Typography>
                     <Typography
                       variant="body2"
                       color="text.secondary"
-                      sx={{ fontFamily: "Roboto Condensed" }}
+                      sx={{ fontFamily: 'Roboto Condensed' }}
                     >
-                      Project Start Date:{" "}
+                      Project Start Date:{' '}
                       {new Date(
                         props.project.project_timeline_start
+                      ).toDateString()}
+                    </Typography>
+                    <Typography
+                      variant="body2"
+                      color="text.secondary"
+                      sx={{ fontFamily: 'Roboto Condensed' }}
+                    >
+                      Project End Date:{' '}
+                      {new Date(
+                        props.project.project_timeline_end
                       ).toDateString()}
                     </Typography>
 
                     <Typography
                       variant="body2"
-                      color="text.secondary"
-                      sx={{ fontFamily: "Roboto Condensed" }}
-                    >
-                      Project End Date:{" "}
-                      {new Date(
-                        props.project.project_timeline_end
-                      ).toDateString()}
-                    </Typography>
-                    <Typography
-                      variant="body2"
                       component="div"
                       color="text.secondary"
-                      sx={{ fontFamily: "Roboto Condensed" }}
+                      sx={{ fontFamily: 'Roboto Condensed' }}
                     >
-                      {" "}
-                      Funding Goal Met:{" "}
+                      {' '}
+                      Funding Goal Met:{' '}
                       {props.project.reachedGoal
-                        ? "Yes"
+                        ? 'Yes'
                         : `Not yet, ${
-                            props.project.fundraising_goal -
-                            props.project.totalDonations
-                          } ETH left to go`}
+                            100 - results.percentReached
+                          }% left to go`}
                     </Typography>
+                    <Box
+                      sx={{
+                        display: 'flex',
+                        justifyContent: 'flex-start',
+                        width: '100%',
+                        alignItems: 'center',
+                      }}
+                    >
+                      <LinearProgress
+                        variant="determinate"
+                        value={
+                          results.percentReached > 100
+                            ? 100
+                            : results.percentReached
+                        }
+                        sx={{ width: 120, alignSelf: 'center'}}
+                      />
+                      <Typography
+                        sx={{
+                          alignSelf: 'right',
+                          fontFamily: 'Roboto Condensed',
+                          color: '#051f2e',
+                          marginLeft: '8px',
+                        }}
+                      >
+                        {results.percentReached > 100
+                          ? 100
+                          : results.percentReached}
+                        %
+                      </Typography>
+                    </Box>
                   </CardContent>
                   <CardActions>
                     <Button size="small" href={props.project.videoUrl}>
@@ -354,7 +382,7 @@ const ProjectDashboard = (props) => {
                         Release Funds
                       </Button>
                     ) : (
-                      ""
+                      ''
                     )}
                   </CardActions>
                 </Card>
