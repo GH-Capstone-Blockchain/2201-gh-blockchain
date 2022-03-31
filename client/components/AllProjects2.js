@@ -15,31 +15,28 @@ import {
   Computer,
   Psychology,
   FactCheck,
+  School,
+  Science, 
+  Cyclone, 
+  SettingsSuggest,
+  People, 
+  Healing,
+  Brush,
+  BackupTable,
+  Public,
+  EmojiObjects,
+  AccountBalance, 
+  Android
 } from "@mui/icons-material";
 import { connect } from "react-redux";
 import { fetchProjects } from "../store/projects";
 import ProjectCard from "./ProjectCard";
+import {categoriesArr, generateColor} from './smallComponents/utilities'
 
-const categoriesArr = [
-  { name: "All", icon: <FactCheck /> },
-  { name: "Biology", icon: <Biotech /> },
-  { name: "Ecology", icon: <Spa /> },
-  { name: "Mathematics", icon: <Functions /> },
-  { name: "Anthropology", icon: <DirectionsWalk /> },
-  { name: "Computer Science", icon: <Computer /> },
-  // { name: "Psychology", icon: <Psychology /> },
-];
 
 function AllProjects(props) {
   const [isLoading, setIsLoading] = useState(true);
   const [filter, setFilter] = useState("");
-
-  const generateColor = () => {
-    const r = Math.floor(Math.random() * 256);
-    const g = Math.floor(Math.random() * 256);
-    const b = Math.floor(Math.random() * 256);
-    return `rgb(${r},${g},${b},0.8)`;
-  };
 
   const allProjects = props.projects || [];
   const filteredProjects =
@@ -47,7 +44,7 @@ function AllProjects(props) {
       ? allProjects
       : allProjects.filter((project) => {
           if (project.categories.length > 0) {
-            return project.categories[0].category.includes(filter);
+            return project.categories.map(category => category.category).includes(filter)
           }
         });
 
