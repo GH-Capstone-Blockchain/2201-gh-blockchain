@@ -100,3 +100,10 @@ export const categoriesArr = [
   { name: "Neuroscience", icon: <EmojiObjects /> },
   { name: "Political Science", icon: <AccountBalance /> },
 ];
+
+export const generateColor = () => {
+  const r = Math.floor(Math.random() * 256);
+  const g = Math.floor(Math.random() * 256);
+  const b = Math.floor(Math.random() * 256);
+  return `rgb(${r},${g},${b},0.8)`;
+};

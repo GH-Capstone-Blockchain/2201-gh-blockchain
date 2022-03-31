@@ -31,19 +31,12 @@ import {
 import { connect } from "react-redux";
 import { fetchProjects } from "../store/projects";
 import ProjectCard from "./ProjectCard";
-import {categoriesArr} from './smallComponents/utilities'
+import {categoriesArr, generateColor} from './smallComponents/utilities'
 
 
 function AllProjects(props) {
   const [isLoading, setIsLoading] = useState(true);
   const [filter, setFilter] = useState("");
-
-  const generateColor = () => {
-    const r = Math.floor(Math.random() * 256);
-    const g = Math.floor(Math.random() * 256);
-    const b = Math.floor(Math.random() * 256);
-    return `rgb(${r},${g},${b},0.8)`;
-  };
 
   const allProjects = props.projects || [];
   const filteredProjects =
