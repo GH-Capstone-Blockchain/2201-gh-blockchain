@@ -43,7 +43,10 @@ export default function Team() {
         textAlign="center"
         sx={{
           marginTop: "100px",
-          marginBottom:'200px'
+          marginBottom: "200px",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
         }}
       >
         <Grid item xs={12}>
@@ -61,24 +64,38 @@ export default function Team() {
         </Grid>
         {suffledMember(teamMembers).map((member) => {
           return (
-            <Grid item xs={3} sx={{ padding: "10px" }} key={member.name}>
-              <a href={member.linkedInUrl} target="_blank">
-                <Avatar
-                  src={member.img}
-                  alt="Remy Sharp"
-                  sx={{ width: 200, height: 200 }}
-                />
-              </a>
-              <Typography
-                varient="h4"
+            <Grid
+              item
+              xs={12}
+              md={3}
+              sx={{ padding: "10px" }}
+              key={member.name}
+            >
+              <Box
                 sx={{
-                  color: "white",
-                  fontFamily: "Roboto Condensed",
-                  fontSize: "1.5em",
+                  display: "flex",
+                  alignItems: "center",
+                  flexDirection: "column",
                 }}
               >
-                {member.name}
-              </Typography>
+                <a href={member.linkedInUrl} target="_blank">
+                  <Avatar
+                    src={member.img}
+                    alt="Remy Sharp"
+                    sx={{ width: 200, height: 200 }}
+                  />
+                </a>
+                <Typography
+                  varient="h4"
+                  sx={{
+                    color: "white",
+                    fontFamily: "Roboto Condensed",
+                    fontSize: "1.5em",
+                  }}
+                >
+                  {member.name}
+                </Typography>
+              </Box>
             </Grid>
           );
         })}
