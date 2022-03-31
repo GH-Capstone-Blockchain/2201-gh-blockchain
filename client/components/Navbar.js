@@ -89,10 +89,21 @@ const Navbar = ({ handleClick, isLoggedIn, auth, profileImg }) => {
 
   const displayDesktop = () => {
     return (
-      <Toolbar>
-        {Logo}
-        <div>{getMenuButtons()}</div>
-      </Toolbar>
+      <Grid
+        container
+        sx={{
+          display: "flex",
+          justifyContent: "space between",
+          alignItems: "flex-end",
+        }}
+      >
+        <Grid item xs={3}>
+          {Logo}
+        </Grid>
+        <Grid item xs={9}>
+          {getMenuButtons()}
+        </Grid>
+      </Grid>
     );
   };
 
@@ -103,135 +114,107 @@ const Navbar = ({ handleClick, isLoggedIn, auth, profileImg }) => {
       setState((prevState) => ({ ...prevState, drawerOpen: false }));
 
     return (
-      <Toolbar>
-        <IconButton
-          {...{
-            edge: "start",
-            color: "inherit",
-            "aria-label": "menu",
-            "aria-haspopup": "true",
-            onClick: handleDrawerOpen,
-          }}
-        >
-          <Menu color="primary" />
-        </IconButton>
+      <Grid
+        container
+        sx={{
+          display: "flex",
+          justifyContent: "space between",
+          alignItems: "flex-end",
+        }}
+      >
+        <Grid item={3}>{Logo}</Grid>
+        <Grid item={9} sx={{ position: "absolute", right: "0px" }}>
+          <Toolbar>
+            <IconButton onClick={handleDrawerOpen}>
+              <Menu color="primary" />
+            </IconButton>
 
-        <Drawer
-          {...{
-            anchor: "left",
-            open: drawerOpen,
-            onClose: handleDrawerClose,
-          }}
-        >
-          <Grid
-            container
-            sx={{
-              display: "flex",
-              justifyContent: "space-between",
-              alignItems: "flex-end",
-            }}
-          >
-            <Grid item xs={3}>
+            <Drawer
+              {...{
+                anchor: "right",
+                open: drawerOpen,
+                onClose: handleDrawerClose,
+              }}
+            >
               <Grid
                 container
                 sx={{
                   display: "flex",
-                  justifyContent: "flex-start",
+                  justifyContent: "center",
                   alignItems: "flex-end",
+                  flexDirection: "column",
                 }}
               >
-                <Grid item xs={3} sx={{ minWidth: "60px" }}>
-                  <Link to="/">
-                    <Box
-                      component="img"
-                      sx={{
-                        height: "50px",
-                        margin: "10px",
-                        marginBottom: "4px",
-                      }}
-                      alt="DeSci Funder"
-                      src="/logo.png"
-                    />
-                  </Link>
-                </Grid>
-                <Grid item xs={9}>
-                  <Link to="/">
-                    <Typography
-                      color="primary"
-                      variant="h5"
-                      sx={{
-                        fontFamily: "Roboto Condensed",
-                        marginBottom: "4px",
-                      }}
-                    >
-                      De
-                      <span className="main-title-span">Sci </span>Funder
-                    </Typography>
-                  </Link>
-                </Grid>
+                {isLoggedIn ? (
+                  <div>
+                    <Grid item>
+                      <Link to="/projects">
+                        <Button>All Projects</Button>
+                      </Link>
+                    </Grid>
+
+                    {auth.scientist ? (
+                      <>
+                        <Grid item>
+                          <Link to="/addproject">
+                            <Button>Start A Project</Button>
+                          </Link>
+                        </Grid>
+                        <Grid item>
+                          <Link to={`/dashboard/${auth.id}`}>
+                            <Button>Dashboard</Button>
+                          </Link>
+                        </Grid>
+                      </>
+                    ) : null}
+                    <Grid item>
+                      <Link to={`/user/${auth.id}`}>
+                        <Button>My Profile</Button>
+                      </Link>
+                    </Grid>
+                    <Grid item>
+                      <a href="/login" onClick={handleClick}>
+                        <Button>Logout</Button>
+                      </a>
+                    </Grid>
+
+                    <Grid item>
+                      <Tooltip title="My Profile">
+                        <Link to={`/user/${auth.id}`}>
+                          <IconButton onClick={handleOpenUserMenu}>
+                            <Avatar
+                              alt="Remy Sharp"
+                              src={profileImg}
+                              sx={{ width: 60, height: 60 }}
+                            />
+                          </IconButton>
+                        </Link>
+                      </Tooltip>
+                    </Grid>
+                  </div>
+                ) : (
+                  <Grid item>
+                    {/* The navbar will show these links before you log in */}
+
+                    {/* <Link to="/about">
+              <Button>About</Button>
+            </Link> */}
+                    <Link to="/projects">
+                      <Button>All Projects</Button>
+                    </Link>
+                    <Link to="/login">
+                      <Button>Login</Button>
+                    </Link>
+                    <Link to="/signup">
+                      <Button>Sign Up</Button>
+                    </Link>
+                  </Grid>
+                )}
               </Grid>
-            </Grid>
-
-            {/* <Grid item xs = {10} */}
-            {isLoggedIn ? (
-              <div>
-                {/* The navbar will show these links after you log in */}
-
-                {/* <Link to="/about">
-              <Button>About</Button>
-            </Link> */}
-                <Link to="/projects">
-                  <Button>Projects</Button>
-                </Link>
-                {auth.scientist ? (
-                  <>
-                    <Link to="/addproject">
-                      <Button>Start A Project</Button>
-                    </Link>
-                    <Link to={`/dashboard/${auth.id}`}>
-                      <Button>Dashboard</Button>
-                    </Link>
-                  </>
-                ) : null}
-                <Link to={`/user/${auth.id}`}>
-                  <Button>My Profile</Button>
-                </Link>
-                <a href="/login" onClick={handleClick}>
-                  <Button>Logout</Button>
-                </a>
-                <Tooltip title="My Profile">
-                  <Link to={`/user/${auth.id}`}>
-                    <IconButton onClick={handleOpenUserMenu}>
-                      <Avatar
-                        alt="Remy Sharp"
-                        src={profileImg}
-                        sx={{ width: 60, height: 60 }}
-                      />
-                    </IconButton>
-                  </Link>
-                </Tooltip>
-              </div>
-            ) : (
-              <div>
-                {/* The navbar will show these links before you log in */}
-
-                {/* <Link to="/about">
-              <Button>About</Button>
-            </Link> */}
-                <Link to="/projects">
-                  <Button>Projects</Button>
-                </Link>
-                <Link to="/login">
-                  <Button>Login</Button>
-                </Link>
-                <Link to="/signup">
-                  <Button>Sign Up</Button>
-                </Link>
-              </div>
-            )}
-          </Grid>
-        </Drawer>
-      </Toolbar>
+            </Drawer>
+          </Toolbar>
+        </Grid>
+      </Grid>
     );
   };
 
@@ -242,6 +225,7 @@ const Navbar = ({ handleClick, isLoggedIn, auth, profileImg }) => {
         display: "flex",
         justifyContent: "space-between",
         alignItems: "flex-end",
+        width: "250px",
       }}
     >
       <Grid item xs={3} sx={{ minWidth: "60px" }}>
@@ -282,20 +266,15 @@ const Navbar = ({ handleClick, isLoggedIn, auth, profileImg }) => {
         container
         sx={{
           display: "flex",
-          justifyContent: "space-between",
+          justifyContent: "flex-end",
           alignItems: "flex-end",
         }}
       >
         {/* <Grid item xs = {10} */}
         {isLoggedIn ? (
-          <div>
-            {/* The navbar will show these links after you log in */}
-
-            {/* <Link to="/about">
-        <Button>About</Button>
-      </Link> */}
+          <Grid item>
             <Link to="/projects">
-              <Button>Projects</Button>
+              <Button to="/projects">All Projects</Button>
             </Link>
             {auth.scientist ? (
               <>
@@ -324,16 +303,16 @@ const Navbar = ({ handleClick, isLoggedIn, auth, profileImg }) => {
                 </IconButton>
               </Link>
             </Tooltip>
-          </div>
+          </Grid>
         ) : (
-          <div>
+          <Grid item>
             {/* The navbar will show these links before you log in */}
 
             {/* <Link to="/about">
         <Button>About</Button>
       </Link> */}
             <Link to="/projects">
-              <Button>Projects</Button>
+              <Button>All Projects</Button>
             </Link>
             <Link to="/login">
               <Button>Login</Button>
@@ -341,7 +320,7 @@ const Navbar = ({ handleClick, isLoggedIn, auth, profileImg }) => {
             <Link to="/signup">
               <Button>Sign Up</Button>
             </Link>
-          </div>
+          </Grid>
         )}
       </Grid>
     );
