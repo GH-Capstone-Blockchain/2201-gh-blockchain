@@ -1,8 +1,12 @@
 import React from "react";
-import { ThemeProvider, createTheme } from "@mui/material/styles";
+import {
+  ThemeProvider,
+  createTheme,
+  responsiveFontSizes,
+} from "@mui/material/styles";
 import Button from "@mui/material/Button";
 
-const theme = createTheme({
+let theme = createTheme({
   palette: {
     primary: {
       light: "#c0ffff",
@@ -26,5 +30,7 @@ const theme = createTheme({
   //   },
   // },
 });
+
+theme = responsiveFontSizes(theme);
 
 export default theme;

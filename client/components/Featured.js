@@ -49,7 +49,7 @@ export default function Featured(props) {
           >
             <Grid container spacing={2}>
               {projects.map((project) => (
-                <Grid key={project.id} item xs={4}>
+                <Grid key={project.id} item xs={12} md={4}>
                   <ProjectCard project={project} />
                 </Grid>
               ))}

@@ -52,11 +52,10 @@ export default function ProjectsStats() {
               {propsTotalProjs.val.to((val) => Math.floor(val))}
             </animated.h1>
             <Typography
-              varient="h4"
+              varient="h3"
               sx={{
                 color: "#c7feff",
                 fontFamily: "Roboto Condensed",
-                fontSize: "1.5em",
               }}
             >
               projects funded
@@ -67,11 +66,10 @@ export default function ProjectsStats() {
               {propsTotalSupporters.val.to((val) => Math.floor(val))}
             </animated.h1>
             <Typography
-              varient="h4"
+              varient="h3"
               sx={{
                 color: "#d6f9d1",
                 fontFamily: "Roboto Condensed",
-                fontSize: "1.5em",
               }}
             >
               supported
@@ -82,11 +80,10 @@ export default function ProjectsStats() {
               {propsTotalRaised.val.to((val) => Math.floor(val))}
             </animated.h1>
             <Typography
-              varient="h4"
+              varient="h3"
               sx={{
                 color: "#fbfda7",
                 fontFamily: "Roboto Condensed",
-                fontSize: "1.5em",
               }}
             >
               USD raised

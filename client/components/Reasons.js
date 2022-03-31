@@ -69,7 +69,13 @@ export default function Reasons() {
         </Grid>
         {reasons1.map((reason) => {
           return (
-            <Grid item xs={4} sx={{ padding: "10px" }} key={reason.title}>
+            <Grid
+              item
+              xs={12}
+              md={4}
+              sx={{ padding: "10px" }}
+              key={reason.title}
+            >
               <img className="img-icon" src={reason.icon} />
               <Typography
                 varient="h4"
@@ -98,7 +104,8 @@ export default function Reasons() {
           return (
             <Grid
               item
-              xs={4}
+              xs={12}
+              md={4}
               sx={{ padding: "10px", marginTop: "10px" }}
               key={reason.title}
             >

@@ -28,8 +28,18 @@ a {
 }
 
 .stats {
-  font-size: 3em;
   font-family: "Roboto Condensed";
+}
+@media screen and (min-width: 601px) {
+  .stats {
+    font-size: 50px;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .stats {
+    font-size: 30px;
+  }
 }
 
 #project-data {
@@ -66,5 +76,5 @@ a {
 }
 
 a:hover {
-  text-decoration: underline
+  text-decoration: underline;
 }

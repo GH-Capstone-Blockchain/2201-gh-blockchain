@@ -63,7 +63,13 @@ export default function Reasons() {
         </Grid>
         {easySteps.map((reason) => {
           return (
-            <Grid item xs={4} sx={{ padding: "10px" }} key={reason.title}>
+            <Grid
+              item
+              xs={12}
+              md={4}
+              sx={{ padding: "10px" }}
+              key={reason.title}
+            >
               {!reason.external ? (
                 <Link to={reason.link}>
                   {reason.icon}
@@ -88,7 +94,7 @@ export default function Reasons() {
                   </Typography>
                 </Link>
               ) : (
-                <a href={reason.link} target="_blank" >
+                <a href={reason.link} target="_blank">
                   {reason.icon}
                   <Typography
                     varient="h4"
