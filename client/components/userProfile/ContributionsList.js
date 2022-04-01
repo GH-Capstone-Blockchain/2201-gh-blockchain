@@ -18,8 +18,7 @@ import { loadWeb3, loadContractData } from "../../web3/web3";
 
 const ContributionsList = (props) => {
   const [isUpdated, setIsUpdated] = useState(false);
-
-  console.log("=====", props);
+  const [account, setAccount] = useState('');
 
   const fetchData = async () => {
     try {
@@ -48,10 +47,9 @@ const ContributionsList = (props) => {
       const campaignContract = await loadContractData(
         project.campaign_contract_address
       );
-      console.log("contract", campaignContract);
       await campaignContract.methods
-        .refund()
-        .send({ from: msg.sender });
+        .refund(props.auth.id)
+        .send({ from: account });
     } catch (error) {
       console.error("error in refund", error);
     }
