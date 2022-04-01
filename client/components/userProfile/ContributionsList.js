@@ -10,15 +10,18 @@ import {
   CardActions,
   Box,
   LinearProgress,
+  Alert,
+  AlertTitle,
   Grid,
 } from "@mui/material";
+import { spacing } from "@mui/system";
 import { Link } from "react-router-dom";
 import { fetchContributionsByUser } from "../../store/contributions";
 import { loadWeb3, loadContractData } from "../../web3/web3";
 
 const ContributionsList = (props) => {
   const [isUpdated, setIsUpdated] = useState(false);
-  const [account, setAccount] = useState('');
+  const [account, setAccount] = useState("");
 
   const fetchData = async () => {
     try {
@@ -87,6 +90,7 @@ const ContributionsList = (props) => {
         >
           {props.contributions.map((contribution) => {
             const project = contribution.project;
+            console.log("this is project in map......", project);
             const shortenedDescription = () => {
               if (project.description.length > 150) {
                 return project.description.slice(0, 150).concat("...");
@@ -131,23 +135,26 @@ const ContributionsList = (props) => {
                         {shortenedDescription()}
                       </Typography>
                     </CardContent>
-                    {/* for releasing funds after campaign has failed */}
-                    {/* {
-                      !project.isFunded && project.date.passed && auth === userId
-                      ? (
-                        <CardContent>
-                        <Button size="small" onClick={handleRefund}>
-                        Release Donation
-                        </Button>
-                        </CardContent>
-                        ) : null
-                      } */}
                   </CardActionArea>
-                  <CardActions>
-                    <Button size="small" onClick={() => handleRefund(project)}>
-                      Release Donation
-                    </Button>
-                  </CardActions>
+                  {/* for releasing funds after campaign has failed */}
+                  {!project.isFunded &&
+                  props.auth.password === props.user.password ? (
+                    <CardActions className="refund–button-and-alert">
+                      <Alert severity="info" sx={{ mx: 0.5 }}>
+                        {" "}
+                        Campaign was unsuccessful -{" "}
+                        <strong>click below to release donation</strong>
+                      </Alert>
+                      <Button
+                        size="small"
+                        variant="contained"
+                        sx={{ m: 2 }}
+                        onClick={() => handleRefund(project)}
+                      >
+                        Release Donation
+                      </Button>
+                    </CardActions>
+                  ) : null}
                 </Card>
               </Grid>
             );
