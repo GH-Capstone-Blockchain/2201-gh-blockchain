@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { connect } from "react-redux";
 import {
   Card,
   CardActionArea,
@@ -9,14 +8,10 @@ import {
   Button,
   CardActions,
   Box,
-  LinearProgress,
   Alert,
-  AlertTitle,
   Grid,
 } from "@mui/material";
-import { spacing } from "@mui/system";
 import { Link, useParams } from "react-router-dom";
-import { fetchContributionsByUser } from "../../store/contributions";
 import { loadWeb3, loadContractData } from "../../web3/web3";
 
 const ContributionsList = (props) => {
@@ -26,7 +21,6 @@ const ContributionsList = (props) => {
 
   const fetchData = async () => {
     try {
-      await props.fetchContributionsByUser(props.user.id);
       const accountAddress = await loadWeb3();
       if (accountAddress) setAccount(accountAddress[0]);
       setIsUpdated(false);
@@ -166,17 +160,17 @@ const ContributionsList = (props) => {
   );
 };
 
-const mapState = (state) => {
-  return {
-    contributions: state.contributions,
-  };
-};
+// const mapState = (state) => {
+//   return {
+//     contributions: state.contributions,
+//   };
+// };
 
-const mapDispatch = (dispatch) => {
-  return {
-    fetchContributionsByUser: (userId) =>
-      dispatch(fetchContributionsByUser(userId)),
-  };
-};
+// const mapDispatch = (dispatch) => {
+//   return {
+//     fetchContributionsByUser: (userId) =>
+//       dispatch(fetchContributionsByUser(userId)),
+//   };
+// };
 
-export default connect(mapState, mapDispatch)(ContributionsList);
+export default ContributionsList;
