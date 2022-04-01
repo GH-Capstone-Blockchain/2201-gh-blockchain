@@ -21,6 +21,7 @@ import { projectToUSD } from "./smallComponents/utilities";
 import { fetchConversion } from "../store/conversion";
 import { loadWeb3, loadContractData } from "../web3/web3";
 import AccessForbiddenPage from "./AccessForbiddenPage";
+import { formatIsoToUnix } from "../smallComponents/utilities";
 
 const ProjectDashboard = (props) => {
   let params = useParams();

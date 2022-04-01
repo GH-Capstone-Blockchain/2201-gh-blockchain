@@ -13,6 +13,7 @@ import {
 } from "@mui/material";
 import { Link, useParams } from "react-router-dom";
 import { loadWeb3, loadContractData } from "../../web3/web3";
+import { formatIsoToUnix } from "../smallComponents/utilities";
 
 const ContributionsList = (props) => {
   let params = useParams();
@@ -53,11 +54,6 @@ const ContributionsList = (props) => {
     }
   };
 
-  const formatIsoToUnix = (isoStr) => {
-    const date = new Date(isoStr).getTime();
-    return date;
-  };
-
   return (
     <Grid
       container
@@ -75,7 +71,7 @@ const ContributionsList = (props) => {
           color="primary.dark"
           sx={{ fontFamily: "Roboto Condensed" }}
         >
-          Projects I contributed{" "}
+          Projects I supported{" "}
         </Typography>
       </Grid>
       <Grid item xs={12} style={{ maxWidth: "1000px" }}>
