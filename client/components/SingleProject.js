@@ -11,10 +11,12 @@ import {
   SayThankYou,
   NoMetaMaskError,
   ErrorTransactionAlert,
+  AddDonationConfirmation
 } from "./smallComponents/InfoAlerts";
 import ContributionList from "./smallComponents/ContributionsList";
 import CategoriesByProject from "./CategoriesByProject";
 import AboutProject from "./AboutProject";
+
 
 const SingleProject = (props) => {
   let params = useParams();
@@ -25,6 +27,7 @@ const SingleProject = (props) => {
   const [thankYou, setThankYou] = useState(false);
   const [donation, setDonation] = useState(0);
   const [noMetamask, setNoMetamask] = useState(false);
+  const [blockchainWait, setBlockchainWait] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -51,11 +54,13 @@ const SingleProject = (props) => {
         props.project.campaign_contract_address
       );
       setCampaign(campaignContract);
+      setBlockchainWait(true);
       await campaignContract.methods
         .donate(props.auth.id)
         .send({ from: account, value: total });
-      // Had to hardcode in 100 because the wei amount creates sequelize errors (too big of integer -- need to address this);
       await props.createContribution(id, props.auth.id, eth * Math.pow(10, 18));
+
+      setBlockchainWait(false);
       setThankYou(true);
     } catch (error) {
       console.error("error in handleDonate", error);
@@ -95,6 +100,7 @@ const SingleProject = (props) => {
         open={thankYou}
       />
       <NoMetaMaskError handleClose={handleClose} open={noMetamask} />
+      <AddDonationConfirmation open={blockchainWait}/>
       <Container
         sx={{ display: "flex", flexDirection: "column" }}
         maxWidth="lg"

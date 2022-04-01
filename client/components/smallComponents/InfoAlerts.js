@@ -252,14 +252,25 @@ export function AddProjectConfirmation(props) {
           It may take a second to add your project to the blockchain!
         </DialogContentText>
       </DialogContent>
-      {/* <DialogActions>
-        <Button target="_blank" href="https://metamask.io/download/">
-          Download MetaMask!
-        </Button>
-        <Button onClick={props.handleClose} autoFocus>
-          Just browsing!
-        </Button>
-      </DialogActions> */}
+    </Dialog>
+  );
+}
+export function AddDonationConfirmation(props) {
+  return (
+    <Dialog
+      open={props.open}
+      onClose={props.handleClose}
+      aria-labelledby="alert-dialog-title"
+      aria-describedby="alert-dialog-description"
+    >
+      <DialogTitle id="alert-dialog-title">
+        {"Awesome!"}
+      </DialogTitle>
+      <DialogContent>
+        <DialogContentText id="alert-dialog-description">
+          It may take a second to add your donation to the blockchain!
+        </DialogContentText>
+      </DialogContent>
     </Dialog>
   );
 }
