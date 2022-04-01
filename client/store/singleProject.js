@@ -18,7 +18,8 @@ const _fetchProject = (project, scientists) => {
 const _updateProject = (project) => {
   return {
     type: UPDATE_PROJECT,
-    project,
+    project: project.project,
+    scientists: project.scientists
   };
 };
 
