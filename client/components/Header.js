@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
+import {connect} from 'react-redux'
 
-import { Button, Typography, Grid, Box } from "@mui/material";
+import { Button, Typography, Grid} from "@mui/material";
 
-import { Fade } from "react-awesome-reveal";
 
-export default function Header() {
+function Header(props) {
   return (
     <Grid container>
       <Grid item xs={12} sx={{ padding: "20px", marginBottom: "2%" }}>
@@ -31,7 +31,7 @@ export default function Header() {
         </Typography>
       </Grid>
       <Grid item xs={12} textAlign="center">
-        <Link to="/signup">
+        <Link to={props.auth.id ? '/projects' : "/signup"}>
         <Button
           variant="contained"
           size="large"
@@ -44,3 +44,12 @@ export default function Header() {
     </Grid>
   );
 }
+
+const mapState = (state) => {
+  return {
+    auth: state.auth,
+  };
+};
+
+
+export default connect(mapState, null)(Header);

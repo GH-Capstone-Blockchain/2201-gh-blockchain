@@ -236,3 +236,41 @@ export function NoMetaMaskError(props) {
     </Dialog>
   );
 }
+export function AddProjectConfirmation(props) {
+  return (
+    <Dialog
+      open={props.open}
+      onClose={props.handleClose}
+      aria-labelledby="alert-dialog-title"
+      aria-describedby="alert-dialog-description"
+    >
+      <DialogTitle id="alert-dialog-title">
+        {"Awesome!"}
+      </DialogTitle>
+      <DialogContent>
+        <DialogContentText id="alert-dialog-description">
+          It may take a second to add your project to the blockchain!
+        </DialogContentText>
+      </DialogContent>
+    </Dialog>
+  );
+}
+export function AddDonationConfirmation(props) {
+  return (
+    <Dialog
+      open={props.open}
+      onClose={props.handleClose}
+      aria-labelledby="alert-dialog-title"
+      aria-describedby="alert-dialog-description"
+    >
+      <DialogTitle id="alert-dialog-title">
+        {"Awesome!"}
+      </DialogTitle>
+      <DialogContent>
+        <DialogContentText id="alert-dialog-description">
+          It may take a second to add your donation to the blockchain!
+        </DialogContentText>
+      </DialogContent>
+    </Dialog>
+  );
+}

@@ -17,7 +17,7 @@ export default function CategoriesByProject(props) {
   if (loading) return "Loading";
   if (!loading) {
     return (
-      <Box>
+      <Box sx={{margin:'5px'}}>
         <Grid
           container
           sx={{
