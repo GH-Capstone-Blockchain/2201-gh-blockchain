@@ -97,8 +97,10 @@ const AuthForm = (props) => {
               {displayName}
             </Button>
             <Link to={"/signup"}>
-                <Typography padding={3}>Don't have an account? Sign up here!</Typography>
-              </Link>
+              <Typography padding={3}>
+                Don't have an account? Sign up here!
+              </Typography>
+            </Link>
             {error && error.response && (
               <Alert severity="error"> {error.response.data} </Alert>
             )}

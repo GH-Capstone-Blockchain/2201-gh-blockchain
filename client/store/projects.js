@@ -30,12 +30,11 @@ export const fetchProjects = () => {
 };
 
 //to fetch all projects associated with a specific scientist
-export const fetchProjectsByScientist = (scientistId) => {
+export const fetchProjectsByScientist = (userId) => {
   return async (dispatch) => {
     try {
-      const { data } = await axios.get(`/api/projects/scientist/${scientistId}`);
-      const projects = data.projects
-      dispatch(setProjects(projects));
+      const { data } = await axios.get(`/api/projects/scientist/${userId}`);
+      dispatch(setProjects(data));
     } catch (error) {
       console.log('error in fetchProjectsByScientist thunk', error);
     }

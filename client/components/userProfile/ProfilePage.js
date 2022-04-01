@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import { fetchUser } from "../../store/user";
+import { fetchProjectsByScientist } from "../../store/projects";
 import { Link, useParams } from "react-router-dom";
 import CredsAndPubs from "./CredsAndPubs";
 import ProjectsList from "./ProjectsList";
@@ -8,7 +9,6 @@ import ContributionsList from "./ContributionsList";
 import {
   Typography,
   Paper,
-  Card,
   Button,
   Grid,
   Table,
@@ -27,8 +27,12 @@ const ProfilePage = (props) => {
 
   useEffect(async () => {
     await props.fetchUser(id);
+    await props.fetchProjectsByScientist(id);
+
     setIsLoading(false);
-  }, []);
+  }, [params]);
+  
+
   if (isLoading) return <img src={"https://i.stack.imgur.com/ATB3o.gif"} />;
 
   const capitalizeName = (user) => {
@@ -124,7 +128,11 @@ const ProfilePage = (props) => {
                 <TableBody>
                   <TableRow>
                     <TableCell>Name:</TableCell>
-                    <TableCell>{capitalizeName(props.user)}</TableCell>
+                    <TableCell>
+                      {props.user.firstName && props.user.lastName
+                        ? capitalizeName(props.user)
+                        : null}
+                    </TableCell>
                   </TableRow>
                   <TableRow>
                     <TableCell>Email:</TableCell>
@@ -165,7 +173,11 @@ const ProfilePage = (props) => {
             >
               <Grid item xs={12}>
                 <CredsAndPubs auth={props.auth} user={props.user} />
-                <ProjectsList auth={props.auth} user={props.user} />
+                <ProjectsList
+                  auth={props.auth}
+                  user={props.user}
+                  projects={props.projects}
+                />
               </Grid>
             </Grid>
           </>
@@ -183,12 +195,15 @@ const mapState = (state) => {
   return {
     auth: state.auth,
     user: state.user,
+    projects: state.projects,
   };
 };
 
 const mapDispatch = (dispatch) => {
   return {
     fetchUser: (id) => dispatch(fetchUser(id)),
+    fetchProjectsByScientist: (userId) =>
+      dispatch(fetchProjectsByScientist(userId)),
   };
 };
 

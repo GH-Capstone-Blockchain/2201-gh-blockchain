@@ -15,11 +15,12 @@ import {
   Grid,
 } from "@mui/material";
 import { spacing } from "@mui/system";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { fetchContributionsByUser } from "../../store/contributions";
 import { loadWeb3, loadContractData } from "../../web3/web3";
 
 const ContributionsList = (props) => {
+  let params = useParams();
   const [isUpdated, setIsUpdated] = useState(false);
   const [account, setAccount] = useState("");
 
@@ -39,7 +40,7 @@ const ContributionsList = (props) => {
 
   useEffect(() => {
     fetchData();
-  }, []);
+  }, [params]);
 
   useEffect(() => {
     fetchData();
