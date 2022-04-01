@@ -132,7 +132,7 @@ const ContributionsList = (props) => {
                     </CardContent>
                   </CardActionArea>
                   {/* for releasing funds after campaign has failed */}
-                  {!project.isFunded &&
+                  {!project.reachedGoal &&
                   props.auth.password === props.user.password &&
                   formatIsoToUnix(project.campaign_timeline_end) <
                     Date.now() ? (
