@@ -18,7 +18,7 @@ router.post('/', async (req, res, next) => {
 router.get('/:projectId', async (req, res, next) => {
     try {
         const project = await Project.findByPk(req.params.projectId);
-        const projectContributions = await project.getContributions({include: [User]});
+        const projectContributions = await project.getContributions({include: [User, Project]});
         res.json(projectContributions);
     } catch (error) {
         next(error);
@@ -30,7 +30,7 @@ router.get('/user/:userId', async (req, res, next) => {
   try {
       const project = await Contribution.findAll({
         where: {userId: req.params.userId},
-        include: [Project]
+        include: [Project, User]
       });
       res.json(project);
   } catch (error) {
