@@ -2,8 +2,8 @@
 pragma solidity ^0.8.12; 
 // contract CampaignFactory{
 //     address[] public deployedCampaigns;
-//     function createCampaign(uint campaignId, uint scientistId, string title, uint goal, uint endDate) public {
-//         address campaignAddress = new Campaign(campaignId, scientistId, title, goal, endDate, msg.sender); //creates and deploys a new contract
+//     function createCampaign(uint _campaignId, uint _scientistId, address _projectAddress, string memory _title, uint _goalAmount, uint256 _startDate, uint256 _endDate) public {
+//         address campaignAddress = new Campaign(uint _campaignId, uint _scientistId, address _projectAddress, string memory _title, uint _goalAmount, uint256 _startDate, uint256 _endDate); //creates and deploys a new contract
 //         deployedCampaigns.push(campaignAddress);
 //     }
 //     function getDeployedCampaigns() public view returns (address[] memory){
@@ -57,8 +57,8 @@ contract Campaign {
         payable(projectAddress).transfer(address (this).balance);
     }
     function refund(uint _supporterId) external {
-        require(block.timestamp > endDate, 'not ended');
-        require(address (this).balance <= goalAmount, 'the campaign was successful');
+        // require(block.timestamp > endDate, 'not ended');
+        // require(address (this).balance <= goalAmount, 'the campaign was successful');
         uint balance = donationsAmount[_supporterId][msg.sender];
         donationsAmount[_supporterId][msg.sender] = 0;
         payable (msg.sender).transfer(balance);

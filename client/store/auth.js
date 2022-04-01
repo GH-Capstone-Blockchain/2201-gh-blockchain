@@ -24,7 +24,6 @@ export const me = () => async dispatch => {
         authorization: token
       }
     })
-    console.log('res from me thunk', res)
     return dispatch(setAuth(res.data))
   }
 }
@@ -33,9 +32,7 @@ export const authenticate = (username, password, method) => async dispatch => {
   try {
     const res = await axios.post(`/auth/${method}`, {username, password})
     window.localStorage.setItem(TOKEN, res.data.token)
-    console.log('res from authenticate', res)
     dispatch(me())
-    // history.push('/projects')
   } catch (authError) {
     return dispatch(setAuth({error: authError}))
   }

@@ -10,17 +10,53 @@ import {
   CardActions,
   Box,
   LinearProgress,
+  Alert,
+  AlertTitle,
   Grid,
 } from "@mui/material";
+import { spacing } from "@mui/system";
 import { Link } from "react-router-dom";
 import { fetchContributionsByUser } from "../../store/contributions";
+import { loadWeb3, loadContractData } from "../../web3/web3";
 
 const ContributionsList = (props) => {
-  useEffect(async () => {
-    await props.fetchContributionsByUser(props.user.id);
+  const [isUpdated, setIsUpdated] = useState(false);
+  const [account, setAccount] = useState("");
+
+  const fetchData = async () => {
+    try {
+      await props.fetchContributionsByUser(props.user.id);
+      const accountAddress = await loadWeb3();
+      if (accountAddress) setAccount(accountAddress[0]);
+      setIsUpdated(false);
+    } catch (error) {
+      console.error(
+        "error in fetchData from userProfile/ContributionsList",
+        error
+      );
+    }
+  };
+
+  useEffect(() => {
+    fetchData();
   }, []);
 
+  useEffect(() => {
+    fetchData();
+  }, [isUpdated]);
 
+  const handleRefund = async (project) => {
+    try {
+      const campaignContract = await loadContractData(
+        project.campaign_contract_address
+      );
+      await campaignContract.methods
+        .refund(props.auth.id)
+        .send({ from: account });
+    } catch (error) {
+      console.error("error in refund", error);
+    }
+  };
 
   return (
     <Grid
@@ -54,6 +90,7 @@ const ContributionsList = (props) => {
         >
           {props.contributions.map((contribution) => {
             const project = contribution.project;
+            console.log("this is project in map......", project);
             const shortenedDescription = () => {
               if (project.description.length > 150) {
                 return project.description.slice(0, 150).concat("...");
@@ -98,18 +135,26 @@ const ContributionsList = (props) => {
                         {shortenedDescription()}
                       </Typography>
                     </CardContent>
-                    {/* for releasing funds after campaign has failed */}
-                    {/* {
-                      !project.isFunded && project.date.passed && auth === userId
-                      ? (
-                        <CardContent>
-                        <Button>
-                          Release Donation
-                        </Button>
-                      </CardContent>
-                      ) : null
-                    } */}
                   </CardActionArea>
+                  {/* for releasing funds after campaign has failed */}
+                  {!project.isFunded &&
+                  props.auth.password === props.user.password ? (
+                    <CardActions className="refund–button-and-alert">
+                      <Alert severity="info" sx={{ mx: 0.5 }}>
+                        {" "}
+                        Campaign was unsuccessful -{" "}
+                        <strong>click below to release donation</strong>
+                      </Alert>
+                      <Button
+                        size="small"
+                        variant="contained"
+                        sx={{ m: 2 }}
+                        onClick={() => handleRefund(project)}
+                      >
+                        Release Donation
+                      </Button>
+                    </CardActions>
+                  ) : null}
                 </Card>
               </Grid>
             );

@@ -78,3 +78,10 @@ a {
 a:hover {
   text-decoration: underline;
 }
+
+
+.refund–button-and-alert {
+  display: flex;
+  flex-direction: column;
+  
+}
