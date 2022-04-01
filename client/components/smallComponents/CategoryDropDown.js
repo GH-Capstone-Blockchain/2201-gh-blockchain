@@ -1,18 +1,22 @@
 import React from 'react'
-import { Select, MenuItem, Checkbox, ListItemText, OutlinedInput} from '@mui/material'
+import { Select, MenuItem, Checkbox, ListItemText, OutlinedInput, InputLabel, FormControl} from '@mui/material'
 import { categoriesArr } from './utilities'
 
 
 export default function CategoryDropDown (props) {
 
     return(
+      <FormControl required sx={{width:'100%'}}>
+      <InputLabel id="category">Category</InputLabel>
         <Select
-        labelId="demo-multiple-checkbox-label"
-        id="category"
+        labelId="category"
+        id='category'
         multiple
         value={props.category}
+        input={<OutlinedInput label="Category" />}
         onChange={props.handleChange}
         renderValue={(selected) => selected.join(', ')}
+        sx={{width:'100%'}}
       >
         {categoriesArr.map((category) => (
           <MenuItem key={category.name} value={category.name}>
@@ -21,5 +25,6 @@ export default function CategoryDropDown (props) {
           </MenuItem>
         ))}
       </Select>
+      </FormControl>
     )
 }

@@ -33,13 +33,12 @@ function AddProjectForm(props) {
     campaign_timeline_end: "",
     fundraising_goal: "",
   });
-  const [categories, setCategories] = useState([])
+  const [categories, setCategories] = useState([]);
   const [youtubeAlert, setyoutubeAlert] = useState(false);
   const [goalAlert, setGoalAlert] = useState(false);
   const [addressAlert, setAddressAlert] = useState(false);
   const [imageAlert, setImageAlert] = useState(false);
   const [noMetamask, setNoMetamask] = useState(false);
-
 
   const [address, setAddress] = useState(null);
 
@@ -57,11 +56,10 @@ function AddProjectForm(props) {
     setNoMetamask(false);
   };
   const handleCategoryChange = (event) => {
-    const value = event.target.value
-    typeof value === 'string' ? value.split(',') : value,
-    setCategories(value)
-    console.log(categories)
-  }
+    const value = event.target.value;
+    typeof value === "string" ? value.split(",") : value, setCategories(value);
+    console.log(categories);
+  };
   const handleChange = (event) => {
     let value = event.target.value;
 
@@ -79,7 +77,7 @@ function AddProjectForm(props) {
       project: form,
       scientists: [props.auth.scientist.id],
       address: address,
-      categories: categories
+      categories: categories,
     });
     navigate("/projects");
   };
@@ -100,6 +98,10 @@ function AddProjectForm(props) {
           }}
         >
           <NoMetaMaskError handleClose={handleClose} open={noMetamask} />
+          <FundrasingGoalAlert handleClose={handleClose} open={goalAlert} />
+          <WalletAlert handleClose={handleClose} open={addressAlert} />
+          <ImageAlert handleClose={handleClose} open={imageAlert} />
+          <YouTubeAlert handleClose={handleClose} open={youtubeAlert} />
           <Box
             component="form"
             sx={{}}
@@ -133,7 +135,6 @@ function AddProjectForm(props) {
                   // background: "#051f2e",
                 }}
               >
-                <Grid item xs={12}><CategoryDropDown handleChange={handleCategoryChange} category={categories}/></Grid>
                 <Grid item xs={8}>
                   <TextField
                     required
@@ -167,12 +168,13 @@ function AddProjectForm(props) {
                   <Button>
                     <InfoOutlinedIcon onClick={() => setGoalAlert(true)} />
                   </Button>
-                  <FundrasingGoalAlert
-                    handleClose={handleClose}
-                    open={goalAlert}
+                </Grid>
+                <Grid item xs={11}>
+                  <CategoryDropDown
+                    handleChange={handleCategoryChange}
+                    category={categories}
                   />
                 </Grid>
-
                 <Grid
                   item
                   xs={12}
@@ -193,7 +195,6 @@ function AddProjectForm(props) {
                   <Button>
                     <InfoOutlinedIcon onClick={() => setAddressAlert(true)} />
                   </Button>
-                  <WalletAlert handleClose={handleClose} open={addressAlert} />
                 </Grid>
                 <Grid item xs={6}>
                   <TextField
@@ -231,7 +232,6 @@ function AddProjectForm(props) {
                       <Button>
                         <InfoOutlinedIcon onClick={() => setImageAlert(true)} />
                       </Button>
-                      <ImageAlert handleClose={handleClose} open={imageAlert} />
                     </Grid>
                     <Grid
                       item
@@ -251,14 +251,10 @@ function AddProjectForm(props) {
                           onClick={() => setyoutubeAlert(true)}
                         />
                       </Button>
-                      <YouTubeAlert
-                        handleClose={handleClose}
-                        open={youtubeAlert}
-                      />
                     </Grid>
                   </Grid>
                 </Grid>
-                <Grid item xs={12}>
+                <Grid item xs={11}>
                   <Grid
                     container
                     spacing={2}
@@ -317,7 +313,7 @@ function AddProjectForm(props) {
                   </Grid>
                 </Grid>
                 <Grid item xs={1} />
-                <Grid item xs={12} marginBottom="100px">
+                <Grid item xs={11} marginBottom="100px">
                   <Grid
                     container
                     spacing={2}
