@@ -13,12 +13,15 @@ import {
   LinearProgress,
   Grid,
 } from "@mui/material";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 
 const ProjectsList = (props) => {
+  let params = useParams();
+  const id = parseInt(params.id);
+
   useEffect(async () => {
     await props.fetchProjectsByScientist(props.user.scientist.id);
-  }, []);
+  }, [params]);
 
   const projects = props.projects;
 

@@ -25,10 +25,11 @@ const ProfilePage = (props) => {
   const id = parseInt(params.id);
   const [isLoading, setIsLoading] = useState(true);
 
+
   useEffect(async () => {
     await props.fetchUser(id);
     setIsLoading(false);
-  }, []);
+  }, [params]);
   if (isLoading) return <img src={"https://i.stack.imgur.com/ATB3o.gif"} />;
 
   const capitalizeName = (user) => {
@@ -124,7 +125,7 @@ const ProfilePage = (props) => {
                 <TableBody>
                   <TableRow>
                     <TableCell>Name:</TableCell>
-                    <TableCell>{capitalizeName(props.user)}</TableCell>
+                    <TableCell>{(props.user.firstName && props.user.lastName) ? capitalizeName(props.user) : null}</TableCell>
                   </TableRow>
                   <TableRow>
                     <TableCell>Email:</TableCell>
