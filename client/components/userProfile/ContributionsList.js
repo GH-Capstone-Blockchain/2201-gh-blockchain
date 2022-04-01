@@ -14,13 +14,48 @@ import {
 } from "@mui/material";
 import { Link } from "react-router-dom";
 import { fetchContributionsByUser } from "../../store/contributions";
+import { loadWeb3, loadContractData } from "../../web3/web3";
 
 const ContributionsList = (props) => {
-  useEffect(async () => {
-    await props.fetchContributionsByUser(props.user.id);
+  const [isUpdated, setIsUpdated] = useState(false);
+
+  console.log("=====", props);
+
+  const fetchData = async () => {
+    try {
+      await props.fetchContributionsByUser(props.user.id);
+      const accountAddress = await loadWeb3();
+      if (accountAddress) setAccount(accountAddress[0]);
+      setIsUpdated(false);
+    } catch (error) {
+      console.error(
+        "error in fetchData from userProfile/ContributionsList",
+        error
+      );
+    }
+  };
+
+  useEffect(() => {
+    fetchData();
   }, []);
 
+  useEffect(() => {
+    fetchData();
+  }, [isUpdated]);
 
+  const handleRefund = async (project) => {
+    try {
+      const campaignContract = await loadContractData(
+        project.campaign_contract_address
+      );
+      console.log("contract", campaignContract);
+      await campaignContract.methods
+        .refund()
+        .send({ from: msg.sender });
+    } catch (error) {
+      console.error("error in refund", error);
+    }
+  };
 
   return (
     <Grid
@@ -103,13 +138,18 @@ const ContributionsList = (props) => {
                       !project.isFunded && project.date.passed && auth === userId
                       ? (
                         <CardContent>
-                        <Button>
-                          Release Donation
+                        <Button size="small" onClick={handleRefund}>
+                        Release Donation
                         </Button>
-                      </CardContent>
-                      ) : null
-                    } */}
+                        </CardContent>
+                        ) : null
+                      } */}
                   </CardActionArea>
+                  <CardActions>
+                    <Button size="small" onClick={() => handleRefund(project)}>
+                      Release Donation
+                    </Button>
+                  </CardActions>
                 </Card>
               </Grid>
             );
