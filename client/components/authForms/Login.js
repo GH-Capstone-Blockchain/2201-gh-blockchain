@@ -20,16 +20,18 @@ import { useNavigate } from "react-router-dom";
  * COMPONENT
  */
 const AuthForm = (props) => {
-  const { name, displayName, authenticate, error } = props;
+  const { name, displayName, authenticate, error, auth } = props;
   const navigate = useNavigate();
 
-  const handleSubmit = (evt) => {
+  const handleSubmit = async (evt) => {
     evt.preventDefault();
     const formName = evt.target.name;
     const username = evt.target.username.value;
     const password = evt.target.password.value;
-    navigate("/projects");
-    authenticate(username, password, formName);
+    const data = await authenticate(username, password, formName);
+    if (data === "sign in succeeded") {
+      navigate("/projects");
+    }
   };
 
   return (
@@ -123,6 +125,7 @@ const mapLogin = (state) => {
   return {
     name: "login",
     displayName: "Login",
+    auth: state.auth,
     error: state.auth.error,
   };
 };

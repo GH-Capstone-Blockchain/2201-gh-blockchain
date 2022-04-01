@@ -89,14 +89,14 @@ const ProjectsList = (props) => {
                         {shortenedDescription()}
                       </Typography>
                     </CardContent>
-                    {props.auth.password === props.user.password ? (
-                      <CardContent>
-                        <Link to={`/dashboard/${project.id}`}>
-                          <Button>Project Dashboard</Button>
-                        </Link>
-                      </CardContent>
-                    ) : null}
                   </CardActionArea>
+                  {props.auth.password === props.user.password ? (
+                    <CardContent>
+                      <Link to={`/dashboard/${project.id}`}>
+                        <Button>Project Dashboard</Button>
+                      </Link>
+                    </CardContent>
+                  ) : null}
                 </Card>
               </Grid>
             );
