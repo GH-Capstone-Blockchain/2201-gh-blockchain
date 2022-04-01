@@ -1,6 +1,4 @@
-import React, { useEffect } from "react";
-import { connect } from "react-redux";
-import { fetchProjectsByScientist } from "../../store/projects";
+import React from "react";
 import {
   Card,
   CardActionArea,
@@ -8,20 +6,13 @@ import {
   CardContent,
   Typography,
   Button,
-  CardActions,
   Box,
-  LinearProgress,
   Grid,
 } from "@mui/material";
 import { Link } from "react-router-dom";
 
 const ProjectsList = (props) => {
-  useEffect(async () => {
-    await props.fetchProjectsByScientist(props.user.scientist.id);
-  }, []);
-
   const projects = props.projects;
-
 
   return (
     <Grid
@@ -116,17 +107,4 @@ const ProjectsList = (props) => {
   );
 };
 
-const mapState = (state) => {
-  return {
-    projects: state.projects,
-  };
-};
-
-const mapDispatch = (dispatch) => {
-  return {
-    fetchProjectsByScientist: (scientistId) =>
-      dispatch(fetchProjectsByScientist(scientistId)),
-  };
-};
-
-export default connect(mapState, mapDispatch)(ProjectsList);
+export default ProjectsList;

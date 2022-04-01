@@ -18,9 +18,11 @@ router.get("/", async (req, res, next) => {
 });
 
 //get all projects associated with a specific scientist ..."/api/projects/scientist/:id"
-router.get("/scientist/:scientistId", async (req, res, next) => {
+router.get("/scientist/:userId", async (req, res, next) => {
   try {
-    const projects = await Scientist.findByPk(req.params.scientistId, { include: Project });
+    const user = await User.findByPk(req.params.userId, {include: Scientist})
+    const scientist = await Scientist.findByPk(user.scientist.id, { include: Project });
+    const projects = scientist.projects;
     res.json(projects);
   } catch (err) {
     next(err);
