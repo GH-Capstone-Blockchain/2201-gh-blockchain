@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import { fetchUser } from "../../store/user";
 import { fetchProjectsByScientist } from "../../store/projects";
+import { fetchContributionsByUser } from "../../store/contributions";
 import { Link, useParams } from "react-router-dom";
 import CredsAndPubs from "./CredsAndPubs";
 import ProjectsList from "./ProjectsList";
@@ -28,10 +29,9 @@ const ProfilePage = (props) => {
   useEffect(async () => {
     await props.fetchUser(id);
     await props.fetchProjectsByScientist(id);
-
+    await props.fetchContributionsByUser(id);
     setIsLoading(false);
   }, [params]);
-  
 
   if (isLoading) return <img src={"https://i.stack.imgur.com/ATB3o.gif"} />;
 
@@ -183,7 +183,7 @@ const ProfilePage = (props) => {
           </>
         ) : (
           <Grid item xs={12}>
-            <ContributionsList auth={props.auth} user={props.user} />
+            <ContributionsList auth={props.auth} user={props.user} contributions={props.contributions}/>
           </Grid>
         )}
       </Grid>
@@ -196,6 +196,7 @@ const mapState = (state) => {
     auth: state.auth,
     user: state.user,
     projects: state.projects,
+    contributions: state.contributions,
   };
 };
 
@@ -204,6 +205,8 @@ const mapDispatch = (dispatch) => {
     fetchUser: (id) => dispatch(fetchUser(id)),
     fetchProjectsByScientist: (userId) =>
       dispatch(fetchProjectsByScientist(userId)),
+    fetchContributionsByUser: (userId) =>
+      dispatch(fetchContributionsByUser(userId)),
   };
 };
 

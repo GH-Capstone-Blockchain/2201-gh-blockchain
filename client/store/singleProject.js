@@ -41,10 +41,8 @@ export const fetchProject = (projectId) => {
 export const updateProject = (updatedProject) => {
   return async (dispatch) => {
     try {
-      console.log(updatedProject);
       await axios.put(`/api/projects/${updatedProject.id}`, updatedProject);
       const { data } = await axios.get(`/api/project/${updatedProject.id}`);
-      console.log(data);
       dispatch(_updateProject(data));
     } catch (error) {
       console.error('Error in updateProject thunk', error);

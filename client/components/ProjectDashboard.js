@@ -10,6 +10,7 @@ import {
   CardContent,
   CardActions,
   LinearProgress,
+  Alert,
 } from "@mui/material";
 import { connect } from "react-redux";
 import { updateProject, fetchProject } from "../store/singleProject";
@@ -21,6 +22,7 @@ import { projectToUSD } from "./smallComponents/utilities";
 import { fetchConversion } from "../store/conversion";
 import { loadWeb3, loadContractData } from "../web3/web3";
 import AccessForbiddenPage from "./AccessForbiddenPage";
+import { formatIsoToUnix } from "./smallComponents/utilities";
 
 const ProjectDashboard = (props) => {
   let params = useParams();
@@ -83,7 +85,7 @@ const ProjectDashboard = (props) => {
     setImageAlert(false);
   };
   const handleChange = (e) => {
-    console.log(form)
+    console.log(form);
     let value = e.target.value;
     if (e.target.type === "date") {
       value = Date.parse(value);
@@ -372,14 +374,32 @@ const ProjectDashboard = (props) => {
                       </Typography>
                     </Box>
                   </CardContent>
-                  <CardActions>
-                    <Button size="small" href={props.project.videoUrl}>
+                  <CardActions className="refund–button-and-alert">
+                    <Button
+                      size="small"
+                      sx={{ mb: 3 }}
+                      href={props.project.videoUrl}
+                    >
                       Video Link
                     </Button>
-                    {props.project.reachedGoal ? (
-                      <Button size="small" onClick={handleReleaseFunds}>
-                        Release Funds
-                      </Button>
+                    {props.project.reachedGoal &&
+                    formatIsoToUnix(props.project.campaign_timeline_end) <
+                      Date.now() ? (
+                      <>
+                        <Alert severity="success" sx={{ mx: 0.5 }}>
+                          {" "}
+                          Campaign was SUCCESSFUL -{" "}
+                          <strong>click below to release the funds</strong>
+                        </Alert>
+                        <Button
+                          size="small"
+                          variant="contained"
+                          sx={{ m: 2 }}
+                          onClick={handleReleaseFunds}
+                        >
+                          Release Funds
+                        </Button>
+                      </>
                     ) : (
                       ""
                     )}

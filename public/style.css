@@ -83,5 +83,6 @@ a:hover {
 .refund–button-and-alert {
   display: flex;
   flex-direction: column;
-  
+  justify-content: center;
+  align-items: center;
 }

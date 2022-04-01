@@ -1,4 +1,3 @@
-import axios from 'axios' 
 import React from 'react'
 import {
   Biotech,
@@ -106,4 +105,9 @@ export const generateColor = () => {
   const g = Math.floor(Math.random() * 256);
   const b = Math.floor(Math.random() * 256);
   return `rgb(${r},${g},${b},0.8)`;
+};
+
+export const formatIsoToUnix = (isoStr) => {
+  const date = new Date(isoStr).getTime();
+  return date;
 };
