@@ -1,31 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
 import { Link, useParams } from "react-router-dom";
-import { convertDate } from "./smallComponents/utilities";
 import { fetchProject } from "../store/singleProject";
 import { fetchContributions, createContribution } from "../store/contributions";
 import { fetchConversion } from "../store/conversion";
-import {
-  Typography,
-  Box,
-  Container,
-  Paper,
-  ThemeProvider,
-  Card,
-  CardContent,
-  Button,
-  Divider,
-  Grid,
-  Avatar,
-  ListItemAvatar,
-  ListItemText,
-  ListItem,
-  List,
-} from "@mui/material";
-import LinearProgress, {
-  LinearProgressProps,
-} from "@mui/material/LinearProgress";
-import theme from "./StyleTheme";
+import { Typography, Box, Container, Grid } from "@mui/material";
 import { loadWeb3, loadContractData } from "../web3/web3";
 import DonateCard from "./DonateCard";
 import {
@@ -35,6 +14,7 @@ import {
 } from "./smallComponents/InfoAlerts";
 import ContributionList from "./smallComponents/ContributionsList";
 import CategoriesByProject from "./CategoriesByProject";
+import AboutProject from "./AboutProject";
 
 const SingleProject = (props) => {
   let params = useParams();
@@ -140,13 +120,13 @@ const SingleProject = (props) => {
             let lastName = scientist.user.lastName;
             if (idx === props.scientists.length - 1) {
               return (
-                <Link to={`/user/${scientist.user.id}`}>
+                <Link key={idx} to={`/user/${scientist.user.id}`}>
                   {firstName} {lastName}
                 </Link>
               );
             } else {
               return (
-                <Link to={`/user/${scientist.user.id}`}>
+                <Link key={idx} to={`/user/${scientist.user.id}`}>
                   {firstName} {lastName},{" "}
                 </Link>
               );
@@ -175,7 +155,7 @@ const SingleProject = (props) => {
               }}
               src={props.project.imageUrl}
             />
-            <CategoriesByProject project={props.project}/>
+            <CategoriesByProject project={props.project} />
           </Box>
 
           <DonateCard
@@ -186,43 +166,7 @@ const SingleProject = (props) => {
             handleDonate={handleDonate}
           />
         </Box>
-        {/* About this project subtitle */}
-        <Typography
-          variant="h5"
-          margin="15px"
-          sx={{
-            fontSize: "30px",
-            fontFamily: "Roboto Condensed",
-            color: "#051f2e",
-            fontWeight: "bold",
-          }}
-        >
-          About this project:
-        </Typography>
-
-        {/* Project Timeline */}
-        <Box sx={{ display: "flex", flexDirection: "row" }}>
-          <Typography
-            variant="subtitle2"
-            margin="15px"
-            sx={{ fontWeight: "bold" }}
-          >
-            Project Timeline:{" "}
-          </Typography>
-          <Typography variant="body1" margin="15px" component="h5">
-            {props.project
-              ? convertDate(props.project.project_timeline_start)
-              : ""}{" "}
-            to{" "}
-            {props.project
-              ? convertDate(props.project.project_timeline_end)
-              : ""}
-          </Typography>
-        </Box>
-        {/* Project description */}
-        <Typography variant="body1" margin="15px" component="h5">
-          {props.project.description}
-        </Typography>
+        <AboutProject project={props.project} />
         {props.project.videoUrl ? (
           <Box
             sx={{ display: "flex", justifyContent: "center", margin: "20px" }}
@@ -240,7 +184,6 @@ const SingleProject = (props) => {
         {/* {Contributions List} */}
         <Box>
           <Typography
-            variant="h5"
             margin="15px"
             sx={{
               fontSize: "22px",
@@ -249,10 +192,16 @@ const SingleProject = (props) => {
               fontWeight: "bold",
             }}
           >
-            Contributions:{" "}
+            Contributors:{" "}
           </Typography>
-          <ContributionList contributions={props.contributions} />
-          <Box sx={{height:'5em'}}></Box>
+          {props.contributions.length ? (
+            <ContributionList contributions={props.contributions} />
+          ) : (
+            <Typography>
+              There are no contributions yet! Be the first to make a difference!
+            </Typography>
+          )}
+          <Box sx={{ height: "5em" }}></Box>
         </Box>
       </Container>
     </Grid>
