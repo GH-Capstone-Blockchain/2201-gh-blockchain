@@ -40,7 +40,7 @@ function ProjectCard(props) {
         <CardContent>
           <Box
             sx={{
-              height: 55,
+              height: 60,
               overflow: "hidden",
               marginBottom: "3px",
               textAlign: "center",
@@ -59,6 +59,7 @@ function ProjectCard(props) {
                 justifyContent: "center",
                 fontFamily: "Roboto Condensed",
                 color: "#051f2e",
+                whiteSpace: 'normal'
               }}
             >
               {props.project.name}
@@ -67,7 +68,7 @@ function ProjectCard(props) {
           <Typography
             variant="body2"
             color="text.secondary"
-            sx={{ height: 90, overflow: "hidden", textOverflow: "ellipsis" }}
+            sx={{ height: 90, overflow: "hidden", textOverflow: "ellipsis", marginTop: "5%" }}
           >
             {shortenedDescription()}
           </Typography>
@@ -77,6 +78,7 @@ function ProjectCard(props) {
         <Box
           sx={{
             display: "flex",
+            alignItems: 'flex-end',
             justifyContent: "space-between",
             width: "100%",
           }}
