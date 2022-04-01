@@ -29,10 +29,10 @@ const ProjectDashboard = (props) => {
   let params = useParams();
   let id = parseInt(params.id);
 
-  let scientistsUserId = [];
-  props.scientists.forEach((scientist) =>
-    scientistsUserId.push(scientist.userId)
-  );
+  // let scientistsUserId = [];
+  // props.scientists.forEach((scientist) =>
+  //   scientistsUserId.push(scientist.userId)
+  // );
 
   const [form, setForm] = useState({
     id: '',
@@ -90,7 +90,11 @@ const ProjectDashboard = (props) => {
   };
   const handleChange = (e) => {
     let value = e.target.value;
-    if (e.target.type === 'date') value = new Date(value);
+    if (e.target.type === 'date') {
+      value = Date.parse(value);
+      // add some time to offset from GMT
+      value = (new Date(value + (3600000*4) ))
+    }
     if (e.target.id === 'videoUrl')
       value = 'https://www.youtube.com/embed/' + value;
     setForm({ ...form, [e.target.id]: value });
@@ -125,7 +129,7 @@ const ProjectDashboard = (props) => {
 
   return (
     <>
-      {scientistsUserId.includes(props.auth.id) ? (
+      {/* {scientistsUserId.includes(props.auth.id) ? ( */}
         <Grid
           container
           spacing={2}
@@ -390,9 +394,9 @@ const ProjectDashboard = (props) => {
             </Grid>
           </Grid>
         </Grid>
-      ) : (
+      {/* ) : (
         <AccessForbiddenPage />
-      )}
+      )} */}
     </>
   );
 };
