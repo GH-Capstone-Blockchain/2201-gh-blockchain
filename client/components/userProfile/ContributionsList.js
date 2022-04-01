@@ -53,6 +53,11 @@ const ContributionsList = (props) => {
     }
   };
 
+  const formatIsoToUnix = (isoStr) => {
+    const date = new Date(isoStr).getTime();
+    return date;
+  };
+
   return (
     <Grid
       container
@@ -85,7 +90,6 @@ const ContributionsList = (props) => {
         >
           {props.contributions.map((contribution) => {
             const project = contribution.project;
-            console.log("this is project in map......", project);
             const shortenedDescription = () => {
               if (project.description.length > 150) {
                 return project.description.slice(0, 150).concat("...");
@@ -133,7 +137,9 @@ const ContributionsList = (props) => {
                   </CardActionArea>
                   {/* for releasing funds after campaign has failed */}
                   {!project.isFunded &&
-                  props.auth.password === props.user.password ? (
+                  props.auth.password === props.user.password &&
+                  formatIsoToUnix(project.campaign_timeline_end) <
+                    Date.now() ? (
                     <CardActions className="refund–button-and-alert">
                       <Alert severity="info" sx={{ mx: 0.5 }}>
                         {" "}
@@ -159,18 +165,5 @@ const ContributionsList = (props) => {
     </Grid>
   );
 };
-
-// const mapState = (state) => {
-//   return {
-//     contributions: state.contributions,
-//   };
-// };
-
-// const mapDispatch = (dispatch) => {
-//   return {
-//     fetchContributionsByUser: (userId) =>
-//       dispatch(fetchContributionsByUser(userId)),
-//   };
-// };
 
 export default ContributionsList;

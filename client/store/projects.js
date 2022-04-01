@@ -44,12 +44,10 @@ export const fetchProjectsByScientist = (userId) => {
 export const createProject = (newProject) => {
   return async (dispatch) => {
     try {
-      // console.log("====", newProject);
       const { data } = await axios.post("/api/projects", newProject);
       // uint _campaignId, uint _scientistId, address _projectAddress, string memory _title, uint _goalAmount, uint256 _startDate, uint256 _endDate
       const date1 = Math.floor(Date.parse(data.campaign_timeline_start) / 1000);
       const date2 = Math.floor(Date.parse(data.campaign_timeline_end) / 1000);
-      console.log(date1, date2);
       const web3 = window.web3;
       const newCampaign = new web3.eth.Contract(Campaign.abi);
       const response = await newCampaign

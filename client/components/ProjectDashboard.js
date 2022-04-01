@@ -72,7 +72,6 @@ const ProjectDashboard = (props) => {
     }
   };
 
-  console.log('PROJECT TO CONVERT', props.project);
   let results = projectToUSD(props.project, props.conversion);
   console.log(results);
 
