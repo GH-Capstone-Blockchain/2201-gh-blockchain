@@ -73,8 +73,10 @@ export const createProject = (newProject) => {
         campaign_contract_address: response._address,
       });
       dispatch(addProject(data));
+      return true
     } catch (error) {
       console.log(error);
+      return false
     }
   };
 };

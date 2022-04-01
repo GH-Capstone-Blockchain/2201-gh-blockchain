@@ -13,6 +13,8 @@ import {
   WalletAlert,
   ImageAlert,
   NoMetaMaskError,
+  AddProjectConfirmation, 
+  AddProjectError
 } from "./smallComponents/InfoAlerts";
 import { useNavigate } from "react-router-dom";
 import { fetchConversion } from "../store/conversion";
@@ -39,8 +41,9 @@ function AddProjectForm(props) {
   const [addressAlert, setAddressAlert] = useState(false);
   const [imageAlert, setImageAlert] = useState(false);
   const [noMetamask, setNoMetamask] = useState(false);
-
+  const [blockchainWait, setBlockchainWait] = useState(false)
   const [address, setAddress] = useState(null);
+  const [error, setError] = useState(false)
 
   useEffect(async () => {
     const accountAddress = await loadWeb3();
@@ -54,6 +57,7 @@ function AddProjectForm(props) {
     setAddressAlert(false);
     setImageAlert(false);
     setNoMetamask(false);
+    setError(false);
   };
   const handleCategoryChange = (event) => {
     const value = event.target.value;
@@ -73,15 +77,23 @@ function AddProjectForm(props) {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    await props.createProject({
+    setBlockchainWait(true)
+   const data =  await props.createProject({
       project: form,
       scientists: [props.auth.scientist.id],
       address: address,
       categories: categories,
     });
-    navigate("/projects");
+    if(data) {
+      setBlockchainWait(false)
+      navigate('/projects')
+    }
+    if(!data) {
+      setBlockchainWait(false)
+      setError(true)
+    }
   };
-
+  
   return (
     <>
       {!props.auth || !props.auth.scientist ? (
@@ -102,6 +114,8 @@ function AddProjectForm(props) {
           <WalletAlert handleClose={handleClose} open={addressAlert} />
           <ImageAlert handleClose={handleClose} open={imageAlert} />
           <YouTubeAlert handleClose={handleClose} open={youtubeAlert} />
+          <AddProjectConfirmation open={blockchainWait}/>
+          <AddProjectError handleClose={handleClose} open={error}/>
           <Box
             component="form"
             sx={{}}
