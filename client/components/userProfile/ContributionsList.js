@@ -19,6 +19,7 @@ const ContributionsList = (props) => {
   let params = useParams();
   const [isUpdated, setIsUpdated] = useState(false);
   const [account, setAccount] = useState("");
+  const [fundsReleased, setFundsReleased] = useState(false);
 
   const fetchData = async () => {
     try {
@@ -49,6 +50,7 @@ const ContributionsList = (props) => {
       await campaignContract.methods
         .refund(props.auth.id)
         .send({ from: account });
+      setFundsReleased(true);
     } catch (error) {
       console.error("error in refund", error);
     }
@@ -134,8 +136,8 @@ const ContributionsList = (props) => {
                   {/* for releasing funds after campaign has failed */}
                   {!project.reachedGoal &&
                   props.auth.password === props.user.password &&
-                  formatIsoToUnix(project.campaign_timeline_end) <
-                    Date.now() ? (
+                  formatIsoToUnix(project.campaign_timeline_end) < Date.now() &&
+                  fundsReleased === false ? (
                     <CardActions className="refund–button-and-alert">
                       <Alert severity="info" sx={{ mx: 0.5 }}>
                         {" "}

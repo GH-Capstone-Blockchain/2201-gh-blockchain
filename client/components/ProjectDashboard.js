@@ -43,6 +43,7 @@ const ProjectDashboard = (props) => {
   const [youtubeAlert, setyoutubeAlert] = useState(false);
   const [imageAlert, setImageAlert] = useState(false);
   const [scientists, setScientists] = useState([]);
+  const [fundsReleased, setFundsReleased] = useState(false);
 
   const fetchData = async () => {
     try {
@@ -110,6 +111,7 @@ const ProjectDashboard = (props) => {
       await campaignContract.methods
         .releaseFund()
         .send({ from: props.project.project_wallet_address });
+      setFundsReleased(true);
     } catch (error) {
       console.error("error in release funds", error);
     }
@@ -384,7 +386,8 @@ const ProjectDashboard = (props) => {
                     </Button>
                     {props.project.reachedGoal &&
                     formatIsoToUnix(props.project.campaign_timeline_end) <
-                      Date.now() ? (
+                      Date.now() &&
+                    fundsReleased === false ? (
                       <>
                         <Alert severity="success" sx={{ mx: 0.5 }}>
                           {" "}
