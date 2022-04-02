@@ -1,10 +1,18 @@
 import axios from 'axios';
 
 const SET_USER = 'SET_USER';
+const UPDATE_USER = 'UPDATE_USER';
 
 const setUser = (user) => {
     return {
         type: SET_USER,
+        user
+    }
+}
+
+const _updateUser = (user) => {
+    return {
+        type: UPDATE_USER,
         user
     }
 }
@@ -16,6 +24,18 @@ export const fetchUser = (id) => {
             dispatch(setUser(data))
         } catch (error) {
             console.error('error in fetchUser thunk', error);
+        }
+    }
+}
+
+export const updateUser = (updatedUser) => {
+    return async (dispatch) => {
+        try {
+            await axios.put(`/api/users/${updatedUser.id}`, updatedUser);
+            const { data } = await axios.get(`/api/users/${updatedUser.id}`)
+            dispatch(_updateUser(data));
+        } catch (error) {
+            console.error('Error in updateUser thunk', error);
         }
     }
 }

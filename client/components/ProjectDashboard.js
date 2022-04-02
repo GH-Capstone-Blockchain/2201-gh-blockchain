@@ -58,8 +58,8 @@ const ProjectDashboard = (props) => {
 
   let results = projectToUSD(props.project, props.conversion);
 
-  useEffect(() => {
-    fetchData();
+  useEffect(async () => {
+    await fetchData();
   }, [isUpdated]);
 
   useEffect(() => {
@@ -85,7 +85,6 @@ const ProjectDashboard = (props) => {
     setImageAlert(false);
   };
   const handleChange = (e) => {
-    console.log(form);
     let value = e.target.value;
     if (e.target.type === "date") {
       value = Date.parse(value);
