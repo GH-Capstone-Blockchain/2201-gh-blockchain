@@ -18,11 +18,9 @@ function handleAccountsChanged(accounts) {
   }
 }
 
-function handleEthereum() {
-  const { ethereum } = window;
-  if (ethereum && ethereum.isMetaMask) {
+async function handleEthereum() {
+  if (window.ethereum && window.ethereum.isMetaMask) {
     console.log("Ethereum successfully detected!");
-    // Access the decentralized web!
   } else {
     console.log("Please install MetaMask!");
   }
@@ -31,8 +29,8 @@ function handleEthereum() {
 // check if it is browser and if the browser has Metamask installed
 export async function loadWeb3() {
   try {
-    if (window.ethereum) {
-      handleEthereum();
+    if (window.ethereum && window.ethereum.isMetaMask) {
+      console.log("Ethereum successfully detected!");
       window.web3 = new Web3(window.ethereum);
       const address = await window.ethereum.request({
         method: "eth_requestAccounts",
@@ -48,35 +46,34 @@ export async function loadWeb3() {
       window.addEventListener("ethereum#initialized", handleEthereum, {
         once: true,
       });
-
       // If the event is not dispatched by the end of the timeout,
       // the user probably doesn't have MetaMask installed.
       setTimeout(handleEthereum, 3000);
-      
+      return false;
     }
   } catch (error) {
     console.log(error);
   }
 }
 
-function accountChanged() {
-  if (window.ethereum) {
-    window.ethereum.on("accountsChanged", async () => {
-      console.log("accounts changing!");
-      await loadWeb3();
-    });
-  } else {
-    window.addEventListener("ethereum#initialized", handleEthereum, {
-      once: true,
-    });
+// function accountChanged() {
+//   if (window.ethereum) {
+//     window.ethereum.on("accountsChanged", async () => {
+//       console.log("accounts changing!");
+//       await loadWeb3();
+//     });
+//   } else {
+//     window.addEventListener("ethereum#initialized", handleEthereum, {
+//       once: true,
+//     });
 
-    // If the event is not dispatched by the end of the timeout,
-    // the user probably doesn't have MetaMask installed.
-    setTimeout(handleEthereum, 3000);
-  }
-}
+//     // If the event is not dispatched by the end of the timeout,
+//     // the user probably doesn't have MetaMask installed.
+//     setTimeout(handleEthereum, 3000);
+//   }
+// }
 
-accountChanged();
+// accountChanged();
 
 export async function loadContractData(contractAddress) {
   const web3 = window.web3;
