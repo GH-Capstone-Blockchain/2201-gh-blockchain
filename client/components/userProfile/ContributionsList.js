@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { connect } from "react-redux";
 import {
   Card,
   CardActionArea,
@@ -9,15 +8,12 @@ import {
   Button,
   CardActions,
   Box,
-  LinearProgress,
   Alert,
-  AlertTitle,
   Grid,
 } from "@mui/material";
-import { spacing } from "@mui/system";
 import { Link, useParams } from "react-router-dom";
-import { fetchContributionsByUser } from "../../store/contributions";
 import { loadWeb3, loadContractData } from "../../web3/web3";
+import { formatIsoToUnix } from "../smallComponents/utilities";
 
 const ContributionsList = (props) => {
   let params = useParams();
@@ -26,7 +22,6 @@ const ContributionsList = (props) => {
 
   const fetchData = async () => {
     try {
-      await props.fetchContributionsByUser(props.user.id);
       const accountAddress = await loadWeb3();
       if (accountAddress) setAccount(accountAddress[0]);
       setIsUpdated(false);
@@ -76,7 +71,7 @@ const ContributionsList = (props) => {
           color="primary.dark"
           sx={{ fontFamily: "Roboto Condensed" }}
         >
-          Projects I contributed{" "}
+          Projects I supported{" "}
         </Typography>
       </Grid>
       <Grid item xs={12} style={{ maxWidth: "1000px" }}>
@@ -91,7 +86,6 @@ const ContributionsList = (props) => {
         >
           {props.contributions.map((contribution) => {
             const project = contribution.project;
-            console.log("this is project in map......", project);
             const shortenedDescription = () => {
               if (project.description.length > 150) {
                 return project.description.slice(0, 150).concat("...");
@@ -138,8 +132,10 @@ const ContributionsList = (props) => {
                     </CardContent>
                   </CardActionArea>
                   {/* for releasing funds after campaign has failed */}
-                  {!project.isFunded &&
-                  props.auth.password === props.user.password ? (
+                  {!project.reachedGoal &&
+                  props.auth.password === props.user.password &&
+                  formatIsoToUnix(project.campaign_timeline_end) <
+                    Date.now() ? (
                     <CardActions className="refund–button-and-alert">
                       <Alert severity="info" sx={{ mx: 0.5 }}>
                         {" "}
@@ -166,17 +162,4 @@ const ContributionsList = (props) => {
   );
 };
 
-const mapState = (state) => {
-  return {
-    contributions: state.contributions,
-  };
-};
-
-const mapDispatch = (dispatch) => {
-  return {
-    fetchContributionsByUser: (userId) =>
-      dispatch(fetchContributionsByUser(userId)),
-  };
-};
-
-export default connect(mapState, mapDispatch)(ContributionsList);
+export default ContributionsList;

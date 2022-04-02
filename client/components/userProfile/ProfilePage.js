@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { fetchUser, updateUser } from '../../store/user';
 import { fetchProjectsByScientist } from '../../store/projects';
+import { fetchContributionsByUser } from "../../store/contributions";
 import { Link, useParams } from 'react-router-dom';
 import CredsAndPubs from './CredsAndPubs';
 import ProjectsList from './ProjectsList';
@@ -38,7 +39,7 @@ const ProfilePage = (props) => {
   useEffect(async () => {
     await props.fetchUser(id);
     await props.fetchProjectsByScientist(id);
-
+    await props.fetchContributionsByUser(id);
     setIsLoading(false);
     setIsUpdated(false);
   }, [params]);
@@ -254,7 +255,7 @@ const ProfilePage = (props) => {
           </>
         ) : (
           <Grid item xs={12}>
-            <ContributionsList auth={props.auth} user={props.user} />
+            <ContributionsList auth={props.auth} user={props.user} contributions={props.contributions}/>
           </Grid>
         )}
       </Grid>
@@ -267,6 +268,7 @@ const mapState = (state) => {
     auth: state.auth,
     user: state.user,
     projects: state.projects,
+    contributions: state.contributions,
   };
 };
 
@@ -276,6 +278,8 @@ const mapDispatch = (dispatch) => {
     fetchProjectsByScientist: (userId) =>
       dispatch(fetchProjectsByScientist(userId)),
     updateUser: (updatedUser) => dispatch(updateUser(updatedUser)),
+    fetchContributionsByUser: (userId) =>
+      dispatch(fetchContributionsByUser(userId)),
   };
 };
 
