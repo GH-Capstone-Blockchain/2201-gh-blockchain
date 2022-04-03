@@ -12,8 +12,10 @@ import {
   Grid,
 } from "@mui/material";
 import { Link, useParams } from "react-router-dom";
-import { loadWeb3 } from "../../web3/web3";
+import { loadWeb3, loadContractData } from "../../web3/web3";
 import { formatIsoToUnix } from "../smallComponents/utilities";
+import { FundsTransferWait, PleaseCheckYourAccount, NoMetaMaskError } from "../smallComponents/InfoAlerts";
+
 
 const ContributionsList = (props) => {
   let params = useParams();
@@ -41,19 +43,6 @@ const ContributionsList = (props) => {
     fetchData();
   }, [isUpdated]);
 
-  // const handleRefund = async (project) => {
-  //   try {
-  //     const campaignContract = await loadContractData(
-  //       project.campaign_contract_address
-  //     );
-  //     await campaignContract.methods
-  //       .refund(props.auth.id)
-  //       .send({ from: account });
-  //     setFundsReleased(true);
-  //   } catch (error) {
-  //     console.error("error in refund", error);
-  //   }
-  // };
 
   return (
     <Grid

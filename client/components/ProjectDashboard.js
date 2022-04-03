@@ -27,6 +27,7 @@ import { fetchConversion } from "../store/conversion";
 import { loadWeb3 } from "../web3/web3";
 import AccessForbiddenPage from "./AccessForbiddenPage";
 import { formatIsoToUnix } from "./smallComponents/utilities";
+import { FundsTransferWait, PleaseCheckYourAccount, NoMetaMaskError } from "./smallComponents/InfoAlerts";
 
 const ProjectDashboard = (props) => {
   let params = useParams();

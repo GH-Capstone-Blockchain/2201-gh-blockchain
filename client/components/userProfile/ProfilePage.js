@@ -1,13 +1,16 @@
-import React, { useState, useEffect } from 'react';
-import { connect } from 'react-redux';
-import { fetchUser, updateUser } from '../../store/user';
-import { fetchProjectsByScientist } from '../../store/projects';
-import { fetchContributionsByUser, handleRefund } from "../../store/contributions";
-import { Link, useParams } from 'react-router-dom';
-import CredsAndPubs from './CredsAndPubs';
-import ProjectsList from './ProjectsList';
-import ContributionsList from './ContributionsList';
-import UpdateUser from './UpdateUser';
+import React, { useState, useEffect } from "react";
+import { connect } from "react-redux";
+import { fetchUser, updateUser } from "../../store/user";
+import { fetchProjectsByScientist } from "../../store/projects";
+import {
+  fetchContributionsByUser,
+  handleRefund,
+} from "../../store/contributions";
+import { Link, useParams } from "react-router-dom";
+import CredsAndPubs from "./CredsAndPubs";
+import ProjectsList from "./ProjectsList";
+import ContributionsList from "./ContributionsList";
+import UpdateUser from "./UpdateUser";
 import {
   Typography,
   Paper,
@@ -20,7 +23,7 @@ import {
   TableRow,
   Avatar,
   Box,
-} from '@mui/material';
+} from "@mui/material";
 
 const ProfilePage = (props) => {
   let params = useParams();
@@ -29,11 +32,11 @@ const ProfilePage = (props) => {
   const [isUpdated, setIsUpdated] = useState(false);
 
   const [form, setForm] = useState({
-    id: '',
-    firstName: '',
-    lastName: '',
-    profileImg: '',
-    bio: '',
+    id: "",
+    firstName: "",
+    lastName: "",
+    profileImg: "",
+    bio: "",
   });
 
   useEffect(async () => {
@@ -59,7 +62,7 @@ const ProfilePage = (props) => {
   useEffect(async () => {
     await props.fetchUser(id);
   }, [isUpdated]);
-  if (isLoading) return <img src={'https://i.stack.imgur.com/ATB3o.gif'} />;
+  if (isLoading) return <img src={"https://i.stack.imgur.com/ATB3o.gif"} />;
 
   const capitalizeName = (user) => {
     user.firstName =
@@ -68,7 +71,7 @@ const ProfilePage = (props) => {
     user.lastName =
       user.lastName.charAt(0).toUpperCase() +
       user.lastName.slice(1).toLowerCase();
-    return user.firstName + ' ' + user.lastName;
+    return user.firstName + " " + user.lastName;
   };
 
   const handleChange = (e) => {
@@ -99,44 +102,44 @@ const ProfilePage = (props) => {
       container
       spacing={2}
       sx={{
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'flex-start',
-        marginBottom: '100px',
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "flex-start",
+        marginBottom: "100px",
       }}
     >
       <Grid
         item
         xs={12}
-        sx={{ marginTop: '130px', marginBottom: '30px' }}
+        sx={{ marginTop: "130px", marginBottom: "30px" }}
         textAlign="center"
       >
         <Typography
           variant="h2"
           color="#051f2e"
-          sx={{ fontFamily: 'Roboto Condensed' }}
+          sx={{ fontFamily: "Roboto Condensed" }}
         >
           {props.user.username}'s Profile
         </Typography>
       </Grid>
-      <Grid item xs={12} style={{ maxWidth: '800px' }}>
+      <Grid item xs={12} style={{ maxWidth: "800px" }}>
         <Grid
           container
           spacing={2}
-          sx={{ marginTop: '20px', marginBottom: '20px' }}
+          sx={{ marginTop: "20px", marginBottom: "20px" }}
         >
           <Grid
             item
             xs={12}
             md={4}
-            sx={{ marginTop: '20px', marginBottom: '20px' }}
+            sx={{ marginTop: "20px", marginBottom: "20px" }}
             textAlign="center"
           >
             <Box
               sx={{
-                display: 'flex',
-                alignItems: 'center',
-                flexDirection: 'column',
+                display: "flex",
+                alignItems: "center",
+                flexDirection: "column",
               }}
             >
               <Avatar
@@ -148,8 +151,8 @@ const ProfilePage = (props) => {
                 varient="h4"
                 color="primary.dark"
                 sx={{
-                  fontFamily: 'Roboto Condensed',
-                  fontSize: '1.5em',
+                  fontFamily: "Roboto Condensed",
+                  fontSize: "1.5em",
                 }}
               >
                 {props.user.username}
@@ -166,7 +169,7 @@ const ProfilePage = (props) => {
             item
             xs={12}
             md={8}
-            sx={{ marginTop: '20px', marginBottom: '20px' }}
+            sx={{ marginTop: "20px", marginBottom: "20px" }}
             textAlign="left"
           >
             <TableContainer component={Paper}>
@@ -216,9 +219,9 @@ const ProfilePage = (props) => {
               container
               spacing={2}
               sx={{
-                display: 'flex',
-                justifyContent: 'center',
-                alignItems: 'flex-start',
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "flex-start",
               }}
             >
               <Grid item xs={12}>
@@ -227,7 +230,7 @@ const ProfilePage = (props) => {
                   <Box
                     component="form"
                     sx={{
-                      '& .MuiTextField-root': { m: 1, width: '25ch' },
+                      "& .MuiTextField-root": { m: 1, width: "25ch" },
                     }}
                     noValidate
                     autoComplete="off"
@@ -238,7 +241,7 @@ const ProfilePage = (props) => {
                       <Button
                         fullwidth="true"
                         type="submit"
-                        sx={{ marginBottom: '10%' }}
+                        sx={{ marginBottom: "10%" }}
                       >
                         Submit
                       </Button>
@@ -255,7 +258,34 @@ const ProfilePage = (props) => {
           </>
         ) : (
           <Grid item xs={12}>
-            <ContributionsList auth={props.auth} user={props.user} contributions={props.contributions} handleRefund={props.handleRefund} />
+            <Grid>
+              <Box
+                component="form"
+                sx={{
+                  "& .MuiTextField-root": { m: 1, width: "25ch" },
+                }}
+                noValidate
+                autoComplete="off"
+                onSubmit={handleSubmit}
+              >
+                <UpdateUser handleChange={handleChange} />
+                <Grid item xs={4}>
+                  <Button
+                    fullwidth="true"
+                    type="submit"
+                    sx={{ marginBottom: "10%" }}
+                  >
+                    Submit
+                  </Button>
+                </Grid>
+              </Box>
+            </Grid>
+            <ContributionsList
+              auth={props.auth}
+              user={props.user}
+              contributions={props.contributions}
+              handleRefund={props.handleRefund}
+            />
           </Grid>
         )}
       </Grid>
@@ -280,7 +310,8 @@ const mapDispatch = (dispatch) => {
     updateUser: (updatedUser) => dispatch(updateUser(updatedUser)),
     fetchContributionsByUser: (userId) =>
       dispatch(fetchContributionsByUser(userId)),
-    handleRefund: (project, userId, account, contributionId) => dispatch(handleRefund(project, userId, account, contributionId))
+    handleRefund: (project, userId, account, contributionId) =>
+      dispatch(handleRefund(project, userId, account, contributionId)),
   };
 };
 

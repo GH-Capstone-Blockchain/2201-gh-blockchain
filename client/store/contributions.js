@@ -1,5 +1,7 @@
 import axios from "axios";
 import { loadContractData } from "../web3/web3";
+import { FundsTransferWait, PleaseCheckYourAccount, NoMetaMaskError } from "../components/smallComponents/InfoAlerts";
+
 
 const SET_CONTRIBUTIONS = "SET_CONTRIBUTIONS";
 const ADD_CONTRIBUTION = "ADD_CONTRIBUTION";
