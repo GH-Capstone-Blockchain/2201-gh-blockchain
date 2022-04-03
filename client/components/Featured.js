@@ -22,7 +22,7 @@ export default function Featured(props) {
         marginTop: "10%",
       }}
     >
-      <Grid item xs={10}>
+      <Grid item xs={8} md={6}>
         <Typography
           variant="h4"
           color="white"
@@ -32,7 +32,7 @@ export default function Featured(props) {
           Featured Projects
         </Typography>
       </Grid>
-      <Grid item xs={2} textAlign="right">
+      <Grid item xs={4} md={6} textAlign="right">
         <Link to="/projects">
           <Button variant="contained">See All</Button>
         </Link>
@@ -42,9 +42,8 @@ export default function Featured(props) {
         <Grid item xs={12}>
           <Box
             sx={{
-              backgroundColor: "rgba(255, 255, 255, 0.7)",
-              padding: "20px",
-              borderRadius: "10px",
+              // backgroundColor: "rgba(255, 255, 255, 0.7)",
+              marginTop: "10px",
             }}
           >
             <Grid container spacing={2}>

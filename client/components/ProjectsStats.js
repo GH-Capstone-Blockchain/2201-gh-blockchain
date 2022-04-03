@@ -42,9 +42,9 @@ export default function ProjectsStats() {
             alignItems: "center",
             backgroundColor: "rgba(5, 31, 46, 0.7)",
             borderRadius: "10px",
-            marginTop: "5%",
-            marginBottom: "1%",
-            paddingBottom: "5%",
+            marginTop: "20px",
+            marginBottom: "10px",
+            paddingBottom: "30px",
           }}
         >
           <Grid item xs={4} textAlign="center">
