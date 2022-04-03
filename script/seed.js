@@ -493,6 +493,7 @@ async function seed() {
     campaign_timeline_start: "2022-04-15",
     campaign_timeline_end: "2022-06-15",
     fundraising_goal: 6 * Math.pow(10, 18),
+    totalDonations: 4 * Math.pow(10, 18),
     isFunded: false,
   });
 
@@ -508,6 +509,7 @@ async function seed() {
     campaign_timeline_start: "2022-05-01",
     campaign_timeline_end: "2022-07-01",
     fundraising_goal: 2 * Math.pow(10, 18),
+    totalDonations: 0.2 * Math.pow(10, 18),
     isFunded: false,
   });
 
@@ -523,6 +525,7 @@ async function seed() {
     campaign_timeline_start: "2022-5-01",
     campaign_timeline_end: "2022-10-01",
     fundraising_goal: 3 * Math.pow(10, 18),
+    totalDonations: 1.3 * Math.pow(10, 18),
     isFunded: false,
   });
 
@@ -538,6 +541,7 @@ async function seed() {
     campaign_timeline_start: "2022-5-01",
     campaign_timeline_end: "2022-10-01",
     fundraising_goal: 4 * Math.pow(10, 18),
+    totalDonations: 1 * Math.pow(10, 18),
     isFunded: false,
   });
 
@@ -553,6 +557,8 @@ async function seed() {
     campaign_timeline_start: "2022-6-01",
     campaign_timeline_end: "2022-10-01",
     fundraising_goal: 3 * Math.pow(10, 18),
+    totalDonations: 0.3 * Math.pow(10, 18),
+
     isFunded: false,
   });
 
@@ -568,6 +574,8 @@ async function seed() {
     campaign_timeline_start: "2022-6-01",
     campaign_timeline_end: "2022-10-01",
     fundraising_goal: 3 * Math.pow(10, 18),
+    totalDonations: 4 * Math.pow(10, 18),
+
     isFunded: false,
   });
 
@@ -583,6 +591,8 @@ async function seed() {
     campaign_timeline_start: "2022-03-21",
     campaign_timeline_end: "2022-10-01",
     fundraising_goal: 5 * Math.pow(10, 18),
+    totalDonations: 4 * Math.pow(10, 18),
+
     isFunded: false,
   });
 
@@ -598,6 +608,8 @@ async function seed() {
     campaign_timeline_start: "2022-03-01",
     campaign_timeline_end: "2022-06-01",
     fundraising_goal: 3 * Math.pow(10, 18),
+    totalDonations: 1 * Math.pow(10, 18),
+
     isFunded: false,
   });
 
@@ -613,6 +625,8 @@ async function seed() {
     campaign_timeline_start: "2022-04-13",
     campaign_timeline_end: "2022-06-13",
     fundraising_goal: 8 * Math.pow(10, 18),
+    totalDonations: 3 * Math.pow(10, 18),
+
     isFunded: false,
   });
 
@@ -628,6 +642,8 @@ async function seed() {
     campaign_timeline_start: "2022-04-13",
     campaign_timeline_end: "2022-06-13",
     fundraising_goal: 1 * Math.pow(10, 18),
+    totalDonations: 0.2 * Math.pow(10, 18),
+
     isFunded: false,
   });
 
@@ -643,6 +659,8 @@ async function seed() {
     campaign_timeline_start: "2022-04-13",
     campaign_timeline_end: "2022-06-13",
     fundraising_goal: 8 * Math.pow(10, 18),
+    totalDonations: 7 * Math.pow(10, 18),
+
     isFunded: false,
   });
 
@@ -658,6 +676,8 @@ async function seed() {
     campaign_timeline_start: "2022-04-13",
     campaign_timeline_end: "2022-06-13",
     fundraising_goal: 5 * Math.pow(10, 18),
+    totalDonations: 1 * Math.pow(10, 18),
+
     isFunded: false,
   });
 
@@ -673,6 +693,8 @@ async function seed() {
     campaign_timeline_start: "2022-04-13",
     campaign_timeline_end: "2022-06-13",
     fundraising_goal: 2 * Math.pow(10, 18),
+    totalDonations: 1.5 * Math.pow(10, 18),
+
     isFunded: false,
   });
 
@@ -688,6 +710,8 @@ async function seed() {
     campaign_timeline_start: "2022-04-13",
     campaign_timeline_end: "2022-06-13",
     fundraising_goal: 4 * Math.pow(10, 18),
+    totalDonations: 1 * Math.pow(10, 18),
+
     isFunded: false,
   });
 

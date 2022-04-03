@@ -9,9 +9,17 @@ import {
   LinearProgress,
   TextField,
   InputAdornment,
+  Grid,
 } from "@mui/material";
 import { convertDate, projectToUSD } from "./smallComponents/utilities";
 import { useNavigate } from "react-router-dom";
+import { styled } from "@mui/material/styles";
+
+const BorderLinearProgress = styled(LinearProgress)(({ theme }) => ({
+  height: 15,
+  borderRadius: 7.5,
+  color: "#5babab",
+}));
 
 export default function DonateCard(props) {
   const navigate = useNavigate();
@@ -25,126 +33,157 @@ export default function DonateCard(props) {
   };
 
   return (
-    <Card style={{ display: "flex", marginLeft: "20px", height: "80%" }}>
-      <CardContent>
-        {/* Progress Label */}
+    <Grid
+      container
+      spacing={2}
+      sx={{
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+      }}
+    >
+      {/* Progress Label */}
 
-        {/* Need to add contribution data here */}
-        <Box
-          margin="15px"
+      {/* Need to add contribution data here */}
+      <Grid item xs={12}>
+        <Typography
+          variant="h2"
           sx={{
-            display: "flex",
-            alignItems: "center",
-            flexDirection: "column",
+            alignSelf: "left",
+            fontFamily: "Roboto Condensed",
+            color: "#5babab",
+            fontWeight: "bold",
+            alignText: "center",
+            marginRight: "8px",
           }}
         >
-          <Box
-            sx={{
-              display: "flex",
-              justifyContent: "space-between",
-              width: "100%",
-              alignItems: "center",
-            }}
-          >
+          ${Math.round(usdVals.totalDonations)}
+        </Typography>
+        <Typography align="left">Raised</Typography>
+      </Grid>
+
+      <Grid item xs={12}>
+        <Grid container>
+          <Grid item xs={12}>
+            <BorderLinearProgress
+              variant="determinate"
+              value={
+                usdVals.percentReached > 100 ? 100 : usdVals.percentReached
+              }
+            />
+          </Grid>
+          <Grid item xs={6}>
             <Typography
               sx={{
-                alignSelf: "left",
+                textAlign: "left",
                 fontFamily: "Roboto Condensed",
                 color: "#051f2e",
+              }}
+            >
+              {usdVals.percentReached > 100 ? 100 : usdVals.percentReached}%
+            </Typography>
+          </Grid>
+          <Grid item xs={6}>
+            <Typography
+              sx={{
+                textAlign: "right",
+
+                fontFamily: "Roboto Condensed",
+                color: "#5babab",
                 fontWeight: "bold",
-                alignText: "center",
-                marginRight: "8px",
               }}
             >
               {" "}
               Goal: ${usdVals.fundraisingGoal}
             </Typography>
-            <LinearProgress
-              variant="determinate"
-              value={
-                usdVals.percentReached > 100 ? 100 : usdVals.percentReached
-              }
-              sx={{ width: 120, alignSelf: "center" }}
-            />
-            <Typography
-              sx={{
-                alignSelf: "right",
-                fontFamily: "Roboto Condensed",
-                color: "#051f2e",
-                marginLeft: "8px",
-              }}
-            >
-              {usdVals.percentReached > 100 ? 100 : usdVals.percentReached}%
-            </Typography>
-          </Box>
-          <Box sx={{display:'flex', flexDirection:'column', justifyContent:'center'}}>
-            <Typography
-              margin="15px"
-              sx={{
-                fontFamily: "Roboto Condensed",
-                fontWeight: "bold",
-                textDecoration:'underline',
-                alignSelf:'center',
-                height:'10px'
-              }}
-            >
-              Campaign Timeline:
-            </Typography>
-            <Box sx={{display: "flex", flexDirection: "row", alignItems:'center', textAlign:'center'}}>
-            <Typography sx={{ fontFamily: "Roboto Condensed" }}>
-              {props.project
-                ? convertDate(props.project.campaign_timeline_start)
-                : ""}
-            </Typography>
-            <Divider></Divider>
-            <Typography
-              margin="15px"
-              sx={{ fontFamily: "Roboto Condensed", fontWeight: "bold" }}
-            >
-              <strong>to</strong> <br></br>
-            </Typography>
-            <Typography sx={{ fontFamily: "Roboto Condensed" }}>
-              {props.project
-                ? convertDate(props.project.campaign_timeline_end)
-                : ""}
-            </Typography>
-          </Box>
-          </Box>
-          {props.loggedIn ? (
-            <Box sx={{ marginTop: "20px" }}>
-              <TextField
-                id="donation"
-                label="Donation Value"
-                variant="outlined"
-                type="number"
-                inputRef={textInput}
-                InputProps={{
-                  startAdornment: (
-                    <InputAdornment position="start">$</InputAdornment>
-                  ),
-                }}
-                onChange={handleChange}
-              />
-              <Button
-                sx={{ alignSelf: "center", marginTop: "12px" }}
-                onClick={async () => {
-                  await props.handleDonate(donation);
-                  textInput.current.value = "";
-                }}
+          </Grid>
+        </Grid>
+      </Grid>
+      <Grid item xs={12}>
+        <Grid container></Grid>
+        <Grid item xs={12}>
+          <Typography
+            sx={{
+              fontFamily: "Roboto Condensed",
+              fontWeight: "bold",
+              alignSelf: "center",
+              fontSize: "20px",
+            }}
+          >
+            Campaign Timeline:
+          </Typography>
+        </Grid>
+        <Grid item xs={12}>
+          <Grid container>
+            <Grid item>
+              <Typography
+                color="primary.dark"
+                sx={{ fontFamily: "Roboto Condensed" }}
               >
-                DONATE
-              </Button>
-            </Box>
-          ) : (
-            <Button
-              sx={{ alignSelf: "center", marginTop: "12px" }}
-              onClick={() => navigate("/signup")}
-            >
-              SIGN UP TO DONATE
-            </Button>
-          )}
-        </Box>
-      </CardContent>
-    </Card>
+                {props.project
+                  ? convertDate(props.project.campaign_timeline_start)
+                  : ""}
+              </Typography>
+            </Grid>
+            <Grid item>
+              <Typography
+                marginLeft="20px"
+                marginRight="20px"
+                sx={{ fontFamily: "Roboto Condensed", fontWeight: "bold" }}
+              >
+                to
+              </Typography>
+            </Grid>
+
+            <Grid item>
+              <Typography
+                color="primary.dark"
+                sx={{ fontFamily: "Roboto Condensed" }}
+              >
+                {props.project
+                  ? convertDate(props.project.campaign_timeline_end)
+                  : ""}
+              </Typography>
+            </Grid>
+          </Grid>
+        </Grid>
+      </Grid>
+
+      {props.loggedIn ? (
+        <Grid container sx={{ marginTop: "20px" }}>
+          <TextField
+            id="donation"
+            label="Donation Value"
+            variant="outlined"
+            type="number"
+            inputRef={textInput}
+            InputProps={{
+              startAdornment: (
+                <InputAdornment position="start">$</InputAdornment>
+              ),
+            }}
+            onChange={handleChange}
+          />
+          <Button
+            variant="contained"
+            sx={{ alignSelf: "center", marginTop: "12px" }}
+            onClick={async () => {
+              await props.handleDonate(donation);
+              textInput.current.value = "";
+            }}
+          >
+            DONATE
+          </Button>
+        </Grid>
+      ) : (
+        <Button
+          variant="contained"
+          sx={{ alignSelf: "center", marginTop: "12px" }}
+          onClick={() => navigate("/signup")}
+        >
+          SIGN UP TO DONATE
+        </Button>
+      )}
+    </Grid>
   );
 }
