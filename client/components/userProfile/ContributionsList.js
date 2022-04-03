@@ -12,14 +12,13 @@ import {
   Grid,
 } from "@mui/material";
 import { Link, useParams } from "react-router-dom";
-import { loadWeb3, loadContractData } from "../../web3/web3";
+import { loadWeb3 } from "../../web3/web3";
 import { formatIsoToUnix } from "../smallComponents/utilities";
 
 const ContributionsList = (props) => {
   let params = useParams();
   const [isUpdated, setIsUpdated] = useState(false);
   const [account, setAccount] = useState("");
-  const [fundsReleased, setFundsReleased] = useState(false);
 
   const fetchData = async () => {
     try {
@@ -42,19 +41,19 @@ const ContributionsList = (props) => {
     fetchData();
   }, [isUpdated]);
 
-  const handleRefund = async (project) => {
-    try {
-      const campaignContract = await loadContractData(
-        project.campaign_contract_address
-      );
-      await campaignContract.methods
-        .refund(props.auth.id)
-        .send({ from: account });
-      setFundsReleased(true);
-    } catch (error) {
-      console.error("error in refund", error);
-    }
-  };
+  // const handleRefund = async (project) => {
+  //   try {
+  //     const campaignContract = await loadContractData(
+  //       project.campaign_contract_address
+  //     );
+  //     await campaignContract.methods
+  //       .refund(props.auth.id)
+  //       .send({ from: account });
+  //     setFundsReleased(true);
+  //   } catch (error) {
+  //     console.error("error in refund", error);
+  //   }
+  // };
 
   return (
     <Grid
@@ -137,7 +136,7 @@ const ContributionsList = (props) => {
                   {!project.reachedGoal &&
                   props.auth.password === props.user.password &&
                   formatIsoToUnix(project.campaign_timeline_end) < Date.now() &&
-                  fundsReleased === false ? (
+                  contribution.refunded === false ? (
                     <CardActions className="refund–button-and-alert">
                       <Alert severity="info" sx={{ mx: 0.5 }}>
                         {" "}
@@ -148,11 +147,18 @@ const ContributionsList = (props) => {
                         size="small"
                         variant="contained"
                         sx={{ m: 2 }}
-                        onClick={() => handleRefund(project)}
+                        onClick={() =>
+                          props.handleRefund(project, props.auth.id, account, contribution.id)
+                        }
                       >
                         Release Donation
                       </Button>
                     </CardActions>
+                  ) : null}
+                  {contribution.refunded === true ? (
+                    <Alert severity="info" sx={{ m: 1 }}>
+                      Your donation has been returned to your wallet.
+                    </Alert>
                   ) : null}
                 </Card>
               </Grid>

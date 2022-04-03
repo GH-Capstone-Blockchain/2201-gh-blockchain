@@ -13,6 +13,10 @@ const Contribution = db.define("contribution", {
   },
   //in Wei
   contributionAmount: Sequelize.BIGINT,
+  refunded: {
+    type: Sequelize.BOOLEAN,
+    defaultValue: false
+  }
 });
 
 module.exports = Contribution;

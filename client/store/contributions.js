@@ -1,7 +1,8 @@
-import axios from 'axios';
+import axios from "axios";
+import { loadContractData } from "../web3/web3";
 
-const SET_CONTRIBUTIONS = 'SET_CONTRIBUTIONS';
-const ADD_CONTRIBUTION = 'ADD_CONTRIBUTION';
+const SET_CONTRIBUTIONS = "SET_CONTRIBUTIONS";
+const ADD_CONTRIBUTION = "ADD_CONTRIBUTION";
 
 export const setContributions = (contributions) => {
   return {
@@ -24,7 +25,7 @@ export const fetchContributions = (projectId) => {
       const { data } = await axios.get(`/api/contributions/${projectId}`);
       dispatch(setContributions(data));
     } catch (error) {
-      console.error('error in fetch contributions thunk', error);
+      console.error("error in fetch contributions thunk", error);
     }
   };
 };
@@ -36,7 +37,10 @@ export const fetchContributionsByUser = (userId) => {
       const { data } = await axios.get(`/api/contributions/user/${userId}`);
       dispatch(setContributions(data));
     } catch (error) {
-      console.error('error in fetch contributions for specific user thunk', error);
+      console.error(
+        "error in fetch contributions for specific user thunk",
+        error
+      );
     }
   };
 };
@@ -44,14 +48,31 @@ export const fetchContributionsByUser = (userId) => {
 export const createContribution = (projectId, userId, contributionAmt) => {
   return async (dispatch) => {
     try {
-      const { data } = await axios.post('/api/contributions', {
+      const { data } = await axios.post("/api/contributions", {
         userId: userId,
         projectId: projectId,
         contributionAmount: contributionAmt,
       });
       dispatch(fetchContributions(projectId));
     } catch (error) {
-      console.error('error in createContribution thunk', error);
+      console.error("error in createContribution thunk", error);
+    }
+  };
+};
+
+export const handleRefund = (project, userId, account, contributionId) => {
+  return async (dispatch) => {
+    try {
+      const campaignContract = await loadContractData(
+        project.campaign_contract_address
+      );
+      await campaignContract.methods.refund(userId).send({ from: account });
+      const { data } = await axios.put(`/api/contributions/${contributionId}`, {
+        refunded: true,
+      });
+      dispatch(fetchContributionsByUser(userId));
+    } catch (error) {
+      console.error("error in refund", error);
     }
   };
 };

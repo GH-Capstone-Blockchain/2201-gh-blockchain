@@ -37,3 +37,15 @@ router.get('/user/:userId', async (req, res, next) => {
       next(error);
   }
 })
+
+//update contribution
+router.put('/:contributionId', async (req, res, next) => {
+  try {
+    const contribution = await Contribution.findByPk(req.params.contributionId);
+    const response = await contribution.update(req.body);
+    res.status(204);
+    res.send(response);
+  } catch (err) {
+    next(err);
+  }
+});

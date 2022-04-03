@@ -24,7 +24,7 @@ import { YouTubeAlert, ImageAlert } from "./smallComponents/InfoAlerts";
 import NoProjectsToViewPage from "./NoProjectsToViewPage";
 import { projectToUSD } from "./smallComponents/utilities";
 import { fetchConversion } from "../store/conversion";
-import { loadWeb3, loadContractData } from "../web3/web3";
+import { loadWeb3 } from "../web3/web3";
 import AccessForbiddenPage from "./AccessForbiddenPage";
 import { formatIsoToUnix } from "./smallComponents/utilities";
 
@@ -105,20 +105,6 @@ const ProjectDashboard = (props) => {
     props.updateProject(form);
     setIsUpdated(true);
   };
-
-  // const handleReleaseFunds = async () => {
-  //   try {
-  //     const campaignContract = await loadContractData(
-  //       props.project.campaign_contract_address
-  //     );
-  //     await campaignContract.methods
-  //       .releaseFund()
-  //       .send({ from: props.project.project_wallet_address });
-
-  //   } catch (error) {
-  //     console.error("error in release funds", error);
-  //   }
-  // };
 
   if (!props.project.name) {
     return (
