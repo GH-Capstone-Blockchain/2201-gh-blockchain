@@ -168,9 +168,9 @@ const Navbar = ({ handleClick, isLoggedIn, auth, profileImg }) => {
                       </Link>
                     </Grid>
                     <Grid item>
-                      <a href="/login" onClick={handleClick}>
+                      <Link to="/login" onClick={handleClick}>
                         <Button>Logout</Button>
-                      </a>
+                      </Link>
                     </Grid>
 
                     <Grid item>
@@ -282,9 +282,9 @@ const Navbar = ({ handleClick, isLoggedIn, auth, profileImg }) => {
             <Link to={`/user/${auth.id}`}>
               <Button>My Profile</Button>
             </Link>
-            <a href="/login" onClick={handleClick}>
+            <Link to="/login" onClick={handleClick}>
               <Button>Logout</Button>
-            </a>
+            </Link>
             <Tooltip title="My Profile">
               <Link to={`/user/${auth.id}`}>
                 <IconButton onClick={handleOpenUserMenu}>
