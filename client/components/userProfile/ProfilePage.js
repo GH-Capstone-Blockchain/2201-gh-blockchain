@@ -4,7 +4,7 @@ import { fetchUser, updateUser } from "../../store/user";
 import { fetchProjectsByScientist } from "../../store/projects";
 import {
   fetchContributionsByUser,
-  handleRefund,
+  refund,
 } from "../../store/contributions";
 import { Link, useParams } from "react-router-dom";
 import CredsAndPubs from "./CredsAndPubs";
@@ -284,7 +284,7 @@ const ProfilePage = (props) => {
               auth={props.auth}
               user={props.user}
               contributions={props.contributions}
-              handleRefund={props.handleRefund}
+              refund={props.refund}
             />
           </Grid>
         )}
@@ -310,8 +310,8 @@ const mapDispatch = (dispatch) => {
     updateUser: (updatedUser) => dispatch(updateUser(updatedUser)),
     fetchContributionsByUser: (userId) =>
       dispatch(fetchContributionsByUser(userId)),
-    handleRefund: (project, userId, account, contributionId) =>
-      dispatch(handleRefund(project, userId, account, contributionId)),
+    refund: (userId, contributionId) =>
+      dispatch(refund(userId, contributionId)),
   };
 };
 

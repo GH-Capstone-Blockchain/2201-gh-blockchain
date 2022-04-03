@@ -14,8 +14,11 @@ import {
 import { Link, useParams } from "react-router-dom";
 import { loadWeb3, loadContractData } from "../../web3/web3";
 import { formatIsoToUnix } from "../smallComponents/utilities";
-import { FundsTransferWait, PleaseCheckYourAccount, NoMetaMaskError } from "../smallComponents/InfoAlerts";
-
+import {
+  FundsTransferWait,
+  PleaseCheckYourAccount,
+  NoMetaMaskError,
+} from "../smallComponents/InfoAlerts";
 
 const ContributionsList = (props) => {
   let params = useParams();
@@ -43,6 +46,17 @@ const ContributionsList = (props) => {
     fetchData();
   }, [isUpdated]);
 
+  const handleRefund = async (project, contributionId) => {
+    try {
+      const campaignContract = await loadContractData(
+        project.campaign_contract_address
+      );
+      await campaignContract.methods.refund(props.auth.id).send({ from: account });
+      await props.refund(props.auth.id, contributionId);
+    } catch (error) {
+      console.error("error in handleRefund", error);
+    }
+  };
 
   return (
     <Grid
@@ -136,9 +150,7 @@ const ContributionsList = (props) => {
                         size="small"
                         variant="contained"
                         sx={{ m: 2 }}
-                        onClick={() =>
-                          props.handleRefund(project, props.auth.id, account, contribution.id)
-                        }
+                        onClick={() => handleRefund(project, contribution.id)}
                       >
                         Release Donation
                       </Button>
