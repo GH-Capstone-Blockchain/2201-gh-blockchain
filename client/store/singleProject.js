@@ -1,5 +1,4 @@
 import axios from "axios";
-import { loadContractData } from "../web3/web3";
 
 // action type constants
 
@@ -51,17 +50,29 @@ export const updateProject = (updatedProject) => {
   };
 };
 
-export const handleReleaseFunds = (project) => {
+// export const handleReleaseFunds = (project) => {
+//   return async (dispatch) => {
+//     try {
+//       const campaignContract = await loadContractData(
+//         project.campaign_contract_address
+//       );
+//       await campaignContract.methods
+//         .releaseFund()
+//         .send({ from: project.project_wallet_address });
+//       await axios.put(`/api/projects/${project.id}`, { isFunded: true });
+//       const { data } = await axios.get(`/api/project/${project.id}`);
+//       dispatch(_updateProject(data));
+//     } catch (error) {
+//       console.error("error in release funds", error);
+//     }
+//   };
+// };
+
+export const releaseFunds = (projectId) => {
   return async (dispatch) => {
     try {
-      const campaignContract = await loadContractData(
-        project.campaign_contract_address
-      );
-      await campaignContract.methods
-        .releaseFund()
-        .send({ from: project.project_wallet_address });
-      await axios.put(`/api/projects/${project.id}`, { isFunded: true });
-      const { data } = await axios.get(`/api/project/${project.id}`);
+      await axios.put(`/api/projects/${projectId}`, { isFunded: true });
+      const { data } = await axios.get(`/api/project/${projectId}`);
       dispatch(_updateProject(data));
     } catch (error) {
       console.error("error in release funds", error);

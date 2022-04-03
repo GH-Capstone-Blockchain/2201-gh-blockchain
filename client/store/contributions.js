@@ -60,22 +60,6 @@ export const createContribution = (projectId, userId, contributionAmt) => {
   };
 };
 
-// export const handleRefund = (project, userId, account, contributionId) => {
-//   return async (dispatch) => {
-//     try {
-//       const campaignContract = await loadContractData(
-//         project.campaign_contract_address
-//       );
-//       await campaignContract.methods.refund(userId).send({ from: account });
-//       const { data } = await axios.put(`/api/contributions/${contributionId}`, {
-//         refunded: true,
-//       });
-//       dispatch(fetchContributionsByUser(userId));
-//     } catch (error) {
-//       console.error("error in refund", error);
-//     }
-//   };
-// };
 
 export const refund = (userId, contributionId) => {
   return async (dispatch) => {

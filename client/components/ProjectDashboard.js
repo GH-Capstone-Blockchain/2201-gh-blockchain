@@ -16,7 +16,7 @@ import { connect } from "react-redux";
 import {
   updateProject,
   fetchProject,
-  handleReleaseFunds,
+  releaseFunds,
 } from "../store/singleProject";
 import { useParams } from "react-router-dom";
 import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
@@ -24,7 +24,7 @@ import { YouTubeAlert, ImageAlert } from "./smallComponents/InfoAlerts";
 import NoProjectsToViewPage from "./NoProjectsToViewPage";
 import { projectToUSD } from "./smallComponents/utilities";
 import { fetchConversion } from "../store/conversion";
-import { loadWeb3 } from "../web3/web3";
+import { loadWeb3, loadContractData } from "../web3/web3";
 import AccessForbiddenPage from "./AccessForbiddenPage";
 import { formatIsoToUnix } from "./smallComponents/utilities";
 import { FundsTransferWait, PleaseCheckYourAccount, NoMetaMaskError } from "./smallComponents/InfoAlerts";
@@ -105,6 +105,20 @@ const ProjectDashboard = (props) => {
     e.preventDefault();
     props.updateProject(form);
     setIsUpdated(true);
+  };
+
+  const handleReleaseFunds = async () => {
+    try {
+      const campaignContract = await loadContractData(
+        props.project.campaign_contract_address
+      );
+      await campaignContract.methods
+        .releaseFund()
+        .send({ from: props.project.project_wallet_address });
+      await props.releaseFunds(props.project.id)
+    } catch (error) {
+      console.error("error in release funds", error);
+    };
   };
 
   if (!props.project.name) {
@@ -386,7 +400,7 @@ const ProjectDashboard = (props) => {
                           size="small"
                           variant="contained"
                           sx={{ m: 2 }}
-                          onClick={() => props.handleReleaseFunds(props.project)}
+                          onClick={handleReleaseFunds}
                         >
                           Release Funds
                         </Button>
@@ -422,7 +436,7 @@ const mapDispatch = (dispatch) => {
     updateProject: (project) => dispatch(updateProject(project)),
     fetchProject: (projectId) => dispatch(fetchProject(projectId)),
     fetchConversion: () => dispatch(fetchConversion()),
-    handleReleaseFunds: (project) => dispatch(handleReleaseFunds(project)),
+    releaseFunds: (projectId) => dispatch(releaseFunds(projectId)),
   };
 };
 
