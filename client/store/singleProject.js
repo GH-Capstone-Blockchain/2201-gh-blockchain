@@ -1,9 +1,10 @@
-import axios from 'axios';
+import axios from "axios";
+import { loadContractData } from "../web3/web3";
 
 // action type constants
 
-const FETCH_PROJECT = 'FETCH_PROJECT';
-const UPDATE_PROJECT = 'UPDATE_PROJECT';
+const FETCH_PROJECT = "FETCH_PROJECT";
+const UPDATE_PROJECT = "UPDATE_PROJECT";
 
 // action creators
 
@@ -19,7 +20,7 @@ const _updateProject = (project) => {
   return {
     type: UPDATE_PROJECT,
     project: project.project,
-    scientists: project.scientists
+    scientists: project.scientists,
   };
 };
 
@@ -33,7 +34,7 @@ export const fetchProject = (projectId) => {
       const project = data.project;
       dispatch(_fetchProject(project, scientists));
     } catch (error) {
-      console.error('error in fetchProject thunk', error);
+      console.error("error in fetchProject thunk", error);
     }
   };
 };
@@ -45,7 +46,25 @@ export const updateProject = (updatedProject) => {
       const { data } = await axios.get(`/api/project/${updatedProject.id}`);
       dispatch(_updateProject(data));
     } catch (error) {
-      console.error('Error in updateProject thunk', error);
+      console.error("Error in updateProject thunk", error);
+    }
+  };
+};
+
+export const handleReleaseFunds = (project) => {
+  return async (dispatch) => {
+    try {
+      const campaignContract = await loadContractData(
+        project.campaign_contract_address
+      );
+      await campaignContract.methods
+        .releaseFund()
+        .send({ from: project.project_wallet_address });
+      await axios.put(`/api/projects/${project.id}`, { isFunded: true });
+      const { data } = await axios.get(`/api/project/${project.id}`);
+      dispatch(_updateProject(data));
+    } catch (error) {
+      console.error("error in release funds", error);
     }
   };
 };

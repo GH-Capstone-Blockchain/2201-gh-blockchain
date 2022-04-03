@@ -13,7 +13,11 @@ import {
   Alert,
 } from "@mui/material";
 import { connect } from "react-redux";
-import { updateProject, fetchProject } from "../store/singleProject";
+import {
+  updateProject,
+  fetchProject,
+  handleReleaseFunds,
+} from "../store/singleProject";
 import { useParams } from "react-router-dom";
 import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 import { YouTubeAlert, ImageAlert } from "./smallComponents/InfoAlerts";
@@ -102,19 +106,19 @@ const ProjectDashboard = (props) => {
     setIsUpdated(true);
   };
 
-  const handleReleaseFunds = async () => {
-    try {
-      const campaignContract = await loadContractData(
-        props.project.campaign_contract_address
-      );
-      await campaignContract.methods
-        .releaseFund()
-        .send({ from: props.project.project_wallet_address });
+  // const handleReleaseFunds = async () => {
+  //   try {
+  //     const campaignContract = await loadContractData(
+  //       props.project.campaign_contract_address
+  //     );
+  //     await campaignContract.methods
+  //       .releaseFund()
+  //       .send({ from: props.project.project_wallet_address });
 
-    } catch (error) {
-      console.error("error in release funds", error);
-    }
-  };
+  //   } catch (error) {
+  //     console.error("error in release funds", error);
+  //   }
+  // };
 
   if (!props.project.name) {
     return (
@@ -385,7 +389,8 @@ const ProjectDashboard = (props) => {
                     </Button>
                     {props.project.reachedGoal &&
                     formatIsoToUnix(props.project.campaign_timeline_end) <
-                      Date.now() ? (
+                      Date.now() &&
+                    props.project.isFunded === false ? (
                       <>
                         <Alert severity="success" sx={{ mx: 0.5 }}>
                           {" "}
@@ -396,7 +401,7 @@ const ProjectDashboard = (props) => {
                           size="small"
                           variant="contained"
                           sx={{ m: 2 }}
-                          onClick={handleReleaseFunds}
+                          onClick={() => props.handleReleaseFunds(props.project)}
                         >
                           Release Funds
                         </Button>
@@ -404,6 +409,7 @@ const ProjectDashboard = (props) => {
                     ) : (
                       ""
                     )}
+                    {props.project.isFunded === true ? (<Alert severity="info" sx={{ m: 2 }}>The funds have been transferred to your wallet</Alert>) : null}
                   </CardActions>
                 </Card>
               </Grid>
@@ -431,6 +437,7 @@ const mapDispatch = (dispatch) => {
     updateProject: (project) => dispatch(updateProject(project)),
     fetchProject: (projectId) => dispatch(fetchProject(projectId)),
     fetchConversion: () => dispatch(fetchConversion()),
+    handleReleaseFunds: (project) => dispatch(handleReleaseFunds(project)),
   };
 };
 
