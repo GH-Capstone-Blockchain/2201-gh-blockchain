@@ -11,12 +11,11 @@ import {
   SayThankYou,
   NoMetaMaskError,
   ErrorTransactionAlert,
-  AddDonationConfirmation
+  AddDonationConfirmation,
 } from "./smallComponents/InfoAlerts";
 import ContributionList from "./smallComponents/ContributionsList";
 import CategoriesByProject from "./CategoriesByProject";
 import AboutProject from "./AboutProject";
-
 
 const SingleProject = (props) => {
   let params = useParams();
@@ -89,10 +88,10 @@ const SingleProject = (props) => {
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
-        // background: "#051f2e",
+        marginTop: "40px",
       }}
     >
-      <Grid item xs={12} sx={{ display: "flex", margin: "4%" }}></Grid>
+      <Grid item xs={12} sx={{ display: "flex", margin: "10px" }}></Grid>
       <ErrorTransactionAlert handleClose={handleClose} open={error} />
       <SayThankYou
         handleClose={handleClose}
@@ -100,116 +99,150 @@ const SingleProject = (props) => {
         open={thankYou}
       />
       <NoMetaMaskError handleClose={handleClose} open={noMetamask} />
-      <AddDonationConfirmation open={blockchainWait}/>
-      <Container
-        sx={{ display: "flex", flexDirection: "column" }}
-        maxWidth="lg"
-      >
-        {/* Project Name */}
-        <Typography
-          variant="h4"
-          margin="15px"
-          sx={{
-            fontFamily: "Roboto Condensed",
-            color: "#051f2e",
-            fontWeight: "bold",
-          }}
-        >
-          {props.project.name}
-        </Typography>
-
-        {/* Authors (AKA Scientists) */}
-        <Typography variant="subtitle1" margin="15px" sx={{ color: "#051f2e" }}>
-          By:{" "}
-          {props.scientists.map((scientist, idx) => {
-            let firstName = scientist.user.firstName;
-            let lastName = scientist.user.lastName;
-            if (idx === props.scientists.length - 1) {
-              return (
-                <Link key={idx} to={`/user/${scientist.user.id}`}>
-                  {firstName} {lastName}
-                </Link>
-              );
-            } else {
-              return (
-                <Link key={idx} to={`/user/${scientist.user.id}`}>
-                  {firstName} {lastName},{" "}
-                </Link>
-              );
-            }
-          })}
-        </Typography>
-        {/* Hero image */}
-        <Box
+      <AddDonationConfirmation open={blockchainWait} />
+      <Grid item xs={12} md={10} style={{ maxWidth: "1000px" }}>
+        <Grid
+          container
+          spacing={2}
           sx={{
             display: "flex",
-            flexDirection: "row",
-            justifyContent: "space-between",
-            alignSelf: "center",
+            justifyContent: "center",
             alignItems: "center",
+            marginTop: "40px",
           }}
-          margin="15px"
-          maxWidth="750"
         >
-          <Box sx={{ display: "flex", flexDirection: "column" }}>
-            <img
-              style={{
-                borderRadius: "10px",
-                width: "700px",
-                height: "400px",
-                objectFit: "cover",
+          {/* Project Name */}
+          <Grid item xs={12} align="left">
+            <Typography
+              variant="h4"
+              sx={{
+                fontFamily: "Roboto Condensed",
+                color: "#051f2e",
+                fontWeight: "bold",
               }}
-              src={props.project.imageUrl}
-            />
-            <CategoriesByProject project={props.project} />
-          </Box>
-
-          <DonateCard
-            project={props.project}
-            conversion={props.conversion}
-            loggedIn={props.auth.id}
-            submit={thankYou}
-            handleDonate={handleDonate}
-          />
-        </Box>
-        <AboutProject project={props.project} />
-        {props.project.videoUrl ? (
-          <Box
-            sx={{ display: "flex", justifyContent: "center", margin: "20px" }}
-          >
-            <iframe
-              width="854"
-              height="480"
-              src={props.project.videoUrl}
-              title="YouTube video player"
-            ></iframe>
-          </Box>
-        ) : (
-          <div></div>
-        )}
-        {/* {Contributions List} */}
-        <Box>
-          <Typography
-            margin="15px"
-            sx={{
-              fontSize: "22px",
-              fontFamily: "Roboto Condensed",
-              color: "#051f2e",
-              fontWeight: "bold",
-            }}
-          >
-            Contributors:{" "}
-          </Typography>
-          {props.contributions.length ? (
-            <ContributionList contributions={props.contributions} />
-          ) : (
-            <Typography>
-              There are no contributions yet! Be the first to make a difference!
+            >
+              {props.project.name}
             </Typography>
-          )}
-          <Box sx={{ height: "5em" }}></Box>
-        </Box>
-      </Container>
+          </Grid>
+
+          {/* Authors (AKA Scientists) */}
+          <Grid item xs={12} align="left">
+            <Typography>
+              By:{" "}
+              {props.scientists.map((scientist, idx) => {
+                let firstName = scientist.user.firstName;
+                let lastName = scientist.user.lastName;
+                if (idx === props.scientists.length - 1) {
+                  return (
+                    <Link
+                      className="link-scientist"
+                      key={idx}
+                      to={`/user/${scientist.user.id}`}
+                    >
+                      {firstName} {lastName}
+                    </Link>
+                  );
+                } else {
+                  return (
+                    <Link
+                      className="link-scientist"
+                      key={idx}
+                      to={`/user/${scientist.user.id}`}
+                    >
+                      {firstName} {lastName},{" "}
+                    </Link>
+                  );
+                }
+              })}
+            </Typography>
+          </Grid>
+
+          {/* Hero image */}
+          <Grid item xs={12} md={7}>
+            <Grid
+              container
+              spacing={2}
+              sx={{
+                display: "flex",
+                justifyContent: "flex-start",
+                alignItems: "center",
+              }}
+            >
+              <Grid item xs={12}>
+                <img
+                  style={{
+                    borderRadius: "10px",
+                    width: "100%",
+                    height: "100%",
+                    objectFit: "cover",
+                  }}
+                  src={props.project.imageUrl}
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <CategoriesByProject project={props.project} />
+              </Grid>
+            </Grid>
+          </Grid>
+          <Grid item xs={12} md={5}>
+            <DonateCard
+              project={props.project}
+              conversion={props.conversion}
+              loggedIn={props.auth.id}
+              submit={thankYou}
+              handleDonate={handleDonate}
+            />
+          </Grid>
+
+          <Grid item xs={12}>
+            <Grid container spacing={3}>
+              <Grid item xs={12} md={7}>
+                <AboutProject project={props.project} />
+              </Grid>
+              <Grid item xs={12} md={5}>
+                <Grid container>
+                  <Typography
+                    sx={{
+                      marginTop: "30px",
+                      fontSize: "30px",
+                      fontFamily: "Roboto Condensed",
+                      color: "#5babab",
+                      fontWeight: "bold",
+                    }}
+                  >
+                    Contributors:{" "}
+                  </Typography>
+                  {props.contributions.length ? (
+                    <ContributionList contributions={props.contributions} />
+                  ) : (
+                    <Typography>
+                      There are no contributions yet! Be the first to make a
+                      difference!
+                    </Typography>
+                  )}
+                  <Box sx={{ height: "5em" }}></Box>
+                </Grid>
+              </Grid>
+            </Grid>
+          </Grid>
+
+          <Grid item xs={12} marginBottom="100px">
+            {props.project.videoUrl ? (
+              <div className="container-iframe">
+                <iframe
+                  className="responsive-iframe"
+                  src={props.project.videoUrl}
+                  title="YouTube video player"
+                ></iframe>
+              </div>
+            ) : (
+              <div></div>
+            )}
+          </Grid>
+
+          {/* {Contributions List} */}
+        </Grid>
+      </Grid>
     </Grid>
   );
 };

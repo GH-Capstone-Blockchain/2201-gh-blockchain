@@ -1,49 +1,67 @@
-import React from 'react'
-import {
-    Typography,
-    Box,
-  } from "@mui/material";
-  import { convertDate } from "./smallComponents/utilities";
-
+import React from "react";
+import { Typography, Box, Grid } from "@mui/material";
+import { convertDate } from "./smallComponents/utilities";
 
 export default function AboutProject(props) {
-    return (
-       <Box sx={{display:'flex', flexDirection:'column', width:'80%', margin:'30px'}}>
+  return (
+    <Grid
+      conainter
+      sx={{
+        display: "flex",
+        flexDirection: "column",
+        marginTop: "30px",
+      }}
+    >
+      <Typography
+        sx={{
+          fontSize: "30px",
+          fontFamily: "Roboto Condensed",
+          color: "#5babab",
+          fontWeight: "bold",
+        }}
+      >
+        About this project
+      </Typography>
+
+      {/* Project Timeline */}
+      <Grid item>
+        <Grid container>
+          <Grid item>
+            <Typography
+              sx={{
+                fontFamily: "Roboto Condensed",
+                fontWeight: "bold",
+                marginRight: "30px",
+              }}
+            >
+              Project Timeline:{" "}
+            </Typography>
+          </Grid>
+          <Grid item>
+            <Typography variant="body1" sx={{ fontFamily: "Roboto Condensed" }}>
+              {props.project
+                ? convertDate(props.project.project_timeline_start)
+                : ""}{" "}
+              to{" "}
+              {props.project
+                ? convertDate(props.project.project_timeline_end)
+                : ""}
+            </Typography>
+          </Grid>
+        </Grid>
+      </Grid>
+      {/* Project description */}
+      <Grid item>
         <Typography
-          margin="15px"
+          marginTop="20px"
           sx={{
-            fontSize: "30px",
+            fontSize: "18px",
             fontFamily: "Roboto Condensed",
-            color: "#051f2e",
-            fontWeight: "bold",
-            textDecoration:'underline'
           }}
         >
-          About this project:
-        </Typography>
-
-        {/* Project Timeline */}
-        <Box sx={{ display: "flex", flexDirection: "row"}}>
-          <Typography
-            margin="15px"
-            sx={{fontFamily: "Roboto Condensed", fontWeight: "bold" , }}
-          >
-            Project Timeline:{" "}
-          </Typography>
-          <Typography variant="body1" margin="15px" sx={{fontFamily: "Roboto Condensed",}}>
-            {props.project
-              ? convertDate(props.project.project_timeline_start)
-              : ""}{" "}
-            to{" "}
-            {props.project
-              ? convertDate(props.project.project_timeline_end)
-              : ""}
-          </Typography>
-        </Box>
-        {/* Project description */}
-        <Typography variant="body1" margin="15px" component="h5">
           {props.project.description}
         </Typography>
-        </Box>   
-    )
+      </Grid>
+    </Grid>
+  );
 }

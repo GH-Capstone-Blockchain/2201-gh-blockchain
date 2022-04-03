@@ -131,41 +131,38 @@ const ProjectDashboard = (props) => {
           <Grid
             item
             xs={12}
-            sx={{ marginTop: "10%", marginBottom: "5%" }}
+            sx={{ marginTop: "130px", marginBottom: "50px" }}
             textAlign="center"
           >
             <Typography
-              variant="h2"
+              variant="h3"
               color="#051f2e"
-              sx={{ fontFamily: "Roboto Condensed", fontSize: "50px" }}
+              sx={{ fontFamily: "Roboto Condensed" }}
             >
               Project Dashboard
             </Typography>
           </Grid>
           <Box
             component="form"
-            sx={{
-              "& .MuiTextField-root": { m: 1, width: "25ch" },
-            }}
             noValidate
             autoComplete="off"
             onSubmit={handleSubmit}
           >
             <Grid item xs={1} />
-            <Grid item xs={12} style={{ maxWidth: "400px" }}>
+            <Grid item xs={10} style={{ maxWidth: "400px" }}>
               <Grid
                 container
-                // spacing={2}
+                spacing={2}
                 sx={{
                   display: "flex",
                   justifyContent: "center",
                   alignItems: "flex-start",
-                  // background: "#051f2e",
+                  marginTop: "0px",
                 }}
               >
                 <Grid item xs={12}>
                   <TextField
-                    fullwidth="true"
+                    fullWidth
                     required
                     id="name"
                     label="Project Name"
@@ -177,7 +174,7 @@ const ProjectDashboard = (props) => {
                 </Grid>
                 <Grid item xs={12}>
                   <TextField
-                    fullwidth="true"
+                    fullWidth
                     id="description"
                     label="Project Description"
                     multiline
@@ -187,9 +184,14 @@ const ProjectDashboard = (props) => {
                     defaultValue={props.project.description}
                   />
                 </Grid>
-                <Grid item xs={12}>
+                <Grid
+                  item
+                  xs={12}
+                  sx={{ display: "flex", flexDirection: "row" }}
+                >
                   <TextField
                     required
+                    fullWidth
                     id="imageUrl"
                     label="Image URL"
                     onChange={handleChange}
@@ -201,9 +203,14 @@ const ProjectDashboard = (props) => {
                   </Button>
                   <ImageAlert handleClose={handleClose} open={imageAlert} />
                 </Grid>
-                <Grid item xs={12}>
+                <Grid
+                  item
+                  xs={12}
+                  sx={{ display: "flex", flexDirection: "row" }}
+                >
                   <TextField
                     required
+                    fullWidth
                     id="videoUrl"
                     label="YouTube Video ID"
                     inputProps={{ maxLength: 11 }}
@@ -216,9 +223,10 @@ const ProjectDashboard = (props) => {
                   </Button>
                   <YouTubeAlert handleClose={handleClose} open={youtubeAlert} />
                 </Grid>
-                <Grid item xs={12}>
+                <Grid item xs={6}>
                   <TextField
                     required
+                    fullWidth
                     type="date"
                     id="project_timeline_start"
                     label="Project Start Date"
@@ -229,9 +237,10 @@ const ProjectDashboard = (props) => {
                     onChange={handleChange}
                   />
                 </Grid>
-                <Grid item xs={12}>
+                <Grid item xs={6}>
                   <TextField
                     required
+                    fullWidth
                     type="date"
                     id="project_timeline_end"
                     label="Project End Date"
@@ -241,26 +250,15 @@ const ProjectDashboard = (props) => {
                   />
                 </Grid>
               </Grid>
-              <Grid item xs={12} marginBottom="50px"></Grid>
-              <Grid
-                container
-                spacing={2}
-                sx={{
-                  display: "flex",
-                  justifyContent: "center",
-                  alignItems: "center",
-                  // background: "#051f2e",
-                }}
-              >
-                <Grid item xs={4}>
-                  <Button
-                    fullwidth="true"
-                    type="submit"
-                    sx={{ marginBottom: "10%" }}
-                  >
-                    Submit
-                  </Button>
-                </Grid>
+
+              <Grid item>
+                <Button
+                  variant="contained"
+                  type="submit"
+                  sx={{ marginTop: "20px", maginBottom: "30px" }}
+                >
+                  Submit
+                </Button>
               </Grid>
             </Grid>
           </Box>

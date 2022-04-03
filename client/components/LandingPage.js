@@ -28,7 +28,6 @@ function LandingPage(props) {
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
-        // padding: "10%",
       }}
     >
       <Grid item xs={12}>
