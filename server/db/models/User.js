@@ -28,7 +28,7 @@ const User = db.define("user", {
   profileImg: {
     type: Sequelize.STRING,
     defaultValue:
-      "https://t4.ftcdn.net/jpg/00/64/67/63/360_F_64676383_LdbmhiNM6Ypzb3FM4PPuFP9rHe7ri8Ju.jpg",
+    "https://d17fnq9dkz9hgj.cloudfront.net/uploads/2018/04/Frenchie_05.jpg",
   },
   gender: {
     type: Sequelize.ENUM(

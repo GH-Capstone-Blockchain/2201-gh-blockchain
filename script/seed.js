@@ -116,8 +116,8 @@ async function seed() {
   const users = await Promise.all([
     //0
     User.create({
-      username: "cody123",
-      password: "123",
+      username: "Cody",
+      password: "12345678",
       email: "cody@gmail.com",
       firstName: "Cody",
       lastName: "Hamilton",
@@ -129,13 +129,13 @@ async function seed() {
     }),
     //1 scientist
     User.create({
-      username: "murphy123",
-      password: "123",
+      username: "Murphy",
+      password: "12345678",
       email: "murphy@seed.js",
       firstName: "murphy",
       lastName: "albert",
       type: "scientist",
-      gender: "Male",
+      gender: "Female",
       race: "White",
       birthYear: 1988,
       bio: "Hi there, I am happy to join this community!",
@@ -409,8 +409,8 @@ async function seed() {
 
   //Assigning as scientist
   const scientistMurphy = await users[1].createScientist({
-    publications: "hello",
-    credentials: "credentials",
+    publications: "Molecular tuning of electroreception in sharks and skates.",
+    credentials: "Lecturer in Evolutionary Anthropology at UCL",
   });
 
   const scientistSavannah = await users[2].createScientist({
