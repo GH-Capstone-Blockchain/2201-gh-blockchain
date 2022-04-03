@@ -150,30 +150,34 @@ export default function DonateCard(props) {
       </Grid>
 
       {props.loggedIn ? (
-        <Grid container sx={{ marginTop: "20px" }}>
-          <TextField
-            id="donation"
-            label="Donation Value"
-            variant="outlined"
-            type="number"
-            inputRef={textInput}
-            InputProps={{
-              startAdornment: (
-                <InputAdornment position="start">$</InputAdornment>
-              ),
-            }}
-            onChange={handleChange}
-          />
-          <Button
-            variant="contained"
-            sx={{ alignSelf: "center", marginTop: "12px" }}
-            onClick={async () => {
-              await props.handleDonate(donation);
-              textInput.current.value = "";
-            }}
-          >
-            DONATE
-          </Button>
+        <Grid container sx={{ margin: "20px" }} spacing={2}>
+          <Grid item>
+            <TextField
+              id="donation"
+              label="Donation Value"
+              variant="outlined"
+              type="number"
+              inputRef={textInput}
+              InputProps={{
+                startAdornment: (
+                  <InputAdornment position="start">$</InputAdornment>
+                ),
+              }}
+              onChange={handleChange}
+            />
+          </Grid>
+          <Grid item>
+            <Button
+              variant="contained"
+              sx={{ alignSelf: "center", marginTop: "12px" }}
+              onClick={async () => {
+                await props.handleDonate(donation);
+                textInput.current.value = "";
+              }}
+            >
+              DONATE
+            </Button>
+          </Grid>
         </Grid>
       ) : (
         <Button
