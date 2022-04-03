@@ -24,11 +24,15 @@ const ContributionsList = (props) => {
   let params = useParams();
   const [isUpdated, setIsUpdated] = useState(false);
   const [account, setAccount] = useState("");
+  const [blockchainWait, setBlockchainWait] = useState(false);
+  const [noMetamask, setNoMetamask] = useState(false);
+  const [error, setError] = useState(false);
 
   const fetchData = async () => {
     try {
       const accountAddress = await loadWeb3();
       if (accountAddress) setAccount(accountAddress[0]);
+      if (!accountAddress) setNoMetamask(true);
       setIsUpdated(false);
     } catch (error) {
       console.error(
@@ -46,15 +50,27 @@ const ContributionsList = (props) => {
     fetchData();
   }, [isUpdated]);
 
+  const handleClose = () => {
+    setNoMetamask(false);
+    setError(false);
+  };
+
   const handleRefund = async (project, contributionId) => {
     try {
       const campaignContract = await loadContractData(
         project.campaign_contract_address
       );
-      await campaignContract.methods.refund(props.auth.id).send({ from: account });
+      
+      setBlockchainWait(true);
+      await campaignContract.methods
+        .refund(props.auth.id)
+        .send({ from: account });
       await props.refund(props.auth.id, contributionId);
+      setBlockchainWait(false);
+
     } catch (error) {
       console.error("error in handleRefund", error);
+      setError(true);
     }
   };
 
@@ -69,6 +85,9 @@ const ContributionsList = (props) => {
         marginTop: "50px",
       }}
     >
+      {/* <FundsTransferWait open={blockchainWait} />
+      <PleaseCheckYourAccount handleClose={handleClose} open={error} />
+      <NoMetaMaskError handleClose={handleClose} open={noMetamask} /> */}
       <Grid item xs={12} textAlign="left">
         <Typography
           variant="h4"

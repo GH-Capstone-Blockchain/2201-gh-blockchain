@@ -280,7 +280,6 @@ export function FundTransferWait(props) {
   return (
     <Dialog
       open={props.open}
-      onClose={props.handleClose}
       aria-labelledby="alert-dialog-title"
       aria-describedby="alert-dialog-description"
     >
