@@ -57,7 +57,7 @@ contract Campaign {
         payable(projectAddress).transfer(address (this).balance);
     }
     function refund(uint _supporterId) external {
-        require(block.timestamp > endDate, 'not ended');
+        // require(block.timestamp > endDate, 'not ended');
         require(address (this).balance <= goalAmount, 'the campaign was successful');
         uint balance = donationsAmount[_supporterId][msg.sender];
         donationsAmount[_supporterId][msg.sender] = 0;

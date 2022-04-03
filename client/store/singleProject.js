@@ -1,9 +1,9 @@
-import axios from 'axios';
+import axios from "axios";
 
 // action type constants
 
-const FETCH_PROJECT = 'FETCH_PROJECT';
-const UPDATE_PROJECT = 'UPDATE_PROJECT';
+const FETCH_PROJECT = "FETCH_PROJECT";
+const UPDATE_PROJECT = "UPDATE_PROJECT";
 
 // action creators
 
@@ -19,7 +19,7 @@ const _updateProject = (project) => {
   return {
     type: UPDATE_PROJECT,
     project: project.project,
-    scientists: project.scientists
+    scientists: project.scientists,
   };
 };
 
@@ -33,7 +33,7 @@ export const fetchProject = (projectId) => {
       const project = data.project;
       dispatch(_fetchProject(project, scientists));
     } catch (error) {
-      console.error('error in fetchProject thunk', error);
+      console.error("error in fetchProject thunk", error);
     }
   };
 };
@@ -45,7 +45,20 @@ export const updateProject = (updatedProject) => {
       const { data } = await axios.get(`/api/project/${updatedProject.id}`);
       dispatch(_updateProject(data));
     } catch (error) {
-      console.error('Error in updateProject thunk', error);
+      console.error("Error in updateProject thunk", error);
+    }
+  };
+};
+
+
+export const releaseFunds = (projectId) => {
+  return async (dispatch) => {
+    try {
+      await axios.put(`/api/projects/${projectId}`, { isFunded: true });
+      const { data } = await axios.get(`/api/project/${projectId}`);
+      dispatch(_updateProject(data));
+    } catch (error) {
+      console.error("error in release funds", error);
     }
   };
 };

@@ -274,3 +274,45 @@ export function AddDonationConfirmation(props) {
     </Dialog>
   );
 }
+
+//for release funds and refund buttons
+export function FundTransferWait(props) {
+  return (
+    <Dialog
+      open={props.open}
+      aria-labelledby="alert-dialog-title"
+      aria-describedby="alert-dialog-description"
+    >
+      <DialogTitle id="alert-dialog-title">
+        {"Just a moment!"}
+      </DialogTitle>
+      <DialogContent>
+        <DialogContentText id="alert-dialog-description">
+          It may take a second to transfer your funds from blockchain to your wallet!
+        </DialogContentText>
+      </DialogContent>
+    </Dialog>
+  );
+}
+export function PleaseCheckYourAccount(props) {
+  return (
+    <Dialog
+      open={props.open}
+      onClose={props.handleClose}
+      aria-labelledby="alert-dialog-title"
+      aria-describedby="alert-dialog-description"
+    >
+      <DialogTitle id="alert-dialog-title">{"There Was An Error!"}</DialogTitle>
+      <DialogContent>
+        <DialogContentText id="alert-dialog-description">
+          The MetaMask account you are currently logged into does not match the address we have on file. Please check to make sure you are on the correct account.
+        </DialogContentText>
+      </DialogContent>
+      <DialogActions>
+        <Button onClick={props.handleClose} autoFocus>
+          Try Again!
+        </Button>
+      </DialogActions>
+    </Dialog>
+  );
+}

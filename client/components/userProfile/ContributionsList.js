@@ -14,16 +14,25 @@ import {
 import { Link, useParams } from "react-router-dom";
 import { loadWeb3, loadContractData } from "../../web3/web3";
 import { formatIsoToUnix } from "../smallComponents/utilities";
+import {
+  FundsTransferWait,
+  PleaseCheckYourAccount,
+  NoMetaMaskError,
+} from "../smallComponents/InfoAlerts";
 
 const ContributionsList = (props) => {
   let params = useParams();
   const [isUpdated, setIsUpdated] = useState(false);
   const [account, setAccount] = useState("");
+  const [blockchainWait, setBlockchainWait] = useState(false);
+  const [noMetamask, setNoMetamask] = useState(false);
+  const [error, setError] = useState(false);
 
   const fetchData = async () => {
     try {
       const accountAddress = await loadWeb3();
       if (accountAddress) setAccount(accountAddress[0]);
+      if (!accountAddress) setNoMetamask(true);
       setIsUpdated(false);
     } catch (error) {
       console.error(
@@ -41,16 +50,27 @@ const ContributionsList = (props) => {
     fetchData();
   }, [isUpdated]);
 
-  const handleRefund = async (project) => {
+  const handleClose = () => {
+    setNoMetamask(false);
+    setError(false);
+  };
+
+  const handleRefund = async (project, contributionId) => {
     try {
       const campaignContract = await loadContractData(
         project.campaign_contract_address
       );
+      
+      setBlockchainWait(true);
       await campaignContract.methods
         .refund(props.auth.id)
         .send({ from: account });
+      await props.refund(props.auth.id, contributionId);
+      setBlockchainWait(false);
+
     } catch (error) {
-      console.error("error in refund", error);
+      console.error("error in handleRefund", error);
+      setError(true);
     }
   };
 
@@ -65,6 +85,9 @@ const ContributionsList = (props) => {
         marginTop: "50px",
       }}
     >
+      {/* <FundsTransferWait open={blockchainWait} />
+      <PleaseCheckYourAccount handleClose={handleClose} open={error} />
+      <NoMetaMaskError handleClose={handleClose} open={noMetamask} /> */}
       <Grid item xs={12} textAlign="left">
         <Typography
           variant="h4"
@@ -134,8 +157,8 @@ const ContributionsList = (props) => {
                   {/* for releasing funds after campaign has failed */}
                   {!project.reachedGoal &&
                   props.auth.password === props.user.password &&
-                  formatIsoToUnix(project.campaign_timeline_end) <
-                    Date.now() ? (
+                  formatIsoToUnix(project.campaign_timeline_end) < Date.now() &&
+                  contribution.refunded === false ? (
                     <CardActions className="refund–button-and-alert">
                       <Alert severity="info" sx={{ mx: 0.5 }}>
                         {" "}
@@ -146,11 +169,16 @@ const ContributionsList = (props) => {
                         size="small"
                         variant="contained"
                         sx={{ m: 2 }}
-                        onClick={() => handleRefund(project)}
+                        onClick={() => handleRefund(project, contribution.id)}
                       >
                         Release Donation
                       </Button>
                     </CardActions>
+                  ) : null}
+                  {contribution.refunded === true ? (
+                    <Alert severity="info" sx={{ m: 1 }}>
+                      Your donation has been returned to your wallet.
+                    </Alert>
                   ) : null}
                 </Card>
               </Grid>

@@ -42,6 +42,7 @@ const Project = db.define('project', {
         type: Sequelize.BOOLEAN, 
         defaultValue: false
     },
+    //funds released by scientist after campaign is successful
     isFunded: {
         type: Sequelize.BOOLEAN,
         defaultValue: false
@@ -55,7 +56,7 @@ const Project = db.define('project', {
     }, 
     campaign_contract_address: {
         type: Sequelize.STRING,
-    }
+    },
     // location: {
     //     type: Sequelize.GEOMETRY, 
     //     allowNull: false,

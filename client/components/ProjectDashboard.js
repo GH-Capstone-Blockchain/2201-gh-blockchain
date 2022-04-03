@@ -13,7 +13,11 @@ import {
   Alert,
 } from "@mui/material";
 import { connect } from "react-redux";
-import { updateProject, fetchProject } from "../store/singleProject";
+import {
+  updateProject,
+  fetchProject,
+  releaseFunds,
+} from "../store/singleProject";
 import { useParams } from "react-router-dom";
 import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 import { YouTubeAlert, ImageAlert } from "./smallComponents/InfoAlerts";
@@ -23,6 +27,11 @@ import { fetchConversion } from "../store/conversion";
 import { loadWeb3, loadContractData } from "../web3/web3";
 import AccessForbiddenPage from "./AccessForbiddenPage";
 import { formatIsoToUnix } from "./smallComponents/utilities";
+import {
+  FundsTransferWait,
+  PleaseCheckYourAccount,
+  NoMetaMaskError,
+} from "./smallComponents/InfoAlerts";
 
 const ProjectDashboard = (props) => {
   let params = useParams();
@@ -43,12 +52,16 @@ const ProjectDashboard = (props) => {
   const [youtubeAlert, setyoutubeAlert] = useState(false);
   const [imageAlert, setImageAlert] = useState(false);
   const [scientists, setScientists] = useState([]);
+  const [noMetamask, setNoMetamask] = useState(false);
+  const [blockchainWait, setBlockchainWait] = useState(false);
+  const [error, setError] = useState(false);
 
   const fetchData = async () => {
     try {
       await props.fetchProject(id);
       const accountAddress = await loadWeb3();
       if (accountAddress) setAccount(accountAddress[0]);
+      if (!accountAddress) setNoMetamask(true);
       await props.fetchConversion();
       setIsUpdated(false);
     } catch (error) {
@@ -83,6 +96,8 @@ const ProjectDashboard = (props) => {
   const handleClose = () => {
     setyoutubeAlert(false);
     setImageAlert(false);
+    setError(false);
+    setNoMetamask(false);
   };
   const handleChange = (e) => {
     let value = e.target.value;
@@ -101,14 +116,19 @@ const ProjectDashboard = (props) => {
     props.updateProject(form);
     setIsUpdated(true);
   };
+
   const handleReleaseFunds = async () => {
     try {
       const campaignContract = await loadContractData(
         props.project.campaign_contract_address
       );
+
+      setBlockchainWait(true);
       await campaignContract.methods
         .releaseFund()
         .send({ from: props.project.project_wallet_address });
+      await props.releaseFunds(props.project.id);
+      setBlockchainWait(false);
     } catch (error) {
       console.error("error in release funds", error);
     }
@@ -135,6 +155,9 @@ const ProjectDashboard = (props) => {
             marginBottom: "200px",
           }}
         >
+          {/* <NoMetaMaskError handleClose={handleClose} open={noMetamask} />
+          <FundsTransferWait open={blockchainWait} />
+          <PleaseCheckYourAccount handleClose={handleClose} open={error} /> */}
           <Grid
             item
             xs={12}
@@ -381,7 +404,8 @@ const ProjectDashboard = (props) => {
                     </Button>
                     {props.project.reachedGoal &&
                     formatIsoToUnix(props.project.campaign_timeline_end) <
-                      Date.now() ? (
+                      Date.now() &&
+                    props.project.isFunded === false ? (
                       <>
                         <Alert severity="success" sx={{ mx: 0.5 }}>
                           {" "}
@@ -400,6 +424,11 @@ const ProjectDashboard = (props) => {
                     ) : (
                       ""
                     )}
+                    {props.project.isFunded === true ? (
+                      <Alert severity="info" sx={{ m: 2 }}>
+                        The funds have been transferred to your wallet
+                      </Alert>
+                    ) : null}
                   </CardActions>
                 </Card>
               </Grid>
@@ -427,6 +456,7 @@ const mapDispatch = (dispatch) => {
     updateProject: (project) => dispatch(updateProject(project)),
     fetchProject: (projectId) => dispatch(fetchProject(projectId)),
     fetchConversion: () => dispatch(fetchConversion()),
+    releaseFunds: (projectId) => dispatch(releaseFunds(projectId)),
   };
 };
 
