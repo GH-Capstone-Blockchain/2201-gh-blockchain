@@ -19,11 +19,20 @@ export default function Footer() {
         marginRight: "auto",
       }}
     >
-      <Grid item xs={6} textAlign="right">
-        <Box component="img" alt="DeSci Funder" src="/logo.png" height="30px" />
+      <Grid item xs={5} textAlign="right">
+        <Box
+          component="img"
+          alt="DeSci Funder"
+          src="/logo.png"
+          height="30px"
+          marginRight="5px"
+        />
       </Grid>
-      <Grid item xs={6} textAlign="left">
-        <Typography sx={{ color: "white" }}> © 2022 DeSci Funder </Typography>
+      <Grid item xs={7} textAlign="left">
+        <Typography color="primary" marginLeft="5px">
+          {" "}
+          © 2022 De<span className="main-title-span">Sci </span> Funder{" "}
+        </Typography>
       </Grid>
     </Grid>
   );
