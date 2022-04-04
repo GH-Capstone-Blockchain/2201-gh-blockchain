@@ -10,6 +10,7 @@ import AddProjectForm from "./components/AddProjectForm";
 import ScientistsDropDown from "./components/smallComponents/ScientistsDropDown";
 import ProjectDashboard from "./components/ProjectDashboard";
 import ProfilePage from "./components/userProfile/ProfilePage";
+import { PageNotFound } from "./components/AccessForbiddenPage";
 import { me } from "./store";
 
 class Routers extends Component {
@@ -30,7 +31,7 @@ class Routers extends Component {
           <Route path="dropdown" element={<ScientistsDropDown />} />
           <Route path="user/:id" element={<ProfilePage />} />
           <Route path="dashboard/:id" element={<ProjectDashboard />} />
-          
+          <Route path="*" element={<PageNotFound />} />
         </Routes>
         {isLoggedIn ? (
           <Routes>
