@@ -116,12 +116,12 @@ async function seed() {
   const users = await Promise.all([
     //0
     User.create({
-      username: "Cody",
+      username: "Coco",
       password: "12345678",
-      email: "cody@gmail.com",
-      firstName: "Cody",
+      email: "coco@gmail.com",
+      firstName: "Coco",
       lastName: "Hamilton",
-      gender: "Male",
+      gender: "Female",
       race: "White",
       birthYear: 1978,
       bio: "I love science so I'm here to support!",
@@ -700,26 +700,30 @@ async function seed() {
 
     isFunded: false,
   });
-/////NEW PROJECTS
+  /////NEW PROJECTS
   const democracy = await Project.create({
     name: "Do Shadow Groups Run Our Democracy? How Interest Group Advertising Persuades Voters",
-    description:"Who are Americans for Prosperity or American Future Fund? They and other interest groups spend millions of dollars in our elections. I am examining how their ads persuade voters differently than candidates' ads. This study seeks to clarify the power and influence of interest group advertising on voter preferences. This project questions the extent to which political advertising affects congressional elections and has implications for limiting campaign expenditures and interest group influence.",
-    imageUrl:"https://www.brennancenter.org/sites/default/files/2020-04/20200403_PS_ChaykaD_RM1630x932.jpg",
+    description:
+      "Who are Americans for Prosperity or American Future Fund? They and other interest groups spend millions of dollars in our elections. I am examining how their ads persuade voters differently than candidates' ads. This study seeks to clarify the power and influence of interest group advertising on voter preferences. This project questions the extent to which political advertising affects congressional elections and has implications for limiting campaign expenditures and interest group influence.",
+    imageUrl:
+      "https://www.brennancenter.org/sites/default/files/2020-04/20200403_PS_ChaykaD_RM1630x932.jpg",
     videoUrl: "https://www.youtube.com/embed/PJy8vTu66tE",
     project_timeline_start: "2022-02-01",
     project_timeline_end: "2022-09-01",
     campaign_timeline_start: "2022-04-13",
     campaign_timeline_end: "2022-06-13",
     fundraising_goal: 1.2 * Math.pow(10, 18),
-    totalDonations: .3 * Math.pow(10, 18),
+    totalDonations: 0.3 * Math.pow(10, 18),
 
     isFunded: false,
   });
 
   const fresco = await Project.create({
     name: "Fresco Painting at the University of South Carolina: Medium of the Past, Art of Today",
-    description:"Fresco painting is one of the few mediums that can be traced back to ancient civilizations. It is a medium that requires the artist to work fast, and have a concise plan before beginning. I have been given the opportunity to fresco an outdoor wall on my University's campus. My challenge will be to bring this medium into our present culture by taking into account our various modern materials and potential weathering that may positively or negatively impact this ancient recipe.",
-    imageUrl:"https://www.romanticasheville.com/sites/default/files/images/basic_page/ben-long-fresco-NC.jpg",
+    description:
+      "Fresco painting is one of the few mediums that can be traced back to ancient civilizations. It is a medium that requires the artist to work fast, and have a concise plan before beginning. I have been given the opportunity to fresco an outdoor wall on my University's campus. My challenge will be to bring this medium into our present culture by taking into account our various modern materials and potential weathering that may positively or negatively impact this ancient recipe.",
+    imageUrl:
+      "https://www.romanticasheville.com/sites/default/files/images/basic_page/ben-long-fresco-NC.jpg",
     videoUrl: "https://www.youtube.com/embed/lUddM_Y_snQ",
     project_timeline_start: "2022-02-01",
     project_timeline_end: "2022-09-01",
@@ -733,8 +737,10 @@ async function seed() {
 
   const mesozoic = await Project.create({
     name: "Faunal diversity in the Mesozoic formations of Northwestern Colorado",
-    description:"Northwestern Colorado is rich in understudied fossil bearing strata. We have been working on an undescribed hadrosaur from the Mesa Verde Formation, but have the potential to expand our purview to an area that exhibits a remarkable display of continuous Mesozoic deposits. Our previous discoveries display unusually well-preserved soft tissue and further specimens are needed to create a complete picture of the diversity and taphonomy of the local Mesozoic fauna.",
-    imageUrl:"https://upload.wikimedia.org/wikipedia/commons/f/fc/Green_River_UT_2005-10-14_2104.jpg",
+    description:
+      "Northwestern Colorado is rich in understudied fossil bearing strata. We have been working on an undescribed hadrosaur from the Mesa Verde Formation, but have the potential to expand our purview to an area that exhibits a remarkable display of continuous Mesozoic deposits. Our previous discoveries display unusually well-preserved soft tissue and further specimens are needed to create a complete picture of the diversity and taphonomy of the local Mesozoic fauna.",
+    imageUrl:
+      "https://upload.wikimedia.org/wikipedia/commons/f/fc/Green_River_UT_2005-10-14_2104.jpg",
     videoUrl: "https://www.youtube.com/embed/i5QeyztIIT8",
     project_timeline_start: "2022-02-01",
     project_timeline_end: "2022-09-01",
@@ -748,8 +754,10 @@ async function seed() {
 
   const recycling = await Project.create({
     name: "Recycling plastics using switchable solvents",
-    description:"Plastic waste is extremely durable and can be harmful to organisms and their ecosystems when not managed properly. While current recycling methods can efficiently process certain plastics, some common plastics are not recyclable. Switchable hydrophilicity solvents (SHS) change from biphasic to monophasic when exposed to CO2. I hypothesize that solvents with similar structures to plastics will separate plastic materials into base components more efficiently than current recycling methods.",
-    imageUrl:"https://media.greenmatters.com/brand-img/LK40kX_v_/0x0/plastic-recycling-new-1557416419824.jpg",
+    description:
+      "Plastic waste is extremely durable and can be harmful to organisms and their ecosystems when not managed properly. While current recycling methods can efficiently process certain plastics, some common plastics are not recyclable. Switchable hydrophilicity solvents (SHS) change from biphasic to monophasic when exposed to CO2. I hypothesize that solvents with similar structures to plastics will separate plastic materials into base components more efficiently than current recycling methods.",
+    imageUrl:
+      "https://media.greenmatters.com/brand-img/LK40kX_v_/0x0/plastic-recycling-new-1557416419824.jpg",
     videoUrl: "https://www.youtube.com/embed/I_fUpP-hq3A",
     project_timeline_start: "2022-02-01",
     project_timeline_end: "2022-09-01",
@@ -763,8 +771,10 @@ async function seed() {
 
   const movementClass = await Project.create({
     name: "Does the use of movement-producing classroom furniture improve children's learning?",
-    description:"The purpose of this study is to examine 1) whether using movement-producing (kinesthetic) furniture in classrooms significantly increases physical activity (PA) during the school day, and 2) the feasibility of using this furniture in classrooms for larger studies. Building on prior research, I hypothesize that increased levels of PA will improve learning, social, and health outcomes, and that increases will be more significant for students experiencing poverty/income insecurity.",
-    imageUrl:"https://media-cldnry.s-nbcnews.com/image/upload/newscms/2019_25/2905471/190621-classroom-design-mn-1040.jpg",
+    description:
+      "The purpose of this study is to examine 1) whether using movement-producing (kinesthetic) furniture in classrooms significantly increases physical activity (PA) during the school day, and 2) the feasibility of using this furniture in classrooms for larger studies. Building on prior research, I hypothesize that increased levels of PA will improve learning, social, and health outcomes, and that increases will be more significant for students experiencing poverty/income insecurity.",
+    imageUrl:
+      "https://media-cldnry.s-nbcnews.com/image/upload/newscms/2019_25/2905471/190621-classroom-design-mn-1040.jpg",
     videoUrl: "https://www.youtube.com/embed/Oy82HVCqlzA",
     project_timeline_start: "2022-02-01",
     project_timeline_end: "2022-09-01",
@@ -803,18 +813,17 @@ async function seed() {
   await americanChesnut.createCategory({ category: "Ecology" });
   await romeNewCities.createCategory({ category: "Anthropology" });
   await marinePollution.createCategory({ category: "Ecology" });
-  await democracy.createCategory({category: "Political Science"})
-  await democracy.createCategory({category: "Data Science"})
-  await fresco.createCategory({category: "Art and Design"})
-  await mesozoic.createCategory({category: "Paleontology"})
-  await mesozoic.createCategory({category: "Earth Science"})
-  await recycling.createCategory({category: "Engineering"})
-  await recycling.createCategory({category: "Earth Science"})
-  await movementClass.createCategory({category: "Education"})
-  await movementClass.createCategory({category: "Social Science"})
-  await movementClass.createCategory({category: "Neuroscience"})
-  await sharkPaleo.createCategory({category: "Paleontology"})
-  
+  await democracy.createCategory({ category: "Political Science" });
+  await democracy.createCategory({ category: "Data Science" });
+  await fresco.createCategory({ category: "Art and Design" });
+  await mesozoic.createCategory({ category: "Paleontology" });
+  await mesozoic.createCategory({ category: "Earth Science" });
+  await recycling.createCategory({ category: "Engineering" });
+  await recycling.createCategory({ category: "Earth Science" });
+  await movementClass.createCategory({ category: "Education" });
+  await movementClass.createCategory({ category: "Social Science" });
+  await movementClass.createCategory({ category: "Neuroscience" });
+  await sharkPaleo.createCategory({ category: "Paleontology" });
 
   //adding scientist to project
   await scientistMurphy.addProject(sharkPaleo);
@@ -855,67 +864,76 @@ async function seed() {
 
   await marinePollution.createContribution({
     userId: 3,
-    contributionAmount: 0.2* Math.pow(10, 18),
+    contributionAmount: 0.2 * Math.pow(10, 18),
   });
   await marinePollution.createContribution({
     userId: 18,
-    contributionAmount: 0.3* Math.pow(10, 18),
+    contributionAmount: 0.3 * Math.pow(10, 18),
   });
   await informedConsumers.createContribution({
     userId: 18,
-    contributionAmount: 0.6* Math.pow(10, 18),
+    contributionAmount: 0.6 * Math.pow(10, 18),
   });
-  await congoBasin.createContribution({ userId: 18, contributionAmount: 1.2* Math.pow(10, 18) });
-  await coralReefs.createContribution({ userId: 20, contributionAmount: 0.9* Math.pow(10, 18) });
+  await congoBasin.createContribution({
+    userId: 18,
+    contributionAmount: 1.2 * Math.pow(10, 18),
+  });
+  await coralReefs.createContribution({
+    userId: 20,
+    contributionAmount: 0.9 * Math.pow(10, 18),
+  });
   await analysisOfSleep.createContribution({
     userId: 20,
-    contributionAmount: 0.3* Math.pow(10, 18),
+    contributionAmount: 0.3 * Math.pow(10, 18),
   });
-  await congoBasin.createContribution({ userId: 20, contributionAmount: 0.7* Math.pow(10, 18) });
+  await congoBasin.createContribution({
+    userId: 20,
+    contributionAmount: 0.7 * Math.pow(10, 18),
+  });
   await marinePollution.createContribution({
     userId: 4,
-    contributionAmount: 0.8* Math.pow(10, 18),
+    contributionAmount: 0.8 * Math.pow(10, 18),
   });
 
   await marinePollution.createContribution({
     userId: 52,
-    contributionAmount: 0.4* Math.pow(10, 18),
+    contributionAmount: 0.4 * Math.pow(10, 18),
   });
   await congoBasin.createContribution({
     userId: 31,
-    contributionAmount: 0.7* Math.pow(10, 18),
+    contributionAmount: 0.7 * Math.pow(10, 18),
   });
   await congoBasin.createContribution({
     userId: 57,
-    contributionAmount: 0.2* Math.pow(10, 18),
+    contributionAmount: 0.2 * Math.pow(10, 18),
   });
   await informedConsumers.createContribution({
     userId: 49,
-    contributionAmount: 0.6* Math.pow(10, 18),
+    contributionAmount: 0.6 * Math.pow(10, 18),
   });
   await analysisOfSleep.createContribution({
     userId: 13,
-    contributionAmount: 1.2* Math.pow(10, 18),
+    contributionAmount: 1.2 * Math.pow(10, 18),
   });
   await democracy.createContribution({
     userId: 21,
-    contributionAmount: 1.2* Math.pow(10, 18) ,
+    contributionAmount: 1.2 * Math.pow(10, 18),
   });
   await fresco.createContribution({
     userId: 23,
-    contributionAmount: 0.3* Math.pow(10, 18) ,
+    contributionAmount: 0.3 * Math.pow(10, 18),
   });
   await mesozoic.createContribution({
     userId: 21,
-    contributionAmount: 0.3* Math.pow(10, 18) ,
+    contributionAmount: 0.3 * Math.pow(10, 18),
   });
   await recycling.createContribution({
     userId: 41,
-    contributionAmount: 0.8* Math.pow(10, 18) ,
+    contributionAmount: 0.8 * Math.pow(10, 18),
   });
   await movementClass.createContribution({
     userId: 41,
-    contributionAmount: 0.2 * Math.pow(10, 18) ,
+    contributionAmount: 0.2 * Math.pow(10, 18),
   });
 
   console.log(`seeded ${users.length} users`);
