@@ -1,77 +1,39 @@
-# FS-App-Template
-
-## Setup
-
-To use this as boilerplate, you'll need to take the following steps:
-
-* Don't fork or clone this repo! Instead, create a new, empty
-  directory on your machine and `git init` (or create an empty repo on
-  Github and clone it to your local machine)
-
-* Now you will have to add the fs-app-template as a remote and merge it into your own repository.
-
-```
-git remote add boilermaker git@github.com:FullstackAcademy/fs-app-template.git
-git fetch boilermaker
-git merge boilermaker/main
-git branch -m master main
-```
-
-## Customize
-
-Now that you've got the code, follow these steps to get acclimated:
-
-* Update project name and description in `package.json`
-* `npm install`
-* Create two postgres databases (`MY_APP_NAME` should match the `name`
-  parameter in `package.json`):
-* These commands will create both your **development** and **test** databases
-
-```
-createdb <YOUR APP NAME HERE FROM package.json>
-createdb <YOUR APP NAME HERE FROM package.json>-test
-```
-
-* By default, running `npm test` will use your test database, while
-  regular development uses development database
-
-## Start
-
-Sync and seed your database by running `npm run seed`. Running `npm run start:dev` will make great things happen!
-
-- start:dev will both start your server and build your client side files using webpack
-- start:dev:logger is the same as start:dev, but you will see your SQL queries (can be helpful for debugging)
-- start:dev:seed will start your server and also seed your database (this is useful when you are making schema changes and you don't want to run your seed script separately)
+<p align="center"><img src="https://user-images.githubusercontent.com/94179519/161602751-d9fb1d52-15e8-4ae7-919e-bf46f2b18074.png"/></p>
 
 
-### Heroku
+## About
+Raising money for scientific research is often a difficult and lengthy process that gives corporations, government entities, and non-profit foundations an outsized influence on what kind of research should be prioritized. As a regular person, there aren’t many opportunities (if any!) to directly fund scientists and their work. 
 
-1.  Set up the [Heroku command line tools][heroku-cli]
-2.  `heroku login`
-3.  Add a git remote for heroku:
+We created DeSci Funder with the goal of connecting people directly to the research they care about. Our web application is a decentralized crowdfunding platform for scientific research, built on the Ethereum blockchain. Unlike other crowdfunding platforms, you can support a cause of your choice without any third-party fees. 
 
-[heroku-cli]: https://devcenter.heroku.com/articles/heroku-cli
+## Technology Stack
+The core of our application relies on the Ethereum blockchain.
 
-* **If you are creating a new app...**
+Ethereum requires smart contracts to be deployed to the blockchain using a programming language called Solidity.
+During our schema design phase, we carefully selected what would be stored on the blockchain since every interaction requires a small fee in ether and time to fetch the necessary data.
 
-  1.  `heroku create` or `heroku create your-app-name` if you have a
-      name in mind.
-  2.  `heroku config:set JWT=<your secret here!>` to set a secret for JWT signing
+Our smart contract was responsible for storing information about the research projects, setting rules about making donations,
+releasing funds, and returning funds in case of a canceled project.
+We were able to create a seamless user experience by storing the rest of the data in our Postgres database. 
 
-Database Setup
-
-  3.  `heroku addons:create heroku-postgresql:hobby-dev` to add
-      ("provision") a postgres database to your heroku dyno (This creates your production database)
-
-  4.  `heroku config:set SEED=true` to get heroku to sync and seed your database
-
-  5.   note everytime your app restarts, the database tables will be dropped and re-created. To avoid this you can `config:unset SEED`
+<p align="center"><img width="831" src="https://user-images.githubusercontent.com/94179519/161603784-5ca1a0ef-fb90-45f4-aba6-d6c5f5523205.png"/></p>
 
 
-* **If you already have a Heroku app...**
+After writing our own smart contract in Solidity, we used the Truffle Suite as our Ethereum development environment
+to deploy our smart contract to the Ropsten test network. Every time a new project is launched on DeSci Funder,
+a new instance of our smart contract is deployed, which includes key information about the project and its scientists. 
+We are simultaneously using Express to send additional data to our Postgres database to be rendered on the front end.
+In order to do this, we used React, Redux, and the web3 library to connect the frontend of our application to our smart contract, enabling users to interact with the project in the blockchain through their MetaMask wallets. 
 
-  1.  `heroku git:remote your-app-name` You'll need to be a
-      collaborator on the app.
+## What's Next?
+
+When we started this project, we planned ahead for different phases.
+We plan to implement the following: 
+- A validation system for checking the credentials of scientists to insure all scientists are reputable scientists
+- Including information about the institutions scientists are doing research under
+- More search and filtering features such as by location, scientist, or institution
 
 
-Now, you should be deployed!
+        
+
+
