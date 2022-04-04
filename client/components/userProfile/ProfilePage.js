@@ -8,6 +8,7 @@ import CredsAndPubs from "./CredsAndPubs";
 import ProjectsList from "./ProjectsList";
 import ContributionsList from "./ContributionsList";
 import UpdateUser from "./UpdateUser";
+import { fetchConversion } from "../../store/conversion";
 import {
   Typography,
   Paper,
@@ -276,6 +277,8 @@ const ProfilePage = (props) => {
               user={props.user}
               contributions={props.contributions}
               refund={props.refund}
+              conversion={props.conversion}
+              fetchConversion={props.fetchConversion}
             />
           </Grid>
         )}
@@ -290,6 +293,7 @@ const mapState = (state) => {
     user: state.user,
     projects: state.projects,
     contributions: state.contributions,
+    conversion: state.conversion,
   };
 };
 
@@ -303,6 +307,7 @@ const mapDispatch = (dispatch) => {
       dispatch(fetchContributionsByUser(userId)),
     refund: (userId, contributionId) =>
       dispatch(refund(userId, contributionId)),
+    fetchConversion: () => dispatch(fetchConversion()),
   };
 };
 

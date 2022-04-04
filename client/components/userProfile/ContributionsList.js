@@ -13,7 +13,7 @@ import {
 } from "@mui/material";
 import { Link, useParams } from "react-router-dom";
 import { loadWeb3, loadContractData } from "../../web3/web3";
-import { formatIsoToUnix } from "../smallComponents/utilities";
+import { formatIsoToUnix, weiToUSD } from "../smallComponents/utilities";
 import {
   FundsTransferWait,
   PleaseCheckYourAccount,
@@ -33,6 +33,7 @@ const ContributionsList = (props) => {
       const accountAddress = await loadWeb3();
       if (accountAddress) setAccount(accountAddress[0]);
       if (!accountAddress) setNoMetamask(true);
+      await props.fetchConversion();
       setIsUpdated(false);
     } catch (error) {
       console.error(
@@ -60,14 +61,13 @@ const ContributionsList = (props) => {
       const campaignContract = await loadContractData(
         project.campaign_contract_address
       );
-      
+
       setBlockchainWait(true);
       await campaignContract.methods
         .refund(props.auth.id)
         .send({ from: account });
       await props.refund(props.auth.id, contributionId);
       setBlockchainWait(false);
-
     } catch (error) {
       console.error("error in handleRefund", error);
       setError(true);
@@ -118,7 +118,10 @@ const ContributionsList = (props) => {
             };
             return (
               <Grid key={contribution.id} item xs={12} md={6}>
-                <Card sx={{ maxWidth: 500 }} variant="outlined">
+                <Card
+                  sx={{ maxWidth: 500, maxHeight: 450, minHeight: 450 }}
+                  variant="outlined"
+                >
                   <CardActionArea
                     component={Link}
                     to={`/projects/${project.id}`}
@@ -152,11 +155,16 @@ const ContributionsList = (props) => {
                       >
                         {shortenedDescription()}
                       </Typography>
+                      {props.auth.id === props.user.id ? (
+                        <Typography>
+                          Donated: {weiToUSD(contribution.contributionAmount, props.conversion)}
+                        </Typography>
+                      ) : null}
                     </CardContent>
                   </CardActionArea>
                   {/* for releasing funds after campaign has failed */}
                   {!project.reachedGoal &&
-                  props.auth.password === props.user.password &&
+                  props.auth.id === props.user.id &&
                   formatIsoToUnix(project.campaign_timeline_end) < Date.now() &&
                   contribution.refunded === false ? (
                     <CardActions className="refund–button-and-alert">
@@ -175,7 +183,8 @@ const ContributionsList = (props) => {
                       </Button>
                     </CardActions>
                   ) : null}
-                  {contribution.refunded === true ? (
+                  {contribution.refunded === true &&
+                  props.auth.id === props.user.id ? (
                     <Alert severity="info" sx={{ m: 1 }}>
                       Your donation has been returned to your wallet.
                     </Alert>

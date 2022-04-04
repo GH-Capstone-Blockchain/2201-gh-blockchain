@@ -1,4 +1,4 @@
-import React from 'react'
+import React from "react";
 import {
   Biotech,
   Functions,
@@ -8,25 +8,22 @@ import {
   Psychology,
   FactCheck,
   School,
-  Science, 
-  Cyclone, 
+  Science,
+  Cyclone,
   SettingsSuggest,
-  People, 
+  People,
   Healing,
   Brush,
   BackupTable,
   Public,
   EmojiObjects,
-  AccountBalance, 
-  Android
+  AccountBalance,
+  Android,
 } from "@mui/icons-material";
 
-
-
 export const convertDate = (date) => {
-    return new Date(date).toString().slice(4,16)
-}
-
+  return new Date(date).toString().slice(4, 16);
+};
 
 // export const projectToUSD = async (project) => {
 //     try {
@@ -40,7 +37,7 @@ export const convertDate = (date) => {
 //             totalDonations: Math.round(
 //                 conversion * (project.totalDonations / Math.pow(10, 18)) * 100
 //               ) / 100,
-    
+
 //             percentReached: Math.floor(
 //                 (project.totalDonations / project.fundraising_goal) * 100
 //               ),
@@ -50,20 +47,20 @@ export const convertDate = (date) => {
 //     }
 // }
 export const projectToUSD = (project, conversion) => {
-        return {
-            fundraisingGoal: Math.round(
-                conversion * (project.fundraising_goal / Math.pow(10, 18))
-              ),
-            totalDonations: Math.round(
-                conversion * (project.totalDonations / Math.pow(10, 18)) * 100
-              ) / 100,
-    
-            percentReached: Math.floor(
-                (project.totalDonations / project.fundraising_goal) * 100
-              ),
-        }
-}
+  return {
+    fundraisingGoal: Math.round(
+      conversion * (project.fundraising_goal / Math.pow(10, 18))
+    ),
+    totalDonations:
+      Math.round(
+        conversion * (project.totalDonations / Math.pow(10, 18)) * 100
+      ) / 100,
 
+    percentReached: Math.floor(
+      (project.totalDonations / project.fundraising_goal) * 100
+    ),
+  };
+};
 
 // export const weiToUSD = async (wei) => {
 //     try {
@@ -75,8 +72,12 @@ export const projectToUSD = (project, conversion) => {
 //     }
 // }
 export const weiToUSD = (wei, conversion) => {
-        return (wei / Math.pow(10, 18)) * conversion
-}
+  const formatter = new Intl.NumberFormat("en-US", {
+    style: "currency",
+    currency: "USD",
+  });
+  return formatter.format((wei / Math.pow(10, 18)) * conversion);
+};
 
 export const categoriesArr = [
   { name: "All", icon: <FactCheck /> },
@@ -90,7 +91,7 @@ export const categoriesArr = [
   { name: "Chemistry", icon: <Science /> },
   { name: "Physics", icon: <Cyclone /> },
   { name: "Paleontology", icon: <Android /> },
-  { name: "Engineering", icon: <SettingsSuggest/> },
+  { name: "Engineering", icon: <SettingsSuggest /> },
   { name: "Social Science", icon: <People /> },
   { name: "Medicine", icon: <Healing /> },
   { name: "Art and Design", icon: <Brush /> },
