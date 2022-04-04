@@ -276,7 +276,7 @@ export function AddDonationConfirmation(props) {
 }
 
 //for release funds and refund buttons
-export function FundTransferWait(props) {
+export function FundsTransferWait(props) {
   return (
     <Dialog
       open={props.open}

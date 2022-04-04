@@ -155,9 +155,9 @@ const ProjectDashboard = (props) => {
             marginBottom: "200px",
           }}
         >
-          {/* <NoMetaMaskError handleClose={handleClose} open={noMetamask} />
+          <NoMetaMaskError handleClose={handleClose} open={noMetamask} />
           <FundsTransferWait open={blockchainWait} />
-          <PleaseCheckYourAccount handleClose={handleClose} open={error} /> */}
+          <PleaseCheckYourAccount handleClose={handleClose} open={error} />
           <Grid
             item
             xs={12}
