@@ -162,7 +162,13 @@ const ContributionsList = (props) => {
               // {view for personal profile page}
               <Grid key={contribution.id} item xs={12} md={6}>
                 <Card
-                  sx={{ maxWidth: 500, maxHeight: 450, minHeight: 450, display: "flex", flexDirection: "column", justifyContent: "space-between"}}
+                  sx={{
+                    maxWidth: 500,
+                    maxHeight: 500,
+                    minHeight: 500,
+                    display: "flex",
+                    flexDirection: "column",
+                  }}
                   variant="outlined"
                 >
                   <CardActionArea
@@ -176,7 +182,11 @@ const ContributionsList = (props) => {
                     />
                   </CardActionArea>
 
-                  <CardContent>
+                  <CardContent
+                    sx={{
+                      height: "auto",
+                    }}
+                  >
                     <CardActionArea
                       component={Link}
                       to={`/projects/${project.id}`}
@@ -192,35 +202,34 @@ const ContributionsList = (props) => {
                           {project.name}
                         </Typography>
                       </Box>
-                      <Typography
-                        variant="body2"
-                        color="text.secondary"
-                        sx={{
-                          height: "auto",
-                          overflow: "auto",
-                          textOverflow: "ellipsis",
-                        }}
-                      >
-                        {/* {shortenedDescription(project.description)} */}
-                        {project.description}
-                      </Typography>
                     </CardActionArea>
-                    {props.auth.id === props.user.id ? (
-                      <Typography sx={{ py: 1 }}>
-                        <strong>Donated:</strong>{" "}
-                        {weiToUSD(
-                          contribution.contributionAmount,
-                          props.conversion
-                        )}
-                      </Typography>
-                    ) : null}
+                    <Typography
+                      variant="body2"
+                      color="text.secondary"
+                      sx={{
+                        height: 90,
+                        overflow: "hidden",
+                        textOverflow: "ellipsis",
+                      }}
+                    >
+                      {/* {shortenedDescription(project.description)} */}
+                      {project.description}
+                    </Typography>
+
+                    <Typography sx={{ py: 1 }}>
+                      <strong>Donated:</strong>{" "}
+                      {weiToUSD(
+                        contribution.contributionAmount,
+                        props.conversion
+                      )}
+                    </Typography>
                   </CardContent>
                   {/* for releasing funds after campaign has failed */}
                   {!project.reachedGoal &&
                   formatIsoToUnix(project.campaign_timeline_end) < Date.now() &&
                   contribution.refunded === false ? (
                     <CardActions className="refund–button-and-alert">
-                      <Alert severity="info" sx={{ mx: 0.5, }}>
+                      <Alert severity="info" sx={{ mx: 0.5 }}>
                         {" "}
                         Campaign was unsuccessful -{" "}
                         <strong>click below to release donation</strong>
@@ -236,7 +245,7 @@ const ContributionsList = (props) => {
                     </CardActions>
                   ) : null}
                   {contribution.refunded === true ? (
-                    <Alert severity="info" sx={{ m: 1, position: "fixed", bottom: 3 }}>
+                    <Alert severity="info" sx={{ m: 1, position: "relative", bottom: 0 }}>
                       Your donation has been returned to your wallet.
                     </Alert>
                   ) : null}

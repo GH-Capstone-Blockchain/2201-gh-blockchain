@@ -403,8 +403,8 @@ const ProjectDashboard = (props) => {
                       Video Link
                     </Button>
                     {props.project.reachedGoal &&
-                    formatIsoToUnix(props.project.campaign_timeline_end) <
-                      Date.now() &&
+                    // formatIsoToUnix(props.project.campaign_timeline_end) <
+                    //   Date.now() &&
                     props.project.isFunded === false ? (
                       <>
                         <Alert severity="success" sx={{ mx: 0.5 }}>
