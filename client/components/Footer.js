@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { Container, Typography, Grid, Box } from "@mui/material";
+import React from "react";
+import { Typography, Grid, Box } from "@mui/material";
 
 export default function Footer() {
   return (
@@ -12,7 +12,6 @@ export default function Footer() {
         bottom: "0",
         backgroundColor: "#051f2e",
         padding: "15px",
-        // opacity: "0.8",
         display: "flex",
         alignItems: "center",
         marginLeft: "auto",

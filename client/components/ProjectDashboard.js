@@ -295,12 +295,10 @@ const ProjectDashboard = (props) => {
           <Grid item xs={12} style={{ maxWidth: "600px" }}>
             <Grid
               container
-              // spacing={2}
               sx={{
                 display: "flex",
                 justifyContent: "flex-start",
                 alignItems: "flex-start",
-                // background: "#051f2e",
               }}
             >
               <Grid item xs={12} align="flex-start">
@@ -403,8 +401,6 @@ const ProjectDashboard = (props) => {
                       Video Link
                     </Button>
                     {props.project.reachedGoal &&
-                    // formatIsoToUnix(props.project.campaign_timeline_end) <
-                    //   Date.now() &&
                     props.project.isFunded === false ? (
                       <>
                         <Alert severity="success" sx={{ mx: 0.5 }}>

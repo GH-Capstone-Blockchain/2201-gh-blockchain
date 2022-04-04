@@ -1,5 +1,4 @@
 import ProjectCard from "./ProjectCard";
-import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 
 import React from "react";
@@ -42,7 +41,6 @@ export default function Featured(props) {
         <Grid item xs={12}>
           <Box
             sx={{
-              // backgroundColor: "rgba(255, 255, 255, 0.7)",
               marginTop: "10px",
             }}
           >

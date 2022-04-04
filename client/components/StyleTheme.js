@@ -1,10 +1,8 @@
-import React from "react";
 import {
-  ThemeProvider,
   createTheme,
   responsiveFontSizes,
 } from "@mui/material/styles";
-import Button from "@mui/material/Button";
+
 
 let theme = createTheme({
   palette: {
@@ -21,14 +19,6 @@ let theme = createTheme({
       contrastText: "#051f2e",
     },
   },
-  // button: {
-  //   backgroundColor: "#3c52b2",
-  //   color: "#fff",
-  //   "&:hover": {
-  //     backgroundColor: "#fff",
-  //     color: "#3c52b2",
-  //   },
-  // },
 });
 
 theme = responsiveFontSizes(theme);

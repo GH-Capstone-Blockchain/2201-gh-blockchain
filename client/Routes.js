@@ -1,9 +1,8 @@
-import React, { Component, Fragment } from "react";
+import React, { Component } from "react";
 import { connect } from "react-redux";
-import { Route, Routes, Switch, Redirect, Navigate} from "react-router-dom";
+import { Route, Routes,Navigate} from "react-router-dom";
 import { Login } from "./components/authForms/Login";
 import { Signup } from "./components/authForms/SignUp";
-import Home from "./components/Home";
 import LandingPage from "./components/LandingPage";
 import SingleProject from "./components/SingleProject";
 import AllProjects from "./components/AllProjects2";
@@ -12,14 +11,8 @@ import ScientistsDropDown from "./components/smallComponents/ScientistsDropDown"
 import TestingPage from "./components/Testing";
 import ProjectDashboard from "./components/ProjectDashboard";
 import ProfilePage from "./components/userProfile/ProfilePage";
-import AboutPage from "./components/AboutPage";
-
 import { me } from "./store";
 
-
-/**
- * COMPONENT
- */
 class Routers extends Component {
   componentDidMount() {
     this.props.loadInitialData();
@@ -57,13 +50,8 @@ class Routers extends Component {
   }
 }
 
-/**
- * CONTAINER
- */
 const mapState = (state) => {
   return {
-    // Being 'logged in' for our purposes will be defined has having a state.auth that has a truthy id.
-    // Otherwise, state.auth will be an empty object, and state.auth.id will be falsey
     isLoggedIn: !!state.auth.id,
   };
 };
@@ -76,6 +64,4 @@ const mapDispatch = (dispatch) => {
   };
 };
 
-// The `withRouter` wrapper makes sure that updates are not blocked
-// when the url changes
 export default connect(mapState, mapDispatch)(Routers);
