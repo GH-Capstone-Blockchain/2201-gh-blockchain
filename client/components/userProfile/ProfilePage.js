@@ -224,7 +224,9 @@ const ProfilePage = (props) => {
               }}
               noValidate
               autoComplete="off"
-              onSubmit={handleSubmit}
+              onSubmit={() => {
+                handleSubmit;
+              }}
             >
               {toggle ? (
                 <div>
