@@ -37,13 +37,13 @@ class Routers extends Component {
           <Routes>
             <Route path="addproject" element={<AddProjectForm />} />
             <Route path="login" element={<Navigate replace to="/projects" />} />
-            <Route path="*" element={<PageNotFound />} />
+            {/* <Route path="*" element={<PageNotFound />} /> */}
           </Routes>
         ) : (
           <Routes>
             <Route path="login" element={<Login />} />
             <Route path="/signup" element={<Signup />} />
-            <Route path="*" element={<PageNotFound />} />
+            {/* <Route path="*" element={<PageNotFound />} /> */}
           </Routes>
         )}
       </div>
