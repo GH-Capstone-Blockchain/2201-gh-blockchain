@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { Route, Routes,Navigate} from "react-router-dom";
+import { Route, Routes, Navigate } from "react-router-dom";
 import { Login } from "./components/authForms/Login";
 import { Signup } from "./components/authForms/SignUp";
 import LandingPage from "./components/LandingPage";
@@ -22,31 +22,29 @@ class Routers extends Component {
     const { isLoggedIn } = this.props;
 
     return (
-      <div>
-        <Routes>
-          <Route path="/" element={<LandingPage />} />
-          {/* <Route path="/about" element={<AboutPage />} /> */}
-          <Route path="projects" element={<AllProjects />} />
-          <Route path="projects/:id" element={<SingleProject />} />
-          <Route path="dropdown" element={<ScientistsDropDown />} />
-          <Route path="user/:id" element={<ProfilePage />} />
-          <Route path="dashboard/:id" element={<ProjectDashboard />} />
-          
-        </Routes>
+      <Routes>
+        <Route path="/" element={<LandingPage />} />
+        {/* <Route path="/about" element={<AboutPage />} /> */}
+        <Route path="projects" element={<AllProjects />} />
+        <Route path="projects/:id" element={<SingleProject />} />
+        <Route path="dropdown" element={<ScientistsDropDown />} />
+        <Route path="user/:id" element={<ProfilePage />} />
+        <Route path="dashboard/:id" element={<ProjectDashboard />} />
+
         {isLoggedIn ? (
-          <Routes>
+          <>
             <Route path="addproject" element={<AddProjectForm />} />
             <Route path="login" element={<Navigate replace to="/projects" />} />
-            {/* <Route path="*" element={<PageNotFound />} /> */}
-          </Routes>
+            <Route path="*" element={<PageNotFound />} />
+          </>
         ) : (
-          <Routes>
+          <>
             <Route path="login" element={<Login />} />
             <Route path="/signup" element={<Signup />} />
-            {/* <Route path="*" element={<PageNotFound />} /> */}
-          </Routes>
+            <Route path="*" element={<PageNotFound />} />
+          </>
         )}
-      </div>
+      </Routes>
     );
   }
 }
