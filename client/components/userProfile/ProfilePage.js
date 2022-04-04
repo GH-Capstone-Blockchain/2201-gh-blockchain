@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import { fetchUser, updateUser } from "../../store/user";
 import { fetchProjectsByScientist } from "../../store/projects";
 import { fetchContributionsByUser, refund } from "../../store/contributions";
-import { Link, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import CredsAndPubs from "./CredsAndPubs";
 import ProjectsList from "./ProjectsList";
 import ContributionsList from "./ContributionsList";
@@ -161,11 +161,10 @@ const ProfilePage = (props) => {
                 {props.user.username}
               </Typography>
               {props.auth.password === props.user.password ? (
-                // <Link to={`/`}>
                 <Button variant="contained" onClick={toggleEdit}>
                   Edit
                 </Button>
-              ) : // </Link>
+              ) : 
               null}
             </Box>
           </Grid>
