@@ -8,6 +8,7 @@ import CredsAndPubs from "./CredsAndPubs";
 import ProjectsList from "./ProjectsList";
 import ContributionsList from "./ContributionsList";
 import UpdateUser from "./UpdateUser";
+import { fetchConversion } from "../../store/conversion";
 import {
   Typography,
   Paper,
@@ -84,7 +85,6 @@ const ProfilePage = (props) => {
   const handleSubmit = async (e) => {
     try {
       e.preventDefault();
-      console.log(form);
       await props.updateUser(form);
       setIsUpdated(true);
       setForm({
@@ -94,6 +94,7 @@ const ProfilePage = (props) => {
         profileImg: props.user.profileImg,
         bio: props.user.bio,
       });
+      setToggle(false);
     } catch (error) {
       console.log(error);
     }
@@ -224,9 +225,7 @@ const ProfilePage = (props) => {
               }}
               noValidate
               autoComplete="off"
-              onSubmit={() => {
-                handleSubmit;
-              }}
+              onSubmit={handleSubmit}
             >
               {toggle ? (
                 <div>
@@ -276,6 +275,8 @@ const ProfilePage = (props) => {
               user={props.user}
               contributions={props.contributions}
               refund={props.refund}
+              conversion={props.conversion}
+              fetchConversion={props.fetchConversion}
             />
           </Grid>
         )}
@@ -290,6 +291,7 @@ const mapState = (state) => {
     user: state.user,
     projects: state.projects,
     contributions: state.contributions,
+    conversion: state.conversion,
   };
 };
 
@@ -303,6 +305,7 @@ const mapDispatch = (dispatch) => {
       dispatch(fetchContributionsByUser(userId)),
     refund: (userId, contributionId) =>
       dispatch(refund(userId, contributionId)),
+    fetchConversion: () => dispatch(fetchConversion()),
   };
 };
 
