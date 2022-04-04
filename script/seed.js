@@ -479,7 +479,7 @@ async function seed() {
     campaign_timeline_start: "2022-04-15",
     campaign_timeline_end: "2022-06-15",
     fundraising_goal: 6 * Math.pow(10, 18),
-    totalDonations: 4 * Math.pow(10, 18),
+    totalDonations: 0.1 * Math.pow(10, 18),
     isFunded: false,
   });
 
@@ -560,7 +560,7 @@ async function seed() {
     campaign_timeline_start: "2022-6-01",
     campaign_timeline_end: "2022-10-01",
     fundraising_goal: 3 * Math.pow(10, 18),
-    totalDonations: 4 * Math.pow(10, 18),
+    totalDonations: 0.2 * Math.pow(10, 18),
 
     isFunded: false,
   });
@@ -577,7 +577,7 @@ async function seed() {
     campaign_timeline_start: "2022-03-21",
     campaign_timeline_end: "2022-10-01",
     fundraising_goal: 5 * Math.pow(10, 18),
-    totalDonations: 4 * Math.pow(10, 18),
+    totalDonations: 0.3 * Math.pow(10, 18),
 
     isFunded: false,
   });
@@ -611,7 +611,7 @@ async function seed() {
     campaign_timeline_start: "2022-04-13",
     campaign_timeline_end: "2022-06-13",
     fundraising_goal: 8 * Math.pow(10, 18),
-    totalDonations: 3 * Math.pow(10, 18),
+    totalDonations: 2 * Math.pow(10, 18),
 
     isFunded: false,
   });
@@ -645,7 +645,7 @@ async function seed() {
     campaign_timeline_start: "2022-04-13",
     campaign_timeline_end: "2022-06-13",
     fundraising_goal: 8 * Math.pow(10, 18),
-    totalDonations: 7 * Math.pow(10, 18),
+    totalDonations: 2.9 * Math.pow(10, 18),
 
     isFunded: false,
   });
@@ -755,7 +755,7 @@ async function seed() {
     project_timeline_end: "2022-09-01",
     campaign_timeline_start: "2022-04-13",
     campaign_timeline_end: "2022-06-13",
-    fundraising_goal: 1.1 * Math.pow(10, 18),
+    fundraising_goal: 4.1 * Math.pow(10, 18),
     totalDonations: 0.7 * Math.pow(10, 18),
 
     isFunded: false,
@@ -833,6 +833,7 @@ async function seed() {
   await scientistHongni.addProject(mommyPrimates);
   await scientistAlex.addProject(mommyPrimates);
   await scientistJustin.addProject(sealBehaviorWithAI);
+  await scientistJustin.addProject(mesozoic);
   await scientistCatherine.addProject(sealBehaviorWithAI);
   await scientistStefan.addProject(informedConsumers);
   await scientistStefan.addProject(recycling);
@@ -844,6 +845,7 @@ async function seed() {
   await scientistHongni.addProject(coralReefs);
   await scientistMurphy.addProject(congoBasin);
   await scientistAlex.addProject(congoBasin);
+  await scientistAlex.addProject(mesozoic);
   await scientistEmerson.addProject(americanChesnut);
   await scientistChristian.addProject(romeNewCities);
   await scientistCHyeRim.addProject(romeNewCities);
@@ -853,47 +855,47 @@ async function seed() {
 
   await marinePollution.createContribution({
     userId: 3,
-    contributionAmount: 3,
+    contributionAmount: 0.2* Math.pow(10, 18),
   });
   await marinePollution.createContribution({
     userId: 18,
-    contributionAmount: 3,
+    contributionAmount: 0.3* Math.pow(10, 18),
   });
   await informedConsumers.createContribution({
     userId: 18,
-    contributionAmount: 3,
+    contributionAmount: 0.6* Math.pow(10, 18),
   });
-  await congoBasin.createContribution({ userId: 18, contributionAmount: 3 });
-  await coralReefs.createContribution({ userId: 20, contributionAmount: 3 });
+  await congoBasin.createContribution({ userId: 18, contributionAmount: 1.2* Math.pow(10, 18) });
+  await coralReefs.createContribution({ userId: 20, contributionAmount: 0.9* Math.pow(10, 18) });
   await analysisOfSleep.createContribution({
     userId: 20,
-    contributionAmount: 3,
+    contributionAmount: 0.3* Math.pow(10, 18),
   });
-  await congoBasin.createContribution({ userId: 20, contributionAmount: 3 });
+  await congoBasin.createContribution({ userId: 20, contributionAmount: 0.7* Math.pow(10, 18) });
   await marinePollution.createContribution({
     userId: 4,
-    contributionAmount: 5,
+    contributionAmount: 0.8* Math.pow(10, 18),
   });
 
   await marinePollution.createContribution({
-    userId: 69,
-    contributionAmount: 5,
+    userId: 52,
+    contributionAmount: 0.4* Math.pow(10, 18),
   });
   await congoBasin.createContribution({
-    userId: 69,
-    contributionAmount: 5,
+    userId: 31,
+    contributionAmount: 0.7* Math.pow(10, 18),
   });
   await congoBasin.createContribution({
-    userId: 70,
-    contributionAmount: 5,
+    userId: 57,
+    contributionAmount: 0.2* Math.pow(10, 18),
   });
   await informedConsumers.createContribution({
-    userId: 70,
-    contributionAmount: 5,
+    userId: 49,
+    contributionAmount: 0.6* Math.pow(10, 18),
   });
   await analysisOfSleep.createContribution({
-    userId: 70,
-    contributionAmount: 5,
+    userId: 13,
+    contributionAmount: 1.2* Math.pow(10, 18),
   });
   await democracy.createContribution({
     userId: 21,
