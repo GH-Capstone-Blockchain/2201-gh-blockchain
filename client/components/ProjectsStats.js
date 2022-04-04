@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { Typography, Grid, IconButton } from "@mui/material";
 import { animated, useSpring } from "react-spring";
 import { KeyboardArrowDown } from "@mui/icons-material";

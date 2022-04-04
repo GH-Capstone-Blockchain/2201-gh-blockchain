@@ -1,5 +1,5 @@
 import React from "react";
-import { Typography, Box, Grid } from "@mui/material";
+import { Typography, Grid } from "@mui/material";
 import { convertDate } from "./smallComponents/utilities";
 
 export default function AboutProject(props) {

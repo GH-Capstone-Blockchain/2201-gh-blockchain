@@ -1,5 +1,5 @@
 import React from 'react';
-import { Typography, Button, Box, Grid } from '@mui/material';
+import { Typography, Button, Grid } from '@mui/material';
 import { Link } from 'react-router-dom';
 
 const NoProjectsToViewPage = () => {
@@ -12,7 +12,6 @@ const NoProjectsToViewPage = () => {
           display: 'flex',
           justifyContent: 'center',
           alignItems: 'center',
-          // background: "#051f2e",
         }}
       >
         {' '}

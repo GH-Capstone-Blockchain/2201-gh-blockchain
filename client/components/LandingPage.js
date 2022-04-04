@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import ParticlesComp from "./Particles";
 import Featured from "./Featured";
 import { connect } from "react-redux";
@@ -8,8 +8,6 @@ import Reasons from "./Reasons";
 import ProjectsStats from "./ProjectsStats";
 import Team from "./Team";
 import EasySteps from "./EasySteps";
-
-//style
 import { Grid } from "@mui/material";
 
 function LandingPage(props) {

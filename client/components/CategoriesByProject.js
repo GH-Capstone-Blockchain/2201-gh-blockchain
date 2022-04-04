@@ -1,11 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { categoriesArr, generateColor } from "./smallComponents/utilities";
-import { Box, Grid, Button, Typography, GridItem } from "@mui/material";
+import { Box, Grid, Button} from "@mui/material";
 
 export default function CategoriesByProject(props) {
   const [loading, setLoading] = useState(true);
   const [categories, setCategories] = useState([]);
-  const [array, setArray] = useState([])
 
   useEffect(() => {
     if (props.project.categories) {

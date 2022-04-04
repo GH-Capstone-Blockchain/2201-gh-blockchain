@@ -5,7 +5,6 @@ import {
   CardMedia,
   CardContent,
   Typography,
-  Button,
   CardActions,
   Box,
   LinearProgress,
@@ -13,6 +12,7 @@ import {
 import { Link } from "react-router-dom";
 import { fetchConversion } from "../store/conversion";
 import { connect } from "react-redux";
+import {projectToUSD} from './smallComponents/utilities'
 
 
 function ProjectCard(props) {
@@ -27,10 +27,8 @@ function ProjectCard(props) {
       return project.description;
     }
   };
-  const goal = Math.round(props.conversion * (project.fundraising_goal / Math.pow(10,18)));
-  const contributions =
-    Math.round(props.conversion * (project.totalDonations / Math.pow(10,18)) * 100) / 100;
-  const percent = Math.floor((project.totalDonations / project.fundraising_goal) * 100);
+  let usdVals = projectToUSD(project, props.conversion);
+
 
   return (
     <Card sx={{ maxWidth: 500 }} variant="outlined">
@@ -92,11 +90,11 @@ function ProjectCard(props) {
             }}
           >
             {" "}
-            Goal: ${goal}
+            Goal: ${usdVals.fundraisingGoal}
           </Typography>
           <LinearProgress
             variant="determinate"
-            value={percent > 100 ? 100 : percent}
+            value={usdVals.percentReached > 100 ? 100 : usdVals.percentReached}
             sx={{ width: 120, alignSelf: "center" }}
           />
           <Typography
@@ -106,13 +104,10 @@ function ProjectCard(props) {
               color: "#051f2e",
             }}
           >
-            {percent > 100 ? 100 : percent}%
+            {usdVals.percentReached > 100 ? 100 : usdVals.percentReached}%
           </Typography>
         </Box>
 
-        {/* <Button size="small" color="primary">
-          +Donate
-        </Button> */}
       </CardActions>
     </Card>
   );

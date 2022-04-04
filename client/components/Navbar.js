@@ -2,8 +2,6 @@ import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import { logout } from "../store";
-
-//style
 import {
   Button,
   AppBar,
@@ -15,44 +13,9 @@ import {
   Typography,
   Grid,
   Drawer,
-  MenuItem,
 } from "@mui/material";
 
 import { Menu } from "@mui/icons-material";
-
-// const links = [
-//   {
-//     label: "Projects",
-//     link: "/addproject",
-//     always: true,
-//   },
-//   {
-//     label: "Start A Project",
-//     link: "/addproject",
-//     always: false,
-//     isLoggedIn: true,
-//     isScientist: true,
-//   },
-//   {
-//     label: "Dashboard",
-//     link: `/dashboard/${auth.id}`,
-//     always: false,
-//     isLoggedIn: true,
-//     isScientist: true,
-//   },
-//   {
-//     label: "My Profile",
-//     link: `/user/${auth.id}`,
-//     always: false,
-//     isLoggedIn: true,
-//   },
-//   {
-//     label: "Logout",
-//     link: `/user/${auth.id}`,
-//     always: false,
-//     isLoggedIn: true,
-//   },
-// ];
 
 const Navbar = ({ handleClick, isLoggedIn, auth, profileImg }) => {
   const [anchorElUser, setAnchorElUser] = React.useState(null);
@@ -266,7 +229,6 @@ const Navbar = ({ handleClick, isLoggedIn, auth, profileImg }) => {
           alignItems: "flex-end",
         }}
       >
-        {/* <Grid item xs = {10} */}
         {isLoggedIn ? (
           <Grid item>
             <Link to="/projects">
@@ -300,10 +262,6 @@ const Navbar = ({ handleClick, isLoggedIn, auth, profileImg }) => {
         ) : (
           <Grid item>
             {/* The navbar will show these links before you log in */}
-
-            {/* <Link to="/about">
-        <Button>About</Button>
-      </Link> */}
             <Link to="/projects">
               <Button>All Projects</Button>
             </Link>
@@ -327,9 +285,6 @@ const Navbar = ({ handleClick, isLoggedIn, auth, profileImg }) => {
   );
 };
 
-/**
- * CONTAINER
- */
 const mapState = (state) => {
   return {
     isLoggedIn: !!state.auth.id,
@@ -347,3 +302,38 @@ const mapDispatch = (dispatch) => {
 };
 
 export default connect(mapState, mapDispatch)(Navbar);
+
+
+// const links = [
+//   {
+//     label: "Projects",
+//     link: "/addproject",
+//     always: true,
+//   },
+//   {
+//     label: "Start A Project",
+//     link: "/addproject",
+//     always: false,
+//     isLoggedIn: true,
+//     isScientist: true,
+//   },
+//   {
+//     label: "Dashboard",
+//     link: `/dashboard/${auth.id}`,
+//     always: false,
+//     isLoggedIn: true,
+//     isScientist: true,
+//   },
+//   {
+//     label: "My Profile",
+//     link: `/user/${auth.id}`,
+//     always: false,
+//     isLoggedIn: true,
+//   },
+//   {
+//     label: "Logout",
+//     link: `/user/${auth.id}`,
+//     always: false,
+//     isLoggedIn: true,
+//   },
+// ];
