@@ -31,17 +31,19 @@ class Routers extends Component {
           <Route path="dropdown" element={<ScientistsDropDown />} />
           <Route path="user/:id" element={<ProfilePage />} />
           <Route path="dashboard/:id" element={<ProjectDashboard />} />
-          <Route path="*" element={<PageNotFound />} />
+          
         </Routes>
         {isLoggedIn ? (
           <Routes>
             <Route path="addproject" element={<AddProjectForm />} />
             <Route path="login" element={<Navigate replace to="/projects" />} />
+            <Route path="*" element={<PageNotFound />} />
           </Routes>
         ) : (
           <Routes>
             <Route path="login" element={<Login />} />
             <Route path="/signup" element={<Signup />} />
+            <Route path="*" element={<PageNotFound />} />
           </Routes>
         )}
       </div>
