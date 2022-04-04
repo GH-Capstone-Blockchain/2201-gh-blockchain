@@ -493,7 +493,7 @@ async function seed() {
     project_timeline_start: "2022-10-15",
     project_timeline_end: "2023-03-01",
     campaign_timeline_start: "2022-05-01",
-    campaign_timeline_end: "2022-07-01",
+    campaign_timeline_end: "2022-04-01",
     fundraising_goal: 2 * Math.pow(10, 18),
     totalDonations: 0.2 * Math.pow(10, 18),
     isFunded: false,

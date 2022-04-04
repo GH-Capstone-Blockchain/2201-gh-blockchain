@@ -1,5 +1,6 @@
 import axios from "axios";
 import Campaign from "../../build/contracts/Campaign.json";
+import {formatIsoToUnix} from '../components/smallComponents/utilities'
 
 const SET_PROJECTS = "SET_PROJECTS";
 const ADD_PROJECT = "ADD_PROJECT";
@@ -34,6 +35,11 @@ export const fetchProjectsByScientist = (userId) => {
   return async (dispatch) => {
     try {
       const { data } = await axios.get(`/api/projects/scientist/${userId}`);
+      const notPassedDeadline = data.filter(project => {
+        const dateNow = Date.now() / 1000
+        const campaignEnd = formatIsoToUnix(project.campaign_timeline_end)
+        return dateNow < campaignEnd
+      })
       dispatch(setProjects(data));
     } catch (error) {
       console.log('error in fetchProjectsByScientist thunk', error);
