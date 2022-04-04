@@ -1,6 +1,6 @@
 import React, { Component, Fragment } from "react";
 import { connect } from "react-redux";
-import { Route, Routes, Switch, Redirect } from "react-router-dom";
+import { Route, Routes, Switch, Redirect, Navigate} from "react-router-dom";
 import { Login } from "./components/authForms/Login";
 import { Signup } from "./components/authForms/SignUp";
 import Home from "./components/Home";
@@ -16,10 +16,6 @@ import AboutPage from "./components/AboutPage";
 
 import { me } from "./store";
 
-//blockchain
-import Web3 from "web3";
-
-import { loadWeb3, loadAccount } from "./store/interactions";
 
 /**
  * COMPONENT
@@ -43,16 +39,15 @@ class Routers extends Component {
           <Route path="test" element={<TestingPage />} />
           <Route path="user/:id" element={<ProfilePage />} />
           <Route path="dashboard/:id" element={<ProjectDashboard />} />
+          
         </Routes>
         {isLoggedIn ? (
           <Routes>
             <Route path="addproject" element={<AddProjectForm />} />
-            {/* <Route path="/loggedin" element={<Home />} /> */}
+            <Route path="login" element={<Navigate replace to="/projects" />} />
           </Routes>
         ) : (
           <Routes>
-            {/* <Route path="/notloggedin" element={<Login />} /> */}
-
             <Route path="login" element={<Login />} />
             <Route path="/signup" element={<Signup />} />
           </Routes>
