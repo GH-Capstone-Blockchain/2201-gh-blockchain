@@ -391,20 +391,6 @@ async function seed() {
       firstName: "Yerim",
       lastName: "Kim",
     }),
-    User.create({
-      username: "haha",
-      password: "123",
-      email: "haham@gmail.com",
-      firstName: "haha",
-      lastName: "Kim",
-    }),
-    User.create({
-      username: "hoho",
-      password: "123",
-      email: "hohoKim@gmail.com",
-      firstName: "hoho",
-      lastName: "Kim",
-    }),
   ]);
 
   //Assigning as scientist
