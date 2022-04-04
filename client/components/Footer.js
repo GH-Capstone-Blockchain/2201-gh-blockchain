@@ -19,7 +19,7 @@ export default function Footer() {
         marginRight: "auto",
       }}
     >
-      <Grid item xs={5} textAlign="right">
+      <Grid item xs={4} md={5.5} textAlign="right">
         <Box
           component="img"
           alt="DeSci Funder"
@@ -28,7 +28,7 @@ export default function Footer() {
           marginRight="5px"
         />
       </Grid>
-      <Grid item xs={7} textAlign="left">
+      <Grid item xs={8} md={6.5} textAlign="left">
         <Typography color="primary" marginLeft="5px">
           {" "}
           © 2022 De<span className="main-title-span">Sci </span> Funder{" "}
