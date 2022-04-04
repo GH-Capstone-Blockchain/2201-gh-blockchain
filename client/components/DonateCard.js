@@ -1,10 +1,6 @@
 import React, { useState } from "react";
 import {
-  Card,
-  CardContent,
-  Box,
   Typography,
-  Divider,
   Button,
   LinearProgress,
   TextField,
@@ -42,9 +38,6 @@ export default function DonateCard(props) {
         alignItems: "center",
       }}
     >
-      {/* Progress Label */}
-
-      {/* Need to add contribution data here */}
       <Grid item xs={12}>
         <Typography
           variant="h2"

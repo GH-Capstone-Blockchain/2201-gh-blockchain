@@ -1,6 +1,6 @@
 import axios from "axios";
 import Campaign from "../../build/contracts/Campaign.json";
-import {formatIsoToUnix} from '../components/smallComponents/utilities'
+import { formatIsoToUnix } from "../components/smallComponents/utilities";
 
 const SET_PROJECTS = "SET_PROJECTS";
 const ADD_PROJECT = "ADD_PROJECT";
@@ -23,15 +23,14 @@ export const fetchProjects = () => {
   return async (dispatch) => {
     try {
       const { data } = await axios.get("/api/projects");
-      const notPassedDeadline = data.filter(project => {
-        const dateNow = (Date.now())
-        const campaignEnd = formatIsoToUnix(project.campaign_timeline_end)
-        console.log(project.name, dateNow < campaignEnd)
-        return (dateNow < campaignEnd)
-      })
+      const notPassedDeadline = data.filter((project) => {
+        const dateNow = Date.now();
+        const campaignEnd = formatIsoToUnix(project.campaign_timeline_end);
+        return dateNow < campaignEnd;
+      });
       dispatch(setProjects(notPassedDeadline));
     } catch (error) {
-      console.log('error in fetchProjects thunk', error);
+      console.log("error in fetchProjects thunk", error);
     }
   };
 };
@@ -41,14 +40,9 @@ export const fetchProjectsByScientist = (userId) => {
   return async (dispatch) => {
     try {
       const { data } = await axios.get(`/api/projects/scientist/${userId}`);
-      // const notPassedDeadline = data.filter(project => {
-      //   const dateNow = Date.now()
-      //   const campaignEnd = formatIsoToUnix(project.campaign_timeline_end)
-      //   return dateNow < campaignEnd
-      // })
       dispatch(setProjects(data));
     } catch (error) {
-      console.log('error in fetchProjectsByScientist thunk', error);
+      console.log("error in fetchProjectsByScientist thunk", error);
     }
   };
 };
@@ -57,7 +51,6 @@ export const createProject = (newProject) => {
   return async (dispatch) => {
     try {
       const { data } = await axios.post("/api/projects", newProject);
-      // uint _campaignId, uint _scientistId, address _projectAddress, string memory _title, uint _goalAmount, uint256 _startDate, uint256 _endDate
       const date1 = Math.floor(Date.parse(data.campaign_timeline_start) / 1000);
       const date2 = Math.floor(Date.parse(data.campaign_timeline_end) / 1000);
       const web3 = window.web3;
@@ -73,8 +66,6 @@ export const createProject = (newProject) => {
             data.fundraising_goal,
             date1,
             date2,
-            // Date.parse(data.campaign_timeline_start),
-            // Date.parse(data.campaign_timeline_end),
           ],
         })
         .send({ from: newProject.address });
@@ -82,10 +73,10 @@ export const createProject = (newProject) => {
         campaign_contract_address: response._address,
       });
       dispatch(addProject(data));
-      return true
+      return true;
     } catch (error) {
       console.log(error);
-      return false
+      return false;
     }
   };
 };
