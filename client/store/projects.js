@@ -23,7 +23,13 @@ export const fetchProjects = () => {
   return async (dispatch) => {
     try {
       const { data } = await axios.get("/api/projects");
-      dispatch(setProjects(data));
+      const notPassedDeadline = data.filter(project => {
+        const dateNow = (Date.now())
+        const campaignEnd = formatIsoToUnix(project.campaign_timeline_end)
+        console.log(project.name, dateNow < campaignEnd)
+        return (dateNow < campaignEnd)
+      })
+      dispatch(setProjects(notPassedDeadline));
     } catch (error) {
       console.log('error in fetchProjects thunk', error);
     }
@@ -35,11 +41,11 @@ export const fetchProjectsByScientist = (userId) => {
   return async (dispatch) => {
     try {
       const { data } = await axios.get(`/api/projects/scientist/${userId}`);
-      const notPassedDeadline = data.filter(project => {
-        const dateNow = Date.now() / 1000
-        const campaignEnd = formatIsoToUnix(project.campaign_timeline_end)
-        return dateNow < campaignEnd
-      })
+      // const notPassedDeadline = data.filter(project => {
+      //   const dateNow = Date.now()
+      //   const campaignEnd = formatIsoToUnix(project.campaign_timeline_end)
+      //   return dateNow < campaignEnd
+      // })
       dispatch(setProjects(data));
     } catch (error) {
       console.log('error in fetchProjectsByScientist thunk', error);
