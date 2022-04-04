@@ -74,6 +74,14 @@ const ContributionsList = (props) => {
     }
   };
 
+  const shortenedDescription = (description) => {
+    if (description.length > 150) {
+      return description.slice(0, 150).concat("...");
+    } else {
+      return description;
+    }
+  };
+
   return (
     <Grid
       container
@@ -109,14 +117,49 @@ const ContributionsList = (props) => {
         >
           {props.contributions.map((contribution) => {
             const project = contribution.project;
-            const shortenedDescription = () => {
-              if (project.description.length > 150) {
-                return project.description.slice(0, 150).concat("...");
-              } else {
-                return project.description;
-              }
-            };
-            return (
+            return props.auth.id !== props.user.id ? (
+              // {view for profile page of other users}
+              <Grid key={contribution.id} item xs={12} md={6}>
+                <Card sx={{ maxWidth: 500 }} variant="outlined">
+                  <CardActionArea
+                    component={Link}
+                    to={`/projects/${project.id}`}
+                  >
+                    <CardMedia
+                      component="img"
+                      height="140"
+                      image={project.imageUrl}
+                    />
+
+                    <CardContent>
+                      <Box
+                        sx={{
+                          height: 40,
+                          textOverflow: "ellipsis",
+                          overflow: "hidden",
+                        }}
+                      >
+                        <Typography gutterBottom variant="h6" component="div">
+                          {project.name}
+                        </Typography>
+                      </Box>
+                      <Typography
+                        variant="body2"
+                        color="text.secondary"
+                        sx={{
+                          height: 90,
+                          overflow: "hidden",
+                          textOverflow: "ellipsis",
+                        }}
+                      >
+                        {shortenedDescription(project.description)}
+                      </Typography>
+                    </CardContent>
+                  </CardActionArea>
+                </Card>
+              </Grid>
+            ) : (
+              // {view for personal profile page}
               <Grid key={contribution.id} item xs={12} md={6}>
                 <Card
                   sx={{ maxWidth: 500, maxHeight: 450, minHeight: 450 }}
@@ -153,18 +196,21 @@ const ContributionsList = (props) => {
                           textOverflow: "ellipsis",
                         }}
                       >
-                        {shortenedDescription()}
+                        {shortenedDescription(project.description)}
                       </Typography>
                       {props.auth.id === props.user.id ? (
                         <Typography>
-                          Donated: {weiToUSD(contribution.contributionAmount, props.conversion)}
+                          Donated:{" "}
+                          {weiToUSD(
+                            contribution.contributionAmount,
+                            props.conversion
+                          )}
                         </Typography>
                       ) : null}
                     </CardContent>
                   </CardActionArea>
                   {/* for releasing funds after campaign has failed */}
                   {!project.reachedGoal &&
-                  props.auth.id === props.user.id &&
                   formatIsoToUnix(project.campaign_timeline_end) < Date.now() &&
                   contribution.refunded === false ? (
                     <CardActions className="refund–button-and-alert">
@@ -183,8 +229,7 @@ const ContributionsList = (props) => {
                       </Button>
                     </CardActions>
                   ) : null}
-                  {contribution.refunded === true &&
-                  props.auth.id === props.user.id ? (
+                  {contribution.refunded === true ? (
                     <Alert severity="info" sx={{ m: 1 }}>
                       Your donation has been returned to your wallet.
                     </Alert>
@@ -200,3 +245,4 @@ const ContributionsList = (props) => {
 };
 
 export default ContributionsList;
+
