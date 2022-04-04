@@ -13,7 +13,7 @@ import {
 } from "@mui/material";
 import { Link, useParams } from "react-router-dom";
 import { loadWeb3, loadContractData } from "../../web3/web3";
-import { formatIsoToUnix } from "../smallComponents/utilities";
+import { formatIsoToUnix, weiToUSD } from "../smallComponents/utilities";
 import {
   FundsTransferWait,
   PleaseCheckYourAccount,
@@ -33,6 +33,7 @@ const ContributionsList = (props) => {
       const accountAddress = await loadWeb3();
       if (accountAddress) setAccount(accountAddress[0]);
       if (!accountAddress) setNoMetamask(true);
+      await props.fetchConversion();
       setIsUpdated(false);
     } catch (error) {
       console.error(
@@ -60,17 +61,24 @@ const ContributionsList = (props) => {
       const campaignContract = await loadContractData(
         project.campaign_contract_address
       );
-      
+
       setBlockchainWait(true);
       await campaignContract.methods
         .refund(props.auth.id)
         .send({ from: account });
       await props.refund(props.auth.id, contributionId);
       setBlockchainWait(false);
-
     } catch (error) {
       console.error("error in handleRefund", error);
       setError(true);
+    }
+  };
+
+  const shortenedDescription = (description) => {
+    if (description.length > 150) {
+      return description.slice(0, 150).concat("...");
+    } else {
+      return description;
     }
   };
 
@@ -109,14 +117,8 @@ const ContributionsList = (props) => {
         >
           {props.contributions.map((contribution) => {
             const project = contribution.project;
-            const shortenedDescription = () => {
-              if (project.description.length > 150) {
-                return project.description.slice(0, 150).concat("...");
-              } else {
-                return project.description;
-              }
-            };
-            return (
+            return props.auth.id !== props.user.id ? (
+              // {view for profile page of other users}
               <Grid key={contribution.id} item xs={12} md={6}>
                 <Card sx={{ maxWidth: 500 }} variant="outlined">
                   <CardActionArea
@@ -150,13 +152,80 @@ const ContributionsList = (props) => {
                           textOverflow: "ellipsis",
                         }}
                       >
-                        {shortenedDescription()}
+                        {shortenedDescription(project.description)}
                       </Typography>
                     </CardContent>
                   </CardActionArea>
+                </Card>
+              </Grid>
+            ) : (
+              // {view for personal profile page}
+              <Grid key={contribution.id} item xs={12} md={6}>
+                <Card
+                  sx={{
+                    maxWidth: 500,
+                    maxHeight: 500,
+                    minHeight: 500,
+                    display: "flex",
+                    flexDirection: "column",
+                  }}
+                  variant="outlined"
+                >
+                  <CardActionArea
+                    component={Link}
+                    to={`/projects/${project.id}`}
+                  >
+                    <CardMedia
+                      component="img"
+                      height="140"
+                      image={project.imageUrl}
+                    />
+                  </CardActionArea>
+
+                  <CardContent
+                    sx={{
+                      height: "auto",
+                    }}
+                  >
+                    <CardActionArea
+                      component={Link}
+                      to={`/projects/${project.id}`}
+                    >
+                      <Box
+                        sx={{
+                          height: 40,
+                          textOverflow: "ellipsis",
+                          overflow: "hidden",
+                        }}
+                      >
+                        <Typography gutterBottom variant="h6" component="div">
+                          {project.name}
+                        </Typography>
+                      </Box>
+                    </CardActionArea>
+                    <Typography
+                      variant="body2"
+                      color="text.secondary"
+                      sx={{
+                        height: 90,
+                        overflow: "hidden",
+                        textOverflow: "ellipsis",
+                      }}
+                    >
+                      {/* {shortenedDescription(project.description)} */}
+                      {project.description}
+                    </Typography>
+
+                    <Typography sx={{ py: 1 }}>
+                      <strong>Donated:</strong>{" "}
+                      {weiToUSD(
+                        contribution.contributionAmount,
+                        props.conversion
+                      )}
+                    </Typography>
+                  </CardContent>
                   {/* for releasing funds after campaign has failed */}
                   {!project.reachedGoal &&
-                  props.auth.password === props.user.password &&
                   formatIsoToUnix(project.campaign_timeline_end) < Date.now() &&
                   contribution.refunded === false ? (
                     <CardActions className="refund–button-and-alert">
@@ -176,7 +245,7 @@ const ContributionsList = (props) => {
                     </CardActions>
                   ) : null}
                   {contribution.refunded === true ? (
-                    <Alert severity="info" sx={{ m: 1 }}>
+                    <Alert severity="info" sx={{ m: 1, position: "relative", bottom: 0 }}>
                       Your donation has been returned to your wallet.
                     </Alert>
                   ) : null}
