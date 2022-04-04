@@ -93,49 +93,122 @@ function AddProjectForm(props) {
     }
   };
 
+  if (!props.auth || !props.auth.scientist) {
+    return <AccessForbiddenPage />;
+  }
+
   return (
-    <>
-      {!props.auth || !props.auth.scientist ? (
-        <AccessForbiddenPage />
-      ) : (
+    <Grid
+      container
+      spacing={2}
+      sx={{
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+      }}
+    >
+      <NoMetaMaskError handleClose={handleClose} open={noMetamask} />
+      <FundrasingGoalAlert handleClose={handleClose} open={goalAlert} />
+      <WalletAlert handleClose={handleClose} open={addressAlert} />
+      <ImageAlert handleClose={handleClose} open={imageAlert} />
+      <YouTubeAlert handleClose={handleClose} open={youtubeAlert} />
+      <AddProjectConfirmation open={blockchainWait} />
+      <AddProjectError handleClose={handleClose} open={error} />
+      <Box
+        component="form"
+        noValidate
+        autoComplete="off"
+        onSubmit={handleSubmit}
+      >
         <Grid
-          container
-          spacing={2}
-          sx={{
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-          }}
+          item
+          xs={12}
+          sx={{ marginTop: "20%", marginBottom: "10%" }}
+          textAlign="center"
         >
-          <NoMetaMaskError handleClose={handleClose} open={noMetamask} />
-          <FundrasingGoalAlert handleClose={handleClose} open={goalAlert} />
-          <WalletAlert handleClose={handleClose} open={addressAlert} />
-          <ImageAlert handleClose={handleClose} open={imageAlert} />
-          <YouTubeAlert handleClose={handleClose} open={youtubeAlert} />
-          <AddProjectConfirmation open={blockchainWait} />
-          <AddProjectError handleClose={handleClose} open={error} />
-          <Box
-            component="form"
-            noValidate
-            autoComplete="off"
-            onSubmit={handleSubmit}
+          <Typography
+            variant="h2"
+            color="#051f2e"
+            sx={{ fontFamily: "Roboto Condensed" }}
           >
-            <Grid
-              item
-              xs={12}
-              sx={{ marginTop: "20%", marginBottom: "10%" }}
-              textAlign="center"
-            >
-              <Typography
-                variant="h2"
-                color="#051f2e"
-                sx={{ fontFamily: "Roboto Condensed" }}
-              >
-                Create Your Project
-              </Typography>
+            Create Your Project
+          </Typography>
+        </Grid>
+        <Grid item xs={1} />
+        <Grid item xs={10} style={{ maxWidth: "800px" }}>
+          <Grid
+            container
+            spacing={2}
+            sx={{
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
+            }}
+          >
+            <Grid item xs={8}>
+              <TextField
+                required
+                fullWidth
+                id="name"
+                label="Project Name"
+                inputProps={{ maxLength: 90 }}
+                onChange={handleChange}
+              />
             </Grid>
-            <Grid item xs={1} />
-            <Grid item xs={10} style={{ maxWidth: "800px" }}>
+            {/* <Grid item xs={2}>
+              <ScientistsDropDown />
+            </Grid> */}
+            <Grid item xs={4} sx={{ display: "flex", flexDirection: "row" }}>
+              <TextField
+                fullWidth
+                id="fundraising_goal"
+                label="Fundraising Goal"
+                type="number"
+                InputProps={{
+                  startAdornment: (
+                    <InputAdornment position="start">$</InputAdornment>
+                  ),
+                }}
+                onChange={handleChange}
+              />
+              <Button>
+                <InfoOutlinedIcon onClick={() => setGoalAlert(true)} />
+              </Button>
+            </Grid>
+            <Grid item xs={11}>
+              <CategoryDropDown
+                handleChange={handleCategoryChange}
+                category={categories}
+              />
+            </Grid>
+            <Grid item xs={12} sx={{ display: "flex", flexDirection: "row" }}>
+              <TextField
+                fullWidth
+                required
+                error={
+                  form.project_wallet_address.length > 0 &&
+                  !form.project_wallet_address.match(/^0x[a-fA-F0-9]{40}$/)
+                }
+                type="string"
+                id="project_wallet_address"
+                label="Project Wallet Address"
+                onChange={handleChange}
+              />
+              <Button>
+                <InfoOutlinedIcon onClick={() => setAddressAlert(true)} />
+              </Button>
+            </Grid>
+            <Grid item xs={6}>
+              <TextField
+                fullWidth
+                id="description"
+                label="Project Description"
+                multiline
+                rows={4}
+                onChange={handleChange}
+              />
+            </Grid>
+            <Grid item xs={6}>
               <Grid
                 container
                 spacing={2}
@@ -145,45 +218,21 @@ function AddProjectForm(props) {
                   alignItems: "center",
                 }}
               >
-                <Grid item xs={8}>
-                  <TextField
-                    required
-                    fullWidth
-                    id="name"
-                    label="Project Name"
-                    inputProps={{ maxLength: 90 }}
-                    onChange={handleChange}
-                  />
-                </Grid>
-                {/* <Grid item xs={2}>
-              <ScientistsDropDown />
-            </Grid> */}
                 <Grid
                   item
-                  xs={4}
+                  xs={12}
                   sx={{ display: "flex", flexDirection: "row" }}
                 >
                   <TextField
                     fullWidth
-                    id="fundraising_goal"
-                    label="Fundraising Goal"
-                    type="number"
-                    InputProps={{
-                      startAdornment: (
-                        <InputAdornment position="start">$</InputAdornment>
-                      ),
-                    }}
+                    required
+                    id="imageUrl"
+                    label="Image URL"
                     onChange={handleChange}
-                  />
+                  />{" "}
                   <Button>
-                    <InfoOutlinedIcon onClick={() => setGoalAlert(true)} />
+                    <InfoOutlinedIcon onClick={() => setImageAlert(true)} />
                   </Button>
-                </Grid>
-                <Grid item xs={11}>
-                  <CategoryDropDown
-                    handleChange={handleCategoryChange}
-                    category={categories}
-                  />
                 </Grid>
                 <Grid
                   item
@@ -193,165 +242,104 @@ function AddProjectForm(props) {
                   <TextField
                     fullWidth
                     required
-                    error={
-                      form.project_wallet_address.length > 0 &&
-                      !form.project_wallet_address.match(/^0x[a-fA-F0-9]{40}$/)
-                    }
-                    type="string"
-                    id="project_wallet_address"
-                    label="Project Wallet Address"
+                    id="videoUrl"
+                    label="YouTube Video ID"
+                    inputProps={{ maxLength: 11 }}
                     onChange={handleChange}
                   />
                   <Button>
-                    <InfoOutlinedIcon onClick={() => setAddressAlert(true)} />
+                    <InfoOutlinedIcon onClick={() => setyoutubeAlert(true)} />
                   </Button>
-                </Grid>
-                <Grid item xs={6}>
-                  <TextField
-                    fullWidth
-                    id="description"
-                    label="Project Description"
-                    multiline
-                    rows={4}
-                    onChange={handleChange}
-                  />
-                </Grid>
-                <Grid item xs={6}>
-                  <Grid
-                    container
-                    spacing={2}
-                    sx={{
-                      display: "flex",
-                      justifyContent: "space-between",
-                      alignItems: "center",
-                    }}
-                  >
-                    <Grid
-                      item
-                      xs={12}
-                      sx={{ display: "flex", flexDirection: "row" }}
-                    >
-                      <TextField
-                        fullWidth
-                        required
-                        id="imageUrl"
-                        label="Image URL"
-                        onChange={handleChange}
-                      />{" "}
-                      <Button>
-                        <InfoOutlinedIcon onClick={() => setImageAlert(true)} />
-                      </Button>
-                    </Grid>
-                    <Grid
-                      item
-                      xs={12}
-                      sx={{ display: "flex", flexDirection: "row" }}
-                    >
-                      <TextField
-                        fullWidth
-                        required
-                        id="videoUrl"
-                        label="YouTube Video ID"
-                        inputProps={{ maxLength: 11 }}
-                        onChange={handleChange}
-                      />
-                      <Button>
-                        <InfoOutlinedIcon
-                          onClick={() => setyoutubeAlert(true)}
-                        />
-                      </Button>
-                    </Grid>
-                  </Grid>
-                </Grid>
-                <Grid item xs={11}>
-                  <Grid
-                    container
-                    spacing={2}
-                    sx={{
-                      display: "flex",
-                      justifyContent: "space-between",
-                      alignItems: "center",
-                    }}
-                  >
-                    <Grid item xs={3}>
-                      <TextField
-                        required
-                        fullWidth
-                        type="date"
-                        id="project_timeline_start"
-                        label="Project Start Date"
-                        InputLabelProps={{ shrink: true }}
-                        onChange={handleChange}
-                      />
-                    </Grid>
-                    <Grid item xs={3}>
-                      <TextField
-                        required
-                        fullWidth
-                        type="date"
-                        id="project_timeline_end"
-                        label="Project End Date"
-                        InputLabelProps={{ shrink: true }}
-                        onChange={handleChange}
-                      />
-                    </Grid>
-                    <Grid item xs={3}>
-                      <TextField
-                        required
-                        fullWidth
-                        type="date"
-                        id="campaign_timeline_start"
-                        label="Campaign Start Date"
-                        InputLabelProps={{ shrink: true }}
-                        onChange={handleChange}
-                      />
-                    </Grid>
-                    <Grid item xs={3}>
-                      <TextField
-                        fullWidth
-                        required
-                        type="date"
-                        id="campaign_timeline_end"
-                        defaultValue={new Date()}
-                        label="Campaign End Date"
-                        InputLabelProps={{ shrink: true }}
-                        onChange={handleChange}
-                      />
-                    </Grid>
-                  </Grid>
-                </Grid>
-                <Grid item xs={1} />
-                <Grid item xs={11} marginBottom="100px">
-                  <Grid
-                    container
-                    spacing={2}
-                    sx={{
-                      display: "flex",
-                      justifyContent: "flex-end",
-                      alignItems: "center",
-                    }}
-                  >
-                    <Grid item xs={8} />
-                    <Grid item xs={2}>
-                      <Link to="/">
-                        <Button fullWidth variant="contained" color="secondary">
-                          CANCEL
-                        </Button>
-                      </Link>
-                    </Grid>
-                    <Grid item xs={2}>
-                      <Button fullWidth type="submit" variant="contained">
-                        Submit
-                      </Button>
-                    </Grid>
-                  </Grid>
                 </Grid>
               </Grid>
             </Grid>
-          </Box>
+            <Grid item xs={11}>
+              <Grid
+                container
+                spacing={2}
+                sx={{
+                  display: "flex",
+                  justifyContent: "space-between",
+                  alignItems: "center",
+                }}
+              >
+                <Grid item xs={3}>
+                  <TextField
+                    required
+                    fullWidth
+                    type="date"
+                    id="project_timeline_start"
+                    label="Project Start Date"
+                    InputLabelProps={{ shrink: true }}
+                    onChange={handleChange}
+                  />
+                </Grid>
+                <Grid item xs={3}>
+                  <TextField
+                    required
+                    fullWidth
+                    type="date"
+                    id="project_timeline_end"
+                    label="Project End Date"
+                    InputLabelProps={{ shrink: true }}
+                    onChange={handleChange}
+                  />
+                </Grid>
+                <Grid item xs={3}>
+                  <TextField
+                    required
+                    fullWidth
+                    type="date"
+                    id="campaign_timeline_start"
+                    label="Campaign Start Date"
+                    InputLabelProps={{ shrink: true }}
+                    onChange={handleChange}
+                  />
+                </Grid>
+                <Grid item xs={3}>
+                  <TextField
+                    fullWidth
+                    required
+                    type="date"
+                    id="campaign_timeline_end"
+                    defaultValue={new Date()}
+                    label="Campaign End Date"
+                    InputLabelProps={{ shrink: true }}
+                    onChange={handleChange}
+                  />
+                </Grid>
+              </Grid>
+            </Grid>
+            <Grid item xs={1} />
+            <Grid item xs={11} marginBottom="100px">
+              <Grid
+                container
+                spacing={2}
+                sx={{
+                  display: "flex",
+                  justifyContent: "flex-end",
+                  alignItems: "center",
+                }}
+              >
+                <Grid item xs={8} />
+                <Grid item xs={2}>
+                  <Link to="/">
+                    <Button fullWidth variant="contained" color="secondary">
+                      CANCEL
+                    </Button>
+                  </Link>
+                </Grid>
+                <Grid item xs={2}>
+                  <Button fullWidth type="submit" variant="contained">
+                    Submit
+                  </Button>
+                </Grid>
+              </Grid>
+            </Grid>
+          </Grid>
         </Grid>
-      )}
-    </>
+      </Box>
+    </Grid>
   );
 }
 
