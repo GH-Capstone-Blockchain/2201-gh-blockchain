@@ -1,17 +1,9 @@
 import React, { useEffect, useState } from "react";
-import {
-  Grid,
-  Box,
-  Toolbar,
-  IconButton,
-  Typography,
-  Button,
-} from "@mui/material";
+import { Grid, Box, Typography, Button } from "@mui/material";
 import { connect } from "react-redux";
 import { fetchProjects } from "../store/projects";
 import ProjectCard from "./ProjectCard";
-import {categoriesArr, generateColor} from './smallComponents/utilities'
-
+import { categoriesArr, generateColor } from "./smallComponents/utilities";
 
 function AllProjects(props) {
   const [isLoading, setIsLoading] = useState(true);
@@ -23,22 +15,19 @@ function AllProjects(props) {
       ? allProjects
       : allProjects.filter((project) => {
           if (project.categories.length > 0) {
-            return project.categories.map(category => category.category).includes(filter)
+            return project.categories
+              .map((category) => category.category)
+              .includes(filter);
           }
         });
 
   useEffect(async () => {
     await props.fetchProjects();
-    // await props.filterProjects();
     setIsLoading(false);
   }, []);
   if (isLoading) return <img src={"https://i.stack.imgur.com/ATB3o.gif"} />;
   return (
-    <Box
-    // sx={{
-    //   backgroundColor: "rgba(5, 31, 46, 0.7)",
-    // }}
-    >
+    <Box>
       <Grid
         container
         spacing={2}
@@ -102,8 +91,6 @@ function AllProjects(props) {
             ))}
           </Grid>
         </Grid>
-
-        {/* <Grid item xs={1} /> */}
         <Grid item xs={12} sx={{ margin: "7%" }}></Grid>
       </Grid>
     </Box>

@@ -4,7 +4,7 @@ import { Link, useParams } from "react-router-dom";
 import { fetchProject } from "../store/singleProject";
 import { fetchContributions, createContribution } from "../store/contributions";
 import { fetchConversion } from "../store/conversion";
-import { Typography, Box, Container, Grid } from "@mui/material";
+import { Typography, Box, Grid } from "@mui/material";
 import { loadWeb3, loadContractData } from "../web3/web3";
 import DonateCard from "./DonateCard";
 import {
@@ -65,15 +65,13 @@ const SingleProject = (props) => {
       console.error("error in handleDonate", error);
       setError(true);
     }
-    // .on("transactionHash", (hash) => {
-    //   this.setState({ loading: false });
-    // });
   };
 
   const handleClose = () => {
     setError(false);
     setThankYou(false);
     setNoMetamask(false);
+    setBlockchainWait(false);
   };
 
   if (!props.project) {

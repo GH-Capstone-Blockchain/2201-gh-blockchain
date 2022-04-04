@@ -85,7 +85,6 @@ const ProfilePage = (props) => {
   const handleSubmit = async (e) => {
     try {
       e.preventDefault();
-      console.log(form);
       await props.updateUser(form);
       setIsUpdated(true);
       setForm({
@@ -95,6 +94,7 @@ const ProfilePage = (props) => {
         profileImg: props.user.profileImg,
         bio: props.user.bio,
       });
+      setToggle(false);
     } catch (error) {
       console.log(error);
     }
@@ -225,9 +225,7 @@ const ProfilePage = (props) => {
               }}
               noValidate
               autoComplete="off"
-              onSubmit={() => {
-                handleSubmit;
-              }}
+              onSubmit={handleSubmit}
             >
               {toggle ? (
                 <div>

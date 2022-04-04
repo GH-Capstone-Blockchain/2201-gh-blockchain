@@ -162,7 +162,7 @@ const ContributionsList = (props) => {
               // {view for personal profile page}
               <Grid key={contribution.id} item xs={12} md={6}>
                 <Card
-                  sx={{ maxWidth: 500, maxHeight: 450, minHeight: 450 }}
+                  sx={{ maxWidth: 500, maxHeight: 450, minHeight: 450, display: "flex", flexDirection: "column", justifyContent: "space-between"}}
                   variant="outlined"
                 >
                   <CardActionArea
@@ -174,8 +174,13 @@ const ContributionsList = (props) => {
                       height="140"
                       image={project.imageUrl}
                     />
+                  </CardActionArea>
 
-                    <CardContent>
+                  <CardContent>
+                    <CardActionArea
+                      component={Link}
+                      to={`/projects/${project.id}`}
+                    >
                       <Box
                         sx={{
                           height: 40,
@@ -191,30 +196,31 @@ const ContributionsList = (props) => {
                         variant="body2"
                         color="text.secondary"
                         sx={{
-                          height: 90,
-                          overflow: "hidden",
+                          height: "auto",
+                          overflow: "auto",
                           textOverflow: "ellipsis",
                         }}
                       >
-                        {shortenedDescription(project.description)}
+                        {/* {shortenedDescription(project.description)} */}
+                        {project.description}
                       </Typography>
-                      {props.auth.id === props.user.id ? (
-                        <Typography>
-                          Donated:{" "}
-                          {weiToUSD(
-                            contribution.contributionAmount,
-                            props.conversion
-                          )}
-                        </Typography>
-                      ) : null}
-                    </CardContent>
-                  </CardActionArea>
+                    </CardActionArea>
+                    {props.auth.id === props.user.id ? (
+                      <Typography sx={{ py: 1 }}>
+                        <strong>Donated:</strong>{" "}
+                        {weiToUSD(
+                          contribution.contributionAmount,
+                          props.conversion
+                        )}
+                      </Typography>
+                    ) : null}
+                  </CardContent>
                   {/* for releasing funds after campaign has failed */}
                   {!project.reachedGoal &&
                   formatIsoToUnix(project.campaign_timeline_end) < Date.now() &&
                   contribution.refunded === false ? (
                     <CardActions className="refund–button-and-alert">
-                      <Alert severity="info" sx={{ mx: 0.5 }}>
+                      <Alert severity="info" sx={{ mx: 0.5, }}>
                         {" "}
                         Campaign was unsuccessful -{" "}
                         <strong>click below to release donation</strong>
@@ -230,7 +236,7 @@ const ContributionsList = (props) => {
                     </CardActions>
                   ) : null}
                   {contribution.refunded === true ? (
-                    <Alert severity="info" sx={{ m: 1 }}>
+                    <Alert severity="info" sx={{ m: 1, position: "fixed", bottom: 3 }}>
                       Your donation has been returned to your wallet.
                     </Alert>
                   ) : null}
@@ -245,4 +251,3 @@ const ContributionsList = (props) => {
 };
 
 export default ContributionsList;
-

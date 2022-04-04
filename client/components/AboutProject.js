@@ -5,7 +5,7 @@ import { convertDate } from "./smallComponents/utilities";
 export default function AboutProject(props) {
   return (
     <Grid
-      conainter
+      container
       sx={{
         display: "flex",
         flexDirection: "column",
@@ -25,7 +25,7 @@ export default function AboutProject(props) {
 
       {/* Project Timeline */}
       <Grid item>
-        <Grid container>
+        <Grid>
           <Grid item>
             <Typography
               sx={{
