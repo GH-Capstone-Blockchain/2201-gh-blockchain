@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect} from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import { authenticate } from "../../store";
@@ -22,6 +22,10 @@ import { useNavigate } from "react-router-dom";
 const AuthForm = (props) => {
   const { name, displayName, authenticate, error, auth } = props;
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if(props.auth.id) navigate('/projects')
+  }, [props.auth])
 
   const handleSubmit = async (evt) => {
     evt.preventDefault();

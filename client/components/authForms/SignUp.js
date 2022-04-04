@@ -67,7 +67,7 @@ const AuthForm = (props) => {
       const formName = evt.target.name;
       const username = evt.target.username.value;
       const password = evt.target.password.value;
-      navigate("/projects");
+      console.log(navigate(-1));
       authenticate(username, password, formName);
     } else if (signupType === "scientist") {
       evt.preventDefault();
@@ -80,7 +80,7 @@ const AuthForm = (props) => {
       const type = "scientist";
       const publications = evt.target.publications.value;
       const credentials = evt.target.credentials.value;
-      navigate("/projects");
+      navigate(-1);
       scientistSignUp(
         username,
         password,
