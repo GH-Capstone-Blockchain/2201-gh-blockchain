@@ -226,7 +226,7 @@ const ContributionsList = (props) => {
                   </CardContent>
                   {/* for releasing funds after campaign has failed */}
                   {!project.reachedGoal &&
-                  formatIsoToUnix(project.campaign_timeline_end) < Date.now() &&
+                  // formatIsoToUnix(project.campaign_timeline_end) < Date.now() &&
                   contribution.refunded === false ? (
                     <CardActions className="refund–button-and-alert">
                       <Alert severity="info" sx={{ mx: 0.5 }}>
