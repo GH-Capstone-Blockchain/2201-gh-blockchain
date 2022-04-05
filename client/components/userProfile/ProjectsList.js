@@ -54,7 +54,7 @@ const ProjectsList = (props) => {
             };
             return (
               <Grid key={project.id} item xs={12} md={6}>
-                <Card sx={{ maxWidth: 500 }} variant="outlined">
+                <Card sx={{ maxWidth: 500, maxHeight: 370, minHeight: 370 }} variant="outlined">
                   <CardActionArea
                     component={Link}
                     to={`/projects/${project.id}`}
@@ -90,11 +90,16 @@ const ProjectsList = (props) => {
                       </Typography>
                     </CardContent>
                   </CardActionArea>
-                  {props.auth.id === props.user.id ? (
+                  {props.auth.id === props.user.id && !project.isArchived ? (
                     <CardContent>
                       <Link to={`/dashboard/${project.id}`}>
-                        <Button>Project Dashboard</Button>
+                        <Button sx={{ float: "right", mb: 2 }} >Project Dashboard</Button>
                       </Link>
+                    </CardContent>
+                  ) : null}
+                  {props.auth.id === props.user.id && project.isArchived ? (
+                    <CardContent>
+                        <Typography sx={{ textAlign: "right", mr: 2 }}>Archived</Typography>
                     </CardContent>
                   ) : null}
                 </Card>
