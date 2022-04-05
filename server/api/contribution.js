@@ -16,27 +16,38 @@ router.post('/', async (req, res, next) => {
 
 //get contributions for specific project
 router.get('/:projectId', async (req, res, next) => {
-    try {
-        const project = await Project.findByPk(req.params.projectId);
-        const projectContributions = await project.getContributions({include: [User, Project]});
-        res.json(projectContributions);
-    } catch (error) {
-        next(error);
-    }
-})
+  try {
+    const project = await Project.findByPk(req.params.projectId);
+    const projectContributions = await project.getContributions({
+      include: [
+        {
+          model: User,
+          attributes: ['id', 'bio', 'profileImg', 'username'],
+        },
+        { model: Project },
+      ],
+    });
+    res.json(projectContributions);
+  } catch (error) {
+    next(error);
+  }
+});
 
 //get contributions for specific user
 router.get('/user/:userId', async (req, res, next) => {
   try {
-      const project = await Contribution.findAll({
-        where: {userId: req.params.userId},
-        include: [Project, User]
-      });
-      res.json(project);
+    const project = await Contribution.findAll({
+      where: { userId: req.params.userId },
+      include: [
+        { model: Project },
+        { model: User, attributes: ['id', 'bio', 'profileImg', 'username'] },
+      ],
+    });
+    res.json(project);
   } catch (error) {
-      next(error);
+    next(error);
   }
-})
+});
 
 //update contribution
 router.put('/:contributionId', async (req, res, next) => {
