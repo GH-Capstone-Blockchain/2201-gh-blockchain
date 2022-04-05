@@ -30,9 +30,9 @@ router.get("/scientist/:userId", async (req, res, next) => {
 });
 
 // create new project
-router.post("/", async (req, res, next) => {
+router.post("/", requireScientistToken, async (req, res, next) => {
   try {
-    // if (!req.user) throw new Error('Unauthorized');
+    if (!req.scientist) throw new Error('Unauthorized');
     const newProject = await Project.create(req.body.project);
     await newProject.addScientists(req.body.scientists);
     Promise.all(req.body.categories.map(category => newProject.createCategory({ category: category })))
@@ -42,8 +42,9 @@ router.post("/", async (req, res, next) => {
   }
 });
 //update project
-router.put("/:id", async (req, res, next) => {
+router.put("/:id", requireScientistToken, async (req, res, next) => {
   try {
+    if (!req.scientist) throw new Error('Unauthorized');
     const project = await Project.findByPk(req.params.id);
     const response = await project.update(req.body);
     res.status(204);
