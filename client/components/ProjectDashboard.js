@@ -31,6 +31,7 @@ import {
   FundsTransferWait,
   PleaseCheckYourAccount,
   NoMetaMaskError,
+  ArchivePrompt
 } from "./smallComponents/InfoAlerts";
 
 const ProjectDashboard = (props) => {
@@ -55,6 +56,7 @@ const ProjectDashboard = (props) => {
   const [noMetamask, setNoMetamask] = useState(false);
   const [blockchainWait, setBlockchainWait] = useState(false);
   const [error, setError] = useState(false);
+  const [archive, setArchive] = useState(false)
 
   const fetchData = async () => {
     try {
@@ -100,6 +102,7 @@ const ProjectDashboard = (props) => {
     setImageAlert(false);
     setError(false);
     setNoMetamask(false);
+    setArchive(false)
   };
   const handleChange = (e) => {
     let value = e.target.value;
@@ -117,6 +120,12 @@ const ProjectDashboard = (props) => {
     e.preventDefault();
     props.updateProject(form);
     setIsUpdated(true);
+  };
+
+  const handleArchive = (e) => {
+    e.preventDefault();
+    props.updateProject({id: params.id, isArchived: true});
+    setArchive(false)
   };
 
   const handleReleaseFunds = async () => {
@@ -160,6 +169,7 @@ const ProjectDashboard = (props) => {
           <NoMetaMaskError handleClose={handleClose} open={noMetamask} />
           <FundsTransferWait open={blockchainWait} />
           <PleaseCheckYourAccount handleClose={handleClose} open={error} />
+          <ArchivePrompt open={archive} handleClose={handleClose} handleArchive={handleArchive}/>
           <Grid
             item
             xs={12}
@@ -286,6 +296,13 @@ const ProjectDashboard = (props) => {
                   sx={{ marginTop: "20px", maginBottom: "30px" }}
                 >
                   Submit
+                </Button>
+                <Button
+                  variant="contained"
+                  onClick={()=> setArchive(true)}
+                  sx={{ marginTop: "20px", maginBottom: "30px", marginLeft: '10px'}}
+                >
+                  Archive
                 </Button>
               </Grid>
             </Grid>

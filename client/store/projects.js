@@ -28,7 +28,8 @@ export const fetchProjects = () => {
         const campaignEnd = formatIsoToUnix(project.campaign_timeline_end);
         return dateNow < campaignEnd;
       });
-      dispatch(setProjects(notPassedDeadline));
+      const notArchived = notPassedDeadline.filter(project => !project.isArchived)
+      dispatch(setProjects(notArchived));
     } catch (error) {
       console.log("error in fetchProjects thunk", error);
     }

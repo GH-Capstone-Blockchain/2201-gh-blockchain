@@ -316,3 +316,29 @@ export function PleaseCheckYourAccount(props) {
     </Dialog>
   );
 }
+
+export function ArchivePrompt(props) {
+  return (
+    <Dialog
+      open={props.open}
+      onClose={props.handleClose}
+      aria-labelledby="alert-dialog-title"
+      aria-describedby="alert-dialog-description"
+    >
+      <DialogTitle id="alert-dialog-title">{"Are you sure you want to archive this project?"}</DialogTitle>
+      <DialogContent>
+        <DialogContentText id="alert-dialog-description">
+          This action cannot be undone.
+        </DialogContentText>
+      </DialogContent>
+      <DialogActions>
+        <Button onClick={props.handleArchive} autoFocus>
+          Yes, please archive.
+        </Button>
+        <Button onClick={props.handleClose} autoFocus>
+          Cancel
+        </Button>
+      </DialogActions>
+    </Dialog>
+  );
+}
