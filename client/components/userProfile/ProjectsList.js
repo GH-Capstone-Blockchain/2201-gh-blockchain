@@ -90,7 +90,7 @@ const ProjectsList = (props) => {
                       </Typography>
                     </CardContent>
                   </CardActionArea>
-                  {props.auth.password === props.user.password ? (
+                  {props.auth.id === props.user.id ? (
                     <CardContent>
                       <Link to={`/dashboard/${project.id}`}>
                         <Button>Project Dashboard</Button>

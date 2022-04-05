@@ -10,6 +10,7 @@ import {
   Box,
   Alert,
   Grid,
+  Chip,
 } from "@mui/material";
 import { Link, useParams } from "react-router-dom";
 import { loadWeb3, loadContractData } from "../../web3/web3";
@@ -241,7 +242,10 @@ const ContributionsList = (props) => {
                     </CardActions>
                   ) : null}
                   {contribution.refunded === true ? (
-                    <Alert severity="info" sx={{ m: 1, position: "relative", bottom: 0 }}>
+                    <Alert
+                      severity="info"
+                      sx={{ m: 1, position: "relative", bottom: 0 }}
+                    >
                       Your donation has been returned to your wallet.
                     </Alert>
                   ) : null}
