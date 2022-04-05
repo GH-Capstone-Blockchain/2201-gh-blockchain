@@ -38,7 +38,7 @@ contract Campaign {
     }
     function donate(uint _supporterId) public payable {
         require(block.timestamp >= startDate, 'not started');
-        require(block.timestamp <= endDate, 'ended');
+        // require(block.timestamp <= endDate, 'ended');
         // Donation memory newDonation = Donation(
         //     {
         //         supporterId: _supporterId,
@@ -63,7 +63,5 @@ contract Campaign {
         donationsAmount[_supporterId][msg.sender] = 0;
         payable (msg.sender).transfer(balance);
     }
-    //scientist can cancel campaign
+
 }
-//look up how to transfer eth on a certain date in solidity
-//maybe use new Date Javascript function to trigger from the front end a function in smart contract that allocates the funds

@@ -16,7 +16,6 @@ import { loadWeb3, loadContractData } from "../../web3/web3";
 import { formatIsoToUnix, weiToUSD } from "../smallComponents/utilities";
 import {
   FundsTransferWait,
-  PleaseCheckYourAccount,
   NoMetaMaskError,
 } from "../smallComponents/InfoAlerts";
 
@@ -26,7 +25,6 @@ const ContributionsList = (props) => {
   const [account, setAccount] = useState("");
   const [blockchainWait, setBlockchainWait] = useState(false);
   const [noMetamask, setNoMetamask] = useState(false);
-  const [error, setError] = useState(false);
 
   const fetchData = async () => {
     try {
@@ -70,7 +68,6 @@ const ContributionsList = (props) => {
       setBlockchainWait(false);
     } catch (error) {
       console.error("error in handleRefund", error);
-      setError(true);
     }
   };
 
@@ -93,9 +90,8 @@ const ContributionsList = (props) => {
         marginTop: "50px",
       }}
     >
-      {/* <FundsTransferWait open={blockchainWait} />
-      <PleaseCheckYourAccount handleClose={handleClose} open={error} />
-      <NoMetaMaskError handleClose={handleClose} open={noMetamask} /> */}
+      <FundsTransferWait open={blockchainWait} />
+      <NoMetaMaskError handleClose={handleClose} open={noMetamask} />
       <Grid item xs={12} textAlign="left">
         <Typography
           variant="h4"

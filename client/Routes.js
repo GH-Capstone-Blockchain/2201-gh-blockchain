@@ -1,25 +1,18 @@
-import React, { Component, Fragment } from "react";
+import React, { Component } from "react";
 import { connect } from "react-redux";
-import { Route, Routes, Switch, Redirect, Navigate} from "react-router-dom";
+import { Route, Routes, Navigate } from "react-router-dom";
 import { Login } from "./components/authForms/Login";
 import { Signup } from "./components/authForms/SignUp";
-import Home from "./components/Home";
 import LandingPage from "./components/LandingPage";
 import SingleProject from "./components/SingleProject";
 import AllProjects from "./components/AllProjects2";
 import AddProjectForm from "./components/AddProjectForm";
 import ScientistsDropDown from "./components/smallComponents/ScientistsDropDown";
-import TestingPage from "./components/Testing";
 import ProjectDashboard from "./components/ProjectDashboard";
 import ProfilePage from "./components/userProfile/ProfilePage";
-import AboutPage from "./components/AboutPage";
-
+import { PageNotFound } from "./components/AccessForbiddenPage";
 import { me } from "./store";
 
-
-/**
- * COMPONENT
- */
 class Routers extends Component {
   componentDidMount() {
     this.props.loadInitialData();
@@ -29,41 +22,35 @@ class Routers extends Component {
     const { isLoggedIn } = this.props;
 
     return (
-      <div>
-        <Routes>
-          <Route path="/" element={<LandingPage />} />
-          {/* <Route path="/about" element={<AboutPage />} /> */}
-          <Route path="projects" element={<AllProjects />} />
-          <Route path="projects/:id" element={<SingleProject />} />
-          <Route path="dropdown" element={<ScientistsDropDown />} />
-          <Route path="test" element={<TestingPage />} />
-          <Route path="user/:id" element={<ProfilePage />} />
-          <Route path="dashboard/:id" element={<ProjectDashboard />} />
-          
-        </Routes>
+      <Routes>
+        <Route path="/" element={<LandingPage />} />
+        {/* <Route path="/about" element={<AboutPage />} /> */}
+        <Route path="projects" element={<AllProjects />} />
+        <Route path="projects/:id" element={<SingleProject />} />
+        <Route path="dropdown" element={<ScientistsDropDown />} />
+        <Route path="user/:id" element={<ProfilePage />} />
+        <Route path="dashboard/:id" element={<ProjectDashboard />} />
+
         {isLoggedIn ? (
-          <Routes>
+          <>
             <Route path="addproject" element={<AddProjectForm />} />
             <Route path="login" element={<Navigate replace to="/projects" />} />
-          </Routes>
+            <Route path="*" element={<PageNotFound />} />
+          </>
         ) : (
-          <Routes>
+          <>
             <Route path="login" element={<Login />} />
             <Route path="/signup" element={<Signup />} />
-          </Routes>
+            <Route path="*" element={<PageNotFound />} />
+          </>
         )}
-      </div>
+      </Routes>
     );
   }
 }
 
-/**
- * CONTAINER
- */
 const mapState = (state) => {
   return {
-    // Being 'logged in' for our purposes will be defined has having a state.auth that has a truthy id.
-    // Otherwise, state.auth will be an empty object, and state.auth.id will be falsey
     isLoggedIn: !!state.auth.id,
   };
 };
@@ -76,6 +63,4 @@ const mapDispatch = (dispatch) => {
   };
 };
 
-// The `withRouter` wrapper makes sure that updates are not blocked
-// when the url changes
 export default connect(mapState, mapDispatch)(Routers);

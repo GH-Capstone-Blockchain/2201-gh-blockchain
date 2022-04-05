@@ -73,7 +73,7 @@ const ProjectDashboard = (props) => {
 
   useEffect(async () => {
     await fetchData();
-  }, [isUpdated]);
+  },[isLoading]);
 
   useEffect(() => {
     if (props.project) {
@@ -91,6 +91,8 @@ const ProjectDashboard = (props) => {
       );
       setScientists(scientistsUserIds);
     }
+    console.log(params)
+    console.log(props.project)
   }, [props.project]);
 
   const handleClose = () => {
@@ -198,7 +200,7 @@ const ProjectDashboard = (props) => {
                     label="Project Name"
                     onChange={handleChange}
                     InputLabelProps={{ shrink: true }}
-                    defaultValue={props.project.name}
+                    value={form.name}
                     inputProps={{ maxLength: 90 }}
                   />
                 </Grid>
@@ -211,7 +213,7 @@ const ProjectDashboard = (props) => {
                     rows={4}
                     onChange={handleChange}
                     InputLabelProps={{ shrink: true }}
-                    defaultValue={props.project.description}
+                    value={form.description}
                   />
                 </Grid>
                 <Grid
@@ -226,7 +228,7 @@ const ProjectDashboard = (props) => {
                     label="Image URL"
                     onChange={handleChange}
                     InputLabelProps={{ shrink: true }}
-                    defaultValue={props.project.imageUrl}
+                    value={form.imageUrl}
                   />
                   <Button>
                     <InfoOutlinedIcon onClick={() => setImageAlert(true)} />
@@ -246,7 +248,7 @@ const ProjectDashboard = (props) => {
                     inputProps={{ maxLength: 11 }}
                     onChange={handleChange}
                     InputLabelProps={{ shrink: true }}
-                    defaultValue={props.project.videoUrl.slice(-11)}
+                    value={form.videoUrl.slice(-11)}
                   />
                   <Button>
                     <InfoOutlinedIcon onClick={() => setyoutubeAlert(true)} />
@@ -260,9 +262,6 @@ const ProjectDashboard = (props) => {
                     type="date"
                     id="project_timeline_start"
                     label="Project Start Date"
-                    defaultValue={
-                      new Date(props.project.project_timeline_start)
-                    }
                     InputLabelProps={{ shrink: true }}
                     onChange={handleChange}
                   />
@@ -274,7 +273,6 @@ const ProjectDashboard = (props) => {
                     type="date"
                     id="project_timeline_end"
                     label="Project End Date"
-                    defaultValue={new Date(props.project.project_timeline_end)}
                     InputLabelProps={{ shrink: true }}
                     onChange={handleChange}
                   />
@@ -295,12 +293,10 @@ const ProjectDashboard = (props) => {
           <Grid item xs={12} style={{ maxWidth: "600px" }}>
             <Grid
               container
-              // spacing={2}
               sx={{
                 display: "flex",
                 justifyContent: "flex-start",
                 alignItems: "flex-start",
-                // background: "#051f2e",
               }}
             >
               <Grid item xs={12} align="flex-start">
@@ -403,8 +399,6 @@ const ProjectDashboard = (props) => {
                       Video Link
                     </Button>
                     {props.project.reachedGoal &&
-                    // formatIsoToUnix(props.project.campaign_timeline_end) <
-                    //   Date.now() &&
                     props.project.isFunded === false ? (
                       <>
                         <Alert severity="success" sx={{ mx: 0.5 }}>
