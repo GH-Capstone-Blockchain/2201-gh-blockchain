@@ -39,9 +39,13 @@ export const fetchProject = (projectId) => {
 };
 
 export const updateProject = (updatedProject) => {
+  const token = window.localStorage.getItem('token')
   return async (dispatch) => {
     try {
-      await axios.put(`/api/projects/${updatedProject.id}`, updatedProject);
+      await axios.put(`/api/projects/${updatedProject.id}`, updatedProject, {
+        headers: {
+          authorization: token,
+        }});
       const { data } = await axios.get(`/api/project/${updatedProject.id}`);
       dispatch(_updateProject(data));
     } catch (error) {
