@@ -7,7 +7,7 @@ module.exports = router;
 // get all scientists with user info --- api/scientists
 router.get("/", async (req, res, next) => {
   try {
-    const scientists = await Scientist.findAll({ include: User });
+    const scientists = await Scientist.findAll({ include: [{model: User, attributes: ['id', 'firstName', 'lastName']}]});
     res.json(scientists);
   } catch (error) {
     next(error);

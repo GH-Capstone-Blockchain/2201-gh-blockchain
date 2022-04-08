@@ -28,7 +28,8 @@ export const fetchProjects = () => {
         const campaignEnd = formatIsoToUnix(project.campaign_timeline_end);
         return dateNow < campaignEnd;
       });
-      dispatch(setProjects(notPassedDeadline));
+      const notArchived = notPassedDeadline.filter(project => !project.isArchived)
+      dispatch(setProjects(notArchived));
     } catch (error) {
       console.log("error in fetchProjects thunk", error);
     }
@@ -48,9 +49,13 @@ export const fetchProjectsByScientist = (userId) => {
 };
 
 export const createProject = (newProject) => {
+  const token = window.localStorage.getItem('token');
   return async (dispatch) => {
     try {
-      const { data } = await axios.post("/api/projects", newProject);
+      const { data } = await axios.post("/api/projects", newProject, {
+        headers: {
+          authorization: token,
+        }});
       const date1 = Math.floor(Date.parse(data.campaign_timeline_start) / 1000);
       const date2 = Math.floor(Date.parse(data.campaign_timeline_end) / 1000);
       const web3 = window.web3;
@@ -71,6 +76,10 @@ export const createProject = (newProject) => {
         .send({ from: newProject.address });
       await axios.put(`/api/projects/${data.id}`, {
         campaign_contract_address: response._address,
+      }, {
+        headers: {
+          authorization: token,
+        },
       });
       dispatch(addProject(data));
       return true;

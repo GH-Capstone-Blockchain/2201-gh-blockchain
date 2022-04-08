@@ -5,6 +5,7 @@ const {
 const requireScientistToken = async (req, res, next) => {
   try {
     const token = req.headers.authorization;
+    console.log("TOKKKKEEEENNN", token)
     const user = await User.findByToken(token);
     if (user.type === 'scientist') req.scientist = user;
     next();

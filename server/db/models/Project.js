@@ -57,10 +57,11 @@ const Project = db.define('project', {
     campaign_contract_address: {
         type: Sequelize.STRING,
     },
-    // location: {
-    //     type: Sequelize.GEOMETRY, 
-    //     allowNull: false,
-    // }, 
+    isArchived: {
+        type: Sequelize.BOOLEAN,
+        defaultValue: false
+    }
+
 })
 
 

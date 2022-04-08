@@ -4,6 +4,8 @@ const {
 } = require('../db');
 module.exports = router;
 
+const { requireScientistToken, requireUserToken } = require('./gatekeeper');
+
 router.get('/', async (req, res, next) => {
   try {
     const users = await User.findAll({
@@ -18,8 +20,9 @@ router.get('/', async (req, res, next) => {
   }
 });
 
-router.get('/:id', async (req, res, next) => {
+router.get('/:id', requireUserToken, async (req, res, next) => {
   try {
+    if (!req.user) throw new Error('Unauthorized');
     const user = await User.findByPk(req.params.id, {
       include: [Scientist, Contribution],
     });
@@ -29,8 +32,9 @@ router.get('/:id', async (req, res, next) => {
   }
 });
 
-router.put('/:id', async (req, res, next) => {
+router.put('/:id', requireUserToken, async (req, res, next) => {
   try {
+    if (!req.user) throw new Error('Unauthorized');
     const userToUpdate = await User.findByPk(req.params.id);
     const response = await userToUpdate.update(req.body);
     res.status(204);

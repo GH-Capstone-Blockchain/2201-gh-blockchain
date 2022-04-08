@@ -160,7 +160,7 @@ const ProfilePage = (props) => {
               >
                 {props.user.username}
               </Typography>
-              {props.auth.password === props.user.password ? (
+              {props.auth.id === props.user.id ? (
                 <Button variant="contained" onClick={toggleEdit}>
                   Edit
                 </Button>

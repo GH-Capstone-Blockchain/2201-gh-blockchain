@@ -10,6 +10,7 @@ import {
   Box,
   Alert,
   Grid,
+  Chip,
 } from "@mui/material";
 import { Link, useParams } from "react-router-dom";
 import { loadWeb3, loadContractData } from "../../web3/web3";
@@ -228,7 +229,7 @@ const ContributionsList = (props) => {
                       <Alert severity="info" sx={{ mx: 0.5 }}>
                         {" "}
                         Campaign was unsuccessful -{" "}
-                        <strong>click below to release donation</strong>
+                        <strong>click below to refund donation</strong>
                       </Alert>
                       <Button
                         size="small"
@@ -236,7 +237,7 @@ const ContributionsList = (props) => {
                         sx={{ m: 2 }}
                         onClick={() => handleRefund(project, contribution.id)}
                       >
-                        Release Donation
+                        Request Refund
                       </Button>
                     </CardActions>
                   ) : null}

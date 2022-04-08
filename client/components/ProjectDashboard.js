@@ -31,6 +31,7 @@ import {
   FundsTransferWait,
   PleaseCheckYourAccount,
   NoMetaMaskError,
+  ArchivePrompt,
 } from "./smallComponents/InfoAlerts";
 
 const ProjectDashboard = (props) => {
@@ -55,6 +56,7 @@ const ProjectDashboard = (props) => {
   const [noMetamask, setNoMetamask] = useState(false);
   const [blockchainWait, setBlockchainWait] = useState(false);
   const [error, setError] = useState(false);
+  const [archive, setArchive] = useState(false);
 
   const fetchData = async () => {
     try {
@@ -73,7 +75,7 @@ const ProjectDashboard = (props) => {
 
   useEffect(async () => {
     await fetchData();
-  },[isLoading]);
+  }, [isLoading]);
 
   useEffect(() => {
     if (props.project) {
@@ -91,8 +93,8 @@ const ProjectDashboard = (props) => {
       );
       setScientists(scientistsUserIds);
     }
-    console.log(params)
-    console.log(props.project)
+    console.log(params);
+    console.log(props.project);
   }, [props.project]);
 
   const handleClose = () => {
@@ -100,6 +102,7 @@ const ProjectDashboard = (props) => {
     setImageAlert(false);
     setError(false);
     setNoMetamask(false);
+    setArchive(false);
   };
   const handleChange = (e) => {
     let value = e.target.value;
@@ -117,6 +120,12 @@ const ProjectDashboard = (props) => {
     e.preventDefault();
     props.updateProject(form);
     setIsUpdated(true);
+  };
+
+  const handleArchive = (e) => {
+    e.preventDefault();
+    props.updateProject({ id: params.id, isArchived: true });
+    setArchive(false);
   };
 
   const handleReleaseFunds = async () => {
@@ -143,7 +152,13 @@ const ProjectDashboard = (props) => {
       </div>
     );
   }
-
+  if (props.project.isArchived)
+    return (
+      <div style={{ margin: "100px" }}>
+        {" "}
+        <h1>This Project is Archived!</h1>
+      </div>
+    );
   return (
     <>
       {scientists.includes(props.auth.id) ? (
@@ -160,6 +175,11 @@ const ProjectDashboard = (props) => {
           <NoMetaMaskError handleClose={handleClose} open={noMetamask} />
           <FundsTransferWait open={blockchainWait} />
           <PleaseCheckYourAccount handleClose={handleClose} open={error} />
+          <ArchivePrompt
+            open={archive}
+            handleClose={handleClose}
+            handleArchive={handleArchive}
+          />
           <Grid
             item
             xs={12}
@@ -287,6 +307,17 @@ const ProjectDashboard = (props) => {
                 >
                   Submit
                 </Button>
+                <Button
+                  variant="contained"
+                  onClick={() => setArchive(true)}
+                  sx={{
+                    marginTop: "20px",
+                    maginBottom: "30px",
+                    marginLeft: "10px",
+                  }}
+                >
+                  Archive
+                </Button>
               </Grid>
             </Grid>
           </Box>
@@ -399,7 +430,8 @@ const ProjectDashboard = (props) => {
                       Video Link
                     </Button>
                     {props.project.reachedGoal &&
-                    props.project.isFunded === false ? (
+                    props.project.isFunded ===
+                      false /*&& formatIsoToUnix(props.project.campaign_timeline_end) < Date.now()*/ ? (
                       <>
                         <Alert severity="success" sx={{ mx: 0.5 }}>
                           {" "}
