@@ -520,7 +520,7 @@ async function seed() {
     description:
       "Cephalopods and vertebrates have gone through similar circumstances that required adaptations such as learning and memory abilities. These skills are seen in some cephalopods which are able to solve mazes and navigate complex environments. The timing of this skill development in cephalopod evolution remains unknown. This project determines the spatial learning abilities of the O.bimaculoides by measuring recognition of habitats and pathway to the hidden food source.",
     imageUrl:
-      "https://www.leisurepro.com/blog/wp-content/uploads/2020/04/shutterstock_274092959.jpg",
+      "https://www.thoughtco.com/thmb/g7eFZGq0_XsnB7PyS9pyJkV9KLk=/1978x1113/smart/filters:no_upscale()/Chambered-Nautilus-Stephen-Frink-Image-Source-Getty-Images-56a5f80c5f9b58b7d0df51fb.jpg",
     videoUrl: "https://www.youtube.com/embed/oSyEZAm8nb8",
     project_timeline_start: "2022-06-01",
     project_timeline_end: "2023-10-15",

@@ -431,7 +431,7 @@ const ProjectDashboard = (props) => {
                     </Button>
                     {props.project.reachedGoal &&
                     props.project.isFunded ===
-                      false /*&& formatIsoToUnix(props.project.campaign_timeline_end) < Date.now()*/ ? (
+                      false && formatIsoToUnix(props.project.campaign_timeline_end) < Date.now() ? (
                       <>
                         <Alert severity="success" sx={{ mx: 0.5 }}>
                           {" "}

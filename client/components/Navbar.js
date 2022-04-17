@@ -303,37 +303,3 @@ const mapDispatch = (dispatch) => {
 
 export default connect(mapState, mapDispatch)(Navbar);
 
-
-// const links = [
-//   {
-//     label: "Projects",
-//     link: "/addproject",
-//     always: true,
-//   },
-//   {
-//     label: "Start A Project",
-//     link: "/addproject",
-//     always: false,
-//     isLoggedIn: true,
-//     isScientist: true,
-//   },
-//   {
-//     label: "Dashboard",
-//     link: `/dashboard/${auth.id}`,
-//     always: false,
-//     isLoggedIn: true,
-//     isScientist: true,
-//   },
-//   {
-//     label: "My Profile",
-//     link: `/user/${auth.id}`,
-//     always: false,
-//     isLoggedIn: true,
-//   },
-//   {
-//     label: "Logout",
-//     link: `/user/${auth.id}`,
-//     always: false,
-//     isLoggedIn: true,
-//   },
-// ];
